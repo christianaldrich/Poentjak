@@ -95,7 +95,11 @@
 			isa = PBXGroup;
 			children = (
 				BA5D76C02CA18DE8003694FC /* PoentjakApp.swift */,
-				BA5D76C22CA18DE8003694FC /* ContentView.swift */,
+				BA5D76EE2CA1AD0D003694FC /* View */,
+				BA5D76ED2CA1AD06003694FC /* Router */,
+				BA5D76EB2CA1ACFA003694FC /* Presenter  */,
+				BA5D76EA2CA1ACF2003694FC /* Interactor  */,
+				BA5D76EC2CA1AD02003694FC /* Entity */,
 				BA5D76C42CA18DE9003694FC /* Assets.xcassets */,
 				BA5D76C62CA18DE9003694FC /* Preview Content */,
 			);
@@ -125,6 +129,42 @@
 				BA5D76DD2CA18DEA003694FC /* PoentjakUITestsLaunchTests.swift */,
 			);
 			path = PoentjakUITests;
+			sourceTree = "<group>";
+		};
+		BA5D76EA2CA1ACF2003694FC /* Interactor  */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Interactor ";
+			sourceTree = "<group>";
+		};
+		BA5D76EB2CA1ACFA003694FC /* Presenter  */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Presenter ";
+			sourceTree = "<group>";
+		};
+		BA5D76EC2CA1AD02003694FC /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		BA5D76ED2CA1AD06003694FC /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		BA5D76EE2CA1AD0D003694FC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BA5D76C22CA18DE8003694FC /* ContentView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

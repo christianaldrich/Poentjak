@@ -11,7 +11,7 @@ import Firebase
 @main
 struct PoentjakApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject private var authViewModel = AuthViewModel(useCase: DefaultAuthUseCase(repository: DefaultAuthRepository()))
+    private let diContainer = DIContainer()
 
     
 //    init(){
@@ -21,7 +21,9 @@ struct PoentjakApp: App {
     
     var body: some Scene {
         WindowGroup {
+            let authViewModel = diContainer.makeAuthViewModel()
             CheckingView(viewModel: authViewModel)
+            
         }
     }
 }

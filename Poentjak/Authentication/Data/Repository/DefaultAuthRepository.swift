@@ -8,24 +8,15 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
-import Combine
 
 class DefaultAuthRepository: AuthRepositoryProtocol {
     private let firestore = Firestore.firestore()
     
-    func fetchCurrentUser() async throws -> UserAuth {
-        guard let uid = Auth.auth().currentUser?.uid else {
-            throw NSError(domain: "User not logged in", code: 401, userInfo: nil)
+    private let userRepository: UserRepositoryProtocol
+    
+    init(userRepository: UserRepositoryProtocol = DefaultUserRepository()) {
+            self.userRepository = userRepository
         }
-        
-        let docRef = firestore.collection("users").document(uid)
-        do {
-            let userAuth = try await docRef.getDocument(as: UserAuth.self)
-            return userAuth
-        } catch {
-            throw NSError(domain: "User not found", code: 404, userInfo: nil)
-        }
-    }
     
     func createUser(with request: AuthRequestDTO) async throws -> UserAuth {
         let authResult = try await Auth.auth().createUser(withEmail: request.email, password: request.password)
@@ -52,7 +43,7 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
     
     func signIn(with email: String, password: String) async throws -> UserAuth {
         _ = try await Auth.auth().signIn(withEmail: email, password: password)
-        return try await fetchCurrentUser()
+        return try await userRepository.fetchCurrentUser()
     }
     
     func signOut() async throws {

@@ -11,21 +11,24 @@ struct EmergencyView: View {
     @StateObject var viewModel: AuthViewModel
     
     var body: some View {
-        Text("Hello, Emergency!")
+        VStack{
+            Text("Hello, Emergency!")
+            
+            Button(action: {
+                Task {
+                    await viewModel.signOut()
+                }
+                       }) {
+                           Text("Sign Out")
+                               .font(.headline)
+                               .padding()
+                               .background(Color.red)
+                               .foregroundColor(.white)
+                               .cornerRadius(10)
+                       }
+                       .padding()
+        }
         
-        Button(action: {
-            Task {
-                await viewModel.signOut()
-            }
-                   }) {
-                       Text("Sign Out")
-                           .font(.headline)
-                           .padding()
-                           .background(Color.red)
-                           .foregroundColor(.white)
-                           .cornerRadius(10)
-                   }
-                   .padding()
     }
 }
 

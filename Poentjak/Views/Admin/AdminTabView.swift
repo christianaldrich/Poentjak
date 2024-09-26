@@ -25,8 +25,7 @@ struct AdminTabView: View {
                 }
                 .tag(0)
             
-//            ControlPanelView()
-            EmergencyView(viewModel: viewModel)
+            ControlPanelView()
                 .tabItem {
                     Image(systemName: selectedTab == 1 ? "house.fill" : "house")
                         .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
@@ -36,8 +35,8 @@ struct AdminTabView: View {
                 }
                 .tag(1)
             
-//            RangerSettingsView()
-            EmergencyView(viewModel: viewModel)
+            RangerSettingsView()
+        
                 .tabItem {
                     Image(systemName: selectedTab == 2 ? "house.fill" : "house")
                         .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)

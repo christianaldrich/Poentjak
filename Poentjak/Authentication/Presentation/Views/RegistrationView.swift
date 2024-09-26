@@ -79,6 +79,6 @@ struct RegistrationView: View {
     }
 }
 
-#Preview {
-    RegistrationView(viewModel: AuthViewModel(useCase: DefaultAuthUseCase(repository: DefaultAuthRepository())))
-}
+//#Preview {
+//    RegistrationView(viewModel: AuthViewModel(useCase: DefaultAuthUseCase(repository: DefaultAuthRepository())))
+//}

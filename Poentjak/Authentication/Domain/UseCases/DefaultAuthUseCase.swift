@@ -8,25 +8,27 @@
 import Foundation
 
 class DefaultAuthUseCase: AuthUseCaseProtocol {
-    private let repository: DefaultAuthRepository
+    private let authRepository: AuthRepositoryProtocol
+    private let userRepository: UserRepositoryProtocol
     
-    init(repository: DefaultAuthRepository) {
-        self.repository = repository
+    init(authRepository: AuthRepositoryProtocol, userRepository: UserRepositoryProtocol) {
+        self.authRepository = authRepository
+        self.userRepository = userRepository
     }
     
     func login(email: String, password: String) async throws -> UserAuth {
-        return try await repository.signIn(with: email, password: password)
+        return try await authRepository.signIn(with: email, password: password)
     }
     
     func register(request: AuthRequestDTO) async throws -> UserAuth {
-        return try await repository.createUser(with: request)
+        return try await authRepository.createUser(with: request)
     }
     
     func signOut() async throws {
-        try await repository.signOut()
+        try await authRepository.signOut()
     }
     
     func fetchCurrentUser() async throws -> UserAuth {
-        return try await repository.fetchCurrentUser()
+        return try await userRepository.fetchCurrentUser()
     }
 }

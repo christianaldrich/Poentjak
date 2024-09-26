@@ -12,5 +12,5 @@ protocol AuthUseCaseProtocol {
     func login(email: String, password: String) async throws -> UserAuth
     func register(request: AuthRequestDTO) async throws -> UserAuth
     func signOut() async throws
-    func fetchCurrentUser() async throws -> UserAuth
+ 
 }

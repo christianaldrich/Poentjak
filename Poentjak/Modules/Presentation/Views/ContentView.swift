@@ -8,24 +8,35 @@
 import SwiftUI
 
 struct ContentView: View {
-//    @StateObject var viewModel = UserViewModel(useCase: DefaultFetchUsersUseCase(repository: DefaultUserRepository(dataSource: FirebaseDatabaseDS() as! UserRepository)))
-    @StateObject var viewModel = UserViewModel()
+    @StateObject private var viewModel = UserViewModel()
+    
     var body: some View {
-        VStack {
-//            Button("Press"){
-//                RangerConfirmation().addData()
-//            }
-            
-            Text("Hello")
+        
+        NavigationView {
+                    List(viewModel.user, id: \.id) { user in
+                        VStack(alignment: .leading) {
+                            Text("ID: \(user.id)")
+                            Text("Name: \(user.name)")
+                            Text("Age: \(user.age)")
+                            Text("Gender: \(user.gender)")
+                            Text("Height: \(user.height)")
+                            Text("Weight: \(user.weight)")
+                            Text("Is in Danger: \(user.isDanger ? "Yes" : "No")")
+                            Text("Last Seen at: \(user.lastSeen.latitude), \(user.lastSeen.longitude)")
+                            
+                            Button("Confirm Rescue"){
+                                
+                            }
+                        }
+                        .padding()
+                    }
+                    .navigationTitle("All Users")
+                    .onAppear {
+                        viewModel.fetchEmergency()
+                    }
+                }
         }
-        .padding()
-        .onAppear{
-//            FetchData().fetchUsers()
-            Task{
-                viewModel.getUsers()
-            }
-        }
-    }
+
 }
 
 #Preview {

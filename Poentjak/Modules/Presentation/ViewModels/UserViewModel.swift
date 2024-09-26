@@ -9,30 +9,18 @@ import Foundation
 import SwiftUI
 
 class UserViewModel: ObservableObject{
-    private let useCase = DefaultFetchUsersUseCase(repository: DefaultUserRepository(dataSource: FirebaseDatabaseDS() as! DomainUserRepository))
     
-    //    @Published var userReq = ""
-//    @Published var response: UserModel
+    @Published var user: [UserModel] = []
     
-//    init(response: UserModel) {
-//        self.response = response
-//    }
-    
-    
-    func getUsers() {
-//        do {
-//            let response = try await useCase.fetchUsers()
-////            DispatchQueue.main.async {
-////                self.response = response
-////            }
-//            print("Response View Model: \(response)")
-//        } catch {
-//            print("error")
-//        }
-        
-        print(useCase.fetchUsers())
-        
+    private let repo = UserRepository()
+    func fetchEmergency(){
+        repo.fetchUserInDanger() { [weak self] user in
+//            print("\n\n\(user)")
+            
+            DispatchQueue.main.async {
+                self?.user = user
+            }
+        }
     }
-    
     
 }

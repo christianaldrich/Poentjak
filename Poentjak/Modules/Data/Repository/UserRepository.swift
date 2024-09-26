@@ -13,16 +13,36 @@ import FirebaseFirestore
 //    func fetchUsers() async throws -> String
 //}
 
-struct DefaultUserRepository: DomainUserRepository{
+struct UserRepository{
     
-    var dataSource: DomainUserRepository
+    let db = Firestore.firestore()
     
-    init(dataSource: DomainUserRepository) {
-        self.dataSource = dataSource
+    func fetchUserInDanger(completion: @escaping([UserModel]) -> Void){
+        
+        db.collection("users")
+            .whereField("isDanger", isEqualTo: true)
+            .getDocuments { snapshot, error in
+        if let error = error {
+            print("Error fetching users: \(error)")
+            return
+        }
+        
+        guard let documents = snapshot?.documents else {
+            print("No users found")
+            return
+        }
+        let users = documents.map { UserModel(dictionary: $0.data()) }
+        
+        completion(users)
+        
     }
-    
-    func fetchUsers() -> UserModel {
-        return dataSource.fetchUsers()
-    }
-    
 }
+    
+    func confirmRescue(){
+        
+    }
+
+}
+
+
+

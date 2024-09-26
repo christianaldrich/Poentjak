@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewModel = UserViewModel(useCase: DefaultFetchUsersUseCase(repository: DefaultUserRepository(dataSource: FirebaseDatabaseDS() as! UserRepository)))
+//    @StateObject var viewModel = UserViewModel(useCase: DefaultFetchUsersUseCase(repository: DefaultUserRepository(dataSource: FirebaseDatabaseDS() as! UserRepository)))
+    @StateObject var viewModel = UserViewModel()
     var body: some View {
         VStack {
 //            Button("Press"){
@@ -21,7 +22,7 @@ struct ContentView: View {
         .onAppear{
 //            FetchData().fetchUsers()
             Task{
-                await viewModel.getUsers()
+                viewModel.getUsers()
             }
         }
     }

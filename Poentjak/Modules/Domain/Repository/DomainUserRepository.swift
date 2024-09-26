@@ -6,5 +6,6 @@
 //
 
 protocol DomainUserRepository{
-    func fetchUsers(requestId: String) -> String
+    func fetchUsers() -> UserModel
 }
+

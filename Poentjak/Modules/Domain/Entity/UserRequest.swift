@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 struct UserRequest: Codable{
-    var id: String
+//    var id: String
 //    var isDanger: Bool
 //    var isFinished: Bool
 //    var lastSeen: GeoPoint

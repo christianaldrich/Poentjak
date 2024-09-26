@@ -5,29 +5,30 @@
 //  Created by Christian Aldrich Darrien on 25/09/24.
 //
 
-protocol FetchUsersUseCase{
-    func fetchUsers(requestId: UserRequest) async throws -> UserResponse
-}
+//protocol FetchUsersUseCase{
+//    func fetchUsers() async throws -> UserModel
+//}
 
-class DefaultFetchUsersUseCase : UserRepository{
-//    func fetchUsers(requestId: UserRequest) async throws -> String {
-//        <#code#>
-//    }
+struct DefaultFetchUsersUseCase : DomainUserRepository{
+ 
     
+    private let repository: DomainUserRepository
     
-    
-    
-    private let repository: UserRepository
-    
-    init(repository: UserRepository) {
+    init(repository: DomainUserRepository) {
         self.repository = repository
     }
     
-    func fetchUsers(requestId: UserRequest) async throws-> String{
-        let response = try await repository.fetchUsers(requestId: requestId)
-        print("Fetched")
-//        return UserResponse(name: response)
-        return response
+    func fetchUsers() -> UserModel {
+        return repository.fetchUsers()
     }
+    
+//    func fetchUsers() async throws-> String{
+////        let response = try await repository.fetchUsers()
+////        print("Fetched")
+//////        return UserResponse(name: response)
+////        return response
+//        
+//        
+//    }
     
 }

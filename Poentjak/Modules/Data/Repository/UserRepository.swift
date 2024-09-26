@@ -9,20 +9,20 @@ import Foundation
 import FirebaseFirestore
 
 
-protocol UserRepository{
-    func fetchUsers(requestId : UserRequest) async throws -> String
-}
+//protocol UserRepository{
+//    func fetchUsers() async throws -> String
+//}
 
-class DefaultUserRepository: UserRepository{
+struct DefaultUserRepository: DomainUserRepository{
     
-    var dataSource: UserRepository
+    var dataSource: DomainUserRepository
     
-    init(dataSource: UserRepository) {
+    init(dataSource: DomainUserRepository) {
         self.dataSource = dataSource
     }
     
-    func fetchUsers(requestId: UserRequest) async throws -> String {
-        return try await dataSource.fetchUsers(requestId: requestId)
+    func fetchUsers() -> UserModel {
+        return dataSource.fetchUsers()
     }
     
 }

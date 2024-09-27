@@ -16,10 +16,21 @@
 		BA5D76D22CA18DEA003694FC /* PoentjakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76D12CA18DEA003694FC /* PoentjakTests.swift */; };
 		BA5D76DC2CA18DEA003694FC /* PoentjakUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76DB2CA18DEA003694FC /* PoentjakUITests.swift */; };
 		BA5D76DE2CA18DEA003694FC /* PoentjakUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76DD2CA18DEA003694FC /* PoentjakUITestsLaunchTests.swift */; };
+		BA63D3592CA30EAC0080C219 /* RangerConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D3582CA30EA70080C219 /* RangerConfirmation.swift */; };
+		BA63D36D2CA422460080C219 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D36C2CA4223F0080C219 /* UserRepository.swift */; };
+		BA63D36F2CA44C620080C219 /* FetchUsersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D36E2CA44C5D0080C219 /* FetchUsersUseCase.swift */; };
+		BA63D3712CA44D360080C219 /* FirebaseDatabaseDS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D3702CA44D2F0080C219 /* FirebaseDatabaseDS.swift */; };
+		BA63D3732CA452A20080C219 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D3722CA4529F0080C219 /* UserViewModel.swift */; };
+		BA63D3782CA47CED0080C219 /* DomainUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D3772CA47CDA0080C219 /* DomainUserRepository.swift */; };
+		BA63D37A2CA507BE0080C219 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D3792CA507BB0080C219 /* UserModel.swift */; };
+		BA63D4242CA5C0DD0080C219 /* ConfirmRescueRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D4232CA5C0D10080C219 /* ConfirmRescueRequest.swift */; };
 		BAB7417B2CA1D39E00B983FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */; };
 		BAB7417C2CA1D39E00B983FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */; };
 		BAB7417D2CA1D39E00B983FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */; };
 		BAB741802CA1D57A00B983FE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = BAB7417F2CA1D57A00B983FE /* FirebaseAnalytics */; };
+		BAC0EC212CA1EA1200A1865C /* FetchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0EC202CA1EA0500A1865C /* FetchData.swift */; };
+		BAC0EC232CA1EA9200A1865C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = BAC0EC222CA1EA9200A1865C /* FirebaseDatabase */; };
+		BAC0EC252CA1EA9200A1865C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BAC0EC242CA1EA9200A1865C /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +61,16 @@
 		BA5D76D72CA18DEA003694FC /* PoentjakUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoentjakUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5D76DB2CA18DEA003694FC /* PoentjakUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoentjakUITests.swift; sourceTree = "<group>"; };
 		BA5D76DD2CA18DEA003694FC /* PoentjakUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoentjakUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BA63D3582CA30EA70080C219 /* RangerConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerConfirmation.swift; sourceTree = "<group>"; };
+		BA63D36C2CA4223F0080C219 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		BA63D36E2CA44C5D0080C219 /* FetchUsersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUsersUseCase.swift; sourceTree = "<group>"; };
+		BA63D3702CA44D2F0080C219 /* FirebaseDatabaseDS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseDS.swift; sourceTree = "<group>"; };
+		BA63D3722CA4529F0080C219 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		BA63D3772CA47CDA0080C219 /* DomainUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainUserRepository.swift; sourceTree = "<group>"; };
+		BA63D3792CA507BB0080C219 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		BA63D4232CA5C0D10080C219 /* ConfirmRescueRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRescueRequest.swift; sourceTree = "<group>"; };
 		BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BAC0EC202CA1EA0500A1865C /* FetchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -64,9 +84,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAC0EC232CA1EA9200A1865C /* FirebaseDatabase in Frameworks */,
 				BAB741802CA1D57A00B983FE /* FirebaseAnalytics in Frameworks */,
+
 				24FF35FC2CA4738C00B29D19 /* FirebaseAuth in Frameworks */,
 				24FF35FE2CA4738C00B29D19 /* FirebaseFirestore in Frameworks */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,16 +133,17 @@
 		BA5D76BF2CA18DE8003694FC /* Poentjak */ = {
 			isa = PBXGroup;
 			children = (
+
+				BA63D3672CA41AB70080C219 /* Application */,
+				BA63D35A2CA41A380080C219 /* Modules */,
+
 				24FF362C2CA5610E00B29D19 /* Shared */,
 				24FF36212CA50EAF00B29D19 /* Views */,
 				24FF35EA2CA440CE00B29D19 /* Authentication */,
+
 				BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */,
-				BA5D76C02CA18DE8003694FC /* PoentjakApp.swift */,
-				BA5D76EE2CA1AD0D003694FC /* View */,
-				BA5D76ED2CA1AD06003694FC /* Router */,
-				BA5D76EB2CA1ACFA003694FC /* Presenter  */,
-				BA5D76EA2CA1ACF2003694FC /* Interactor  */,
-				BA5D76EC2CA1AD02003694FC /* Entity */,
+				BA63D3582CA30EA70080C219 /* RangerConfirmation.swift */,
+				BAC0EC202CA1EA0500A1865C /* FetchData.swift */,
 				BA5D76C42CA18DE9003694FC /* Assets.xcassets */,
 				BA5D76C62CA18DE9003694FC /* Preview Content */,
 			);
@@ -151,40 +175,131 @@
 			path = PoentjakUITests;
 			sourceTree = "<group>";
 		};
-		BA5D76EA2CA1ACF2003694FC /* Interactor  */ = {
+		BA63D35A2CA41A380080C219 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				BA63D35D2CA41A4D0080C219 /* Presentation */,
+				BA63D35C2CA41A490080C219 /* Domain */,
+				BA63D35B2CA41A430080C219 /* Data */,
 			);
-			path = "Interactor ";
+			path = Modules;
 			sourceTree = "<group>";
 		};
-		BA5D76EB2CA1ACFA003694FC /* Presenter  */ = {
+		BA63D35B2CA41A430080C219 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BA63D3652CA41A990080C219 /* Services */,
+				BA63D3642CA41A930080C219 /* Repository */,
 			);
-			path = "Presenter ";
+			path = Data;
 			sourceTree = "<group>";
 		};
-		BA5D76EC2CA1AD02003694FC /* Entity */ = {
+		BA63D35C2CA41A490080C219 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				BA63D3762CA47CCB0080C219 /* Repository */,
+				BA63D3632CA41A850080C219 /* Entity */,
+				BA63D3622CA41A7F0080C219 /* UseCase */,
 			);
-			path = Entity;
+			path = Domain;
 			sourceTree = "<group>";
 		};
-		BA5D76ED2CA1AD06003694FC /* Router */ = {
+		BA63D35D2CA41A4D0080C219 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BA63D3612CA41A710080C219 /* Components */,
+				BA63D3602CA41A6C0080C219 /* Utils */,
+				BA63D35F2CA41A670080C219 /* Views */,
+				BA63D35E2CA41A630080C219 /* ViewModels */,
 			);
-			path = Router;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
-		BA5D76EE2CA1AD0D003694FC /* View */ = {
+		BA63D35E2CA41A630080C219 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				BA63D3722CA4529F0080C219 /* UserViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BA63D35F2CA41A670080C219 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				BA5D76C22CA18DE8003694FC /* ContentView.swift */,
 			);
-			path = View;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BA63D3602CA41A6C0080C219 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		BA63D3612CA41A710080C219 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		BA63D3622CA41A7F0080C219 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				BA63D36E2CA44C5D0080C219 /* FetchUsersUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		BA63D3632CA41A850080C219 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				BA63D4232CA5C0D10080C219 /* ConfirmRescueRequest.swift */,
+				BA63D3792CA507BB0080C219 /* UserModel.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		BA63D3642CA41A930080C219 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				BA63D36C2CA4223F0080C219 /* UserRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		BA63D3652CA41A990080C219 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BA63D3662CA41AA90080C219 /* Model */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BA63D3662CA41AA90080C219 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA63D3702CA44D2F0080C219 /* FirebaseDatabaseDS.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BA63D3672CA41AB70080C219 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				BA5D76C02CA18DE8003694FC /* PoentjakApp.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		BA63D3762CA47CCB0080C219 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				BA63D3772CA47CDA0080C219 /* DomainUserRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,7 +444,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA5D76C32CA18DE8003694FC /* ContentView.swift in Sources */,
+				BA63D3712CA44D360080C219 /* FirebaseDatabaseDS.swift in Sources */,
+				BAC0EC212CA1EA1200A1865C /* FetchData.swift in Sources */,
+				BA63D3732CA452A20080C219 /* UserViewModel.swift in Sources */,
+				BA63D3782CA47CED0080C219 /* DomainUserRepository.swift in Sources */,
 				BA5D76C12CA18DE8003694FC /* PoentjakApp.swift in Sources */,
+				BA63D36D2CA422460080C219 /* UserRepository.swift in Sources */,
+				BA63D3592CA30EAC0080C219 /* RangerConfirmation.swift in Sources */,
+				BA63D37A2CA507BE0080C219 /* UserModel.swift in Sources */,
+				BA63D4242CA5C0DD0080C219 /* ConfirmRescueRequest.swift in Sources */,
+				BA63D36F2CA44C620080C219 /* FetchUsersUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,6 +810,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BAB7417E2CA1D57A00B983FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
+		};
+		BAC0EC222CA1EA9200A1865C /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAB7417E2CA1D57A00B983FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		BAC0EC242CA1EA9200A1865C /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAB7417E2CA1D57A00B983FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

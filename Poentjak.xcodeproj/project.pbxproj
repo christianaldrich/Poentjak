@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24FF35FC2CA4738C00B29D19 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 24FF35FB2CA4738C00B29D19 /* FirebaseAuth */; };
+		24FF35FE2CA4738C00B29D19 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 24FF35FD2CA4738C00B29D19 /* FirebaseFirestore */; };
 		BA5D76C12CA18DE8003694FC /* PoentjakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76C02CA18DE8003694FC /* PoentjakApp.swift */; };
 		BA5D76C32CA18DE8003694FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76C22CA18DE8003694FC /* ContentView.swift */; };
 		BA5D76C52CA18DE9003694FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA5D76C42CA18DE9003694FC /* Assets.xcassets */; };
@@ -51,12 +53,20 @@
 		BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		24FF35EA2CA440CE00B29D19 /* Authentication */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Authentication; sourceTree = "<group>"; };
+		24FF36212CA50EAF00B29D19 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
+		24FF362C2CA5610E00B29D19 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		BA5D76BA2CA18DE8003694FC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				BAB741802CA1D57A00B983FE /* FirebaseAnalytics in Frameworks */,
+				24FF35FC2CA4738C00B29D19 /* FirebaseAuth in Frameworks */,
+				24FF35FE2CA4738C00B29D19 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +110,9 @@
 		BA5D76BF2CA18DE8003694FC /* Poentjak */ = {
 			isa = PBXGroup;
 			children = (
+				24FF362C2CA5610E00B29D19 /* Shared */,
+				24FF36212CA50EAF00B29D19 /* Views */,
+				24FF35EA2CA440CE00B29D19 /* Authentication */,
 				BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */,
 				BA5D76C02CA18DE8003694FC /* PoentjakApp.swift */,
 				BA5D76EE2CA1AD0D003694FC /* View */,
@@ -188,6 +201,11 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				24FF35EA2CA440CE00B29D19 /* Authentication */,
+				24FF36212CA50EAF00B29D19 /* Views */,
+				24FF362C2CA5610E00B29D19 /* Shared */,
 			);
 			name = Poentjak;
 			productName = Poentjak;
@@ -475,7 +493,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Poentjak/Preview Content\"";
-				DEVELOPMENT_TEAM = CAPH2JRFFZ;
+				DEVELOPMENT_TEAM = M6ZUY47J83;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -488,7 +506,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pang.Poentjak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sing.Poentjak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -504,7 +522,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Poentjak/Preview Content\"";
-				DEVELOPMENT_TEAM = CAPH2JRFFZ;
+				DEVELOPMENT_TEAM = M6ZUY47J83;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -517,7 +535,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pang.Poentjak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sing.Poentjak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -654,6 +672,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		24FF35FB2CA4738C00B29D19 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAB7417E2CA1D57A00B983FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		24FF35FD2CA4738C00B29D19 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BAB7417E2CA1D57A00B983FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
 		BAB7417F2CA1D57A00B983FE /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BAB7417E2CA1D57A00B983FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

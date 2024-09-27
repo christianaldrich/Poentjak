@@ -30,7 +30,6 @@
 		BAB741802CA1D57A00B983FE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = BAB7417F2CA1D57A00B983FE /* FirebaseAnalytics */; };
 		BAC0EC212CA1EA1200A1865C /* FetchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0EC202CA1EA0500A1865C /* FetchData.swift */; };
 		BAC0EC232CA1EA9200A1865C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = BAC0EC222CA1EA9200A1865C /* FirebaseDatabase */; };
-		BAC0EC252CA1EA9200A1865C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BAC0EC242CA1EA9200A1865C /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,10 +85,8 @@
 			files = (
 				BAC0EC232CA1EA9200A1865C /* FirebaseDatabase in Frameworks */,
 				BAB741802CA1D57A00B983FE /* FirebaseAnalytics in Frameworks */,
-
 				24FF35FC2CA4738C00B29D19 /* FirebaseAuth in Frameworks */,
 				24FF35FE2CA4738C00B29D19 /* FirebaseFirestore in Frameworks */,
-
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,14 +130,11 @@
 		BA5D76BF2CA18DE8003694FC /* Poentjak */ = {
 			isa = PBXGroup;
 			children = (
-
 				BA63D3672CA41AB70080C219 /* Application */,
 				BA63D35A2CA41A380080C219 /* Modules */,
-
 				24FF362C2CA5610E00B29D19 /* Shared */,
 				24FF36212CA50EAF00B29D19 /* Views */,
 				24FF35EA2CA440CE00B29D19 /* Authentication */,
-
 				BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */,
 				BA63D3582CA30EA70080C219 /* RangerConfirmation.swift */,
 				BAC0EC202CA1EA0500A1865C /* FetchData.swift */,
@@ -617,7 +611,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Poentjak/Preview Content\"";
-				DEVELOPMENT_TEAM = M6ZUY47J83;
+				DEVELOPMENT_TEAM = 3L9D9QLCDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -646,7 +640,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Poentjak/Preview Content\"";
-				DEVELOPMENT_TEAM = M6ZUY47J83;
+				DEVELOPMENT_TEAM = 3L9D9QLCDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -815,11 +809,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BAB7417E2CA1D57A00B983FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabase;
-		};
-		BAC0EC242CA1EA9200A1865C /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BAB7417E2CA1D57A00B983FE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

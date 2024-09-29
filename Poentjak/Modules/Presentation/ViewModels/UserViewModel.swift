@@ -8,9 +8,11 @@
 import Foundation
 import SwiftUI
 
+
 class UserViewModel: ObservableObject{
     
     @Published var user: [UserModel] = []
+    
     
     private let repo = FirebaseDatabaseDS()
     func fetchEmergency(){
@@ -20,6 +22,12 @@ class UserViewModel: ObservableObject{
             DispatchQueue.main.async {
                 self?.user = user
             }
+        }
+    }
+    
+    func rescuing(id: String){
+        repo.confirmRescue(id: id){_ in 
+            print("rescuing")
         }
     }
     

@@ -17,6 +17,7 @@ struct UserModel{
     var isDanger: Bool
     var isRescued: Bool
     var isFinished: Bool
+    var isInRescue: Bool
     var lastSeen: GeoPoint
     var weight: Int
     
@@ -30,6 +31,7 @@ struct UserModel{
         self.isDanger = dictionary["isDanger"] as? Bool ?? false
         self.isRescued = dictionary["isRescued"] as? Bool ?? false
         self.isFinished = dictionary["isFinished"] as? Bool ?? false
+        self.isInRescue = dictionary["isInRescue"] as? Bool ?? false
         self.lastSeen = dictionary["lastSeen"] as? GeoPoint ?? GeoPoint(latitude: 0.0, longitude: 0.0)
         self.weight = dictionary["weight"] as? Int ?? 0
         

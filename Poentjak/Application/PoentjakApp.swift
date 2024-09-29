@@ -21,9 +21,9 @@ struct PoentjakApp: App {
     
     var body: some Scene {
         WindowGroup {
-            let authViewModel = diContainer.makeAuthViewModel()
-            CheckingView(viewModel: authViewModel)
-            
+//            let authViewModel = diContainer.makeAuthViewModel()
+//            CheckingView(viewModel: authViewModel)
+            ContentView()
         }
     }
 }

@@ -15,7 +15,7 @@ struct ContentView: View {
         NavigationView {
                     List {
                         // Section for all users who are not in rescue
-                        Section(header: Text("All Users")) {
+                        Section(header: Text("Hikers Need Help!")) {
                             ForEach(viewModel.user.filter { !$0.isInRescue }, id: \.id) { user in
                                 VStack(alignment: .leading) {
                                     Text("ID: \(user.id)")
@@ -55,7 +55,7 @@ struct ContentView: View {
                             }
                         }
                     }
-                    .navigationTitle("All Users")
+                    .navigationTitle("Ranger's View")
                     .onAppear {
                         viewModel.fetchEmergency()
                     }

@@ -12,7 +12,7 @@ class UserViewModel: ObservableObject{
     
     @Published var user: [UserModel] = []
     
-    private let repo = UserRepository()
+    private let repo = FirebaseDatabaseDS()
     func fetchEmergency(){
         repo.fetchUserInDanger() { [weak self] user in
 //            print("\n\n\(user)")

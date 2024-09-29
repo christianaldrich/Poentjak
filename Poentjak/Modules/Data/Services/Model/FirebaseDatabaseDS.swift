@@ -12,15 +12,33 @@ import FirebaseFirestore
 //    func fetchUsers(prompt: String) async throws -> String
 //}
 
-class FirebaseDatabaseDS{
+struct FirebaseDatabaseDS{
     
     
     let db = Firestore.firestore()
     
-    @Published var users: UserModel?
-    @Published var errorMessage: String?
+    func fetchUserInDanger(completion: @escaping([UserModel]) -> Void){
+        
+        db.collection("users")
+            .whereField("isDanger", isEqualTo: true)
+            .getDocuments { snapshot, error in
+        if let error = error {
+            print("Error fetching users: \(error)")
+            return
+        }
+        
+        guard let documents = snapshot?.documents else {
+            print("No users found")
+            return
+        }
+        let users = documents.map { UserModel(dictionary: $0.data()) }
+        
+        completion(users)
+        
+    }
+}
     
-    func fetchUsers() {
-       
+    func confirmRescue(){
+        
     }
 }

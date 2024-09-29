@@ -14,33 +14,7 @@ import FirebaseFirestore
 //}
 
 struct UserRepository{
-    
-    let db = Firestore.firestore()
-    
-    func fetchUserInDanger(completion: @escaping([UserModel]) -> Void){
-        
-        db.collection("users")
-            .whereField("isDanger", isEqualTo: true)
-            .getDocuments { snapshot, error in
-        if let error = error {
-            print("Error fetching users: \(error)")
-            return
-        }
-        
-        guard let documents = snapshot?.documents else {
-            print("No users found")
-            return
-        }
-        let users = documents.map { UserModel(dictionary: $0.data()) }
-        
-        completion(users)
-        
-    }
-}
-    
-    func confirmRescue(){
-        
-    }
+ 
 
 }
 

@@ -9,22 +9,49 @@ import SwiftUI
 
 struct UserView: View {
     @StateObject var viewModel: AuthViewModel
+    
+    
+    @State private var showSheet = false
+    
     var body: some View {
-        Text("Hello, User!")
-        
-        Button(action: {
-            Task {
-                await viewModel.signOut()
+        NavigationStack{
+            if let user = viewModel.userSession {
+                Text("Hello, \(user.fullname)!")
+            } else {
+                Text("no name found")
             }
-                   }) {
-                       Text("Sign Out")
-                           .font(.headline)
-                           .padding()
-                           .background(Color.red)
-                           .foregroundColor(.white)
-                           .cornerRadius(10)
-                   }
-                   .padding()
+            
+            Button(action: {
+                showSheet = true
+            }) {
+                Text("SOS")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding()
+            .sheet(isPresented: $showSheet) {
+                SheetView().presentationDetents([.medium, .large])
+            }
+            
+            
+            
+            Button(action: {
+                Task {
+                    await viewModel.signOut()
+                }
+            }) {
+                Text("Sign Out")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding()
+        }
     }
 }
 

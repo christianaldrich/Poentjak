@@ -57,6 +57,7 @@
 		24FF35EA2CA440CE00B29D19 /* Authentication */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Authentication; sourceTree = "<group>"; };
 		24FF36212CA50EAF00B29D19 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		24FF362C2CA5610E00B29D19 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+		3DBDE6792CA6C79900CC1D48 /* Emergency */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Emergency; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,14 +113,11 @@
 			children = (
 				24FF362C2CA5610E00B29D19 /* Shared */,
 				24FF36212CA50EAF00B29D19 /* Views */,
+				3DBDE6792CA6C79900CC1D48 /* Emergency */,
 				24FF35EA2CA440CE00B29D19 /* Authentication */,
 				BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */,
 				BA5D76C02CA18DE8003694FC /* PoentjakApp.swift */,
 				BA5D76EE2CA1AD0D003694FC /* View */,
-				BA5D76ED2CA1AD06003694FC /* Router */,
-				BA5D76EB2CA1ACFA003694FC /* Presenter  */,
-				BA5D76EA2CA1ACF2003694FC /* Interactor  */,
-				BA5D76EC2CA1AD02003694FC /* Entity */,
 				BA5D76C42CA18DE9003694FC /* Assets.xcassets */,
 				BA5D76C62CA18DE9003694FC /* Preview Content */,
 			);
@@ -151,34 +149,6 @@
 			path = PoentjakUITests;
 			sourceTree = "<group>";
 		};
-		BA5D76EA2CA1ACF2003694FC /* Interactor  */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Interactor ";
-			sourceTree = "<group>";
-		};
-		BA5D76EB2CA1ACFA003694FC /* Presenter  */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Presenter ";
-			sourceTree = "<group>";
-		};
-		BA5D76EC2CA1AD02003694FC /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Entity;
-			sourceTree = "<group>";
-		};
-		BA5D76ED2CA1AD06003694FC /* Router */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
 		BA5D76EE2CA1AD0D003694FC /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +176,7 @@
 				24FF35EA2CA440CE00B29D19 /* Authentication */,
 				24FF36212CA50EAF00B29D19 /* Views */,
 				24FF362C2CA5610E00B29D19 /* Shared */,
+				3DBDE6792CA6C79900CC1D48 /* Emergency */,
 			);
 			name = Poentjak;
 			productName = Poentjak;
@@ -493,7 +464,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Poentjak/Preview Content\"";
-				DEVELOPMENT_TEAM = M6ZUY47J83;
+				DEVELOPMENT_TEAM = 3L9D9QLCDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -522,7 +493,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Poentjak/Preview Content\"";
-				DEVELOPMENT_TEAM = M6ZUY47J83;
+				DEVELOPMENT_TEAM = 3L9D9QLCDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

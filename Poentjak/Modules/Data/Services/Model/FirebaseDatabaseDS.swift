@@ -21,7 +21,7 @@ struct FirebaseDatabaseDS{
     func fetchUserInDanger(completion: @escaping([UserModel]) -> Void){
         
         db.collection("users")
-            .whereField("isDanger", isEqualTo: true)
+//            .whereField("isDanger", isEqualTo: true)
             .addSnapshotListener{ snapshot, error in
                 if let error = error {
                     print("Error fetching users: \(error)")
@@ -43,7 +43,7 @@ struct FirebaseDatabaseDS{
         db.collection("users")
             .document(id)
             .updateData([
-//                "isDanger" : false,
+                //                "isDanger" : false,
                 "isInRescue" : true
             ]){error in
                 if let error = error {
@@ -56,8 +56,29 @@ struct FirebaseDatabaseDS{
     }
     
     
-    func finishRescue(){
-        
+    func showRescueDetail(id: String, completion: @escaping([UserModel]) -> Void){
+        db.collection("users")
+            .document(id)
+            .addSnapshotListener{ documentSnapshot, error in
+                if let error = error {
+                    print("Error fetching users: \(error)")
+                    return
+                }
+                
+                guard let documents = documentSnapshot, documents.exists else{
+                    print("User not found")
+                    return
+                }
+                
+                if let userData = documents.data() {
+                    let user = UserModel(dictionary: userData)
+                    completion([user]) // Return as an array to match your expected type
+                }
+                //                let users = documents.map { UserModel(dictionary: $0.data()) }
+                //
+                //                completion(users)
+                
+            }
     }
     
 }

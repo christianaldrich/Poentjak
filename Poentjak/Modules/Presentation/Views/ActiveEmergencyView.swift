@@ -20,51 +20,22 @@ struct ActiveEmergencyView: View {
         NavigationView {
             List {
                 
-                Section(header: Text("Hikers Need Help!")) {
-                    ForEach(viewModel.user.filter { !$0.isInRescue }, id: \.id) { user in
-                        VStack(alignment: .leading) {
-                            Text("ID: \(user.id)")
-                            Text("Name: \(user.name)")
-                            Text("Age: \(user.age)")
-                            Text("Gender: \(user.gender)")
-                            Text("Height: \(user.height)")
-                            Text("Weight: \(user.weight)")
-                            Text("Is in Danger: \(user.isDanger ? "Yes" : "No")")
-                            Text("Is in Rescue: \(user.isInRescue ? "Rescuing" : "Yah dicuekin")")
-                            Text("Last Seen at: \(user.lastSeen.latitude), \(user.lastSeen.longitude)")
-                            
-                            Button("Confirm Rescue") {
-                                viewModel.rescuing(id: user.id)
-                                selectedUser = user
-                                isDetailViewActive = true
-                            }
-                        }
-                        .padding()
-                    }
+                HikersNeedHelpSectionComponent(users: viewModel.user.filter{!$0.isInRescue}){ user in
+                    viewModel.rescuing(id: user.id)
+                    selectedUser = user
+                    isDetailViewActive = true
                 }
                 
-                Section(header: Text("Active Emergencies")) {
-                    ForEach(viewModel.user.filter { $0.isInRescue }, id: \.id) { user in
-                        VStack(alignment: .leading) {
-                            Text("ID: \(user.id)")
-                            Text("Name: \(user.name)")
-                            Text("Age: \(user.age)")
-                            Text("Gender: \(user.gender)")
-                            Text("Height: \(user.height)")
-                            Text("Weight: \(user.weight)")
-                            Text("Last Seen at: \(user.lastSeen.latitude), \(user.lastSeen.longitude)")
-                            Button("Finish Rescue"){
-                                selectedUser = user
-                                isDetailViewActive = true
-                            }
-                        }
-                        .padding()
-                    }
+                RangerRescuingSectionComponent(users: viewModel.user.filter{$0.isInRescue}){
+                    user in
+                    viewModel.rescuing(id: user.id)
+                    selectedUser = user
+                    isDetailViewActive = true
                 }
                 
-                Text("No Active Emergencies!\nGreat Job!")
             }
-            .navigationTitle("Ranger's View")
+            .navigationTitle("Active Emergencies")
+            
             .onAppear {
                 viewModel.fetchEmergency()
             }
@@ -75,7 +46,11 @@ struct ActiveEmergencyView: View {
                     label: { EmptyView() }
                 )
             )
+
         }
+        .ignoresSafeArea()
+        
+        
         
     }
     
@@ -84,31 +59,3 @@ struct ActiveEmergencyView: View {
 #Preview {
     ActiveEmergencyView()
 }
-
-
-//NavigationView {
-//            List(viewModel.user, id: \.id) { user in
-//                VStack(alignment: .leading) {
-//                    Text("ID: \(user.id)")
-//                    Text("Name: \(user.name)")
-//                    Text("Age: \(user.age)")
-//                    Text("Gender: \(user.gender)")
-//                    Text("Height: \(user.height)")
-//                    Text("Weight: \(user.weight)")
-//                    Text("Is in Danger: \(user.isDanger ? "Yes" : "No")")
-//                    Text("Is in Rescue: \(user.isInRescue ? "Rescuing" : "Yah dicueking")")
-//                    Text("Last Seen at: \(user.lastSeen.latitude), \(user.lastSeen.longitude)")
-//
-//                    Button("Confirm Rescue"){
-//                        viewModel.rescuing(id: user.id)
-//                    }
-//
-//
-//                }
-//                .padding()
-//            }
-//            .navigationTitle("All Users")
-//            .onAppear {
-//                viewModel.fetchEmergency()
-//            }
-//        }

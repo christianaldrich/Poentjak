@@ -10,10 +10,13 @@
 		24FF35FC2CA4738C00B29D19 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 24FF35FB2CA4738C00B29D19 /* FirebaseAuth */; };
 		24FF35FE2CA4738C00B29D19 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 24FF35FD2CA4738C00B29D19 /* FirebaseFirestore */; };
 		BA1062A82CABA0720014D599 /* RangerReceiveSOSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062A72CABA0680014D599 /* RangerReceiveSOSAlertView.swift */; };
-		BA1062AD2CAC02DB0014D599 /* HikersInDangerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062AC2CAC02CD0014D599 /* HikersInDangerComponent.swift */; };
 		BA1062AF2CAC052C0014D599 /* RangerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062AE2CAC05260014D599 /* RangerView.swift */; };
 		BA1062B12CAC587C0014D599 /* RangerListViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062B02CAC58730014D599 /* RangerListViewComponent.swift */; };
 		BA1062B32CAC58AC0014D599 /* RangerListTextComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062B22CAC58A70014D599 /* RangerListTextComponent.swift */; };
+		BA1062B52CAC5B450014D599 /* RangerRescuingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062B42CAC5B300014D599 /* RangerRescuingComponent.swift */; };
+		BA1062B72CAC637B0014D599 /* HikersNeedHelpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062B62CAC63700014D599 /* HikersNeedHelpComponent.swift */; };
+		BA1062B92CAC647B0014D599 /* RangerRescuingSectionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062B82CAC64440014D599 /* RangerRescuingSectionComponent.swift */; };
+		BA1062BB2CAC66CA0014D599 /* SectionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062BA2CAC66C00014D599 /* SectionModifier.swift */; };
 		BA5D76C12CA18DE8003694FC /* PoentjakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76C02CA18DE8003694FC /* PoentjakApp.swift */; };
 		BA5D76C32CA18DE8003694FC /* ActiveEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76C22CA18DE8003694FC /* ActiveEmergencyView.swift */; };
 		BA5D76C52CA18DE9003694FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA5D76C42CA18DE9003694FC /* Assets.xcassets */; };
@@ -54,10 +57,13 @@
 
 /* Begin PBXFileReference section */
 		BA1062A72CABA0680014D599 /* RangerReceiveSOSAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerReceiveSOSAlertView.swift; sourceTree = "<group>"; };
-		BA1062AC2CAC02CD0014D599 /* HikersInDangerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikersInDangerComponent.swift; sourceTree = "<group>"; };
 		BA1062AE2CAC05260014D599 /* RangerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerView.swift; sourceTree = "<group>"; };
 		BA1062B02CAC58730014D599 /* RangerListViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerListViewComponent.swift; sourceTree = "<group>"; };
 		BA1062B22CAC58A70014D599 /* RangerListTextComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerListTextComponent.swift; sourceTree = "<group>"; };
+		BA1062B42CAC5B300014D599 /* RangerRescuingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerRescuingComponent.swift; sourceTree = "<group>"; };
+		BA1062B62CAC63700014D599 /* HikersNeedHelpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikersNeedHelpComponent.swift; sourceTree = "<group>"; };
+		BA1062B82CAC64440014D599 /* RangerRescuingSectionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerRescuingSectionComponent.swift; sourceTree = "<group>"; };
+		BA1062BA2CAC66C00014D599 /* SectionModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModifier.swift; sourceTree = "<group>"; };
 		BA5D76BD2CA18DE8003694FC /* Poentjak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poentjak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5D76C02CA18DE8003694FC /* PoentjakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoentjakApp.swift; sourceTree = "<group>"; };
 		BA5D76C22CA18DE8003694FC /* ActiveEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveEmergencyView.swift; sourceTree = "<group>"; };
@@ -237,6 +243,7 @@
 		BA63D3602CA41A6C0080C219 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				BA1062BA2CAC66C00014D599 /* SectionModifier.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -244,7 +251,9 @@
 		BA63D3612CA41A710080C219 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				BA1062AC2CAC02CD0014D599 /* HikersInDangerComponent.swift */,
+				BA1062B82CAC64440014D599 /* RangerRescuingSectionComponent.swift */,
+				BA1062B62CAC63700014D599 /* HikersNeedHelpComponent.swift */,
+				BA1062B42CAC5B300014D599 /* RangerRescuingComponent.swift */,
 				BA1062B22CAC58A70014D599 /* RangerListTextComponent.swift */,
 				BA1062B02CAC58730014D599 /* RangerListViewComponent.swift */,
 			);
@@ -452,7 +461,10 @@
 				BA63D3782CA47CED0080C219 /* DomainUserRepository.swift in Sources */,
 				BA5D76C12CA18DE8003694FC /* PoentjakApp.swift in Sources */,
 				BA63D3592CA30EAC0080C219 /* RangerConfirmation.swift in Sources */,
-				BA1062AD2CAC02DB0014D599 /* HikersInDangerComponent.swift in Sources */,
+				BA1062B72CAC637B0014D599 /* HikersNeedHelpComponent.swift in Sources */,
+				BA1062B92CAC647B0014D599 /* RangerRescuingSectionComponent.swift in Sources */,
+				BA1062B52CAC5B450014D599 /* RangerRescuingComponent.swift in Sources */,
+				BA1062BB2CAC66CA0014D599 /* SectionModifier.swift in Sources */,
 				BA63D37A2CA507BE0080C219 /* UserModel.swift in Sources */,
 				BA63D4242CA5C0DD0080C219 /* ConfirmRescueRequest.swift in Sources */,
 			);

@@ -1,5 +1,5 @@
 //
-//  RangerListText.swift
+//  RangerRescuingComponent.swift
 //  Poentjak
 //
 //  Created by Christian Aldrich Darrien on 01/10/24.
@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-struct RangerNeedHelpComponent: View {
-    
+struct RangerRescuingComponent: View {
     let user: UserModel
-    var onConfirmRescue: () -> Void
+    let onFinishRescue: () -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -20,12 +19,9 @@ struct RangerNeedHelpComponent: View {
             Text("Gender: \(user.gender)")
             Text("Height: \(user.height)")
             Text("Weight: \(user.weight)")
-            Text("Is in Danger: \(user.isDanger ? "Yes" : "No")")
-            Text("Is in Rescue: \(user.isInRescue ? "Rescuing" : "Yah dicuekin")")
             Text("Last Seen at: \(user.lastSeen.latitude), \(user.lastSeen.longitude)")
-            
-            Button("Confirm Rescue") {
-                onConfirmRescue()
+            Button("Finish Rescue"){
+                onFinishRescue()
             }
         }
         .padding()

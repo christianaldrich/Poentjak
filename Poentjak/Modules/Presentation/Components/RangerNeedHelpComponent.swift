@@ -1,5 +1,5 @@
 //
-//  RangerRescuingComponent.swift
+//  RangerListText.swift
 //  Poentjak
 //
 //  Created by Christian Aldrich Darrien on 01/10/24.
@@ -7,25 +7,28 @@
 
 import SwiftUI
 
-struct RangerRescuingComponent: View {
-    let hikers: EmergencyRequestModel
-    let onFinishRescue: () -> Void
+struct RangerNeedHelpComponent: View {
+    
+    let hiker: EmergencyRequestModel
+    let user: [UserModel]
+    var onConfirmRescue: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("\(hikers.id)")
-//            Text("ID: \(hikers.id)")
-//            Text("Name: \(user.name)")
-//            Text("Age: \(user.age)")
-//            Text("Gender: \(user.gender)")
-//            Text("Height: \(user.height)")
-//            Text("Weight: \(user.weight)")
-//            Text("Last Seen at: \(user.lastSeen.latitude), \(user.lastSeen.longitude)")
-//            Button("Finish Rescue"){
-//                onFinishRescue()
-//            }
+        
+        VStack(alignment: .leading){
+            Text("Assigned Rangers: \(hiker.assignedRangers[0]), \(hiker.assignedRangers[1])")
+            Text("Hiker's due date: \(hiker.dueDate.formatted(date: .complete, time: .shortened))")
+            Text("Emergency type: \(hiker.emergencyType)")
+            Text("FullName: \(user)")
         }
         
+        
+        
+        
+    }
+}
+
+
 //        VStack(alignment: .leading, spacing: 15){
 //            HStack{
 //                Image("LoremJoe")
@@ -34,7 +37,7 @@ struct RangerRescuingComponent: View {
 //                    .frame(width: 83, height: 55)
 //                    .clipShape(RoundedRectangle(cornerRadius: 11))
 //                VStack(alignment: .leading){
-//                    Text("\(user.name)")
+//                    Text("\(hiker.name)")
 //                        .font(.headline)
 //                        .fontWeight(.heavy)
 //                    Text("Insert battery level, 3 mins ago") //Insert battery level
@@ -42,7 +45,7 @@ struct RangerRescuingComponent: View {
 //                        .fontWeight(.light)
 //                }
 //            }
-//            
+//
 //            HStack(spacing: 20){
 //                VStack{
 //                    Text("Last Seen").modifier(AttributesInfoModifier())
@@ -50,54 +53,43 @@ struct RangerRescuingComponent: View {
 //                }
 //                VStack{
 //                    Text("Body Weight").modifier(AttributesInfoModifier())
-//                    Text("\(user.weight) kg").modifier(HikersAttributeInfoModifier())
+//                    Text("\(hiker.weight) kg").modifier(HikersAttributeInfoModifier())
 //                }
-//                
+//
 //                VStack{
 //                    Text("Height").modifier(AttributesInfoModifier())
-//                    Text("\(user.height) cm").modifier(HikersAttributeInfoModifier())
+//                    Text("\(hiker.height) cm").modifier(HikersAttributeInfoModifier())
 //                }
-//                
+//
 //                VStack{
 //                    Text("Gender").modifier(AttributesInfoModifier())
-//                    Text("\(user.gender)").modifier(HikersAttributeInfoModifier())
+//                    Text("\(hiker.gender)").modifier(HikersAttributeInfoModifier())
 //                }
-//                
+//
 //                VStack{
 //                    Text("Age").modifier(AttributesInfoModifier())
-//                    Text("\(user.age)").modifier(HikersAttributeInfoModifier())
+//                    Text("\(hiker.age)").modifier(HikersAttributeInfoModifier())
 //                }
 //            }
-//            
-//            VStack(alignment: .leading){
-//                Text("Rangers in rescue").modifier(HikersAttributeInfoModifier())
-//                Text("Insert rangers assignee")
-//                    .font(.subheadline)
-//                    .fontWeight(.light)
-//            }
-//            
+//
 //            HStack(alignment:.bottom){
 //                HStack{
-//                    Image("OthersSymbol")
+//                    Image("HypoSymbol")
 //                        .resizable()
 //                        .aspectRatio(contentMode: .fit)
 //                        .frame(width: 17, height: 19)
-//                    Text("Others") //Insert Emergency Type
+//                    Text("Hypothermia") //Insert Emergency Type
 //                        .textCase(.uppercase)
+//
+//                }
+//                .background(.blue)
+//
+//                Spacer()
+//
+//                Button("Rescue"){
+//                    onConfirmRescue()
 //                }
 //                .background(.red)
-//                
-//                Spacer()
-//                
-//                Button("Rescue"){
-//                    onFinishRescue()
-//                }
-//                .background(.yellow)
 //            }
 //            .foregroundStyle(.white)
 //        }
-        
-        
-
-    }
-}

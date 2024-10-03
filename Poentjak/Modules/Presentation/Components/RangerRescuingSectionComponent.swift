@@ -9,14 +9,14 @@ import SwiftUI
 
 struct RangerRescuingSectionComponent: View {
     
-    let users: [UserModel]
-    var onRescue: (UserModel) -> Void
+    let hikers: [EmergencyRequestModel]
+    var onRescue: (EmergencyRequestModel) -> Void
     
     var body: some View {
         Section(header: Text("Ongoing Rescues").modifier(SectionModifier())) {
-            ForEach(users, id: \.id) { user in
-                RangerRescuingComponent(user: user){
-                    onRescue(user)
+            ForEach(hikers, id: \.id) { hiker in
+                RangerRescuingComponent(hikers: hiker){
+                    onRescue(hiker)
                 }
             }
         }

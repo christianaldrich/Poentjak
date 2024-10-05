@@ -36,18 +36,19 @@ class UserViewModel: ObservableObject{
             DispatchQueue.main.async{
                 self?.hiker = hiker
 //                print("\n\n\(hiker[0].dueDate.formatted(date: .complete, time: .shortened))")
+                print("\n\n\n\(hiker)")
             }
         }
     }
     
-    func fetchHikerInfo(id: String){
-        activeEmRepo.fetchDangerHikersInfo(id: id){[weak self] user in
-            DispatchQueue.main.async{
-                self?.user = user
-                print("\n\n\nUSER: \(user)")
-                print("\n\n\nID: \(id)")
-            }
-        }
-    }
+//    func fetchHikerInfo(id: String){
+//        activeEmRepo.fetchDangerHikersInfo(id: id){[weak self] user in
+//            DispatchQueue.main.async{
+//                self?.user = user
+//                print("\n\n\nUSER: \(user)")
+//                print("\n\n\nID: \(id)")
+//            }
+//        }
+//    }
     
 }

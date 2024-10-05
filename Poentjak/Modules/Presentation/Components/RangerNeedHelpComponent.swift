@@ -10,16 +10,23 @@ import SwiftUI
 struct RangerNeedHelpComponent: View {
     
     let hiker: EmergencyRequestModel
-    let user: [UserModel]
+//    let user: [UserModel]
     var onConfirmRescue: () -> Void
     
     var body: some View {
         
         VStack(alignment: .leading){
-            Text("Assigned Rangers: \(hiker.assignedRangers[0]), \(hiker.assignedRangers[1])")
-            Text("Hiker's due date: \(hiker.dueDate.formatted(date: .complete, time: .shortened))")
-            Text("Emergency type: \(hiker.emergencyType)")
-            Text("FullName: \(user)")
+
+            Text("Name: \(hiker.user?.name ?? "")")
+            Text("Weight: \(hiker.user?.weight ?? 0)")
+            Text("Height: \(hiker.user?.height ?? 0)")
+            Text("Emergency Type: \(hiker.emergencyType)")
+            Text("Emergency Status: \(hiker.emergencyStatus)")
+//            Text("FullName: \(hiker.user?.contactName ?? "")")
+            Button("Rescue"){
+                onConfirmRescue()
+            }
+            .background(.red)
         }
         
         

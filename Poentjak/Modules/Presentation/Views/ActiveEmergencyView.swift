@@ -21,11 +21,11 @@ struct ActiveEmergencyView: View {
         NavigationView {
             List {
                 
-                HikersNeedHelpSectionComponent(hikers: viewModel.hiker, users: viewModel.user){ hiker in
+                HikersNeedHelpSectionComponent(hikers: viewModel.hiker){ hiker in
                     viewModel.rescuing(id: hiker.id)
                     selectedUser = hiker
                     isDetailViewActive = true
-                    viewModel.fetchHikerInfo(id: hiker.id)
+//                    viewModel.fetchHikerInfo(id: hiker.id)
                     
                 }
                 
@@ -44,16 +44,10 @@ struct ActiveEmergencyView: View {
                 //                viewModel.fetchEmergency()
                 //                viewModel.fetchHikerInfo(id: "user1")
                 
-                viewModel.fetchHikerInfo(id: "9nL11jCqOUcv63wmfX8G8KJTkB82")
-                //                if !viewModel.hiker.isEmpty {
-                //                    for hiker in viewModel.hiker {
-                //                        print("Fetching info for hiker with id: \(hiker.id)")
-                //                        viewModel.fetchHikerInfo(id: hiker.id) // Fetch info for each hiker
-                //                    }
-                //                } else {
-                //                    print("No hikers found in the view model")
-                //                }
-                //
+//                viewModel.fetchHikerInfo(id: "9nL11jCqOUcv63wmfX8G8KJTkB82")
+//                for hiker in viewModel.hiker{
+//                    print("\n\nHIKER: \(hiker)")
+//                }
             }
             .background(
                 NavigationLink(

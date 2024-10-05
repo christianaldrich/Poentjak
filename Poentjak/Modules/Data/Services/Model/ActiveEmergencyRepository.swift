@@ -14,7 +14,7 @@ struct ActiveEmergencyRepository{
     
     func fetchEmergencyRequest(completion: @escaping([EmergencyRequestModel]) -> Void){
         db.collection("emergencyRequests")
-            .whereField("status", isEqualTo: "pending")
+//            .whereField("status", isEqualTo: "pending")
             .addSnapshotListener{ snapshot, error in
                 if let error = error {
                     print("Error fetching users: \(error)")
@@ -27,6 +27,7 @@ struct ActiveEmergencyRepository{
                 }
                 let requests = documents.map { EmergencyRequestModel(dictionary: $0.data()) }
                 
+                print("\n\n\nREQUESTS: \(requests)")
                 completion(requests)
                 
             }

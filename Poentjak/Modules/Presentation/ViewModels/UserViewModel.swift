@@ -26,7 +26,7 @@ class UserViewModel: ObservableObject{
     }
     
     func rescuing(id: String){
-        repo.confirmRescue(id: id){_ in
+        activeEmRepo.confirmRescue(id: id){_ in
             print("rescuing")
         }
     }

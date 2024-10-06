@@ -55,6 +55,20 @@ struct ActiveEmergencyRepository{
         
         
     }
+    func confirmRescue(id: String, completion: @escaping([UserModel]) -> Void){
+        db.collection("emergencyRequests")
+            .document(id)
+            .updateData([
+                "emergencyStatus" : "ongoing"
+            ]){error in
+                if let error = error {
+                    print("Error updating document: \(error)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+        
+    }
     
     
     

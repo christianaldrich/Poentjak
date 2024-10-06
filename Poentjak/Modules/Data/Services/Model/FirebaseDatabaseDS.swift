@@ -39,21 +39,21 @@ struct FirebaseDatabaseDS{
             }
     }
     
-    func confirmRescue(id: String, completion: @escaping([UserModel]) -> Void){
-        db.collection("users")
-            .document(id)
-            .updateData([
-                //                "isDanger" : false,
-                "isInRescue" : true
-            ]){error in
-                if let error = error {
-                    print("Error updating document: \(error)")
-                } else {
-                    print("Document successfully updated")
-                }
-            }
-        
-    }
+//    func confirmRescue(id: String, completion: @escaping([UserModel]) -> Void){
+//        db.collection("users")
+//            .document(id)
+//            .updateData([
+//                //                "isDanger" : false,
+//                "isInRescue" : true
+//            ]){error in
+//                if let error = error {
+//                    print("Error updating document: \(error)")
+//                } else {
+//                    print("Document successfully updated")
+//                }
+//            }
+//        
+//    }
     
     
     func showRescueDetail(id: String, completion: @escaping([UserModel]) -> Void){

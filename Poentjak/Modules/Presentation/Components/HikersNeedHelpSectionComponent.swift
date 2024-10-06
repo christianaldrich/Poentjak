@@ -1,27 +1,32 @@
 //
-//  RangerRescuingSectionComponent.swift
+//  HikersNeedHelpComponent.swift
 //  Poentjak
 //
 //  Created by Christian Aldrich Darrien on 02/10/24.
 //
 
+
 import SwiftUI
 
-struct RangerRescuingSectionComponent: View {
+struct HikersNeedHelpSectionComponent: View {
     
     let hikers: [EmergencyRequestModel]
+//    let users: [UserModel]
     var onRescue: (EmergencyRequestModel) -> Void
+    @StateObject private var viewModel = UserViewModel()
     
     var body: some View {
-        Section(header: Text("Ongoing Rescues").modifier(SectionModifier())) {
+        Section(header: Text("Need Rescue").modifier(SectionModifier())) {
             ForEach(hikers.filter{ hiker in
-                hiker.emergencyStatus == "ongoing"
-            
+                hiker.emergencyStatus == "danger"
             }, id: \.id) { hiker in
-                RangerRescuingComponent(hiker: hiker){
+                HikersNeedHelpComponent(hiker: hiker){
                     onRescue(hiker)
                 }
+                
             }
         }
+        
+        
     }
 }

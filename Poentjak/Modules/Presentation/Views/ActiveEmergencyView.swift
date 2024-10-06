@@ -25,7 +25,6 @@ struct ActiveEmergencyView: View {
                     viewModel.rescuing(id: hiker.id)
                     selectedUser = hiker
                     isDetailViewActive = true
-//                    viewModel.fetchHikerInfo(id: hiker.id)
                     
                 }
                 
@@ -41,13 +40,6 @@ struct ActiveEmergencyView: View {
             
             .onAppear {
                 viewModel.fetchDangerHiker()
-                //                viewModel.fetchEmergency()
-                //                viewModel.fetchHikerInfo(id: "user1")
-                
-//                viewModel.fetchHikerInfo(id: "9nL11jCqOUcv63wmfX8G8KJTkB82")
-//                for hiker in viewModel.hiker{
-//                    print("\n\nHIKER: \(hiker)")
-//                }
             }
             .background(
                 NavigationLink(

@@ -8,19 +8,16 @@
 import SwiftUI
 
 struct RangerRescuingComponent: View {
-    let hikers: EmergencyRequestModel
+    let hiker: EmergencyRequestModel
     let onFinishRescue: () -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(hikers.id)")
-//            Text("ID: \(hikers.id)")
-//            Text("Name: \(user.name)")
-//            Text("Age: \(user.age)")
-//            Text("Gender: \(user.gender)")
-//            Text("Height: \(user.height)")
-//            Text("Weight: \(user.weight)")
-//            Text("Last Seen at: \(user.lastSeen.latitude), \(user.lastSeen.longitude)")
+            Text("Name: \(hiker.user?.name ?? "")")
+            Text("Weight: \(hiker.user?.weight ?? 0)")
+            Text("Height: \(hiker.user?.height ?? 0)")
+            Text("Emergency Type: \(hiker.emergencyType)")
+            Text("Emergency Status: \(hiker.emergencyStatus)")
 //            Button("Finish Rescue"){
 //                onFinishRescue()
 //            }

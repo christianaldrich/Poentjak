@@ -14,7 +14,7 @@ struct RangerReceiveSOSAlertView: View{
             VStack(alignment: .leading, spacing: 10) {
                 if let hiker = hikers {
                     Text("ID: \(hiker.id)")
-//                    Text("Name: \(user.name)")
+                    Text("Name: \(hiker.user?.name ?? "")")
 //                    Text("Age: \(user.age)")
 //                    Text("Gender: \(user.gender)")
 //                    Text("Height: \(user.height)")

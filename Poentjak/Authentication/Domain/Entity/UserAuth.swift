@@ -9,10 +9,16 @@ import Foundation
 
 struct UserAuth: Codable {
     let id: String
-    let email: String
-    let fullname: String
-    let username: String
-    let isAdmin: Bool
-    var profileImageUrl: String?
-    var bio: String?
+    var name: String?
+    var email: String
+    var weight: Double?
+    var height: Double?
+    var gender: String?
+    var age: Int?
+    var contactNumber: String?
+    var trackId: String?
+    var contactName: String?
+    var profileURL: String?
+    var medicalRecord: String?
+    var isAdmin: Bool
 }

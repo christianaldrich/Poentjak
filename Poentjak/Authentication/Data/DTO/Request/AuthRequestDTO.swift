@@ -10,7 +10,5 @@ import Foundation
 struct AuthRequestDTO: Codable {
     let email: String
     let password: String
-    let fullname: String?
-    let username: String?
     let isAdmin: Bool?
 }

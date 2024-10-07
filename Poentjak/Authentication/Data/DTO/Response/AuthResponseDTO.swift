@@ -9,24 +9,17 @@ import Foundation
 
 struct AuthResponseDTO: Codable {
     let id: String
-    let email: String
-    let fullname: String
-    let username: String
-    let isAdmin: Bool
-    let profileImageUrl: String?
-    let bio: String?
+    var name: String?
+    var email: String
+    var weight: Double?
+    var height: Double?
+    var gender: String?
+    var age: Int?
+    var contactNumber: String?
+    var trackId: String?
+    var contactName: String?
+    var profileURL: String?
+    var medicalRecord: String?
+    var isAdmin: Bool
 }
 
-extension AuthResponseDTO {
-    func toDictionary() -> [String: Any] {
-        return [
-            "id": id,
-            "email": email,
-            "fullname": fullname,
-            "username": username,
-            "isAdmin": isAdmin,
-            "profileImageUrl": profileImageUrl ?? "",
-            "bio": bio ?? ""
-        ]
-    }
-}

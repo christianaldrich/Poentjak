@@ -9,30 +9,30 @@ import Foundation
 import FirebaseFirestore
 
 struct UserModel{
-    var id:String
-    var name: String
     var age: Int
+    var contactName: String
+    var contactNumber: String
     var gender: String
     var height: Int
-    var isDanger: Bool
-    var isRescued: Bool
-    var isFinished: Bool
-    var isInRescue: Bool
-    var lastSeen: GeoPoint
+    var id: String
+    var medicalRecord: String
+    var name: String
+    var profileUrl: String
+    var trackId: String
     var weight: Int
     
     init(dictionary: [String: Any]) {
         
-        self.id = dictionary["id"] as? String ?? ""
-        self.name = dictionary["name"] as? String ?? ""
-        self.gender = dictionary["gender"] as? String ?? ""
         self.age = dictionary["age"] as? Int ?? 0
+        self.contactName = dictionary["contactName"] as? String ?? ""
+        self.contactNumber = dictionary["contactNumber"] as? String ?? ""
+        self.gender = dictionary["gender"] as? String ?? ""
         self.height = dictionary["height"] as? Int ?? 0
-        self.isDanger = dictionary["isDanger"] as? Bool ?? false
-        self.isRescued = dictionary["isRescued"] as? Bool ?? false
-        self.isFinished = dictionary["isFinished"] as? Bool ?? false
-        self.isInRescue = dictionary["isInRescue"] as? Bool ?? false
-        self.lastSeen = dictionary["lastSeen"] as? GeoPoint ?? GeoPoint(latitude: 0.0, longitude: 0.0)
+        self.id = dictionary["id"] as? String ?? ""
+        self.medicalRecord = dictionary["medicalRecord"] as? String ?? ""
+        self.name = dictionary["name"] as? String ?? ""
+        self.profileUrl = dictionary["profileUrl"] as? String ?? ""
+        self.trackId = dictionary["trackId"] as? String ?? ""
         self.weight = dictionary["weight"] as? Int ?? 0
         
     }

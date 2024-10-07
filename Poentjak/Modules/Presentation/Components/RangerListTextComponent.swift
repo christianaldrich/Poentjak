@@ -20,9 +20,9 @@ struct RangerNeedHelpComponent: View {
             Text("Gender: \(user.gender)")
             Text("Height: \(user.height)")
             Text("Weight: \(user.weight)")
-            Text("Is in Danger: \(user.isDanger ? "Yes" : "No")")
-            Text("Is in Rescue: \(user.isInRescue ? "Rescuing" : "Yah dicuekin")")
-            Text("Last Seen at: \(user.lastSeen.latitude), \(user.lastSeen.longitude)")
+//            Text("Is in Danger: \(user.isDanger ? "Yes" : "No")")
+//            Text("Is in Rescue: \(user.isInRescue ? "Rescuing" : "Yah dicuekin")")
+//            Text("Last Seen at: \(user.lastSeen.latitude), \(user.lastSeen.longitude)")
             
             Button("Confirm Rescue") {
                 onConfirmRescue()

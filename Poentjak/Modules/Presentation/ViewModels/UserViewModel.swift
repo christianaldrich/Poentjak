@@ -12,35 +12,43 @@ import SwiftUI
 class UserViewModel: ObservableObject{
     
     @Published var user: [UserModel] = []
+    @Published var hiker: [EmergencyRequestModel] = []
     
     
     private let repo = FirebaseDatabaseDS()
+    private let activeEmRepo = ActiveEmergencyRepository()
     func fetchEmergency(){
         repo.fetchUserInDanger() { [weak self] user in
-            //            print("\n\n\(user)")
-            
             DispatchQueue.main.async {
                 self?.user = user
-                print("\n\nUSER ID: \(user[0].id)")
-                print("\n\nUSER name: \(user[0].name)")
             }
         }
     }
     
     func rescuing(id: String){
-        repo.confirmRescue(id: id){_ in
+        activeEmRepo.confirmRescue(id: id){_ in
             print("rescuing")
         }
     }
     
-    func rescueViewModel(id: String){
-        repo.showRescueDetail(id: id){[weak self] user in
-            
+    func fetchDangerHiker(){
+        activeEmRepo.fetchEmergencyRequest{ [weak self] hiker in
             DispatchQueue.main.async{
-                self?.user = user
+                self?.hiker = hiker
+//                print("\n\n\(hiker[0].dueDate.formatted(date: .complete, time: .shortened))")
+//                print("\n\n\n\(hiker)")
             }
-            
         }
     }
+    
+//    func fetchHikerInfo(id: String){
+//        activeEmRepo.fetchDangerHikersInfo(id: id){[weak self] user in
+//            DispatchQueue.main.async{
+//                self?.user = user
+//                print("\n\n\nUSER: \(user)")
+//                print("\n\n\nID: \(id)")
+//            }
+//        }
+//    }
     
 }

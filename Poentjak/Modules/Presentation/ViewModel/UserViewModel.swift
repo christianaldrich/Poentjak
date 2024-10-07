@@ -36,7 +36,7 @@ class UserViewModel: ObservableObject{
             DispatchQueue.main.async{
                 self?.hiker = hiker
 //                print("\n\n\(hiker[0].dueDate.formatted(date: .complete, time: .shortened))")
-                print("\n\n\n\(hiker)")
+//                print("\n\n\n\(hiker)")
             }
         }
     }

@@ -9,20 +9,9 @@
 /* Begin PBXBuildFile section */
 		24FF35FC2CA4738C00B29D19 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 24FF35FB2CA4738C00B29D19 /* FirebaseAuth */; };
 		24FF35FE2CA4738C00B29D19 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 24FF35FD2CA4738C00B29D19 /* FirebaseFirestore */; };
-		BA1062A82CABA0720014D599 /* RangerReceiveSOSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062A72CABA0680014D599 /* RangerReceiveSOSAlertView.swift */; };
-		BA1062AF2CAC052C0014D599 /* RangerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062AE2CAC05260014D599 /* RangerView.swift */; };
-		BA1062B12CAC587C0014D599 /* RangerListViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062B02CAC58730014D599 /* RangerListViewComponent.swift */; };
-		BA1062B32CAC58AC0014D599 /* HikersNeedHelpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062B22CAC58A70014D599 /* HikersNeedHelpComponent.swift */; };
-		BA1062B52CAC5B450014D599 /* RangerRescuingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062B42CAC5B300014D599 /* RangerRescuingComponent.swift */; };
-		BA1062B72CAC637B0014D599 /* HikersNeedHelpSectionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062B62CAC63700014D599 /* HikersNeedHelpSectionComponent.swift */; };
-		BA1062B92CAC647B0014D599 /* RangerRescuingSectionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062B82CAC64440014D599 /* RangerRescuingSectionComponent.swift */; };
-		BA1062BB2CAC66CA0014D599 /* SectionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1062BA2CAC66C00014D599 /* SectionModifier.swift */; };
-		BA1063BB2CAD6DC40014D599 /* AttributesInfoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1063BA2CAD6DB70014D599 /* AttributesInfoModifier.swift */; };
-		BA1063BD2CAD6E4C0014D599 /* HikersAttributeInfoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1063BC2CAD6E440014D599 /* HikersAttributeInfoModifier.swift */; };
 		BA1063BF2CAE3FFD0014D599 /* EmergencyRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1063BE2CAE3FF50014D599 /* EmergencyRequestModel.swift */; };
 		BA1063C12CAE44980014D599 /* ActiveEmergencyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1063C02CAE44860014D599 /* ActiveEmergencyRepository.swift */; };
 		BA5D76C12CA18DE8003694FC /* PoentjakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76C02CA18DE8003694FC /* PoentjakApp.swift */; };
-		BA5D76C32CA18DE8003694FC /* ActiveEmergencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76C22CA18DE8003694FC /* ActiveEmergencyView.swift */; };
 		BA5D76C52CA18DE9003694FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA5D76C42CA18DE9003694FC /* Assets.xcassets */; };
 		BA5D76C82CA18DE9003694FC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA5D76C72CA18DE9003694FC /* Preview Assets.xcassets */; };
 		BA5D76D22CA18DEA003694FC /* PoentjakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76D12CA18DEA003694FC /* PoentjakTests.swift */; };
@@ -30,7 +19,6 @@
 		BA5D76DE2CA18DEA003694FC /* PoentjakUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D76DD2CA18DEA003694FC /* PoentjakUITestsLaunchTests.swift */; };
 		BA63D3592CA30EAC0080C219 /* RangerConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D3582CA30EA70080C219 /* RangerConfirmation.swift */; };
 		BA63D3712CA44D360080C219 /* FirebaseDatabaseDS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D3702CA44D2F0080C219 /* FirebaseDatabaseDS.swift */; };
-		BA63D3732CA452A20080C219 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D3722CA4529F0080C219 /* UserViewModel.swift */; };
 		BA63D3782CA47CED0080C219 /* DomainUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D3772CA47CDA0080C219 /* DomainUserRepository.swift */; };
 		BA63D37A2CA507BE0080C219 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA63D3792CA507BB0080C219 /* UserModel.swift */; };
 		BAB7417B2CA1D39E00B983FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */; };
@@ -59,21 +47,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BA1062A72CABA0680014D599 /* RangerReceiveSOSAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerReceiveSOSAlertView.swift; sourceTree = "<group>"; };
-		BA1062AE2CAC05260014D599 /* RangerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerView.swift; sourceTree = "<group>"; };
-		BA1062B02CAC58730014D599 /* RangerListViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerListViewComponent.swift; sourceTree = "<group>"; };
-		BA1062B22CAC58A70014D599 /* HikersNeedHelpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikersNeedHelpComponent.swift; sourceTree = "<group>"; };
-		BA1062B42CAC5B300014D599 /* RangerRescuingComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerRescuingComponent.swift; sourceTree = "<group>"; };
-		BA1062B62CAC63700014D599 /* HikersNeedHelpSectionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikersNeedHelpSectionComponent.swift; sourceTree = "<group>"; };
-		BA1062B82CAC64440014D599 /* RangerRescuingSectionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerRescuingSectionComponent.swift; sourceTree = "<group>"; };
-		BA1062BA2CAC66C00014D599 /* SectionModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModifier.swift; sourceTree = "<group>"; };
-		BA1063BA2CAD6DB70014D599 /* AttributesInfoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesInfoModifier.swift; sourceTree = "<group>"; };
-		BA1063BC2CAD6E440014D599 /* HikersAttributeInfoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikersAttributeInfoModifier.swift; sourceTree = "<group>"; };
 		BA1063BE2CAE3FF50014D599 /* EmergencyRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyRequestModel.swift; sourceTree = "<group>"; };
 		BA1063C02CAE44860014D599 /* ActiveEmergencyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveEmergencyRepository.swift; sourceTree = "<group>"; };
 		BA5D76BD2CA18DE8003694FC /* Poentjak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poentjak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5D76C02CA18DE8003694FC /* PoentjakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoentjakApp.swift; sourceTree = "<group>"; };
-		BA5D76C22CA18DE8003694FC /* ActiveEmergencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveEmergencyView.swift; sourceTree = "<group>"; };
 		BA5D76C42CA18DE9003694FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA5D76C72CA18DE9003694FC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BA5D76CD2CA18DEA003694FC /* PoentjakTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PoentjakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,7 +60,6 @@
 		BA5D76DD2CA18DEA003694FC /* PoentjakUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoentjakUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BA63D3582CA30EA70080C219 /* RangerConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangerConfirmation.swift; sourceTree = "<group>"; };
 		BA63D3702CA44D2F0080C219 /* FirebaseDatabaseDS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseDS.swift; sourceTree = "<group>"; };
-		BA63D3722CA4529F0080C219 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		BA63D3772CA47CDA0080C219 /* DomainUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainUserRepository.swift; sourceTree = "<group>"; };
 		BA63D3792CA507BB0080C219 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -95,6 +71,10 @@
 		24FF36212CA50EAF00B29D19 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		24FF362C2CA5610E00B29D19 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 		BA1062AA2CAC02380014D599 /* UseCase */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UseCase; sourceTree = "<group>"; };
+		BA1064382CB385F20014D599 /* ViewModel */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModel; sourceTree = "<group>"; };
+		BA1064392CB3860D0014D599 /* View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = View; sourceTree = "<group>"; };
+		BA10643A2CB386270014D599 /* Util */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Util; sourceTree = "<group>"; };
+		BA10643B2CB386310014D599 /* Component */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Component; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,52 +200,12 @@
 		BA63D35D2CA41A4D0080C219 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				BA63D3612CA41A710080C219 /* Components */,
-				BA63D3602CA41A6C0080C219 /* Utils */,
-				BA63D35F2CA41A670080C219 /* Views */,
-				BA63D35E2CA41A630080C219 /* ViewModels */,
+				BA10643B2CB386310014D599 /* Component */,
+				BA10643A2CB386270014D599 /* Util */,
+				BA1064392CB3860D0014D599 /* View */,
+				BA1064382CB385F20014D599 /* ViewModel */,
 			);
 			path = Presentation;
-			sourceTree = "<group>";
-		};
-		BA63D35E2CA41A630080C219 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				BA63D3722CA4529F0080C219 /* UserViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		BA63D35F2CA41A670080C219 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				BA1062AE2CAC05260014D599 /* RangerView.swift */,
-				BA1062A72CABA0680014D599 /* RangerReceiveSOSAlertView.swift */,
-				BA5D76C22CA18DE8003694FC /* ActiveEmergencyView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		BA63D3602CA41A6C0080C219 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				BA1063BC2CAD6E440014D599 /* HikersAttributeInfoModifier.swift */,
-				BA1063BA2CAD6DB70014D599 /* AttributesInfoModifier.swift */,
-				BA1062BA2CAC66C00014D599 /* SectionModifier.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		BA63D3612CA41A710080C219 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				BA1062B42CAC5B300014D599 /* RangerRescuingComponent.swift */,
-				BA1062B22CAC58A70014D599 /* HikersNeedHelpComponent.swift */,
-				BA1062B82CAC64440014D599 /* RangerRescuingSectionComponent.swift */,
-				BA1062B62CAC63700014D599 /* HikersNeedHelpSectionComponent.swift */,
-				BA1062B02CAC58730014D599 /* RangerListViewComponent.swift */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		BA63D3632CA41A850080C219 /* Entity */ = {
@@ -337,6 +277,10 @@
 				24FF36212CA50EAF00B29D19 /* Views */,
 				24FF362C2CA5610E00B29D19 /* Shared */,
 				BA1062AA2CAC02380014D599 /* UseCase */,
+				BA1064382CB385F20014D599 /* ViewModel */,
+				BA1064392CB3860D0014D599 /* View */,
+				BA10643A2CB386270014D599 /* Util */,
+				BA10643B2CB386310014D599 /* Component */,
 			);
 			name = Poentjak;
 			productName = Poentjak;
@@ -460,24 +404,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA1063BF2CAE3FFD0014D599 /* EmergencyRequestModel.swift in Sources */,
-				BA5D76C32CA18DE8003694FC /* ActiveEmergencyView.swift in Sources */,
-				BA1062B12CAC587C0014D599 /* RangerListViewComponent.swift in Sources */,
-				BA1062A82CABA0720014D599 /* RangerReceiveSOSAlertView.swift in Sources */,
-				BA1063BD2CAD6E4C0014D599 /* HikersAttributeInfoModifier.swift in Sources */,
 				BA63D3712CA44D360080C219 /* FirebaseDatabaseDS.swift in Sources */,
-				BA1062B32CAC58AC0014D599 /* HikersNeedHelpComponent.swift in Sources */,
 				BAC0EC212CA1EA1200A1865C /* FetchData.swift in Sources */,
-				BA1062AF2CAC052C0014D599 /* RangerView.swift in Sources */,
-				BA63D3732CA452A20080C219 /* UserViewModel.swift in Sources */,
 				BA63D3782CA47CED0080C219 /* DomainUserRepository.swift in Sources */,
 				BA5D76C12CA18DE8003694FC /* PoentjakApp.swift in Sources */,
-				BA1063BB2CAD6DC40014D599 /* AttributesInfoModifier.swift in Sources */,
 				BA63D3592CA30EAC0080C219 /* RangerConfirmation.swift in Sources */,
-				BA1062B72CAC637B0014D599 /* HikersNeedHelpSectionComponent.swift in Sources */,
 				BA1063C12CAE44980014D599 /* ActiveEmergencyRepository.swift in Sources */,
-				BA1062B92CAC647B0014D599 /* RangerRescuingSectionComponent.swift in Sources */,
-				BA1062B52CAC5B450014D599 /* RangerRescuingComponent.swift in Sources */,
-				BA1062BB2CAC66CA0014D599 /* SectionModifier.swift in Sources */,
 				BA63D37A2CA507BE0080C219 /* UserModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ActiveEmergencyView: View {
     @StateObject private var viewModel = UserViewModel()
-    @State private var activeEmergencies = [UserModel]()
+    //    @State private var activeEmergencies = [UserModel]()
+    //    let hikers
     
-    @State var selectedUser: UserModel?
+    @State var selectedUser: EmergencyRequestModel?
     @State private var isDetailViewActive = false
     
     
@@ -20,16 +21,17 @@ struct ActiveEmergencyView: View {
         NavigationView {
             List {
                 
-                HikersNeedHelpSectionComponent(users: viewModel.user.filter{!$0.isInRescue}){ user in
-                    viewModel.rescuing(id: user.id)
-                    selectedUser = user
+                HikersNeedHelpSectionComponent(hikers: viewModel.hiker){ hiker in
+                    viewModel.rescuing(id: hiker.id)
+                    selectedUser = hiker
                     isDetailViewActive = true
+                    
                 }
                 
-                RangerRescuingSectionComponent(users: viewModel.user.filter{$0.isInRescue}){
-                    user in
-                    viewModel.rescuing(id: user.id)
-                    selectedUser = user
+                RangerRescuingSectionComponent(hikers: viewModel.hiker){
+                    hiker in
+                    viewModel.rescuing(id: hiker.id)
+                    selectedUser = hiker
                     isDetailViewActive = true
                 }
                 
@@ -37,16 +39,16 @@ struct ActiveEmergencyView: View {
             .navigationTitle("Active Emergencies")
             
             .onAppear {
-                viewModel.fetchEmergency()
+                viewModel.fetchDangerHiker()
             }
             .background(
                 NavigationLink(
-                    destination: RangerReceiveSOSAlertView(user: selectedUser),
+                    destination: RangerReceiveSOSAlertView(hikers: selectedUser),
                     isActive: $isDetailViewActive,
                     label: { EmptyView() }
                 )
             )
-
+            
         }
         .ignoresSafeArea()
         

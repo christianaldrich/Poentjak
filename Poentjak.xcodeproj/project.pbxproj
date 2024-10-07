@@ -57,6 +57,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		1638C6E32CB3955C008FC534 /* NavigationModules */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NavigationModules; sourceTree = "<group>"; };
 		24FF35EA2CA440CE00B29D19 /* Authentication */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Authentication; sourceTree = "<group>"; };
 		24FF36212CA50EAF00B29D19 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		24FF362C2CA5610E00B29D19 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 		3D80C0252CB39E2B007CC03F /* DueDate */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DueDate; sourceTree = "<group>"; };
 		3D80C0522CB39E3A007CC03F /* Emergency */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Emergency; sourceTree = "<group>"; };
 		BA1067E12CB39A330014D599 /* ActiveEmergencyModule */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ActiveEmergencyModule; sourceTree = "<group>"; };
+
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 		BA5D76BF2CA18DE8003694FC /* Poentjak */ = {
 			isa = PBXGroup;
 			children = (
+				1638C6E32CB3955C008FC534 /* NavigationModules */,
 				BA63D3672CA41AB70080C219 /* Application */,
 				BA1067E12CB39A330014D599 /* ActiveEmergencyModule */,
 				24FF366F2CA9AEEC00B29D19 /* EmergencyRanger */,
@@ -184,6 +187,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				1638C6E32CB3955C008FC534 /* NavigationModules */,
 				24FF35EA2CA440CE00B29D19 /* Authentication */,
 				24FF36212CA50EAF00B29D19 /* Views */,
 				24FF362C2CA5610E00B29D19 /* Shared */,
@@ -191,6 +195,7 @@
 				3D80C0252CB39E2B007CC03F /* DueDate */,
 				3D80C0522CB39E3A007CC03F /* Emergency */,
 				BA1067E12CB39A330014D599 /* ActiveEmergencyModule */,
+
 			);
 			name = Poentjak;
 			productName = Poentjak;
@@ -241,7 +246,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					BA5D76BC2CA18DE8003694FC = {
 						CreatedOnToolsVersion = 15.4;
@@ -482,6 +487,9 @@
 				DEVELOPMENT_TEAM = 3L9D9QLCDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -511,6 +519,9 @@
 				DEVELOPMENT_TEAM = 3L9D9QLCDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -532,7 +543,6 @@
 		BA5D76E52CA18DEA003694FC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -552,7 +562,6 @@
 		BA5D76E62CA18DEA003694FC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -572,7 +581,6 @@
 		BA5D76E82CA18DEA003694FC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CAPH2JRFFZ;
@@ -590,7 +598,6 @@
 		BA5D76E92CA18DEA003694FC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CAPH2JRFFZ;

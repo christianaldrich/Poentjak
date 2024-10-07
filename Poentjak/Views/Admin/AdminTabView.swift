@@ -9,13 +9,16 @@
 import SwiftUI
 
 struct AdminTabView: View {
+    
     @StateObject var viewModel: AuthViewModel
+    
     @State private var selectedTab = 0
     
     var body: some View {
         TabView(selection: $selectedTab){
-            
-            EmergencyView(viewModel: viewModel)
+            let authViewModel = DIContainer().makeAdminEmergencyViewModel()
+            AdminEmergencyDetailView(viewModel: authViewModel, emergencyRequestId: "0x78aq8JdEKlVvofzx1R")
+
                 .tabItem {
                     Image(systemName: selectedTab == 0 ? "house.fill" : "house")
                         .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
@@ -35,17 +38,7 @@ struct AdminTabView: View {
                 }
                 .tag(1)
             
-            RangerSettingsView()
-        
-                .tabItem {
-                    Image(systemName: selectedTab == 2 ? "house.fill" : "house")
-                        .environment(\.symbolVariants, selectedTab == 2 ? .fill : .none)
-                }
-                .onAppear{
-                    selectedTab = 2
-                }
-                .tag(2)
-            
+           
             
                     
             

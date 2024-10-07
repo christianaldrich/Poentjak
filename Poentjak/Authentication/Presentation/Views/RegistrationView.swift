@@ -29,12 +29,6 @@ struct RegistrationView: View {
                 SecureField("Enter your password", text: $viewModel.password)
                     .modifier(TextFieldModifier())
                 
-                TextField("Enter your fullname", text: $viewModel.fullname)
-                    .modifier(TextFieldModifier())
-                
-                TextField("Enter your username", text: $viewModel.username)
-                    .autocapitalization(.none)
-                    .modifier(TextFieldModifier())
                 
                 if let error = viewModel.loginError {
                     Text(error)

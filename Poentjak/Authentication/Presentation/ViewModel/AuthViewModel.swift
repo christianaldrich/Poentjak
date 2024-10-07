@@ -16,8 +16,7 @@ class AuthViewModel: ObservableObject {
     @Published var registrationError: String? = nil
     @Published var email: String = ""
     @Published var password: String = ""
-    @Published var fullname: String = ""
-    @Published var username: String = ""
+    
     
     private let useCase: DefaultAuthUseCase
 
@@ -66,7 +65,7 @@ class AuthViewModel: ObservableObject {
     
     func register() async {
         isLoading = true
-        let request = AuthRequestDTO(email: email, password: password, fullname: fullname, username: username, isAdmin: isAdmin)
+        let request = AuthRequestDTO(email: email, password: password, isAdmin: false)
         do {
             let user = try await useCase.register(request: request)
             userSession = user

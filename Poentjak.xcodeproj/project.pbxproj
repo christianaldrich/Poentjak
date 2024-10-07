@@ -88,7 +88,11 @@
 		24FF35EA2CA440CE00B29D19 /* Authentication */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Authentication; sourceTree = "<group>"; };
 		24FF36212CA50EAF00B29D19 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		24FF362C2CA5610E00B29D19 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+
 		BA1062AA2CAC02380014D599 /* UseCase */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UseCase; sourceTree = "<group>"; };
+
+		24FF366F2CA9AEEC00B29D19 /* EmergencyRanger */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EmergencyRanger; sourceTree = "<group>"; };
+
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,7 @@
 			children = (
 				BA63D3672CA41AB70080C219 /* Application */,
 				BA63D35A2CA41A380080C219 /* Modules */,
+				24FF366F2CA9AEEC00B29D19 /* EmergencyRanger */,
 				24FF362C2CA5610E00B29D19 /* Shared */,
 				24FF36212CA50EAF00B29D19 /* Views */,
 				24FF35EA2CA440CE00B29D19 /* Authentication */,
@@ -327,7 +332,11 @@
 				24FF35EA2CA440CE00B29D19 /* Authentication */,
 				24FF36212CA50EAF00B29D19 /* Views */,
 				24FF362C2CA5610E00B29D19 /* Shared */,
+
 				BA1062AA2CAC02380014D599 /* UseCase */,
+
+				24FF366F2CA9AEEC00B29D19 /* EmergencyRanger */,
+
 			);
 			name = Poentjak;
 			productName = Poentjak;

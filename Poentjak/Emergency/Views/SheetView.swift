@@ -16,32 +16,32 @@ struct SheetView: View {
         VStack(spacing: 20) {
             Button("Button 1") {
                 print("Button 1 tapped")
-                Task{
-                    await viewModel.createEmergency(type: "type 1")
-                    navigateToEmergencyProses = true // Trigger navigation
-                    
-                }
+//                Task{
+//                    await viewModel.createEmergency(type: "type 1")
+//                    navigateToEmergencyProses = true // Trigger navigation
+//                    
+//                }
             }
             .buttonStyle(PlainButtonStyle())
             
             Button("Button 2") {
                 print("Button 2 tapped")
-                Task{
-                    await viewModel.createEmergency(type: "type 2")
-                    navigateToEmergencyProses = true // Trigger navigation
-                    
-                }
+//                Task{
+//                    await viewModel.createEmergency(type: "type 2")
+//                    navigateToEmergencyProses = true // Trigger navigation
+//                    
+//                }
                 
             }
             .buttonStyle(PlainButtonStyle())
             
             Button("Button 3") {
                 print("Button 3 tapped")
-                Task{
-                    await viewModel.createEmergency(type: "type 3")
-                    navigateToEmergencyProses = true // Trigger navigation
-                    
-                }
+//                Task{
+//                    await viewModel.createEmergency(type: "type 3")
+//                    navigateToEmergencyProses = true // Trigger navigation
+//                    
+//                }
                 
             }
             .buttonStyle(PlainButtonStyle())

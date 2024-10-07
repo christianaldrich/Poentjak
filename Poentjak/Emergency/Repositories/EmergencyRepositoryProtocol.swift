@@ -8,8 +8,9 @@
 import Foundation
 
 protocol EmergencyRepositoryProtocol {
-    func createEmergency(userId: String, with emergency: EmergencyModel) async throws
-    func deleteEmergency(userId: String) async throws
+    func createEmergency(with emergency: EmergencyModel) async throws
+//    func deleteEmergency(userId: String) async throws
+//    func fetchEmergency(userId: String, completion: @escaping (Result<EmergencyModel?, Error>) -> Void)
 
 }
 

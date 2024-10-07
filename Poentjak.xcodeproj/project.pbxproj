@@ -57,6 +57,7 @@
 		24FF35EA2CA440CE00B29D19 /* Authentication */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Authentication; sourceTree = "<group>"; };
 		24FF36212CA50EAF00B29D19 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		24FF362C2CA5610E00B29D19 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+		3D24D8942CADA0DE004A07E4 /* DueDate */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DueDate; sourceTree = "<group>"; };
 		3DBDE6792CA6C79900CC1D48 /* Emergency */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Emergency; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -113,6 +114,7 @@
 			children = (
 				24FF362C2CA5610E00B29D19 /* Shared */,
 				24FF36212CA50EAF00B29D19 /* Views */,
+				3D24D8942CADA0DE004A07E4 /* DueDate */,
 				3DBDE6792CA6C79900CC1D48 /* Emergency */,
 				24FF35EA2CA440CE00B29D19 /* Authentication */,
 				BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */,
@@ -176,6 +178,7 @@
 				24FF35EA2CA440CE00B29D19 /* Authentication */,
 				24FF36212CA50EAF00B29D19 /* Views */,
 				24FF362C2CA5610E00B29D19 /* Shared */,
+				3D24D8942CADA0DE004A07E4 /* DueDate */,
 				3DBDE6792CA6C79900CC1D48 /* Emergency */,
 			);
 			name = Poentjak;
@@ -477,7 +480,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sing.Poentjak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pang.Poentjak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -506,7 +509,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sing.Poentjak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pang.Poentjak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

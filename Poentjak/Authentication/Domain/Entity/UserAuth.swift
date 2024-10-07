@@ -15,4 +15,5 @@ struct UserAuth: Codable {
     let isAdmin: Bool
     var profileImageUrl: String?
     var bio: String?
+    
 }

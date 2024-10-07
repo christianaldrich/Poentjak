@@ -18,6 +18,7 @@ class AuthViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var fullname: String = ""
     @Published var username: String = ""
+
     
     private let useCase: DefaultAuthUseCase
 

@@ -26,7 +26,7 @@ extension AuthResponseDTO {
             "username": username,
             "isAdmin": isAdmin,
             "profileImageUrl": profileImageUrl ?? "",
-            "bio": bio ?? ""
+            "bio": bio ?? "",
         ]
     }
 }

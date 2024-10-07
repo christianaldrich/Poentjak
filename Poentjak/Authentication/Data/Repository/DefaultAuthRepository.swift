@@ -26,7 +26,7 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
             email: request.email,
             fullname: request.fullname ?? "",
             username: request.username ?? "",
-            isAdmin: request.isAdmin ?? false
+            isAdmin: request.isAdmin ?? false            
         )
         
         let collectionRef = firestore.collection("users")

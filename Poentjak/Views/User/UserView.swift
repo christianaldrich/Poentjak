@@ -21,20 +21,31 @@ struct UserView: View {
                 Text("no name found")
             }
             
-            Button(action: {
-                showSheet = true
-            }) {
-                Text("SOS")
+            // Button to navigate to DueDateView
+            NavigationLink(destination: DueDateView()) {
+                Text("Start tracking")
                     .font(.headline)
                     .padding()
-                    .background(Color.red)
+                    .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
             .padding()
-            .sheet(isPresented: $showSheet) {
-                SheetView().presentationDetents([.medium, .large])
-            }
+            
+//            Button(action: {
+//                showSheet = true
+//            }) {
+//                Text("SOS")
+//                    .font(.headline)
+//                    .padding()
+//                    .background(Color.red)
+//                    .foregroundColor(.white)
+//                    .cornerRadius(10)
+//            }
+//            .padding()
+//            .sheet(isPresented: $showSheet) {
+//                SheetView().presentationDetents([.medium, .large])
+//            }
             
             
             

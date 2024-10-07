@@ -14,16 +14,21 @@ struct EmergencyProsesView: View {
     var body: some View {
         VStack {
             Text("Emergency in progress...")
-            
+            Text(viewModel.status)
             Button("Delete Emergency") {
-                Task {
-                         await viewModel.deleteEmergency()
-                    presentationMode.wrappedValue.dismiss() 
-                }
+//                Task {
+//                    await viewModel.deleteEmergency()
+//                    presentationMode.wrappedValue.dismiss()
+//                }
             }
             .buttonStyle(PlainButtonStyle())
             .padding()
         }
+//        .onAppear{
+//            
+//            viewModel.fetchEmergency()
+//            
+//        }
     }
 }
 

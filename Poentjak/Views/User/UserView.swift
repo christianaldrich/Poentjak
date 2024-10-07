@@ -10,21 +10,38 @@ import SwiftUI
 struct UserView: View {
     @StateObject var viewModel: AuthViewModel
     var body: some View {
-        Text("Hello, User!")
-        
-        Button(action: {
-            Task {
-                await viewModel.signOut()
+        NavigationStack{
+            Text("Hello, User!")
+            
+            
+            // Button to navigate to DueDateView
+            NavigationLink(destination: DueDateView()) {
+                Text("Start tracking")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
             }
-                   }) {
-                       Text("Sign Out")
-                           .font(.headline)
-                           .padding()
-                           .background(Color.red)
-                           .foregroundColor(.white)
-                           .cornerRadius(10)
-                   }
-                   .padding()
+            .padding()
+            
+            Button(action: {
+                Task {
+                    await viewModel.signOut()
+                }
+                       }) {
+                           Text("Sign Out")
+                               .font(.headline)
+                               .padding()
+                               .background(Color.red)
+                               .foregroundColor(.white)
+                               .cornerRadius(10)
+                       }
+                       .padding()
+            
+            
+        }
+        
     }
 }
 

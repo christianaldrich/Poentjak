@@ -11,6 +11,7 @@ import FirebaseAuth
 
 protocol UserRepositoryProtocol {
     func fetchCurrentUser() async throws -> UserAuth
+    func fetchCurrentUserEmergency() async throws -> User
 }
 
 class DefaultUserRepository: UserRepositoryProtocol {
@@ -25,6 +26,20 @@ class DefaultUserRepository: UserRepositoryProtocol {
         do {
             let userAuth = try await docRef.getDocument(as: UserAuth.self)
             return userAuth
+        } catch {
+            throw NSError(domain: "User not found", code: 404, userInfo: nil)
+        }
+    }
+    
+    func fetchCurrentUserEmergency() async throws -> User {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            throw NSError(domain: "User not logged in", code: 401, userInfo: nil)
+        }
+        
+        let docRef = firestore.collection("users").document(uid)
+        do {
+            let user = try await docRef.getDocument(as: User.self)
+            return user
         } catch {
             throw NSError(domain: "User not found", code: 404, userInfo: nil)
         }

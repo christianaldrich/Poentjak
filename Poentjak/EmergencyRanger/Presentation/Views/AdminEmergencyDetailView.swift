@@ -21,7 +21,7 @@ struct AdminEmergencyDetailView: View {
                     .foregroundColor(.gray)
             } else if let emergencyRequest = viewModel.emergencyRequest {
                 
-                Text("Emergency Type: \(emergencyRequest.emergencyType.rawValue)")
+                Text("Emergency Type: \(emergencyRequest.emergencyType?.rawValue ?? "Not specified")")
                     .font(.headline)
                 Text("Status: \(emergencyRequest.emergencyStatus.rawValue)")
                     .font(.subheadline)
@@ -29,7 +29,7 @@ struct AdminEmergencyDetailView: View {
                     .font(.subheadline)
                 
                 
-                if emergencyRequest.assignedRangers.isEmpty {
+                if (emergencyRequest.assignedRangers ?? []).isEmpty {
                     Text("No rangers assigned.")
                         .foregroundColor(.red)
                     
@@ -45,14 +45,16 @@ struct AdminEmergencyDetailView: View {
                 } else {
                     Text("Assigned Rangers:")
                         .font(.headline)
-                    ForEach(emergencyRequest.assignedRangers, id: \.self) { ranger in
+                    ForEach(emergencyRequest.assignedRangers ?? [], id: \.self) { ranger in
                         Text(ranger)
                     }
                     
                     
-                    Text("Last Location: (\(emergencyRequest.lastLocation.latitude), \(emergencyRequest.lastLocation.longitude))")
-                        .font(.subheadline)
+//                    Text("Last Location: (\(emergencyRequest.lastLocation.latitude), \(emergencyRequest.lastLocation.longitude))")
+//                        .font(.subheadline)
                     
+                    Text("Last Location: (\(emergencyRequest.lastLocation?.latitude ?? 0.0), \(emergencyRequest.lastLocation?.longitude ?? 0.0))")
+                        .font(.subheadline)
                     
                     Text("Track ID: \(emergencyRequest.user.trackId)")
                         .font(.subheadline)

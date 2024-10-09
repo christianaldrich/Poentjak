@@ -45,11 +45,11 @@ struct UserMapper {
             age: model.age,
             gender: model.gender,
             height: model.height,
-            weight: model.weight, 
+            weight: model.weight,
             contactName: model.contactName,
             contactNumber: model.contactNumber,
             profileURL: model.profileURL,
-            trackId: model.trackId, 
+            trackId: model.trackId,
             medicalRecord: model.medicalRecord
         )
     }

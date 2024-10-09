@@ -56,12 +56,11 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1638C6E32CB3955C008FC534 /* NavigationModules */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NavigationModules; sourceTree = "<group>"; };
-		24FF35EA2CA440CE00B29D19 /* Authentication */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Authentication; sourceTree = "<group>"; };
 		24FF36212CA50EAF00B29D19 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		24FF362C2CA5610E00B29D19 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 		24FF366F2CA9AEEC00B29D19 /* EmergencyRanger */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EmergencyRanger; sourceTree = "<group>"; };
-		3D80C0252CB39E2B007CC03F /* DueDate */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DueDate; sourceTree = "<group>"; };
 		3D80C0522CB39E3A007CC03F /* Emergency */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Emergency; sourceTree = "<group>"; };
+		3D80C2F92CB43805007CC03F /* Authentication */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Authentication; sourceTree = "<group>"; };
 		BA1067E12CB39A330014D599 /* ActiveEmergencyModule */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ActiveEmergencyModule; sourceTree = "<group>"; };
 
 		BA106B032CB3F5FB0014D599 /* Application */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Application; sourceTree = "<group>"; };
@@ -131,8 +130,7 @@
 				24FF362C2CA5610E00B29D19 /* Shared */,
 				24FF36212CA50EAF00B29D19 /* Views */,
 				3D80C0522CB39E3A007CC03F /* Emergency */,
-				3D80C0252CB39E2B007CC03F /* DueDate */,
-				24FF35EA2CA440CE00B29D19 /* Authentication */,
+				3D80C2F92CB43805007CC03F /* Authentication */,
 				BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */,
 				BA63D3582CA30EA70080C219 /* RangerConfirmation.swift */,
 				BAC0EC202CA1EA0500A1865C /* FetchData.swift */,
@@ -184,12 +182,11 @@
 			);
 			fileSystemSynchronizedGroups = (
 				1638C6E32CB3955C008FC534 /* NavigationModules */,
-				24FF35EA2CA440CE00B29D19 /* Authentication */,
 				24FF36212CA50EAF00B29D19 /* Views */,
 				24FF362C2CA5610E00B29D19 /* Shared */,
 				24FF366F2CA9AEEC00B29D19 /* EmergencyRanger */,
-				3D80C0252CB39E2B007CC03F /* DueDate */,
 				3D80C0522CB39E3A007CC03F /* Emergency */,
+				3D80C2F92CB43805007CC03F /* Authentication */,
 				BA1067E12CB39A330014D599 /* ActiveEmergencyModule */,
 				BA106B032CB3F5FB0014D599 /* Application */,
 				BA106B052CB3F6030014D599 /* RangerControlPanelModule */,
@@ -498,7 +495,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sing.Poentjak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pang.Poentjak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -530,7 +527,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sing.Poentjak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pang.Poentjak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

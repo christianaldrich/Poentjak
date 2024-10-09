@@ -9,12 +9,12 @@ import Foundation
 
 struct EmergencyRequestDTO: Codable {
     let id: String
-    let emergencyType: String
+    let emergencyType: String?
     let emergencyStatus: String
-    let assignedRangers: [String]
-    let batteryHealth: Int
-    let lastLocation: LocationDTO
-    let lastSeen: Date
+    let assignedRangers: [String]?
+    let batteryHealth: Int?
+    let lastLocation: LocationDTO?
+    let lastSeen: Date?
     let dueDate: Date
     let sessionDone: Bool
     let user: UserDTO
@@ -24,11 +24,12 @@ struct EmergencyRequestMapper {
     static func mapToDomain(_ dto: EmergencyRequestDTO) -> EmergencyRequest {
         return EmergencyRequest(
             id: dto.id,
-            emergencyType: EmergencyType(rawValue: dto.emergencyType) ?? .hipo,
+            emergencyType: EmergencyType(rawValue: dto.emergencyType  ?? ""),
             emergencyStatus: EmergencyStatus(rawValue: dto.emergencyStatus) ?? .safe,
             assignedRangers: dto.assignedRangers,
             batteryHealth: dto.batteryHealth,
-            lastLocation: LocationMapper.mapToDomain(dto.lastLocation),
+            lastLocation: dto.lastLocation != nil ? LocationMapper.mapToDomain(dto.lastLocation!) : nil,
+//            lastLocation: LocationMapper.mapToDomain(dto.lastLocation),
             lastSeen: dto.lastSeen,
             dueDate: dto.dueDate,
             sessionDone: dto.sessionDone,
@@ -39,11 +40,12 @@ struct EmergencyRequestMapper {
     static func mapToDTO(_ model: EmergencyRequest) -> EmergencyRequestDTO {
         return EmergencyRequestDTO(
             id: model.id,
-            emergencyType: model.emergencyType.rawValue,
+            emergencyType: model.emergencyType?.rawValue,
             emergencyStatus: model.emergencyStatus.rawValue,
             assignedRangers: model.assignedRangers,
             batteryHealth: model.batteryHealth,
-            lastLocation: LocationMapper.mapToDTO(model.lastLocation),
+            lastLocation: model.lastLocation != nil ? LocationMapper.mapToDTO(model.lastLocation!) : nil,  // Optional
+//            lastLocation: LocationMapper.mapToDTO(model.lastLocation),
             lastSeen: model.lastSeen,
             dueDate: model.dueDate,
             sessionDone: model.sessionDone,

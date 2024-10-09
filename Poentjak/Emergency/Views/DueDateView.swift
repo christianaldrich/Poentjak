@@ -16,7 +16,7 @@ struct DueDateView: View {
     @State private var navigateToNavigate = false
     
     var body: some View {
-        NavigationStack {
+        
             VStack {
                 Text("Tell us when you will be back")
                     .font(.title2)
@@ -119,7 +119,7 @@ struct DueDateView: View {
             .padding()
         }
         
-    }
+    
 }
 
 #Preview {

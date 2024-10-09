@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct EmergencyRequestModel{
+struct EmergencyRequestModel: Identifiable ,Hashable{
     var assignedRangers: [String]
     var batteryHealth: Int
     var dueDate: Date
@@ -46,6 +46,12 @@ struct EmergencyRequestModel{
         
         
     }
+    func hash(into hasher: inout Hasher) {
+            hasher.combine(id)  // Use the 'id' as a unique identifier
+        }
+    static func == (lhs: EmergencyRequestModel, rhs: EmergencyRequestModel) -> Bool {
+            return lhs.id == rhs.id
+        }
 }
 
 struct lastLocationModel{

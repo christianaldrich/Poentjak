@@ -24,7 +24,8 @@ struct PoentjakApp: App {
 //            let authViewModel = diContainer.makeAuthViewModel()
 //            CheckingView(viewModel: authViewModel)
 //            RangerView()
-            ActiveHikersView()
+//            ActiveHikersView()
+            MountainsTracksView()
         }
     }
 }

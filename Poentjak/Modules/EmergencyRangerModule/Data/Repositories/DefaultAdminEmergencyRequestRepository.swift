@@ -12,6 +12,8 @@ import FirebaseFirestore
 protocol AdminEmergencyRequestRepositoryProtocol {
     func fetchEmergencyRequest(by id: String) async throws -> EmergencyRequest
     func updateEmergencyRequest(request: EmergencyRequest) async throws
+    func addListenerToEmergencyRequest(by id: String, completion: @escaping (Result<EmergencyRequest?, Error>) -> Void)
+    
     
 }
 
@@ -35,12 +37,43 @@ class DefaultAdminEmergencyRequestRepository: AdminEmergencyRequestRepositoryPro
         
     }
     
+    func addListenerToEmergencyRequest(by id: String, completion: @escaping (Result<EmergencyRequest?, any Error>) -> Void) {
+        let docRef = firestore.collection("emergencyRequests").document(id)
+        docRef.addSnapshotListener { documentSnapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let documentSnapshot = documentSnapshot, documentSnapshot.exists else {
+                print("No document found for id \(id)")
+                completion(.success(nil)) // Return nil if no document is found
+                return
+            }
+            
+            do {
+                // Decode the Firestore document to EmergencyRequestDTO
+                let dto = try documentSnapshot.data(as: EmergencyRequestDTO.self)
+                
+                // Map the DTO to your domain model
+                let emergency = EmergencyRequestMapper.mapToDomain(dto)
+                
+                // Return the domain model
+                completion(.success(emergency))
+            } catch {
+                print("Error decoding EmergencyRequestDTO: \(error)")
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
     func updateEmergencyRequest(request: EmergencyRequest) async throws {
         let docRef = firestore.collection("emergencyRequests").document(request.id)
         do {
             try await docRef.updateData([
                 "emergencyStatus": request.emergencyStatus.rawValue,
-                "assignedRangers": request.assignedRangers,
+                "assignedRangers": request.assignedRangers as Any, // add as any
             ])
             print("Document successfully updated")
         } catch {

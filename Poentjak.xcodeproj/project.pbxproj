@@ -191,7 +191,6 @@
 				3D80C0252CB39E2B007CC03F /* DueDate */,
 				3D80C0522CB39E3A007CC03F /* Emergency */,
 				BA1067E12CB39A330014D599 /* ActiveEmergencyModule */,
-
 				BA106B032CB3F5FB0014D599 /* Application */,
 				BA106B052CB3F6030014D599 /* RangerControlPanelModule */,
 				BA106EBF2CB56D660014D599 /* MountainCardsModule */,

@@ -8,7 +8,7 @@
 import Foundation
 
 struct RangerDTO: Codable{
-    let id: String
+    var id: String
     let name: String
     let available: Bool
     let trackId: String

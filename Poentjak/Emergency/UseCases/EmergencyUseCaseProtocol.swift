@@ -12,5 +12,7 @@ protocol EmergencyUseCaseProtocol {
 //    func createEmergency(type: String) async throws
 //    func deleteEmergency() async throws
 //    func fetchEmergency(completion: @escaping (Result<EmergencyModel?, Error>) -> Void)
+    func fetchEmergency(completion: @escaping (Result<EmergencyRequest?, Error>) -> Void)
+    func updateSessionDone(sessionDone: Bool) async throws
 
 }

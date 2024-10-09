@@ -9,12 +9,12 @@ import Foundation
 
 struct EmergencyRequest {
     let id: String
-    let emergencyType: EmergencyType
+    let emergencyType: EmergencyType?
     var emergencyStatus: EmergencyStatus
-    var assignedRangers: [String]
-    var batteryHealth: Int
-    var lastLocation: Location
-    var lastSeen: Date
+    var assignedRangers: [String]?
+    var batteryHealth: Int?
+    var lastLocation: Location?
+    var lastSeen: Date?
     var dueDate: Date
     var sessionDone: Bool
     var user: User

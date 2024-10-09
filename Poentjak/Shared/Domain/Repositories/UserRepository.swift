@@ -37,11 +37,16 @@ class DefaultUserRepository: UserRepositoryProtocol {
         }
         
         let docRef = firestore.collection("users").document(uid)
+        print(docRef)
         do {
             let user = try await docRef.getDocument(as: User.self)
+            
             return user
         } catch {
-            throw NSError(domain: "User not found", code: 404, userInfo: nil)
+            
+            print("Error fetching user: \(error)")
+
+            throw NSError(domain: "User not found in fetch current user emergency", code: 404, userInfo: nil)
         }
     }
 }

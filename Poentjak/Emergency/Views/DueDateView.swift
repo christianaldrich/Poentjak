@@ -16,7 +16,7 @@ struct DueDateView: View {
     
     
     var body: some View {
-        NavigationStack {
+        
             VStack {
                 Text("Tell us when you will be back")
                     .font(.title2)
@@ -79,7 +79,11 @@ struct DueDateView: View {
                 Button(action: {
                     Task {
                         await viewModel.createEmergencyHiking()
-                        navigateToEmergencyProcess = true // Trigger navigation after the task
+                        
+                        if viewModel.emergencyCreationSuccess {
+                            navigateToEmergencyProcess = true
+                        }
+                       // navigateToEmergencyProcess = true
                     }
                 }) {
                     Text("Start Tracking")
@@ -114,7 +118,7 @@ struct DueDateView: View {
             .padding()
         }
         
-    }
+    
 }
 
 #Preview {

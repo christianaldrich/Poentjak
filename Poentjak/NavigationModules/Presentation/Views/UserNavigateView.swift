@@ -49,7 +49,6 @@ struct UserNavigateView: View {
                 }
                 .padding()
             } else {
-
                 Button("Start Navigation") {
                     viewModel.isNavigating = true
                     viewModel.startTimer()

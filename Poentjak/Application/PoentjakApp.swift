@@ -21,11 +21,16 @@ struct PoentjakApp: App {
     
     var body: some Scene {
         WindowGroup {
+
+            let authViewModel = diContainer.makeAuthViewModel()
+            CheckingView(viewModel: authViewModel)
+//            RangerView()
+
 //            let authViewModel = diContainer.makeAuthViewModel()
 //            CheckingView(viewModel: authViewModel)
 //            RangerView()
 //            ActiveHikersView()
-            MountainsTracksView()
+
         }
     }
 }

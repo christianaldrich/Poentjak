@@ -17,9 +17,6 @@ class UserNavigateViewModel: ObservableObject {
     @Published var isOnTrack = false
     @Published var closestPointDistance: Double = 0.0
     @Published var dots: [MKCircle] = [] // Array to store user location dots
-    @Published var lastSignalLocation = CLLocationCoordinate2D()
-    @Published var batteryLevel: Int = 0
-    @Published var lastDate : Date? = nil
     
     private var timer: Timer?
     private var dotTimer: Timer? // Timer to draw dots
@@ -27,6 +24,8 @@ class UserNavigateViewModel: ObservableObject {
     let gpxParser = GPXParser()
     let locationManager = LocationManager()
     let networkManager = NetworkManager()
+    
+    let useCase = UserStatusUseCase(userRepository: DefaultUserRepository(), userStatusRepository: UserStatusRepository())
     
     init() {
         gpxParser.parseGPX(fileName: "Naturale")
@@ -64,7 +63,9 @@ class UserNavigateViewModel: ObservableObject {
         // Timer to add dots every 5 seconds if there's a connection
         dotTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
             if self.networkManager.isConnected{
-                self.addDot()
+                Task {
+                    await self.addDot()
+                }
             }
         }
     }
@@ -79,12 +80,20 @@ class UserNavigateViewModel: ObservableObject {
         dots.removeAll()
     }
     
-    func addDot() {
+    func addDot() async {
         guard let location = locationManager.lastKnownLocation else { return }
         let dot = MKCircle(center: location, radius: 5.0)
-        lastSignalLocation = location // update lastSignalUser
-        updateBatteryLevel() // update battery level
-        lastDate = Date() // update last Known Date
+        
+        let lastLocation = Location(latitude: location.latitude, longitude: location.longitude)
+        let lastSeen = Date()
+        let batteryHealth = updateBatteryLevel()
+    
+        do {
+            try await useCase.updateStats(batteryLevel: batteryHealth, lastSeen: lastSeen, lastLocation: lastLocation)
+        } catch {
+            print("error")
+        }
+        
         dots.append(dot)
     }
     
@@ -137,11 +146,13 @@ class UserNavigateViewModel: ObservableObject {
         }
     }
     
-    private func updateBatteryLevel() {
+    private func updateBatteryLevel() -> Int {
         UIDevice.current.isBatteryMonitoringEnabled = true
         let batteryLevelFloat = UIDevice.current.batteryLevel
         UIDevice.current.isBatteryMonitoringEnabled = false
-        batteryLevel = Int(batteryLevelFloat * 100) // Convert to percentage
+        let batteryHealth = Int(batteryLevelFloat * 100) // Convert to percentage
+        return batteryHealth
     }
+    
     
 }

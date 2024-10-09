@@ -17,7 +17,9 @@ struct AdminTabView: View {
     var body: some View {
         TabView(selection: $selectedTab){
             let authViewModel = DIContainer().makeAdminEmergencyViewModel()
-            AdminEmergencyDetailView(viewModel: authViewModel, emergencyRequestId: "0x78aq8JdEKlVvofzx1R")
+//            AdminEmergencyDetailView(viewModel: authViewModel, emergencyRequestId: "0x78aq8JdEKlVvofzx1R")
+//            RangerView()
+            ActiveEmergencyView(authViewModel: viewModel)
 
                 .tabItem {
                     Image(systemName: selectedTab == 0 ? "house.fill" : "house")
@@ -28,7 +30,8 @@ struct AdminTabView: View {
                 }
                 .tag(0)
             
-            ControlPanelView()
+//            ControlPanelView()
+            ActiveHikersView()
                 .tabItem {
                     Image(systemName: selectedTab == 1 ? "house.fill" : "house")
                         .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)

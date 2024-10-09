@@ -23,7 +23,7 @@ struct PoentjakApp: App {
         WindowGroup {
 
             let authViewModel = diContainer.makeAuthViewModel()
-            CheckingView(viewModel: authViewModel)
+            CheckingView(viewModel: authViewModel, viewModelEmergency:  EmergencyProsesViewModel())
 //            RangerView()
 
 //            let authViewModel = diContainer.makeAuthViewModel()

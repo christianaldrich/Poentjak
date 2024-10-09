@@ -12,13 +12,13 @@ class AdminEmergencyViewModel: ObservableObject {
     @Published var emergencyRequest: EmergencyRequest?
     @Published var availableRangers: [Ranger] = []
     @Published var selectedRangerIds: [String] = []
-    
-    private let startRescueUseCase: StartRescueUseCaseProtocol
-    private let addRangerUseCase: AddRangerUseCaseProtocol
 
-    init(startRescueUseCase: StartRescueUseCaseProtocol, addRangerUseCase: AddRangerUseCaseProtocol) {
+    private let startRescueUseCase: StartRescueUseCaseProtocol
+    private let rangerUseCase: RangerUseCaseProtocol
+
+    init(startRescueUseCase: StartRescueUseCaseProtocol, rangerUseCase: RangerUseCaseProtocol) {
         self.startRescueUseCase = startRescueUseCase
-        self.addRangerUseCase = addRangerUseCase
+        self.rangerUseCase = rangerUseCase
     }
 
     func loadEmergencyData(emergencyRequestId: String) async {
@@ -38,22 +38,49 @@ class AdminEmergencyViewModel: ObservableObject {
         do {
             try await startRescueUseCase.assignRangersToEmergency(emergencyRequest: emergencyRequest.id, rangerIds: rangerIds)
             await loadEmergencyData(emergencyRequestId: emergencyRequest.id)
-            
+
             selectedRangerIds.removeAll()
         } catch {
             print("Failed to assign rangers: \(error.localizedDescription)")
         }
     }
 
-    func addNewRanger(name: String, trackId: String) async {
-        let newRanger = Ranger(id: UUID().uuidString, name: name, available: true, trackId: trackId)
+    func addNewRanger(name: String) async {
+        guard let emergencyRequest = emergencyRequest else { return }
+
+        let newRanger = Ranger(id: "", name: name, available: true, trackId: emergencyRequest.user.trackId)
+
         do {
-            let addedRanger = try await addRangerUseCase.execute(newRanger)
+            let addedRanger = try await rangerUseCase.addRanger(newRanger)
             DispatchQueue.main.async {
                 self.availableRangers.append(addedRanger)
             }
         } catch {
             print("Failed to add new ranger: \(error.localizedDescription)")
+        }
+    }
+
+    func editRanger(_ ranger: Ranger) async {
+        do {
+            let updatedRanger = try await rangerUseCase.editRanger(ranger)
+            DispatchQueue.main.async {
+                if let index = self.availableRangers.firstIndex(where: { $0.id == ranger.id }) {
+                    self.availableRangers[index] = updatedRanger
+                }
+            }
+        } catch {
+            print("Failed to edit ranger: \(error.localizedDescription)")
+        }
+    }
+
+    func deleteRanger(_ ranger: Ranger) async {
+        do {
+            try await rangerUseCase.deleteRanger(ranger)
+            DispatchQueue.main.async {
+                self.availableRangers.removeAll { $0.id == ranger.id }
+            }
+        } catch {
+            print("Failed to delete ranger: \(error.localizedDescription)")
         }
     }
 }

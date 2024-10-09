@@ -19,7 +19,8 @@ struct CheckingView: View {
                 if viewModel.isAdmin {
                     AdminTabView(viewModel: viewModel)
                 } else {
-                    UserView(viewModel: viewModel)
+                    AdminTabView(viewModel: viewModel)
+                    //UserView(viewModel: viewModel)
                 }
             } else {
                 LoginView(viewModel: viewModel)

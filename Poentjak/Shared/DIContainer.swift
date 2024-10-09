@@ -28,11 +28,11 @@ class DIContainer {
             emergencyRequestRepository: emergencyRequestRepository,
             rangerRepository: rangerRepository
         )
-        let addRangerUseCase = AddRangerUseCase(repository: rangerRepository)
+        let RangerUseCase = RangerUseCase(repository: rangerRepository)
         
         return AdminEmergencyViewModel(
             startRescueUseCase: startRescueUseCase,
-            addRangerUseCase: addRangerUseCase
+            rangerUseCase: RangerUseCase
         )
     }
 }

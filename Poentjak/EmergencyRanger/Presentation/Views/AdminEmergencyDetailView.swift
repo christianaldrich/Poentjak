@@ -32,6 +32,16 @@ struct AdminEmergencyDetailView: View {
                 if emergencyRequest.assignedRangers.isEmpty {
                     Text("No rangers assigned.")
                         .foregroundColor(.red)
+                    
+                    Button(action: {
+                        showingModal.toggle()
+                    }) {
+                        Text("Assign Rangers")
+                    }
+                    .sheet(isPresented: $showingModal) {
+                        AssignRangersView(viewModel: viewModel)
+                    }
+                    
                 } else {
                     Text("Assigned Rangers:")
                         .font(.headline)

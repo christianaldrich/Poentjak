@@ -13,7 +13,7 @@ struct DueDateView: View {
     @State private var showDatePicker = false
     @State private var showTimePicker = false
     @State private var navigateToEmergencyProcess = false // State for navigation
-    
+    @State private var navigateToNavigate = false
     
     var body: some View {
         NavigationStack {
@@ -80,6 +80,7 @@ struct DueDateView: View {
                     Task {
                         await viewModel.createEmergencyHiking()
                         navigateToEmergencyProcess = true // Trigger navigation after the task
+                        navigateToNavigate = true
                     }
                 }) {
                     Text("Start Tracking")
@@ -92,8 +93,12 @@ struct DueDateView: View {
                 .padding(.top)
                 
                 // Use NavigationLink to navigate when the state changes
-                .navigationDestination(isPresented: $navigateToEmergencyProcess) {
-                    EmergencyProsesView()
+//                .navigationDestination(isPresented: $navigateToEmergencyProcess) {
+//                    EmergencyProsesView()
+//                }
+                
+                .navigationDestination(isPresented: $navigateToNavigate) {
+                    UserNavigateView()
                 }
                 
                 //                Button(action: {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct EmergencyProsesView: View {
    // @Environment(\.presentationMode) var presentationMode
@@ -16,8 +17,28 @@ struct EmergencyProsesView: View {
         
         VStack (alignment: .center){
             
-            Button("Top View"){
-                
+//            Button("Top View"){
+//                
+//            }
+            
+            if navigateViewModel.currentWaypointIndex < navigateViewModel.gpxParser.parsedWaypoints.count {
+                let currentWaypoint = navigateViewModel.gpxParser.parsedWaypoints[navigateViewModel.currentWaypointIndex]
+                if let eta = navigateViewModel.calculateETA(
+                    to: CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude),
+                    waypointElevation: currentWaypoint.elevation,
+                    userLocation: navigateViewModel.locationManager.lastKnownLocation ?? CLLocationCoordinate2D(),
+                    userElevation: navigateViewModel.locationManager.currentElevation,
+                    speed: navigateViewModel.locationManager.currentSpeed
+                ) {
+                    Text("\(currentWaypoint.name): ETA \(String(format: "%.1f", eta)) min")
+                        .padding()
+                } else {
+                    Text("\(currentWaypoint.name): N/A")
+                        .padding()
+                }
+            } else {
+                Text("No more waypoints.")
+                    .padding()
             }
             
             UserNavigateView(viewModel: navigateViewModel)

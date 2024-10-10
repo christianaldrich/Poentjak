@@ -12,13 +12,11 @@ import MapKit
 class UserNavigateViewModel: ObservableObject {
     @Published var region = MKCoordinateRegion()
     @Published var isNavigating = false
-    @Published var startTime: Date? = nil
-    @Published var elapsedTime: TimeInterval = 0.0
     @Published var isOnTrack = false
     @Published var closestPointDistance: Double = 0.0
     @Published var dots: [MKCircle] = [] // Array to store user location dots
+    @Published var currentWaypointIndex = 0 // Track the current waypoint
     
-    private var timer: Timer?
     private var dotTimer: Timer? // Timer to draw dots
     
     let gpxParser = GPXParser()
@@ -28,8 +26,13 @@ class UserNavigateViewModel: ObservableObject {
     let useCase = UserStatusUseCase(userRepository: DefaultUserRepository(), userStatusRepository: UserStatusRepository())
     
     init() {
-        gpxParser.parseGPX(fileName: "Naturale")
+        gpxParser.parseGPX(fileName: "Naturale-Warung")
         setupRegionUser()
+        
+        // Set up location update callback
+        locationManager.onLocationUpdate = { [weak self] in
+            self?.checkIfUserPassedWaypoint()  // Check if the user passed the waypoint
+        }
     }
 
     func setupRegionTrack() {
@@ -52,14 +55,6 @@ class UserNavigateViewModel: ObservableObject {
     }
 
     func startTimer() {
-        startTime = Date()
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if let startTime = self.startTime {
-                self.elapsedTime = Date().timeIntervalSince(startTime)
-                self.updateTrackStatus()
-            }
-        }
-        
         // Timer to add dots every 5 seconds if there's a connection
         dotTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
             if self.networkManager.isConnected{
@@ -71,12 +66,8 @@ class UserNavigateViewModel: ObservableObject {
     }
     
     func stopTimer() {
-        timer?.invalidate()
-        timer = nil
         dotTimer?.invalidate()
         dotTimer = nil
-        startTime = nil
-        elapsedTime = 0.0
         dots.removeAll()
     }
     
@@ -154,5 +145,19 @@ class UserNavigateViewModel: ObservableObject {
         return batteryHealth
     }
     
+    // Check if the user passed the current waypoint
+    func checkIfUserPassedWaypoint() {
+        guard currentWaypointIndex < gpxParser.parsedWaypoints.count else { return }
+
+        let currentWaypoint = gpxParser.parsedWaypoints[currentWaypointIndex]
+        if let userLocation = locationManager.lastKnownLocation {
+            let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
+
+            if distanceToWaypoint < 10.0 {  // Within 10 meters
+                // Move to the next waypoint
+                currentWaypointIndex += 1
+            }
+        }
+    }
     
 }

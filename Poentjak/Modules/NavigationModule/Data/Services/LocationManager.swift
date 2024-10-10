@@ -16,11 +16,13 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
     @Published var currentElevation: CLLocationDistance = 0.0 // Current elevation
     private var manager = CLLocationManager()
     private var previousLocation: CLLocation?
+    
+    var onLocationUpdate: (() -> Void)?  // Callback to notify location updates
 
     override init() {
         super.init()
         manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyBest
+        // manager.desiredAccuracy = kCLLocationAccuracyBest
         checkLocationAuthorization()
     }
 
@@ -56,6 +58,8 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
             totalDistance += distance
         }
         previousLocation = location
+        
+        onLocationUpdate?()  // Notify about location update
     }
     
     // New method to reset total distance

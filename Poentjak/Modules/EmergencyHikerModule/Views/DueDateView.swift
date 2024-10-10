@@ -14,10 +14,16 @@ struct DueDateView: View {
     @State private var showTimePicker = false
     @State private var navigateToEmergencyProcess = false // State for navigation
     @State private var navigateToTracking = false
+    @State var trackLocation: String
+    
+    /*@StateObject private var navigateViewModel = UserNavigateViewModel(fileName: "Naturale")*/
     
     var body: some View {
         
             VStack {
+                
+                Text("Track Name: \(trackLocation)")
+                
                 Text("Tell us when you will be back")
                     .font(.title2)
                     .bold()
@@ -98,7 +104,8 @@ struct DueDateView: View {
 //                }
                 
                 .navigationDestination(isPresented: $navigateToTracking) {
-                    UserNavigateView()
+                    
+                    UserNavigateView(viewModel: UserNavigateViewModel(fileName: trackLocation))
                 }
                 
                 //                Button(action: {
@@ -122,6 +129,6 @@ struct DueDateView: View {
     
 }
 
-#Preview {
-    DueDateView()
-}
+//#Preview {
+//    DueDateView()
+//}

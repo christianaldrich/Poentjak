@@ -15,7 +15,7 @@ struct TracksDetailView: View {
 //            Text("Name: \(track)")
             Text("\(track)")
             NavigationLink{
-                DueDateView()
+                DueDateView(trackLocation: track)
             }label: {
                 Text("Start Tracking")
             }

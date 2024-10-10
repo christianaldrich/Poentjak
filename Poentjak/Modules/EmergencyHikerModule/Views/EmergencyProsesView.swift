@@ -17,28 +17,29 @@ struct EmergencyProsesView: View {
         
         VStack (alignment: .center){
             
-//            Button("Top View"){
-//                
-//            }
-            
-            if navigateViewModel.currentWaypointIndex < navigateViewModel.gpxParser.parsedWaypoints.count {
-                let currentWaypoint = navigateViewModel.gpxParser.parsedWaypoints[navigateViewModel.currentWaypointIndex]
-                if let eta = navigateViewModel.calculateETA(
-                    to: CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude),
-                    waypointElevation: currentWaypoint.elevation,
-                    userLocation: navigateViewModel.locationManager.lastKnownLocation ?? CLLocationCoordinate2D(),
-                    userElevation: navigateViewModel.locationManager.currentElevation,
-                    speed: navigateViewModel.locationManager.currentSpeed
-                ) {
-                    Text("\(currentWaypoint.name): ETA \(String(format: "%.1f", eta)) min")
-                        .padding()
+            HStack{
+                if navigateViewModel.currentWaypointIndex < navigateViewModel.gpxParser.parsedWaypoints.count {
+                    let currentWaypoint = navigateViewModel.gpxParser.parsedWaypoints[navigateViewModel.currentWaypointIndex]
+                    if let eta = navigateViewModel.calculateETA(
+                        to: CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude),
+                        waypointElevation: currentWaypoint.elevation,
+                        userLocation: navigateViewModel.locationManager.lastKnownLocation ?? CLLocationCoordinate2D(),
+                        userElevation: navigateViewModel.locationManager.currentElevation,
+                        speed: navigateViewModel.locationManager.currentSpeed
+                    ) {
+                        Text("\(currentWaypoint.name): ETA \(String(format: "%.1f", eta)) min")
+                            .padding()
+                    } else {
+                        Text("\(currentWaypoint.name): N/A")
+                            .padding()
+                    }
                 } else {
-                    Text("\(currentWaypoint.name): N/A")
+                    Text("No more waypoints.")
                         .padding()
                 }
-            } else {
-                Text("No more waypoints.")
-                    .padding()
+            }
+            .onTapGesture {
+                print("Top view terpencet")
             }
             
             UserNavigateView(viewModel: navigateViewModel)
@@ -57,9 +58,9 @@ struct EmergencyProsesView: View {
             
 
             
-            Text("edit time")
-            
-            Text("SOS")
+//            Text("edit time")
+//            
+//            Text("SOS")
             
 //            Text("I am back at basecamp")
             Button("I am back at basecamp"){

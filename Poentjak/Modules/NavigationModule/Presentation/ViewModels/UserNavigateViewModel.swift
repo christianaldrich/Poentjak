@@ -26,7 +26,7 @@ class UserNavigateViewModel: ObservableObject {
     let useCase = UserStatusUseCase(userRepository: DefaultUserRepository(), userStatusRepository: UserStatusRepository())
     
     init() {
-        gpxParser.parseGPX(fileName: "Naturale-Warung")
+        gpxParser.parseGPX(fileName: "breeze-apple")
         setupRegionUser()
         
         // Set up location update callback

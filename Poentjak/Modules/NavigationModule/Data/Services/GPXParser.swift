@@ -11,6 +11,8 @@ import CoreLocation
 class GPXParser: NSObject, XMLParserDelegate {
     private var waypoints: [Waypoint] = []
     private var trackPoints: [CLLocationCoordinate2D] = []
+    private var waypointsPos: [Waypoint] = []
+    private var waypointsWarung: [Waypoint] = []
 
     private var currentElement = ""
     private var latitude: CLLocationDegrees?
@@ -24,6 +26,14 @@ class GPXParser: NSObject, XMLParserDelegate {
 
     var parsedTrack: Track? {
         return trackPoints.isEmpty ? nil : Track(points: trackPoints)
+    }
+    
+    var parsedWaypointsWarung: [Waypoint] {
+        return waypointsWarung
+    }
+    
+    var parsedWaypointsPos: [Waypoint] {
+        return waypointsPos
     }
 
     // Start parsing the GPX file
@@ -64,7 +74,15 @@ class GPXParser: NSObject, XMLParserDelegate {
         if elementName == "wpt" {
             if let lat = latitude, let lon = longitude {
                 let waypoint = Waypoint(latitude: lat, longitude: lon, elevation: elevation, name: waypointName)
-                waypoints.append(waypoint)
+                
+                // Check if the waypoint name contains "Warung"
+                if waypointName.localizedCaseInsensitiveContains("Warung") {
+                    waypointsWarung.append(waypoint)
+                } else {
+                    waypointsPos.append(waypoint)
+                }
+                
+                waypoints.append(waypoint) // Append to the main waypoints array
             }
             resetWaypointData()
         } else if elementName == "trkpt" {

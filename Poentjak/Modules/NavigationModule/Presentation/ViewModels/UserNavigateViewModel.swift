@@ -12,12 +12,23 @@ import MapKit
 class UserNavigateViewModel: ObservableObject {
     @Published var region = MKCoordinateRegion()
     @Published var isNavigating = false
-    @Published var isOnTrack = false
     @Published var closestPointDistance: Double = 0.0
     @Published var dots: [MKCircle] = [] // Array to store user location dots
     @Published var currentWaypointIndex = 0 // Track the current waypoint
+    @Published var isReverseNavigation = false // New state to track reverse navigation
+    @Published var isSOS = true
     
     private var dotTimer: Timer? // Timer to draw dots
+    
+    var nearestWarung: Waypoint? {
+        guard let userLocation = locationManager.lastKnownLocation else { return nil }
+        return closestPointOnTrack(userLocation: userLocation, track: gpxParser.parsedWaypointsWarung.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) })
+            .flatMap { warungLocation in
+                gpxParser.parsedWaypointsWarung.first { warung in
+                    warung.latitude == warungLocation.latitude && warung.longitude == warungLocation.longitude
+                }
+            }
+    }
     
     let gpxParser = GPXParser()
     let locationManager = LocationManager()
@@ -85,16 +96,9 @@ class UserNavigateViewModel: ObservableObject {
             print("error")
         }
         
-        dots.append(dot)
-    }
-    
-    // Update track status (on/off track)
-    private func updateTrackStatus() {
-        if let userLocation = locationManager.lastKnownLocation {
-            if let closestPoint = closestPointOnTrack(userLocation: userLocation, track: gpxParser.parsedTrack?.points ?? []) {
-                closestPointDistance = distanceBetween(userLocation, closestPoint)
-                isOnTrack = closestPointDistance <= 5.0
-            }
+        // Ensure that the UI update happens on the main thread
+        DispatchQueue.main.async {
+            self.dots.append(dot)
         }
     }
     
@@ -146,16 +150,49 @@ class UserNavigateViewModel: ObservableObject {
     }
     
     // Check if the user passed the current waypoint
+//    func checkIfUserPassedWaypoint() {
+//        guard currentWaypointIndex < gpxParser.parsedWaypoints.count else { return }
+//
+//        let currentWaypoint = gpxParser.parsedWaypoints[currentWaypointIndex]
+//        if let userLocation = locationManager.lastKnownLocation {
+//            let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
+//
+//            if distanceToWaypoint < 15.0 {  // Within 15 meters
+//                // Move to the next waypoint
+//                currentWaypointIndex += 1
+//            }
+//        }
+//    }
+    
+    // Modified checkIfUserPassedWaypoint to handle reverse logic
     func checkIfUserPassedWaypoint() {
-        guard currentWaypointIndex < gpxParser.parsedWaypoints.count else { return }
-
+        guard !isReverseNavigation else {
+            if currentWaypointIndex > 0 {
+                let currentWaypoint = gpxParser.parsedWaypoints[currentWaypointIndex]
+                if let userLocation = locationManager.lastKnownLocation {
+                    let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
+                    
+                    if distanceToWaypoint < 15.0 {
+                        currentWaypointIndex -= 1 // Move to previous waypoint
+                    }
+                }
+            }
+            return
+        }
+        
+        // Forward navigation logic
+        guard currentWaypointIndex < gpxParser.parsedWaypoints.count else {
+            isReverseNavigation = true // Start reverse journey
+            currentWaypointIndex = gpxParser.parsedWaypoints.count - 1
+            return
+        }
+        
         let currentWaypoint = gpxParser.parsedWaypoints[currentWaypointIndex]
         if let userLocation = locationManager.lastKnownLocation {
             let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
-
-            if distanceToWaypoint < 10.0 {  // Within 10 meters
-                // Move to the next waypoint
-                currentWaypointIndex += 1
+            
+            if distanceToWaypoint < 15.0 {
+                currentWaypointIndex += 1 // Move to next waypoint
             }
         }
     }

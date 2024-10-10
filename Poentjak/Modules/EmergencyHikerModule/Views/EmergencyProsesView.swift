@@ -9,36 +9,84 @@ import SwiftUI
 import CoreLocation
 
 struct EmergencyProsesView: View {
-   // @Environment(\.presentationMode) var presentationMode
+    // @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel = EmergencyProsesViewModel()
     @StateObject var navigateViewModel = UserNavigateViewModel()
     
     var body: some View {
         NavigationStack{
-        
-        VStack (alignment: .center){
             
+            VStack (alignment: .center){
+                
                 NavigationLink(destination: DetailPostView(viewModel: navigateViewModel)) { // Navigate to DetailPostView when tapped
-                    HStack{
-                        if navigateViewModel.currentWaypointIndex < navigateViewModel.gpxParser.parsedWaypoints.count {
-                            let currentWaypoint = navigateViewModel.gpxParser.parsedWaypoints[navigateViewModel.currentWaypointIndex]
-                            if let eta = navigateViewModel.calculateETA(
-                                to: CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude),
-                                waypointElevation: currentWaypoint.elevation,
-                                userLocation: navigateViewModel.locationManager.lastKnownLocation ?? CLLocationCoordinate2D(),
-                                userElevation: navigateViewModel.locationManager.currentElevation,
-                                speed: navigateViewModel.locationManager.currentSpeed
-                            ) {
-                                Text("\(currentWaypoint.name): ETA \(String(format: "%.1f", eta)) min")
-                                    .padding()
+                    HStack {
+                        if !navigateViewModel.isSOS{
+                            if !navigateViewModel.isReverseNavigation {
+                                if navigateViewModel.currentWaypointIndex < navigateViewModel.gpxParser.parsedWaypoints.count {
+                                    let currentWaypoint = navigateViewModel.gpxParser.parsedWaypoints[navigateViewModel.currentWaypointIndex]
+                                    if let eta = navigateViewModel.calculateETA(
+                                        to: CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude),
+                                        waypointElevation: currentWaypoint.elevation,
+                                        userLocation: navigateViewModel.locationManager.lastKnownLocation ?? CLLocationCoordinate2D(),
+                                        userElevation: navigateViewModel.locationManager.currentElevation,
+                                        speed: navigateViewModel.locationManager.currentSpeed
+                                    ) {
+                                        Text("\(currentWaypoint.name): ETA \(String(format: "%.1f", eta)) min")
+                                            .padding()
+                                    } else {
+                                        Text("\(currentWaypoint.name): N/A")
+                                            .padding()
+                                    }
+                                } else {
+                                    Text("Reversing Waypoints...")
+                                        .padding()
+                                }
                             } else {
-                                Text("\(currentWaypoint.name): N/A")
-                                    .padding()
+                                // Show ETA from the last waypoint in reverse
+                                if navigateViewModel.currentWaypointIndex >= 0 {
+                                    let currentWaypoint = navigateViewModel.gpxParser.parsedWaypoints[navigateViewModel.currentWaypointIndex]
+                                    if let eta = navigateViewModel.calculateETA(
+                                        to: CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude),
+                                        waypointElevation: currentWaypoint.elevation,
+                                        userLocation: navigateViewModel.locationManager.lastKnownLocation ?? CLLocationCoordinate2D(),
+                                        userElevation: navigateViewModel.locationManager.currentElevation,
+                                        speed: navigateViewModel.locationManager.currentSpeed
+                                    ) {
+                                        Text("\(currentWaypoint.name): ETA \(String(format: "%.1f", eta)) min")
+                                            .padding()
+                                    } else {
+                                        Text("\(currentWaypoint.name): N/A")
+                                            .padding()
+                                    }
+                                } else {
+                                    Text("Reached basecamp!")
+                                        .padding()
+                                }
                             }
                         } else {
-                            Text("No more waypoints.")
-                                .padding()
+                            // Show the nearest Warung and ETA to get there
+                            if let nearestWarung = navigateViewModel.nearestWarung {
+                                let eta = navigateViewModel.calculateETA(
+                                    to: CLLocationCoordinate2D(latitude: nearestWarung.latitude, longitude: nearestWarung.longitude),
+                                    waypointElevation: nearestWarung.elevation,
+                                    userLocation: navigateViewModel.locationManager.lastKnownLocation ?? CLLocationCoordinate2D(),
+                                    userElevation: navigateViewModel.locationManager.currentElevation,
+                                    speed: navigateViewModel.locationManager.currentSpeed
+                                )
+                                
+                                if let eta = eta {
+                                    Text("Nearest Warung: \(nearestWarung.name), ETA: \(String(format: "%.1f", eta)) min")
+                                        .padding()
+                                } else {
+                                    Text("Nearest Warung: \(nearestWarung.name), ETA: N/A")
+                                        .padding()
+                                }
+                            } else {
+                                Text("No Warung found nearby")
+                                    .padding()
+                            }
                         }
+
                     }
                 }
             }
@@ -52,9 +100,9 @@ struct EmergencyProsesView: View {
                     navigateViewModel.stopTimer()
                     navigateViewModel.locationManager.resetTotalDistance()
                     
-//                    print("\(viewModel.sessionId)")
-//                               presentationMode.wrappedValue.dismiss()
-                           
+                    //                    print("\(viewModel.sessionId)")
+                    //                               presentationMode.wrappedValue.dismiss()
+                    
                 }
             }
             

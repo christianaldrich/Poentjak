@@ -10,7 +10,8 @@ import SwiftUI
 struct EmergencyProsesView: View {
    // @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel = EmergencyProsesViewModel()
-    @StateObject var navigateViewModel = UserNavigateViewModel()
+    @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
+    
     
     var body: some View {
         
@@ -33,6 +34,7 @@ struct EmergencyProsesView: View {
 //                .padding()
 //            Text("\(viewModel.sessionId)")
 //                .padding()
+//            MapView()
             
 
             

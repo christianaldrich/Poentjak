@@ -68,8 +68,10 @@ struct EmergencyProsesView: View {
         .onAppear{
             
             viewModel.fetchEmergency()
+            viewModel.startTimer()
             navigateViewModel.isNavigating = true
             navigateViewModel.startTimer()
+            
         }
     }
 }

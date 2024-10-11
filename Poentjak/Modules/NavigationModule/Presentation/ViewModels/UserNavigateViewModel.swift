@@ -16,7 +16,7 @@ class UserNavigateViewModel: ObservableObject {
     @Published var dots: [MKCircle] = [] // Array to store user location dots
     @Published var currentWaypointIndex = 0 // Track the current waypoint
     @Published var isReverseNavigation = false // New state to track reverse navigation
-    @Published var isSOS = true
+    @Published var isSOS = false
     
     private var dotTimer: Timer? // Timer to draw dots
     
@@ -37,7 +37,7 @@ class UserNavigateViewModel: ObservableObject {
     let useCase = UserStatusUseCase(userRepository: DefaultUserRepository(), userStatusRepository: UserStatusRepository())
     
     init() {
-        gpxParser.parseGPX(fileName: "Naturale-Warung")
+        gpxParser.parseGPX(fileName: "breeze-apple")
         setupRegionUser()
         
         // Set up location update callback
@@ -132,6 +132,7 @@ class UserNavigateViewModel: ObservableObject {
         // Calculate 3D distance using Pythagorean theorem
         let totalDistance = sqrt(pow(horizontalDistance, 2) + pow(elevationDifference, 2))
         
+        print("calculateETA Called")
         // Calculate ETA if speed is greater than 0
         if speed > 0 {
             let etaInSeconds = totalDistance / speed  // ETA in seconds based on total distance
@@ -139,6 +140,7 @@ class UserNavigateViewModel: ObservableObject {
         } else {
             return nil  // If speed is 0, return nil
         }
+        
     }
     
     private func updateBatteryLevel() -> Int {

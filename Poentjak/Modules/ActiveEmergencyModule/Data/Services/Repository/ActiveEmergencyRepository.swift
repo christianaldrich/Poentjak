@@ -70,6 +70,23 @@ struct ActiveEmergencyRepository{
         
     }
     
+    func updateEmergencyRequestToOverdue(id: String) async throws {
+        
+        let docRef = db.collection("emergencyRequests").document(id)
+        do {
+            try await docRef.updateData([
+                "emergencyType": "overdue"
+            ])
+            
+        }
+        catch {
+            print(error)
+            
+        }
+    }
+    
+    
+    
     
     
 }

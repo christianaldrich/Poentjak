@@ -56,7 +56,11 @@ struct ActiveEmergencyView: View {
             
             .onAppear {
                 viewModel.fetchDangerHiker()
+                viewModel.startTimer()
             }
+            .onDisappear {
+                            viewModel.stopTimer()
+                        }
             .background(
                 NavigationLink(
                     destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel() ,emergencyRequestId: idContainer),

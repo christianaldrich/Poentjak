@@ -17,6 +17,8 @@ class UserViewModel: ObservableObject{
     
     private let repo = FirebaseDatabaseDS()
     private let activeEmRepo = ActiveEmergencyRepository()
+    private var timer: Timer?
+    
     func fetchEmergency(){
         repo.fetchUserInDanger() { [weak self] user in
             DispatchQueue.main.async {
@@ -50,5 +52,34 @@ class UserViewModel: ObservableObject{
 //            }
 //        }
 //    }
+    
+    func startTimer() {
+            stopTimer()
+            timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+                guard let self = self else { return }
+                
+                Task {
+                    for hiker in self.hiker {
+                        if hiker.dueDate < Date() && hiker.emergencyStatus != "overdue" {
+                            do {
+                                try await self.activeEmRepo.updateEmergencyRequestToOverdue(id: hiker.id)
+                                print("Updated hiker \(hiker.id) to overdue")
+                            } catch {
+                                print("Error updating hiker \(hiker.id) to overdue: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        func stopTimer() {
+            timer?.invalidate()
+            timer = nil
+        }
+        
+        deinit {
+            stopTimer()
+        }
     
 }

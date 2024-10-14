@@ -18,7 +18,7 @@ struct CheckingView: View {
                             // LoadingView()
             }
             else if viewModel.userSession != nil {
-                if viewModelEmergency.emergencySessionActive {
+                if viewModelEmergency.emergencySessionActive { // harus cek sudah pilih tanggal belum 
                     EmergencyProsesView()
                 }
                 else if viewModel.isAdmin {

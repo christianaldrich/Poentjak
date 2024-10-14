@@ -28,7 +28,7 @@ struct EmergencyProsesView: View {
     
     var body: some View {
         
-        NavigationStack(path: $navigationManager.navigationPath) {
+//        NavigationStack(path: $navigationManager.navigationPath) {
             VStack {
                 
                 ZStack (){
@@ -52,6 +52,9 @@ struct EmergencyProsesView: View {
                             }
                             .padding()
                             
+                            //INSERT NAVIGATION LINK HERE
+                            // buat yang di bawah
+                            
                             HStack {
                                 Text("Due date")
                                     .font(.headline)
@@ -62,11 +65,11 @@ struct EmergencyProsesView: View {
                                     .font(.subheadline)
                             }
                             .padding()
-                            .onTapGesture {
-                                navigationManager.navigationPath.append(DestinationView.editDueDate)
-//                                navigationManager.navigationPath.append("EditDueDateView")
-                                //                                navigateToDueDate = true // Trigger navigation
-                            }
+//                            .onTapGesture {
+//                                navigationManager.navigationPath.append(DestinationView.editDueDate)
+////                                navigationManager.navigationPath.append("EditDueDateView")
+//                                //                                navigateToDueDate = true // Trigger navigation
+//                            }
                             
                             HStack{
                                 Text("name: \(viewModel.userName)")
@@ -145,18 +148,18 @@ struct EmergencyProsesView: View {
                 
                 
             }
-            .navigationDestination(for: DestinationView.self) { destination in
-                switch destination {
-                case .editDueDate:
-                    EditDueDateView(viewModel: viewModel)
-                case .chooseEmergency:
-                    ChooseEmergencyTypeView(viewModel: viewModel)
-                case .alertGuide:
-                    AlertGuideView(viewModel: viewModel)
-                case .countDown:
-                    CountDownView(viewModel: viewModel)
-                }
-            }
+//            .navigationDestination(for: DestinationView.self) { destination in
+//                switch destination {
+//                case .editDueDate:
+//                    EditDueDateView(viewModel: viewModel)
+//                case .chooseEmergency:
+//                    ChooseEmergencyTypeView(viewModel: viewModel)
+//                case .alertGuide:
+//                    AlertGuideView(viewModel: viewModel)
+//                case .countDown:
+//                    CountDownView(viewModel: viewModel)
+//                }
+//            }
             //            .navigationDestination(for: String.self) { destination in
             //                if destination == "EditDueDateView" {
             //                    EditDueDateView(viewModel: viewModel)
@@ -172,13 +175,13 @@ struct EmergencyProsesView: View {
             }
             
             
-        }
-        .environmentObject(navigationManager)
-        .onAppear{
-            viewModel.fetchEmergency()
-            navigateViewModel.isNavigating = true
-            navigateViewModel.startTimer()
-        }
+//        }
+//        .environmentObject(navigationManager)
+//        .onAppear{
+//            viewModel.fetchEmergency()
+//            navigateViewModel.isNavigating = true
+//            navigateViewModel.startTimer()
+//        }
         
     }
 }

@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestore
 
 class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
-    
     private let firestore = Firestore.firestore()
     
     func createEmergency(with emergency: EmergencyRequest) async throws {
@@ -54,6 +53,74 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
         
         
         
+    }
+    
+    
+    func updateDueDate(sessionId: String, dueDate: Date) async throws {
+        let documentRef = firestore.collection("sessions").document(sessionId)
+        
+        do{
+            try await documentRef.updateData([
+                "dueDate": dueDate
+            ])
+            print("Due Date successfully updated, in repo")
+        } catch {
+            print("Error updating due date in repo: \(error)")
+            throw error
+        }
+        
+    }
+    
+    func updateStatusTypeEmergency(sessionId: String, emergencyStatus: String, emergencyType: String) async throws {
+        let documentRef = firestore.collection("sessions").document(sessionId)
+        
+        do{
+            try await documentRef.updateData([
+                "emergencyStatus": emergencyStatus,
+                "emergencyType": emergencyType
+
+                
+            ])
+            print("successfully updated status & type, in repo")
+        } catch {
+            print("Error update status & repo in repo: \(error)")
+            throw error
+        }
+    }
+    
+    
+    func fetchEmergency(userId: String, completion: @escaping (Result<EmergencyRequest?, any Error>) -> Void) {
+        let collectionRef = firestore.collection("sessions")
+        
+        collectionRef
+            .whereField("user.id", isEqualTo: userId)
+            .whereField("sessionDone", isEqualTo: false)
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let document = querySnapshot?.documents.first else {
+                    print("No documents found for userId \(userId)")
+                    completion(.success(nil)) // Return nil if no document is found
+                    return
+                }
+                
+                do {
+                    // Decode the Firestore document to EmergencyRequestDTO
+                    let dto = try document.data(as: EmergencyRequestDTO.self)
+                    
+                    // Map the DTO to your domain model
+                    let emergency = EmergencyRequestMapper.mapToDomain(dto)
+                    
+                    // Return the domain model
+                    completion(.success(emergency))
+                } catch {
+                    print("Error decoding EmergencyRequestDTO: \(error)")
+                    completion(.failure(error))
+                }
+            }
     }
     
     //    func updateDueDate(userId: String, dueDate: Date) async throws {
@@ -103,42 +170,6 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
     //                print("Document with userId \(userId) has been deleted.")
     //            }
     //        }
-    
-    
-    func fetchEmergency(userId: String, completion: @escaping (Result<EmergencyRequest?, any Error>) -> Void) {
-        let collectionRef = firestore.collection("sessions")
-        
-        collectionRef
-            .whereField("user.id", isEqualTo: userId)
-            .whereField("sessionDone", isEqualTo: false)
-            .addSnapshotListener { querySnapshot, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let document = querySnapshot?.documents.first else {
-                    print("No documents found for userId \(userId)")
-                    completion(.success(nil)) // Return nil if no document is found
-                    return
-                }
-                
-                do {
-                    // Decode the Firestore document to EmergencyRequestDTO
-                    let dto = try document.data(as: EmergencyRequestDTO.self)
-                    
-                    // Map the DTO to your domain model
-                    let emergency = EmergencyRequestMapper.mapToDomain(dto)
-                    
-                    // Return the domain model
-                    completion(.success(emergency))
-                } catch {
-                    print("Error decoding EmergencyRequestDTO: \(error)")
-                    completion(.failure(error))
-                }
-            }
-    }
-    
     
     
     //        func fetchEmergency(userId: String, completion: @escaping (Result<EmergencyModel?, any Error>) -> Void) {

@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
-   
+    
     
     private let userRepository: UserRepositoryProtocol
     private let emergencyRepository: EmergencyRepositoryProtocol
@@ -43,9 +43,28 @@ class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
             try await emergencyRepository.updateSessionDone(userId: user.id, sessionDone: sessionDone)
         } catch {
             print("Failed to update session done: \(error.localizedDescription)")
-            throw error // Re-throw if you want to handle it further up the call stack
+            throw error
         }
 
+    }
+    
+    func updateDueDate(sessionId: String, dueDate: Date) async throws {
+        do{
+            try await emergencyRepository.updateDueDate(sessionId: sessionId, dueDate: dueDate)
+        } catch {
+            print("Failed to update due date in use case: \(error.localizedDescription)")
+            throw error
+        }
+    }
+    
+    func updateStatusTypeEmergency(sessionId: String, emergencyType: String) async throws {
+        let emergencyStatus: EmergencyStatus = .danger
+        do{
+            try await emergencyRepository.updateStatusTypeEmergency(sessionId: sessionId, emergencyStatus: emergencyStatus.rawValue, emergencyType: emergencyType)
+        } catch {
+            print("Failed to update status & type in use case: \(error.localizedDescription)")
+            throw error
+        }
     }
     
 //    func updateDueDate(dueDate: Date) async throws {

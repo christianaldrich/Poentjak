@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct CountDownView: View {
-    @EnvironmentObject var navigationManager: NavigationManager
+//    @EnvironmentObject var navigationManager: NavigationManager
     @StateObject var viewModel: EmergencyProsesViewModel
+    
+    @State var sessionId: String?
+    @State var emergencyType: String?
+    
     
     
     var body: some View {
         VStack{
+            
+            Text("\(sessionId ?? "asdfasd")")
+            Text("\(emergencyType ?? "kontol")")
+            
             Text("This is Count Down View")
             Text("This is the emergency type you chose: \(viewModel.emergencyType)")
                 .font(.title)
@@ -48,7 +56,7 @@ struct CountDownView: View {
             
             Button("Cancel") {
                 viewModel.cancelCountDown()
-                navigationManager.popToRoot()
+//                navigationManager.popToRoot()
                 
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
@@ -58,17 +66,24 @@ struct CountDownView: View {
             .padding()
             
             
+            
+            NavigationLink(destination: EmergencyProsesView(), isActive: $viewModel.backToProses) {
+                EmptyView()
+            }
+            
+            
         }
         .onAppear{
-            viewModel.startCountDown(navigationManager: navigationManager)
+            viewModel.fetchEmergency()
+            viewModel.startCountDown(sessionId: sessionId ?? "unknown session id", emergencyType: emergencyType ?? "celaka")
         }
         .navigationBarBackButtonHidden(true)
         
     }
 }
 
-#Preview {
-    CountDownView(viewModel: EmergencyProsesViewModel())
-        .environmentObject(NavigationManager())
-    
-}
+//#Preview {
+//    CountDownView(viewModel: EmergencyProsesViewModel())
+//        .environmentObject(NavigationManager())
+//    
+//}

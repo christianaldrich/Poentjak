@@ -18,6 +18,7 @@ struct EmergencyProsesView: View {
     // @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel = EmergencyProsesViewModel()
     @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
+    @State var tracklocation: String?
     
     
     //    @State private var showSOSView = false
@@ -36,7 +37,8 @@ struct EmergencyProsesView: View {
                     // Map View always in the background
                     //                                                        UserNavigateView(viewModel: navigateViewModel)
                     //                        .zIndex(0)
-                    DummyMapView()
+//                    DummyMapView()
+                    MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: tracklocation)
                         .zIndex(0)
                     
                     VStack {
@@ -98,10 +100,10 @@ struct EmergencyProsesView: View {
                     }
                     
                     // SOS View that slides in from the left
-                    SOSButtonView(navigationPath: $navigationManager.navigationPath)
-                        .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
-                        .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
-                        .zIndex(2)
+//                    SOSButtonView()
+//                        .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
+//                        .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
+//                        .zIndex(2)
                 }
                 
                 //bottom view
@@ -129,12 +131,9 @@ struct EmergencyProsesView: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            // Toggle SOS View with animation
-                            withAnimation {
-                                viewModel.showSOSButtonView.toggle()
-                            }
-                        }) {
+                        NavigationLink{
+                            SOSButtonView(sessionId: viewModel.sessionId)
+                        }label: {
                             Text(viewModel.showSOSButtonView ? "Map" : "SOS")
                                 .frame(maxWidth: .infinity)
                                 .padding()
@@ -142,6 +141,20 @@ struct EmergencyProsesView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
                         }
+                        
+//                        Button(action: {
+//                            // Toggle SOS View with animation
+//                            withAnimation {
+//                                viewModel.showSOSButtonView.toggle()
+//                            }
+//                        }) {
+//                            Text(viewModel.showSOSButtonView ? "Map" : "SOS")
+//                                .frame(maxWidth: .infinity)
+//                                .padding()
+//                                .background(viewModel.showSOSButtonView ? Color.blue : Color.red)
+//                                .foregroundColor(.white)
+//                                .cornerRadius(8)
+//                        }
                     }
                     .padding()
                     
@@ -162,7 +175,7 @@ struct EmergencyProsesView: View {
 //                    CountDownView(viewModel: viewModel)
 
             
-            UserNavigateView(viewModel: navigateViewModel)
+//            UserNavigateView(viewModel: navigateViewModel)
 //                .frame(width: 700, height: 700)
             
 //            Text("This is hiking session")
@@ -178,24 +191,24 @@ struct EmergencyProsesView: View {
 //            MapView()
             
 
-            
-            Text("edit time")
-            
-            Text("SOS")
-            
-//            Text("I am back at basecamp")
-            Button("I am back at basecamp"){
-                Task{
-                    await viewModel.updateSessionDone()
-                    navigateViewModel.isNavigating = false
-                    navigateViewModel.stopTimer()
-                    navigateViewModel.locationManager.resetTotalDistance()
-                    
-//                    print("\(viewModel.sessionId)")
-//                               presentationMode.wrappedValue.dismiss()
-                           
-                }
-            }
+//            
+//            Text("edit time")
+//            
+//            Text("SOS")
+//            
+////            Text("I am back at basecamp")
+//            Button("I am back at basecamp"){
+//                Task{
+//                    await viewModel.updateSessionDone()
+//                    navigateViewModel.isNavigating = false
+//                    navigateViewModel.stopTimer()
+//                    navigateViewModel.locationManager.resetTotalDistance()
+//                    
+////                    print("\(viewModel.sessionId)")
+////                               presentationMode.wrappedValue.dismiss()
+//                           
+//                }
+//            }
             
 //            Button("Delete Emergency") {
 //                Task {
@@ -215,16 +228,17 @@ struct EmergencyProsesView: View {
             //            }
             .onAppear{
                 viewModel.deleteAnimation = false
+                navigateViewModel.setupRegionUser()
             }
             
             
 //        }
 //        .environmentObject(navigationManager)
-//        .onAppear{
-//            viewModel.fetchEmergency()
-//            navigateViewModel.isNavigating = true
-//            navigateViewModel.startTimer()
-//        }
+        .onAppear{
+            viewModel.fetchEmergency()
+            navigateViewModel.isNavigating = true
+            navigateViewModel.startTimer()
+        }
         
     }
 }

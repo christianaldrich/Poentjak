@@ -17,7 +17,8 @@ enum DestinationView {
 struct EmergencyProsesView: View {
     // @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel = EmergencyProsesViewModel()
-    @StateObject var navigateViewModel = UserNavigateViewModel()
+    @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
+    
     
     //    @State private var showSOSView = false
     @State private var navigateToDueDate = false // State to navigate to EditDueDateView
@@ -148,6 +149,7 @@ struct EmergencyProsesView: View {
                 
                 
             }
+
 //            .navigationDestination(for: DestinationView.self) { destination in
 //                switch destination {
 //                case .editDueDate:
@@ -158,6 +160,47 @@ struct EmergencyProsesView: View {
 //                    AlertGuideView(viewModel: viewModel)
 //                case .countDown:
 //                    CountDownView(viewModel: viewModel)
+
+            
+            UserNavigateView(viewModel: navigateViewModel)
+//                .frame(width: 700, height: 700)
+            
+//            Text("This is hiking session")
+//            
+//            Text(viewModel.status)
+//                .padding()
+//            Text(viewModel.userName)
+//                .padding()
+//            Text("\(viewModel.dueDate)")
+//                .padding()
+//            Text("\(viewModel.sessionId)")
+//                .padding()
+//            MapView()
+            
+
+            
+            Text("edit time")
+            
+            Text("SOS")
+            
+//            Text("I am back at basecamp")
+            Button("I am back at basecamp"){
+                Task{
+                    await viewModel.updateSessionDone()
+                    navigateViewModel.isNavigating = false
+                    navigateViewModel.stopTimer()
+                    navigateViewModel.locationManager.resetTotalDistance()
+                    
+//                    print("\(viewModel.sessionId)")
+//                               presentationMode.wrappedValue.dismiss()
+                           
+                }
+            }
+            
+//            Button("Delete Emergency") {
+//                Task {
+//                    await viewModel.deleteEmergency()
+//                    presentationMode.wrappedValue.dismiss()
 //                }
 //            }
             //            .navigationDestination(for: String.self) { destination in

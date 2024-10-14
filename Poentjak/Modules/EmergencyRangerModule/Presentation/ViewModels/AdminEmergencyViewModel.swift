@@ -21,15 +21,17 @@ class AdminEmergencyViewModel: ObservableObject {
         self.rangerUseCase = rangerUseCase
     }
 
-    func loadEmergencyData(emergencyRequestId: String) async {
-        do {
-            let (request, rangers) = try await startRescueUseCase.fetchEmergencyRequest(emergencyRequest: emergencyRequestId)
-            DispatchQueue.main.async {
-                self.emergencyRequest = request
-                self.availableRangers = rangers
+    func loadEmergencyData(emergencyRequestId: String) {
+        startRescueUseCase.fetchEmergencyRequest(emergencyRequest: emergencyRequestId) { result in
+            switch result {
+            case .success(let (request, rangers)):
+                DispatchQueue.main.async {
+                    self.emergencyRequest = request
+                    self.availableRangers = rangers
+                }
+            case .failure(let error):
+                print("Failed to load data: \(error.localizedDescription)")
             }
-        } catch {
-            print("Failed to load data: \(String(describing: error))")
         }
     }
 
@@ -37,7 +39,7 @@ class AdminEmergencyViewModel: ObservableObject {
         guard let emergencyRequest = emergencyRequest else { return }
         do {
             try await startRescueUseCase.assignRangersToEmergency(emergencyRequest: emergencyRequest.id, rangerIds: rangerIds)
-            await loadEmergencyData(emergencyRequestId: emergencyRequest.id)
+            loadEmergencyData(emergencyRequestId: emergencyRequest.id)
 
             selectedRangerIds.removeAll()
         } catch {

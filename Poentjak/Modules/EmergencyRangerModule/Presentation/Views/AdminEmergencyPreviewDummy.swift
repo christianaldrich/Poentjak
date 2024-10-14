@@ -42,7 +42,7 @@ struct AdminEmergencyPreviewDummy: View {
                         }
                         
                         Text("Arrival: Sun 6 Oct 17.00")
-                            .font(.footnote)
+                            .font(.footnoteEmphasizedItalic)
                         
                         Text("HYPOTHERMIA")
                             .foregroundStyle(.blue)

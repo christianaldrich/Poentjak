@@ -29,7 +29,7 @@ struct TracksDetailView: View {
 //            .padding(.top)
             
             NavigationLink{
-                DueDateView()
+                DueDateView(trackLocation: track)
             }label: {
                 Text("Start Tracking")
             }

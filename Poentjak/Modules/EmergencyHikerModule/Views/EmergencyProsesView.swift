@@ -107,6 +107,7 @@ struct EmergencyProsesView: View {
             }
             
         }
+        //TopETAView(navigateViewModel: navigateViewModel)
         .onAppear{
             viewModel.fetchEmergency()
             navigateViewModel.isNavigating = true

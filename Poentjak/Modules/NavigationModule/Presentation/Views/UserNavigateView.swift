@@ -26,10 +26,15 @@ struct UserNavigateView: View {
 //                            .padding()
 //                    }
 //                }
+            
+            ForEach(viewModel.etaValues, id: \.self) { etaString in
+                Text(etaString)
+                    .padding()
+            }
         }
-        .onAppear {
-            viewModel.setupRegionUser()
-        }
+//        .onAppear {
+//            viewModel.setupRegionUser()
+//        }
     }
 }
 

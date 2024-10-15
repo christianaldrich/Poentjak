@@ -17,6 +17,7 @@ class UserNavigateViewModel: ObservableObject {
     @Published var currentWaypointIndex = 0 // Track the current waypoint
     @Published var isReverseNavigation = false // New state to track reverse navigation
     @Published var isSOS = false
+    @Published var etaValues: [String] = []
     
     private var dotTimer: Timer? // Timer to draw dots
     
@@ -37,12 +38,40 @@ class UserNavigateViewModel: ObservableObject {
     let useCase = UserStatusUseCase(userRepository: DefaultUserRepository(), userStatusRepository: UserStatusRepository())
     
     init() {
-        gpxParser.parseGPX(fileName: "breeze-apple")
+        gpxParser.parseGPX(fileName: "Naturale-Warung")
         setupRegionUser()
         
         // Set up location update callback
         locationManager.onLocationUpdate = { [weak self] in
             self?.checkIfUserPassedWaypoint()  // Check if the user passed the waypoint
+            self?.updateETAs()
+        }
+    }
+    
+    func updateETAs() {
+        // Clear previous ETA values
+        etaValues.removeAll()
+        
+        for waypoint in gpxParser.parsedWaypoints {
+            if let userLocation = locationManager.lastKnownLocation {
+                let eta = calculateETA(
+                    to: CLLocationCoordinate2D(latitude: waypoint.latitude, longitude: waypoint.longitude),
+                    waypointElevation: waypoint.elevation,
+                    userLocation: userLocation,
+                    userElevation: locationManager.currentElevation,
+                    speed: locationManager.currentSpeed
+                )
+                
+                // Format ETA as a string
+                if let etaValue = eta {
+                    let etaString = String(format: "%.1f min", etaValue)
+                    etaValues.append("\(waypoint.name): \(etaString)")
+                } else {
+                    etaValues.append("\(waypoint.name): N/A")
+                }
+            } else {
+                etaValues.append("\(waypoint.name): N/A")
+            }
         }
     }
 
@@ -150,21 +179,6 @@ class UserNavigateViewModel: ObservableObject {
         let batteryHealth = Int(batteryLevelFloat * 100) // Convert to percentage
         return batteryHealth
     }
-    
-    // Check if the user passed the current waypoint
-//    func checkIfUserPassedWaypoint() {
-//        guard currentWaypointIndex < gpxParser.parsedWaypoints.count else { return }
-//
-//        let currentWaypoint = gpxParser.parsedWaypoints[currentWaypointIndex]
-//        if let userLocation = locationManager.lastKnownLocation {
-//            let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
-//
-//            if distanceToWaypoint < 15.0 {  // Within 15 meters
-//                // Move to the next waypoint
-//                currentWaypointIndex += 1
-//            }
-//        }
-//    }
     
     // Modified checkIfUserPassedWaypoint to handle reverse logic
     func checkIfUserPassedWaypoint() {

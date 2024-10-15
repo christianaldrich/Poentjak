@@ -37,19 +37,6 @@ struct DetailPostView: View {
                 }
             }
         }
-        
-        Button("I am back at basecamp"){
-            Task{
-//                await viewModel.updateSessionDone()
-                viewModel.isNavigating = false
-                viewModel.stopTimer()
-                viewModel.locationManager.resetTotalDistance()
-                
-//                    print("\(viewModel.sessionId)")
-//                               presentationMode.wrappedValue.dismiss()
-                       
-            }
-        }
     }
 }
 

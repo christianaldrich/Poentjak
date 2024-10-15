@@ -16,5 +16,8 @@ protocol EmergencyRepositoryProtocol {
     func updateSessionDone(userId: String, sessionDone: Bool) async throws
     
     func updateEmergencyRequestToOverdue(id: String) async throws 
+    func updateDueDate(sessionId: String, dueDate: Date) async throws
+    func updateStatusTypeEmergency(sessionId: String, emergencyStatus: String, emergencyType: String) async throws
+
 }
 

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct DueDateView: View {
     @StateObject var viewModel = DueDateViewModel()
+    @StateObject var viewModelTest = EmergencyProsesViewModel()
+
     
     @State private var showDatePicker = false
     @State private var showTimePicker = false
@@ -84,8 +86,8 @@ struct DueDateView: View {
                 
                 Button(action: {
                     Task {
-                        await viewModel.createEmergencyHiking()
-//                        navigateToEmergencyProcess = true // Trigger navigation after the task
+                        await viewModelTest.createEmergencyHiking()
+                        navigateToEmergencyProcess = true // Trigger navigation after the task
                         navigateToTracking = true
                     }
                 }) {
@@ -103,9 +105,10 @@ struct DueDateView: View {
 //                    EmergencyProsesView()
 //                }
                 
-                .navigationDestination(isPresented: $navigateToTracking) {
+                .navigationDestination(isPresented: $navigateToEmergencyProcess) {
                     
-                    UserNavigateView(viewModel: UserNavigateViewModel(fileName: trackLocation))
+//                    UserNavigateView(viewModel: UserNavigateViewModel(fileName: trackLocation))
+                    EmergencyProsesView(navigateViewModel: UserNavigateViewModel(fileName: trackLocation))
                 }
                 
                 //                Button(action: {
@@ -123,12 +126,35 @@ struct DueDateView: View {
                 //                }
                 
             }
-            .padding()
+                        
+//                            .navigationDestination(isPresented: $navigateToTracking) {
+//                                UserNavigateView()
+//                            }
+//            
+//                            Button(action: {
+//                                Task {
+//                                    //                    await viewModel.updateDueDate()
+//                                    await viewModel.createEmergencyHiking()
+//                                }
+//                            }) {
+//                                Text("Start Tracking")
+//                                    .font(.headline)
+//                                    .padding()
+//                                    .background(Color.green)
+//                                    .foregroundColor(.white)
+//                                    .cornerRadius(10)
+//                            }
+            
         }
-        
+//        .navigationDestination(isPresented: $navigateToEmergencyProcess) {
+//            EmergencyProsesView()
+//        }
+//        .padding()
+    }
     
-}
+    
 
-//#Preview {
-//    DueDateView()
-//}
+
+#Preview {
+    DueDateView(trackLocation: "Naturale")
+}

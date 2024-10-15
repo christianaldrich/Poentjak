@@ -26,8 +26,7 @@ struct MountainsTracksView: View {
             .navigationTitle("Mountain Card")
             .navigationDestination(for: MountainTracksModel.self){mountain in
                 MountainTracksDetailView(mountain: mountain)
-        }
-        
+            }        
             
         }
         

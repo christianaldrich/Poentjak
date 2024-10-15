@@ -236,8 +236,10 @@ struct EmergencyProsesView: View {
 //        .environmentObject(navigationManager)
         .onAppear{
             viewModel.fetchEmergency()
+            viewModel.startTimer()
             navigateViewModel.isNavigating = true
             navigateViewModel.startTimer()
+            
         }
         
     }

@@ -18,6 +18,9 @@ class EmergencyProsesViewModel: ObservableObject {
     
     
     @Published var emergencySessionActive: Bool = false
+    @Published var isEmergencyLoading: Bool = false
+    
+    private var timer: Timer?
     
     @Published var showSOSButtonView: Bool = false
     @Published var sendSOSToFirebase: Bool = false
@@ -84,7 +87,9 @@ class EmergencyProsesViewModel: ObservableObject {
     func updateSessionDone() async {
         do{
             try await useCase.updateSessionDone(sessionDone: true)
+            stopTimer()
         } catch {
+            print("Failed to delete emergency: \(error.localizedDescription)")
             print("Failed to session done: \(error.localizedDescription)")
             
         }
@@ -193,6 +198,32 @@ class EmergencyProsesViewModel: ObservableObject {
     //        }
     //    }
     //
+    
+    func startTimer() {
+        timer?.invalidate() // Invalidate any existing timer
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            Task {
+                do {
+                    try await self.useCase.checkAndUpdateOverdue(dueDate: self.dueDate, id: self.sessionId)
+                    
+                } catch {
+                    print("Error checking overdue: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    deinit {
+        stopTimer()
+    }
+    
     
     
 }

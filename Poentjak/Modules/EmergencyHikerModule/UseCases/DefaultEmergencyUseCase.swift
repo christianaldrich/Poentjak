@@ -22,7 +22,7 @@ class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
     func createEmergency(dueDate: Date) async throws {
         let user = try await userRepository.fetchCurrentUserEmergency()
         //        let newEmergencyRef = Firestore.firestore().collection("emergencyRequests").document()
-        let newEmergencyRef = Firestore.firestore().collection("sessions").document()
+        let newEmergencyRef = Firestore.firestore().collection("emergencyRequests").document()
         
         
         let newEmergency = EmergencyRequest(id: newEmergencyRef.documentID, emergencyType: nil, emergencyStatus: .safe, assignedRangers: nil, batteryHealth: nil, lastLocation: nil, lastSeen: nil, dueDate: dueDate, sessionDone: false,
@@ -190,5 +190,15 @@ class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
     //                }
     //            }
     //        }
+    
+    func checkAndUpdateOverdue(dueDate: Date, id: String) async throws {
+        let currentDate = Date()
+        
+        if currentDate > dueDate {
+            try await emergencyRepository.updateEmergencyRequestToOverdue(id: id)
+            print("overdue")
+        }
+        print("not overdue\(dueDate) = \(currentDate)")
+    }
     
 }

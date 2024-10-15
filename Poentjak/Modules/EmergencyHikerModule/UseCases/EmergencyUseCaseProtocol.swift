@@ -14,6 +14,7 @@ protocol EmergencyUseCaseProtocol {
 //    func fetchEmergency(completion: @escaping (Result<EmergencyModel?, Error>) -> Void)
     func fetchEmergency(completion: @escaping (Result<EmergencyRequest?, Error>) -> Void)
     func updateSessionDone(sessionDone: Bool) async throws
+    func checkAndUpdateOverdue(dueDate: Date, id: String) async throws
     func updateDueDate(sessionId: String, dueDate: Date) async throws
     func updateStatusTypeEmergency(sessionId: String, emergencyType: String) async throws
 

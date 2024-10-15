@@ -9,7 +9,7 @@ import SwiftUI
 import CoreLocation
 
 struct TopETAView: View {
-    @StateObject var navigateViewModel = UserNavigateViewModel()
+    @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
     
     var body: some View {
         VStack{
@@ -17,8 +17,8 @@ struct TopETAView: View {
                 HStack {
                     if !navigateViewModel.isSOS{
                         if !navigateViewModel.isReverseNavigation {
-                            if navigateViewModel.currentWaypointIndex < navigateViewModel.gpxParser.parsedWaypoints.count {
-                                let currentWaypoint = navigateViewModel.gpxParser.parsedWaypoints[navigateViewModel.currentWaypointIndex]
+                            if navigateViewModel.currentWaypointIndex < navigateViewModel.gpxParser.parsedWaypointsPos.count {
+                                let currentWaypoint = navigateViewModel.gpxParser.parsedWaypointsPos[navigateViewModel.currentWaypointIndex]
                                 if let eta = navigateViewModel.calculateETA(
                                     to: CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude),
                                     waypointElevation: currentWaypoint.elevation,
@@ -33,13 +33,13 @@ struct TopETAView: View {
                                         .padding()
                                 }
                             } else {
-                                Text("Reversing Waypoints...")
+                                Text("Don't forget to return")
                                     .padding()
                             }
                         } else {
                             // Show ETA from the last waypoint in reverse
                             if navigateViewModel.currentWaypointIndex >= 0 {
-                                let currentWaypoint = navigateViewModel.gpxParser.parsedWaypoints[navigateViewModel.currentWaypointIndex]
+                                let currentWaypoint = navigateViewModel.gpxParser.parsedWaypointsPos[navigateViewModel.currentWaypointIndex]
                                 if let eta = navigateViewModel.calculateETA(
                                     to: CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude),
                                     waypointElevation: currentWaypoint.elevation,

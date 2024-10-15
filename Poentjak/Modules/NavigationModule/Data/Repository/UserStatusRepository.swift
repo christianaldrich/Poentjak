@@ -26,7 +26,7 @@ class UserStatusRepository: UserStatusRepositoryProtocol {
             let documentID = document.documentID
 
             // Perform the update on the specific document
-            try await firestore.collection("sessions").document(documentID).updateData([
+            try await firestore.collection("emergencyRequests").document(documentID).updateData([
                 "lastSeen": lastSeen,
                 "lastLocation": [
                     "latitude": lastLocation.latitude,

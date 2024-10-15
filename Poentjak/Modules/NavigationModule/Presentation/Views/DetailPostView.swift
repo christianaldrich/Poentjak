@@ -9,8 +9,13 @@ import SwiftUI
 import CoreLocation
 
 struct DetailPostView: View {
-    @StateObject var viewModel = UserNavigateViewModel()
+    @StateObject var viewModel = UserNavigateViewModel(fileName: "")
     var body: some View {
+        
+        //            ForEach(viewModel.etaValues, id: \.self) { etaString in
+        //                Text(etaString)
+        //                    .padding()
+        //            }
         
         if viewModel.isSOS {
             // Display ETA for each waypoint warung

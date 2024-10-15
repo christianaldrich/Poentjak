@@ -15,7 +15,6 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
     @Published var totalDistance: CLLocationDistance = 0.0 // Total distance traveled
     @Published var currentElevation: CLLocationDistance = 0.0 // Current elevation
     private var manager = CLLocationManager()
-    private var previousLocation: CLLocation?
     
     var onLocationUpdate: (() -> Void)?  // Callback to notify location updates
 
@@ -51,19 +50,7 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
         lastKnownLocation = location.coordinate
         currentSpeed = location.speed  // Update speed with latest location data
         currentElevation = location.altitude // Update elevation
-
-        // Calculate distance traveled
-        if let previousLocation = previousLocation {
-            let distance = location.distance(from: previousLocation)
-            totalDistance += distance
-        }
-        previousLocation = location
         
         onLocationUpdate?()  // Notify about location update
-    }
-    
-    // New method to reset total distance
-    func resetTotalDistance() {
-        totalDistance = 0.0
     }
 }

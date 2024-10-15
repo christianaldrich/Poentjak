@@ -21,6 +21,20 @@ class UserNavigateViewModel: ObservableObject {
     
     private var dotTimer: Timer? // Timer to draw dots
     
+    let fileName: String
+    
+    init(fileName: String) {
+        self.fileName = fileName
+        gpxParser.parseGPX(fileName: fileName)
+        setupRegionUser()
+        
+        // Set up location update callback
+        locationManager.onLocationUpdate = { [weak self] in
+            self?.checkIfUserPassedWaypoint()  // Check if the user passed the waypoint
+            self?.updateETAs()
+        }
+    }
+    
     var nearestWarung: Waypoint? {
         guard let userLocation = locationManager.lastKnownLocation else { return nil }
         return closestPointOnTrack(userLocation: userLocation, track: gpxParser.parsedWaypointsWarung.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) })
@@ -40,19 +54,7 @@ class UserNavigateViewModel: ObservableObject {
 
     //Dynamic fileName
     
-    let fileName: String
     
-    init(fileName: String) {
-        self.fileName = fileName
-        gpxParser.parseGPX(fileName: fileName)
-        setupRegionUser()
-        
-        // Set up location update callback
-        locationManager.onLocationUpdate = { [weak self] in
-            self?.checkIfUserPassedWaypoint()  // Check if the user passed the waypoint
-            self?.updateETAs()
-        }
-    }
     
     func updateETAs() {
         // Clear previous ETA values
@@ -189,8 +191,8 @@ class UserNavigateViewModel: ObservableObject {
     // Modified checkIfUserPassedWaypoint to handle reverse logic
     func checkIfUserPassedWaypoint() {
         guard !isReverseNavigation else {
-            if currentWaypointIndex > 0 {
-                let currentWaypoint = gpxParser.parsedWaypoints[currentWaypointIndex]
+            if currentWaypointIndex >= 0 {
+                let currentWaypoint = gpxParser.parsedWaypointsPos[currentWaypointIndex]
                 if let userLocation = locationManager.lastKnownLocation {
                     let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
                     
@@ -203,13 +205,13 @@ class UserNavigateViewModel: ObservableObject {
         }
         
         // Forward navigation logic
-        guard currentWaypointIndex < gpxParser.parsedWaypoints.count else {
+        guard currentWaypointIndex < gpxParser.parsedWaypointsPos.count else {
             isReverseNavigation = true // Start reverse journey
-            currentWaypointIndex = gpxParser.parsedWaypoints.count - 1
+            currentWaypointIndex = gpxParser.parsedWaypointsPos.count - 1
             return
         }
         
-        let currentWaypoint = gpxParser.parsedWaypoints[currentWaypointIndex]
+        let currentWaypoint = gpxParser.parsedWaypointsPos[currentWaypointIndex]
         if let userLocation = locationManager.lastKnownLocation {
             let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
             

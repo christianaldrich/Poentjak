@@ -132,7 +132,7 @@ struct EmergencyProsesView: View {
                         Spacer()
                         
                         NavigationLink{
-                            SOSButtonView(sessionId: viewModel.sessionId)
+                            SOSButtonView(navigationPath: $navigationManager.navigationPath, sessionId: viewModel.sessionId)
                         }label: {
                             Text(viewModel.showSOSButtonView ? "Map" : "SOS")
                                 .frame(maxWidth: .infinity)

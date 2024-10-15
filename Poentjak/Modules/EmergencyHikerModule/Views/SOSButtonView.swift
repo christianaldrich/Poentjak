@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SOSButtonView: View {
-    //    @Binding var navigationPath: NavigationPath
+    @Binding var navigationPath: NavigationPath
     
     @State var sessionId: String?
     
@@ -35,9 +35,12 @@ struct SOSButtonView: View {
                         .cornerRadius(8)
                         .padding()
                 }
+                .simultaneousGesture(TapGesture().onEnded{
+                    navigationPath.append(DestinationView.chooseEmergency)
+                })
                 
                 //                Button(action: {
-                //                    navigationPath.append(DestinationView.chooseEmergency)
+                                    
                 //
                 ////                    navigationPath.append("ChooseEmergencyView")
                 //                }) {

@@ -156,5 +156,5 @@ struct DueDateView: View {
 
 
 #Preview {
-    DueDateView(trackLocation: "Naturale")
+    DueDateView(trackLocation: "")
 }

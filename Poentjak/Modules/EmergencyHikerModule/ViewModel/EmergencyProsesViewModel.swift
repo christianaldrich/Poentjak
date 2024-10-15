@@ -104,7 +104,7 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
-    func updateStatusType(sessionId: String, emergencyType: String) async {
+    func updateStatusType(sessionId: String, emergencyType: String , navigationManager: NavigationManager) async {
         
         do{
 //            print("\n\n\n\nSESSION ID: \(sessionId)")
@@ -114,6 +114,7 @@ class EmergencyProsesViewModel: ObservableObject {
             DispatchQueue.main.async{
                 self.backToProses = true
                 self.sendSOSToFirebase = true
+                navigationManager.popToRoot()
             }
         } catch {
             print("Failed to update due date in vm: \(error.localizedDescription)")
@@ -123,7 +124,7 @@ class EmergencyProsesViewModel: ObservableObject {
     
     
     // Start the countdown
-    func startCountDown(sessionId: String, emergencyType: String) {
+    func startCountDown(sessionId: String, emergencyType: String, navigationManager: NavigationManager) {
         
         print("\n\n\nSessionID: \(sessionId), emergencyType: \(emergencyType)")
         
@@ -136,23 +137,23 @@ class EmergencyProsesViewModel: ObservableObject {
             if self.countDownTime > 0 {
                 self.countDownTime -= 1
             } else {
-                self.countDownFinished(sessionId: sessionId, emergencyType: emergencyType)
+                self.countDownFinished(sessionId: sessionId, emergencyType: emergencyType , navigationManager: navigationManager)
                 timer.invalidate()
             }
         }
     }
     
     // The function to be called after 5 seconds
-    func countDownFinished(sessionId: String, emergencyType: String) {
+    func countDownFinished(sessionId: String, emergencyType: String, navigationManager: NavigationManager) {
         print("Countdown Finished!")
         
         DispatchQueue.main.async {
             Task {
-                await self.updateStatusType(sessionId: sessionId, emergencyType: emergencyType)
+                await self.updateStatusType(sessionId: sessionId, emergencyType: emergencyType, navigationManager: navigationManager)
                 self.sendSOSToFirebase = true
                 self.showSOSButtonView = false
                 self.deleteAnimation = true
-//                navigationManager.popToRoot()
+                navigationManager.popToRoot()
             }
         }
         

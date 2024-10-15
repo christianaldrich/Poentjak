@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChooseEmergencyTypeView: View {
-    //    @EnvironmentObject var navigationManager: NavigationManager
+        @EnvironmentObject var navigationManager: NavigationManager
     @StateObject var viewModel: EmergencyProsesViewModel
     
     @State var sessionId: String?
@@ -39,6 +39,8 @@ struct ChooseEmergencyTypeView: View {
                     .padding()
             }
             .simultaneousGesture(TapGesture().onEnded{
+                navigationManager.navigationPath.append(DestinationView.chooseEmergency)
+//                navigationManager.navigationPath.append("AlertGuideView")
                 viewModel.emergencyType = .lost
                 print("\n\n\n\(viewModel.emergencyType)")
             })
@@ -55,7 +57,7 @@ struct ChooseEmergencyTypeView: View {
             Button("Lost") {
                 viewModel.emergencyType = .lost
                 //                navigationManager.navigationPath.append(DestinationView.alertGuide)
-                //                navigationManager.navigationPath.append("AlertGuideView")
+//                                navigationManager.navigationPath.append("AlertGuideView")
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
             .background(Color.orange)
@@ -86,7 +88,7 @@ struct ChooseEmergencyTypeView: View {
     }
 }
 
-//#Preview {
-//    ChooseEmergencyTypeView(viewModel: EmergencyProsesViewModel())
-//        .environmentObject(NavigationManager())
-//}
+#Preview {
+    ChooseEmergencyTypeView(viewModel: EmergencyProsesViewModel())
+        .environmentObject(NavigationManager())
+}

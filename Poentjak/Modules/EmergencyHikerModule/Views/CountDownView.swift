@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CountDownView: View {
-//    @EnvironmentObject var navigationManager: NavigationManager
+    @EnvironmentObject var navigationManager: NavigationManager
     @StateObject var viewModel: EmergencyProsesViewModel
     
     @State var sessionId: String?
@@ -56,7 +56,7 @@ struct CountDownView: View {
             
             Button("Cancel") {
                 viewModel.cancelCountDown()
-//                navigationManager.popToRoot()
+                navigationManager.popToRoot()
                 
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
@@ -67,23 +67,18 @@ struct CountDownView: View {
             
             
             
-            NavigationLink(destination: EmergencyProsesView(), isActive: $viewModel.backToProses) {
-                EmptyView()
-            }
-            
-            
         }
         .onAppear{
             viewModel.fetchEmergency()
-            viewModel.startCountDown(sessionId: sessionId ?? "unknown session id", emergencyType: emergencyType ?? "celaka")
+            viewModel.startCountDown(sessionId: sessionId ?? "unknown session id", emergencyType: emergencyType ?? "celaka", navigationManager: navigationManager)
         }
         .navigationBarBackButtonHidden(true)
         
     }
 }
 
-//#Preview {
-//    CountDownView(viewModel: EmergencyProsesViewModel())
-//        .environmentObject(NavigationManager())
-//    
-//}
+#Preview {
+    CountDownView(viewModel: EmergencyProsesViewModel())
+        .environmentObject(NavigationManager())
+    
+}

@@ -12,7 +12,7 @@ class UserStatusRepository: UserStatusRepositoryProtocol {
     private let firestore = Firestore.firestore()
     
     func updateStats(userId: String, batteryLevel: Int, lastSeen: Date, lastLocation: Location) async throws {
-        let documentRef = firestore.collection("sessions").whereField("user.id", isEqualTo: userId).whereField("sessionDone", isEqualTo: false)
+        let documentRef = firestore.collection("emergencyRequests").whereField("user.id", isEqualTo: userId).whereField("sessionDone", isEqualTo: false)
 
         do {
             let querySnapshot = try await documentRef.getDocuments()
@@ -26,7 +26,7 @@ class UserStatusRepository: UserStatusRepositoryProtocol {
             let documentID = document.documentID
 
             // Perform the update on the specific document
-            try await firestore.collection("sessions").document(documentID).updateData([
+            try await firestore.collection("emergencyRequests").document(documentID).updateData([
                 "lastSeen": lastSeen,
                 "lastLocation": [
                     "latitude": lastLocation.latitude,

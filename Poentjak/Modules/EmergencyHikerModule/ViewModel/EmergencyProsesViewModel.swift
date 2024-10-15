@@ -7,27 +7,58 @@
 
 import Foundation
 
-class EmergencyProsesViewModel: ObservableObject{
+class EmergencyProsesViewModel: ObservableObject {
     let useCase = DefaultEmergencyUseCase(userRepository: DefaultUserRepository(), emergencyRepository: DefaultEmergencyRepository())
     
     @Published var status: String = "Loading..."
     @Published var userName: String = "name..."
     @Published var dueDate: Date = Date()
     @Published var sessionId: String = "no session id"
-
-
+    @Published var emergencyType: EmergencyType = .hipo
+    
+    
     @Published var emergencySessionActive: Bool = false
-    @Published var isEmergencyLoading: Bool = false
+    
+    @Published var showSOSButtonView: Bool = false
+    @Published var sendSOSToFirebase: Bool = false
+    @Published var deleteAnimation: Bool = false
+    
+    @Published var countDownTime = 5
+    var countDownTimer: Timer?
+    
+    //Temp
+    @Published var backToProses: Bool = false
+    
+    
+    
+    func createEmergencyHiking() async {
+        do {
+            try await useCase.createEmergency(dueDate: dueDate)
+            print("Emergency hiking session created successfully")
+//            emergencySessionActive = true
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.emergencySessionActive = true // Set success on the main thread
+                print("masuk viewmodel \(self?.emergencySessionActive ?? false)")
+                        }
+        } catch {
+            // Handle the error here
+            print("Failed to create emergency hiking session: \(error.localizedDescription)")
+//            emergencySessionActive = false
 
-
-
+            DispatchQueue.main.async { [weak self] in
+                self?.emergencySessionActive = false // Set failure on the main thread
+                        }
+        }
+    }
+    
+//    func createEmergencyHiking() {
+//        self.emergencySessionActive = true
+//    }
     
     func fetchEmergency() {
-        self.isEmergencyLoading = true
-        
         useCase.fetchEmergency { result in
             DispatchQueue.main.async {
-                self.isEmergencyLoading = false
                 
                 switch result {
                 case .success(let emergency):
@@ -37,8 +68,10 @@ class EmergencyProsesViewModel: ObservableObject{
                     self.sessionId = emergency?.id ?? "no session id"
                     self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false  // Check if session is active
                     print ("this is in view model: \(self.emergencySessionActive)")// Check if session is active
-//                    self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false  // Check if session is active
+                    //                    self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false  // Check if session is active
+                    print("Fetched emergency session: active = \(self.emergencySessionActive)")
 
+                    
                 case .failure(let error):
                     print("Failed to fetch emergency: \(error.localizedDescription)")
                     self.status = "Error fetching emergency"
@@ -52,19 +85,90 @@ class EmergencyProsesViewModel: ObservableObject{
         do{
             try await useCase.updateSessionDone(sessionDone: true)
         } catch {
-            print("Failed to delete emergency: \(error.localizedDescription)")
-
+            print("Failed to session done: \(error.localizedDescription)")
+            
         }
     }
     
-//    func updateDueDate() async {
-//            do {
-//                try await useCase.updateDueDate(dueDate: dueDate)
-//                print("due date updated successfully \(dueDate)")
-//            } catch {
-//                print("Failed to delete emergency: \(error.localizedDescription)")
-//            }
-//        }
+    func updateDueDate() async {
+        do{
+            try await useCase.updateDueDate(sessionId: sessionId, dueDate: dueDate)
+        } catch {
+            print("Failed to update due date in vm: \(error.localizedDescription)")
+            
+        }
+    }
+    
+    func updateStatusType(sessionId: String, emergencyType: String) async {
+        
+        do{
+//            print("\n\n\n\nSESSION ID: \(sessionId)")
+//            print("\n\n\n\nEMERGENCY TYPE: \(emergencyType)")
+            try await useCase.updateStatusTypeEmergency(sessionId: sessionId, emergencyType: emergencyType)
+            
+            DispatchQueue.main.async{
+                self.backToProses = true
+                self.sendSOSToFirebase = true
+            }
+        } catch {
+            print("Failed to update due date in vm: \(error.localizedDescription)")
+            
+        }
+    }
+    
+    
+    // Start the countdown
+    func startCountDown(sessionId: String, emergencyType: String) {
+        
+        print("\n\n\nSessionID: \(sessionId), emergencyType: \(emergencyType)")
+        
+        
+        countDownTime = 5
+        
+        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
+            guard let self = self else { return }
+            
+            if self.countDownTime > 0 {
+                self.countDownTime -= 1
+            } else {
+                self.countDownFinished(sessionId: sessionId, emergencyType: emergencyType)
+                timer.invalidate()
+            }
+        }
+    }
+    
+    // The function to be called after 5 seconds
+    func countDownFinished(sessionId: String, emergencyType: String) {
+        print("Countdown Finished!")
+        
+        DispatchQueue.main.async {
+            Task {
+                await self.updateStatusType(sessionId: sessionId, emergencyType: emergencyType)
+                self.sendSOSToFirebase = true
+                self.showSOSButtonView = false
+                self.deleteAnimation = true
+//                navigationManager.popToRoot()
+            }
+        }
+        
+    }
+    
+    func cancelCountDown() {
+        countDownTimer?.invalidate() // Stop the timer
+        countDownTimer = nil // Clear the timer reference
+        countDownTime = 5 // Reset the countdown time
+    }
+    
+    
+    
+    //    func updateDueDate() async {
+    //            do {
+    //                try await useCase.updateDueDate(dueDate: dueDate)
+    //                print("due date updated successfully \(dueDate)")
+    //            } catch {
+    //                print("Failed to delete emergency: \(error.localizedDescription)")
+    //            }
+    //        }
     
     //    func fetchEmergency() {
     //            useCase.fetchEmergency { result in

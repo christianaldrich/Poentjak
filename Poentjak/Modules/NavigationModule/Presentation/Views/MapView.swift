@@ -14,6 +14,7 @@ struct MapView: UIViewRepresentable {
     var track: Track?
     var showsUserLocation: Bool
     var dots: [MKCircle]
+    @State var fileName: String?
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView

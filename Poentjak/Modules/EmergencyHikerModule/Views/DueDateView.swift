@@ -9,15 +9,23 @@ import SwiftUI
 
 struct DueDateView: View {
     @StateObject var viewModel = DueDateViewModel()
+    @StateObject var viewModelTest = EmergencyProsesViewModel()
+
     
     @State private var showDatePicker = false
     @State private var showTimePicker = false
     @State private var navigateToEmergencyProcess = false // State for navigation
     @State private var navigateToTracking = false
+    @State var trackLocation: String
+    
+    /*@StateObject private var navigateViewModel = UserNavigateViewModel(fileName: "Naturale")*/
     
     var body: some View {
         
             VStack {
+                
+                Text("Track Name: \(trackLocation)")
+                
                 Text("Tell us when you will be back")
                     .font(.title2)
                     .bold()
@@ -78,8 +86,8 @@ struct DueDateView: View {
                 
                 Button(action: {
                     Task {
-                        await viewModel.createEmergencyHiking()
-//                        navigateToEmergencyProcess = true // Trigger navigation after the task
+                        await viewModelTest.createEmergencyHiking()
+                        navigateToEmergencyProcess = true // Trigger navigation after the task
                         navigateToTracking = true
                     }
                 }) {
@@ -97,8 +105,10 @@ struct DueDateView: View {
 //                    EmergencyProsesView()
 //                }
                 
-                .navigationDestination(isPresented: $navigateToTracking) {
-                    UserNavigateView()
+                .navigationDestination(isPresented: $navigateToEmergencyProcess) {
+                    
+//                    UserNavigateView(viewModel: UserNavigateViewModel(fileName: trackLocation))
+                    EmergencyProsesView(navigateViewModel: UserNavigateViewModel(fileName: trackLocation))
                 }
                 
                 //                Button(action: {
@@ -116,12 +126,35 @@ struct DueDateView: View {
                 //                }
                 
             }
-            .padding()
+                        
+//                            .navigationDestination(isPresented: $navigateToTracking) {
+//                                UserNavigateView()
+//                            }
+//            
+//                            Button(action: {
+//                                Task {
+//                                    //                    await viewModel.updateDueDate()
+//                                    await viewModel.createEmergencyHiking()
+//                                }
+//                            }) {
+//                                Text("Start Tracking")
+//                                    .font(.headline)
+//                                    .padding()
+//                                    .background(Color.green)
+//                                    .foregroundColor(.white)
+//                                    .cornerRadius(10)
+//                            }
+            
         }
-        
+//        .navigationDestination(isPresented: $navigateToEmergencyProcess) {
+//            EmergencyProsesView()
+//        }
+//        .padding()
+    }
     
-}
+    
+
 
 #Preview {
-    DueDateView()
+    DueDateView(trackLocation: "Naturale")
 }

@@ -5,6 +5,8 @@
 //  Created by Singgih Tulus Makmud on 26/09/24.
 //
 
+//KAYANYA BISA DIHAPUS
+
 import SwiftUI
 
 struct UserView: View {
@@ -15,7 +17,7 @@ struct UserView: View {
             
             
             // Button to navigate to DueDateView
-            NavigationLink(destination: DueDateView()) {
+            NavigationLink(destination: DueDateView(trackLocation: "ipukan")) {
                 Text("Start tracking")
                     .font(.headline)
                     .padding()

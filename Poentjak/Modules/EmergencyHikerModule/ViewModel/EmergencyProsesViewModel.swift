@@ -37,6 +37,7 @@ class EmergencyProsesViewModel: ObservableObject {
     func createEmergencyHiking() async {
         do {
             try await useCase.createEmergency(dueDate: dueDate)
+            startTimer()
             print("Emergency hiking session created successfully")
 //            emergencySessionActive = true
             
@@ -88,6 +89,8 @@ class EmergencyProsesViewModel: ObservableObject {
         do{
             try await useCase.updateSessionDone(sessionDone: true)
             stopTimer()
+            self.emergencySessionActive = false
+            print("sukses update session done")
         } catch {
             print("Failed to delete emergency: \(error.localizedDescription)")
             print("Failed to session done: \(error.localizedDescription)")

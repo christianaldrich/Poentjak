@@ -37,6 +37,7 @@ struct ActiveEmergencyRepository{
         
         db.collection("users")
             .whereField("id", isEqualTo: id)
+            .whereField("isAdmin", isEqualTo: false)
             .addSnapshotListener{ snapshot, error in
                 if let error = error {
                     print("Error fetching users: \(error)")
@@ -75,7 +76,8 @@ struct ActiveEmergencyRepository{
         let docRef = db.collection("emergencyRequests").document(id)
         do {
             try await docRef.updateData([
-                "emergencyType": "overdue"
+                "emergencyType": "overdue",
+                "emergencyStatus": "danger"
             ])
             
         }

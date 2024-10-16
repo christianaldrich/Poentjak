@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct CountDownView: View {
-//    @EnvironmentObject var navigationManager: NavigationManager
+    @EnvironmentObject var navigationManager: NavigationManager
     @StateObject var viewModel: EmergencyProsesViewModel
     
-    @State var sessionId: String?
-    @State var emergencyType: String?
+//    @State var sessionId: String?
+//    @State var emergencyType: String?
     
+//    @Environment(\.dismiss) var dismiss
     
     
     var body: some View {
         VStack{
             
-            Text("\(sessionId ?? "asdfasd")")
-            Text("\(emergencyType ?? "kontol")")
+//            Text("\(sessionId ?? "asdfasd")")
+//            Text("\(emergencyType ?? "kontol")")
             
             Text("This is Count Down View")
             Text("This is the emergency type you chose: \(viewModel.emergencyType)")
@@ -55,8 +56,11 @@ struct CountDownView: View {
 //            .padding()
             
             Button("Cancel") {
+                
                 viewModel.cancelCountDown()
-//                navigationManager.popToRoot()
+                navigationManager.popToRoot()
+//                dismiss()
+//                print("\nMasuk cancel\n")
                 
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
@@ -67,23 +71,19 @@ struct CountDownView: View {
             
             
             
-            NavigationLink(destination: EmergencyProsesView(), isActive: $viewModel.backToProses) {
-                EmptyView()
-            }
-            
-            
         }
         .onAppear{
-            viewModel.fetchEmergency()
-            viewModel.startCountDown(sessionId: sessionId ?? "unknown session id", emergencyType: emergencyType ?? "celaka")
+            viewModel.startCountDown(navigationManager: navigationManager)
+//            viewModel.fetchEmergency()
+//            viewModel.startCountDown(sessionId: sessionId ?? "unknown session id", emergencyType: emergencyType ?? "celaka")
         }
         .navigationBarBackButtonHidden(true)
         
     }
 }
 
-//#Preview {
-//    CountDownView(viewModel: EmergencyProsesViewModel())
-//        .environmentObject(NavigationManager())
-//    
-//}
+#Preview {
+    CountDownView(viewModel: EmergencyProsesViewModel())
+        .environmentObject(NavigationManager())
+    
+}

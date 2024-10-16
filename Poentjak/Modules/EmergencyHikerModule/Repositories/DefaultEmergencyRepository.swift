@@ -213,6 +213,22 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
     //                    }
     //        }
     
+    func updateEmergencyRequestToOverdue(id: String) async throws {
+        
+        let docRef = firestore.collection("emergencyRequests").document(id)
+        do {
+            try await docRef.updateData([
+                "emergencyType": "overdue"
+            ])
+            
+        }
+        catch {
+            print(error)
+            
+        }
+        
+    }
+    
 }
 
 

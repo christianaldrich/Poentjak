@@ -10,6 +10,7 @@ import SwiftUI
 struct TracksDetailView: View {
     let track: String
     @State private var navigateToDueDate = false
+    @ObservedObject var navigationManager : MountainNavigationManager
     
     var body: some View {
         VStack{
@@ -27,13 +28,17 @@ struct TracksDetailView: View {
 //                    .cornerRadius(10)
 //            }
 //            .padding(.top)
-            
-            NavigationLink{
-                DueDateView(trackLocation: track)
-            }label: {
-                Text("Start Tracking")
+            Button("Start Tracking"){
+                navigationManager.navigationPath.append(MountainDestinationView.dueDate(trackLocation: track))
+                
             }
-           
+            
+//            NavigationLink{
+//                DueDateView(trackLocation: track)
+//            }label: {
+//                Text("Start Tracking")
+//            }
+//           
         }
 //        .navigationDestination(isPresented: $navigateToDueDate){
 //            DueDateView()

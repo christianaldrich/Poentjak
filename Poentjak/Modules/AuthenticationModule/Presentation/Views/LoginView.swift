@@ -23,6 +23,7 @@ struct LoginView: View {
                         .bold()
                     
                     Text("A click away from a safe hiking \nexperience.")
+                    
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)

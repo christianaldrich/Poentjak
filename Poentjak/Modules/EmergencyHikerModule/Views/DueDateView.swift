@@ -19,6 +19,10 @@ struct DueDateView: View {
     @State var trackLocation: String
     
     /*@StateObject private var navigateViewModel = UserNavigateViewModel(fileName: "Naturale")*/
+//    @StateObject var mountainViewModel = MountainsTracksViewModel(mountainsTracksUseCase: MountainsTracksUseCase(mountainsTracksRepository: MountainsTracksRepository()))
+    @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
+    
+    @EnvironmentObject var navigationManager : MountainNavigationManager
     
     var body: some View {
         
@@ -85,11 +89,28 @@ struct DueDateView: View {
                 }
                 
                 Button(action: {
-                    Task {
+                    
+//                    DispatchQueue.main.async{
+                    Task{
                         await viewModelTest.createEmergencyHiking(trackId: trackLocation)
-                        navigateToEmergencyProcess = true // Trigger navigation after the task
-                        navigateToTracking = true
+                        mountainViewModel.toggleIsPresenting()
+                        navigationManager.popToRoot()
                     }
+                        
+//                    }
+                    
+//                    Task {
+//                        await viewModelTest.createEmergencyHiking()
+////                        navigateToEmergencyProcess = true // Trigger navigation after the task
+////                        navigateToTracking = true
+//                        mountainViewModel.toggleIsPresenting()
+////                        DispatchQueue.main.async{
+////                            mountainViewModel.isPresenting = true
+////                            print("ASDFASF:\(mountainViewModel.isPresenting)")
+////                            mountainViewModel.toggleIsPresenting()
+//                            navigationManager.popToRoot()
+////                        }
+//                    }
                 }) {
                     Text("Start Tracking")
                         .font(.headline)
@@ -103,13 +124,13 @@ struct DueDateView: View {
                 // Use NavigationLink to navigate when the state changes
 //                .navigationDestination(isPresented: $navigateToEmergencyProcess) {
 //                    EmergencyProsesView()
+////                }
+//                
+//                .navigationDestination(isPresented: $navigateToEmergencyProcess) {
+//                    
+////                    UserNavigateView(viewModel: UserNavigateViewModel(fileName: trackLocation))
+//                    EmergencyProsesView(navigateViewModel: UserNavigateViewModel(fileName: trackLocation))
 //                }
-                
-                .navigationDestination(isPresented: $navigateToEmergencyProcess) {
-                    
-//                    UserNavigateView(viewModel: UserNavigateViewModel(fileName: trackLocation))
-                    EmergencyProsesView(navigateViewModel: UserNavigateViewModel(fileName: trackLocation))
-                }
                 
                 //                Button(action: {
                 //                    Task {
@@ -126,6 +147,7 @@ struct DueDateView: View {
                 //                }
                 
             }
+//            .environmentObject(mountainViewModel)
                         
 //                            .navigationDestination(isPresented: $navigateToTracking) {
 //                                UserNavigateView()
@@ -155,6 +177,6 @@ struct DueDateView: View {
     
 
 
-#Preview {
-    DueDateView(trackLocation: "Naturale")
-}
+//#Preview {
+//    DueDateView(trackLocation: "", navigationManager: navigationmanag)
+//}

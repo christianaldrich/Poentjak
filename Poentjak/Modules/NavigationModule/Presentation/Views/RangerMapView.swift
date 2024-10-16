@@ -1,25 +1,26 @@
 //
-//  MapView.swift
+//  RangerMapView.swift
 //  CobaGPX
 //
-//  Created by Shan Havilah on 24/09/24.
+//  Created by Shan Havilah on 15/10/24.
 //
 
 import SwiftUI
 import MapKit
 
-struct MapView: UIViewRepresentable {
+struct RangerMapView: UIViewRepresentable {
     @Binding var region: MKCoordinateRegion
     var waypoints: [Waypoint]
     var track: Track?
     var showsUserLocation: Bool
-    var dots: [MKCircle]
+    var userLastLocation: Location
+    // var dots: [MKCircle]
     // @State var fileName: String?
 
     class Coordinator: NSObject, MKMapViewDelegate {
-        var parent: MapView
+        var parent: RangerMapView
 
-        init(_ parent: MapView) {
+        init(_ parent: RangerMapView) {
             self.parent = parent
         }
 
@@ -30,11 +31,12 @@ struct MapView: UIViewRepresentable {
                 renderer.strokeColor = UIColor.yellow
                 renderer.lineWidth = 3
                 return renderer
-            } else if let circle = overlay as? MKCircle {
+            }
+             else if let circle = overlay as? MKCircle {
                 let renderer = MKCircleRenderer(circle: circle)
-                renderer.fillColor = UIColor.blue.withAlphaComponent(0.5)
+                renderer.fillColor = UIColor.red.withAlphaComponent(0.5)
                 renderer.strokeColor = UIColor.red
-                renderer.lineWidth = 2
+                renderer.lineWidth = 1
                 return renderer
             }
             return MKOverlayRenderer()
@@ -63,11 +65,11 @@ struct MapView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        uiView.setRegion(region, animated: true)
+        //uiView.setRegion(region, animated: true)
 
         // Remove existing dots and add new dots as circle overlays
         uiView.removeOverlays(uiView.overlays.filter { $0 is MKCircle })
-        uiView.addOverlays(dots)
+        // uiView.addOverlays(dots)
         
         uiView.showsUserLocation = showsUserLocation // Ensure user location is shown
 
@@ -80,5 +82,13 @@ struct MapView: UIViewRepresentable {
             return annotation
         }
         uiView.addAnnotations(annotations)
+        
+        // Convert userLastLocation to CLLocationCoordinate2D
+        let userLastLocationCoordinate = CLLocationCoordinate2D(latitude: userLastLocation.latitude, longitude: userLastLocation.longitude)
+        
+        // Add a circle for userLastLocation
+        let circle = MKCircle(center: userLastLocationCoordinate, radius: 10) // Set the radius of the circle in meters
+        uiView.addOverlay(circle)
+        print("UPDATED CIRCLE")
     }
 }

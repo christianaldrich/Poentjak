@@ -30,7 +30,7 @@ class EmergencyProsesViewModel: ObservableObject {
     var countDownTimer: Timer?
     
     //Temp
-    @Published var backToProses: Bool = false
+//    @Published var backToProses: Bool = false
     
     
     
@@ -104,18 +104,18 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
-    func updateStatusType(sessionId: String, emergencyType: String , navigationManager: NavigationManager) async {
+    func updateStatusType() async {
         
         do{
 //            print("\n\n\n\nSESSION ID: \(sessionId)")
 //            print("\n\n\n\nEMERGENCY TYPE: \(emergencyType)")
-            try await useCase.updateStatusTypeEmergency(sessionId: sessionId, emergencyType: emergencyType)
+            try await useCase.updateStatusTypeEmergency(sessionId: sessionId, emergencyType: emergencyType.rawValue)
             
-            DispatchQueue.main.async{
-                self.backToProses = true
-                self.sendSOSToFirebase = true
-                navigationManager.popToRoot()
-            }
+//            DispatchQueue.main.async{
+//                self.backToProses = true
+//                self.sendSOSToFirebase = true
+////                navigationManager.popToRoot()
+//            }
         } catch {
             print("Failed to update due date in vm: \(error.localizedDescription)")
             
@@ -124,9 +124,9 @@ class EmergencyProsesViewModel: ObservableObject {
     
     
     // Start the countdown
-    func startCountDown(sessionId: String, emergencyType: String, navigationManager: NavigationManager) {
+    func startCountDown(navigationManager: NavigationManager) {
         
-        print("\n\n\nSessionID: \(sessionId), emergencyType: \(emergencyType)")
+//        print("\n\n\nSessionID: \(sessionId), emergencyType: \(emergencyType)")
         
         
         countDownTime = 5
@@ -137,19 +137,19 @@ class EmergencyProsesViewModel: ObservableObject {
             if self.countDownTime > 0 {
                 self.countDownTime -= 1
             } else {
-                self.countDownFinished(sessionId: sessionId, emergencyType: emergencyType , navigationManager: navigationManager)
+                self.countDownFinished(navigationManager: navigationManager)
                 timer.invalidate()
             }
         }
     }
     
     // The function to be called after 5 seconds
-    func countDownFinished(sessionId: String, emergencyType: String, navigationManager: NavigationManager) {
+    func countDownFinished(navigationManager: NavigationManager) {
         print("Countdown Finished!")
         
         DispatchQueue.main.async {
             Task {
-                await self.updateStatusType(sessionId: sessionId, emergencyType: emergencyType, navigationManager: navigationManager)
+                await self.updateStatusType()
                 self.sendSOSToFirebase = true
                 self.showSOSButtonView = false
                 self.deleteAnimation = true

@@ -12,6 +12,8 @@ class MountainsTracksViewModel: ObservableObject{
     
     private let mountainsTracksUseCase: MountainsTracksUseCaseProtocol
     
+    @Published var isPresenting = false
+    
     init(mountainsTracksUseCase: MountainsTracksUseCaseProtocol) {
         self.mountainsTracksUseCase = mountainsTracksUseCase
         fetchMountainsTracks()
@@ -24,4 +26,9 @@ class MountainsTracksViewModel: ObservableObject{
             
         }
     }
+    
+    func toggleIsPresenting(){
+        isPresenting.toggle()
+    }
+    
 }

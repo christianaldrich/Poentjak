@@ -11,16 +11,17 @@ struct CountDownView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @StateObject var viewModel: EmergencyProsesViewModel
     
-    @State var sessionId: String?
-    @State var emergencyType: String?
+//    @State var sessionId: String?
+//    @State var emergencyType: String?
     
+//    @Environment(\.dismiss) var dismiss
     
     
     var body: some View {
         VStack{
             
-            Text("\(sessionId ?? "asdfasd")")
-            Text("\(emergencyType ?? "kontol")")
+//            Text("\(sessionId ?? "asdfasd")")
+//            Text("\(emergencyType ?? "kontol")")
             
             Text("This is Count Down View")
             Text("This is the emergency type you chose: \(viewModel.emergencyType)")
@@ -55,8 +56,11 @@ struct CountDownView: View {
 //            .padding()
             
             Button("Cancel") {
+                
                 viewModel.cancelCountDown()
                 navigationManager.popToRoot()
+//                dismiss()
+//                print("\nMasuk cancel\n")
                 
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
@@ -69,8 +73,9 @@ struct CountDownView: View {
             
         }
         .onAppear{
-            viewModel.fetchEmergency()
-            viewModel.startCountDown(sessionId: sessionId ?? "unknown session id", emergencyType: emergencyType ?? "celaka", navigationManager: navigationManager)
+            viewModel.startCountDown(navigationManager: navigationManager)
+//            viewModel.fetchEmergency()
+//            viewModel.startCountDown(sessionId: sessionId ?? "unknown session id", emergencyType: emergencyType ?? "celaka")
         }
         .navigationBarBackButtonHidden(true)
         

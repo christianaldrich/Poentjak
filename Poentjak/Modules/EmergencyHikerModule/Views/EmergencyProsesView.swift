@@ -18,10 +18,12 @@ struct EmergencyProsesView: View {
     // @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel = EmergencyProsesViewModel()
     @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
+    @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
+
     @State var tracklocation: String?
     
     
-    //    @State private var showSOSView = false
+    @State private var showSOSView = false
     @State private var navigateToDueDate = false // State to navigate to EditDueDateView
     
     
@@ -30,7 +32,7 @@ struct EmergencyProsesView: View {
     
     var body: some View {
         
-//        NavigationStack(path: $navigationManager.navigationPath) {
+        NavigationStack(path: $navigationManager.navigationPath) {
             VStack {
                 
                 ZStack (){
@@ -68,11 +70,11 @@ struct EmergencyProsesView: View {
                                     .font(.subheadline)
                             }
                             .padding()
-//                            .onTapGesture {
-//                                navigationManager.navigationPath.append(DestinationView.editDueDate)
-////                                navigationManager.navigationPath.append("EditDueDateView")
-//                                //                                navigateToDueDate = true // Trigger navigation
-//                            }
+                            .onTapGesture {
+                                navigationManager.navigationPath.append(DestinationView.editDueDate)
+//                                navigationManager.navigationPath.append("EditDueDateView")
+                                //                                navigateToDueDate = true // Trigger navigation
+                            }
                             
                             HStack{
                                 Text("name: \(viewModel.userName)")
@@ -92,6 +94,8 @@ struct EmergencyProsesView: View {
                                 
                             }
                             
+                            
+                            
                         }
                         .background(Color.white)
                         .zIndex(1)
@@ -100,20 +104,25 @@ struct EmergencyProsesView: View {
                     }
                     
                     // SOS View that slides in from the left
-//                    SOSButtonView()
-//                        .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
-//                        .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
-//                        .zIndex(2)
+                    SOSButtonView(navigationPath: $navigationManager.navigationPath)
+                        .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
+                        .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
+                        .zIndex(2)
                 }
+                
+                
                 
                 //bottom view
                 VStack{
+                    
                     Button("I am back at basecamp"){
                         Task{
                             await viewModel.updateSessionDone()
                             navigateViewModel.isNavigating = false
                             navigateViewModel.stopTimer()
                             navigateViewModel.locationManager.resetTotalDistance()
+//                            mountainViewModel.isPresenting = false
+                            mountainViewModel.toggleIsPresenting()
                         }
                     }
                     
@@ -131,23 +140,9 @@ struct EmergencyProsesView: View {
                         
                         Spacer()
                         
-                        NavigationLink{
-                            SOSButtonView(navigationPath: $navigationManager.navigationPath, sessionId: viewModel.sessionId)
-                        }label: {
-                            Text(viewModel.showSOSButtonView ? "Map" : "SOS")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(viewModel.showSOSButtonView ? Color.blue : Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
-                        
-//                        Button(action: {
-//                            // Toggle SOS View with animation
-//                            withAnimation {
-//                                viewModel.showSOSButtonView.toggle()
-//                            }
-//                        }) {
+//                        NavigationLink{
+//                            SOSButtonView(navigationPath: $navigationManager.navigationPath, sessionId: viewModel.sessionId)
+//                        }label: {
 //                            Text(viewModel.showSOSButtonView ? "Map" : "SOS")
 //                                .frame(maxWidth: .infinity)
 //                                .padding()
@@ -155,6 +150,20 @@ struct EmergencyProsesView: View {
 //                                .foregroundColor(.white)
 //                                .cornerRadius(8)
 //                        }
+                        
+                        Button(action: {
+                            // Toggle SOS View with animation
+                            withAnimation {
+                                viewModel.showSOSButtonView.toggle()
+                            }
+                        }) {
+                            Text(viewModel.showSOSButtonView ? "Map" : "SOS")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(viewModel.showSOSButtonView ? Color.blue : Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
                     }
                     .padding()
                     
@@ -163,16 +172,18 @@ struct EmergencyProsesView: View {
                 
             }
 
-//            .navigationDestination(for: DestinationView.self) { destination in
-//                switch destination {
-//                case .editDueDate:
-//                    EditDueDateView(viewModel: viewModel)
-//                case .chooseEmergency:
-//                    ChooseEmergencyTypeView(viewModel: viewModel)
-//                case .alertGuide:
-//                    AlertGuideView(viewModel: viewModel)
-//                case .countDown:
-//                    CountDownView(viewModel: viewModel)
+            .navigationDestination(for: DestinationView.self) { destination in
+                switch destination {
+                case .editDueDate:
+                    EditDueDateView(viewModel: viewModel)
+                case .chooseEmergency:
+                    ChooseEmergencyTypeView(viewModel: viewModel)
+                case .alertGuide:
+                    AlertGuideView(viewModel: viewModel)
+                case .countDown:
+                    CountDownView(viewModel: viewModel)
+                }
+            }
 
             
 //            UserNavigateView(viewModel: navigateViewModel)
@@ -232,8 +243,8 @@ struct EmergencyProsesView: View {
             }
             
             
-//        }
-//        .environmentObject(navigationManager)
+        }
+        .environmentObject(navigationManager)
         .onAppear{
             viewModel.fetchEmergency()
             viewModel.startTimer()
@@ -265,6 +276,7 @@ struct DummyMapView: View {
 }
 
 
+
 // Create a class to manage the navigation path
 class NavigationManager: ObservableObject {
     @Published var navigationPath = NavigationPath()
@@ -274,5 +286,7 @@ class NavigationManager: ObservableObject {
     // Method to pop to root (View A)
     func popToRoot() {
         navigationPath.removeLast(navigationPath.count) // Clear all the navigation stack
+//        print("\n\n\nNAVPATH: \(navigationPath)")
+        
     }
 }

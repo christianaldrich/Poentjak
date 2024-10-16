@@ -11,13 +11,15 @@ import SwiftUI
 
 struct UserView: View {
     @StateObject var viewModel: AuthViewModel
+    @StateObject var navigationManager = MountainNavigationManager()
+    
     var body: some View {
         NavigationStack{
             Text("Hello, User!")
             
             
             // Button to navigate to DueDateView
-            NavigationLink(destination: DueDateView(trackLocation: "ipukan")) {
+            NavigationLink(destination: DueDateView(trackLocation: "", navigationManager: navigationManager)) {
                 Text("Start tracking")
                     .font(.headline)
                     .padding()

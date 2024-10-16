@@ -204,6 +204,9 @@ struct EmergencyProsesView: View {
                             await viewModel.updateSessionDone()
                             navigateViewModel.isNavigating = false
                             navigateViewModel.stopTimer()
+                            SOSManager.shared.isSOS = false
+                            navigateViewModel.isSOS = false
+                            
 
 //                            mountainViewModel.isPresenting = false
                             mountainViewModel.toggleIsPresenting()

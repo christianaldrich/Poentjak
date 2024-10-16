@@ -155,6 +155,7 @@ class EmergencyProsesViewModel: ObservableObject {
             Task {
                 await self.updateStatusType()
                 self.sendSOSToFirebase = true
+                SOSManager.shared.isSOS = true
                 self.showSOSButtonView = false
                 self.deleteAnimation = true
                 navigationManager.popToRoot()

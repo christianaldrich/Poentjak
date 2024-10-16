@@ -19,7 +19,7 @@ struct EmergencyProsesView: View {
     // @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel = EmergencyProsesViewModel()
     @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
-    @StateObject var rangerMapViewModel = RangerMapViewModel(fileName: "", userLastLocation: Location(latitude: 0, longitude: 0))
+    // @StateObject var rangerMapViewModel = RangerMapViewModel(fileName: "", userLastLocation: Location(latitude: 0, longitude: 0))
     @State var tracklocation: String?
     
     //    @State private var showSOSView = false
@@ -41,7 +41,7 @@ struct EmergencyProsesView: View {
                     MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots)
                         .zIndex(0)
                     
-                    RangerMapView(region: $rangerMapViewModel.region, waypoints: rangerMapViewModel.gpxParser.parsedWaypoints, track: rangerMapViewModel.gpxParser.parsedTrack, showsUserLocation: true, userLastLocation: rangerMapViewModel.userLastLocation).zIndex(0)
+//                    RangerMapView(region: $rangerMapViewModel.region, waypoints: rangerMapViewModel.gpxParser.parsedWaypoints, track: rangerMapViewModel.gpxParser.parsedTrack, showsUserLocation: true, userLastLocation: rangerMapViewModel.userLastLocation).zIndex(0)
                     
                     VStack {
                         VStack {

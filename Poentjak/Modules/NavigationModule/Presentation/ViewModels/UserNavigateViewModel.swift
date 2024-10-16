@@ -135,6 +135,7 @@ class UserNavigateViewModel: ObservableObject {
         
         // Ensure that the UI update happens on the main thread
         DispatchQueue.main.async {
+            print("DOTS ADDED")
             self.dots.append(dot)
         }
     }

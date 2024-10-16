@@ -89,5 +89,6 @@ struct RangerMapView: UIViewRepresentable {
         // Add a circle for userLastLocation
         let circle = MKCircle(center: userLastLocationCoordinate, radius: 10) // Set the radius of the circle in meters
         uiView.addOverlay(circle)
+        print("UPDATED CIRCLE")
     }
 }

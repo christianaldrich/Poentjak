@@ -10,9 +10,11 @@ import Foundation
 protocol StartRescueUseCaseProtocol {
     func fetchEmergencyRequest(emergencyRequest id: String, completion: @escaping (Result<(EmergencyRequest, [Ranger]), Error>) -> Void)
     func assignRangersToEmergency(emergencyRequest id: String, rangerIds: [String]) async throws
+    func evacuate(emergencyRequest id: String) async throws
 }
 
 class DefaultStartRescueUseCase: StartRescueUseCaseProtocol {
+    
     private let emergencyRequestRepository: AdminEmergencyRequestRepositoryProtocol
     private let rangerRepository: DefaultRangerRepository
     
@@ -56,4 +58,8 @@ class DefaultStartRescueUseCase: StartRescueUseCaseProtocol {
             try await rangerRepository.updateRangerAvailability(rangers: selectedRangers, available: false)
             try await emergencyRequestRepository.updateEmergencyRequest(request: emergencyRequest)
         }
+    
+    func evacuate(emergencyRequest id: String) async throws {
+        try await emergencyRequestRepository.updateEmergencyRequestToComplete(id: id)
+    }
 }

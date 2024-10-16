@@ -8,7 +8,7 @@
 import Foundation
 
 protocol EmergencyUseCaseProtocol {
-    func createEmergency(dueDate: Date) async throws
+    func createEmergency(dueDate: Date, trackId: String) async throws
 //    func createEmergency(type: String) async throws
 //    func deleteEmergency() async throws
 //    func fetchEmergency(completion: @escaping (Result<EmergencyModel?, Error>) -> Void)

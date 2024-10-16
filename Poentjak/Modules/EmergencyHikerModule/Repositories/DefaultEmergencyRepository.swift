@@ -218,7 +218,8 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
         let docRef = firestore.collection("emergencyRequests").document(id)
         do {
             try await docRef.updateData([
-                "emergencyType": "overdue"
+                "emergencyType": "overdue",
+                "emergencyStatus": "danger"
             ])
             
         }

@@ -86,7 +86,7 @@ struct DueDateView: View {
                 
                 Button(action: {
                     Task {
-                        await viewModelTest.createEmergencyHiking()
+                        await viewModelTest.createEmergencyHiking(trackId: trackLocation)
                         navigateToEmergencyProcess = true // Trigger navigation after the task
                         navigateToTracking = true
                     }

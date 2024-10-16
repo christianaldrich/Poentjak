@@ -34,9 +34,9 @@ class EmergencyProsesViewModel: ObservableObject {
     
     
     
-    func createEmergencyHiking() async {
+    func createEmergencyHiking(trackId: String) async {
         do {
-            try await useCase.createEmergency(dueDate: dueDate)
+            try await useCase.createEmergency(dueDate: dueDate, trackId: trackId)
             startTimer()
             print("Emergency hiking session created successfully")
 //            emergencySessionActive = true

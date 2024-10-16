@@ -31,8 +31,8 @@ struct CheckingView: View {
                 }
             }
             else {
-//                LoginView(viewModel: viewModel)
-                TestingIcon()
+                LoginView(viewModel: viewModel)
+//                TestingIcon()
             }
             
             

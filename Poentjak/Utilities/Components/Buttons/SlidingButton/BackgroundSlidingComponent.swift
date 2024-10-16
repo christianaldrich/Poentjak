@@ -12,7 +12,7 @@ struct BackgroundSlidingComponent: View {
     @State private var hueRotation = false
     var body: some View {
         ZStack(alignment: .leading)  {
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: 50)
                   .fill(
                     LinearGradient(
                       colors: [Color.blue.opacity(0.6), Color.red.opacity(0.6)],

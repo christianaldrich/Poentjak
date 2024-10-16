@@ -34,6 +34,7 @@ struct DraggingComponent: View {
                         guard isLocked else { return }
                         // Update width based on drag
                         if value.translation.width > 0 {
+                            
                             width = min(max(value.translation.width + minWidth, minWidth), maxWidth)
                         }
                     }
@@ -54,8 +55,8 @@ struct DraggingComponent: View {
                     }
             )
             .simultaneousGesture(
-                    DragGesture()
-                  )
+                DragGesture()
+            )
             .animation(.spring(response: 0.5, dampingFraction: 1, blendDuration: 0), value: width)
     }
     
@@ -64,7 +65,7 @@ struct DraggingComponent: View {
             .font(.system(size: 20, weight: .regular, design: .rounded))
             .foregroundColor(Color.blue)
             .frame(width: 42, height: 42)
-            .background(RoundedRectangle(cornerRadius: 14).fill(Color.white))
+            .background(Circle().fill(Color.white))
             .padding(4)
             .opacity(isShown ? 1 : 0)
             .scaleEffect(isShown ? 1 : 0.01)

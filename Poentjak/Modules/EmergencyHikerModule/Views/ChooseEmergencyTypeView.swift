@@ -87,7 +87,9 @@ struct ChooseEmergencyTypeView: View {
             }
             .padding()
         }
-        //        .navigationBarBackButtonHidden(true)
+
+        //.navigationBarBackButtonHidden(true)
+
         
         
     }

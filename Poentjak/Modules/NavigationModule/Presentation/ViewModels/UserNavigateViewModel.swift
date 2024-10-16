@@ -12,22 +12,14 @@ import MapKit
 class UserNavigateViewModel: ObservableObject {
     @Published var region = MKCoordinateRegion()
     @Published var isNavigating = false
-    @Published var startTime: Date? = nil
-    @Published var elapsedTime: TimeInterval = 0.0
-    @Published var isOnTrack = false
     @Published var closestPointDistance: Double = 0.0
     @Published var dots: [MKCircle] = [] // Array to store user location dots
+    @Published var currentWaypointIndex = 0 // Track the current waypoint
+    @Published var isReverseNavigation = false // New state to track reverse navigation
+    @Published var isSOS = false
+    @Published var etaValues: [String] = []
     
-    private var timer: Timer?
     private var dotTimer: Timer? // Timer to draw dots
-    
-    let gpxParser = GPXParser()
-    let locationManager = LocationManager()
-    let networkManager = NetworkManager()
-    
-    let useCase = UserStatusUseCase(userRepository: DefaultUserRepository(), userStatusRepository: UserStatusRepository())
-    
-    //Dynamic fileName
     
     let fileName: String
     
@@ -35,6 +27,60 @@ class UserNavigateViewModel: ObservableObject {
         self.fileName = fileName
         gpxParser.parseGPX(fileName: fileName)
         setupRegionUser()
+        
+        // Set up location update callback
+        locationManager.onLocationUpdate = { [weak self] in
+            self?.checkIfUserPassedWaypoint()  // Check if the user passed the waypoint
+            self?.updateETAs()
+        }
+    }
+    
+    var nearestWarung: Waypoint? {
+        guard let userLocation = locationManager.lastKnownLocation else { return nil }
+        return closestPointOnTrack(userLocation: userLocation, track: gpxParser.parsedWaypointsWarung.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) })
+            .flatMap { warungLocation in
+                gpxParser.parsedWaypointsWarung.first { warung in
+                    warung.latitude == warungLocation.latitude && warung.longitude == warungLocation.longitude
+                }
+            }
+    }
+    
+    let gpxParser = GPXParser()
+    let locationManager = LocationManager()
+    let networkManager = NetworkManager()
+    
+    let useCase = UserStatusUseCase(userRepository: DefaultUserRepository(), userStatusRepository: UserStatusRepository())
+    
+
+    //Dynamic fileName
+    
+    
+    
+    func updateETAs() {
+        // Clear previous ETA values
+        etaValues.removeAll()
+        
+        for waypoint in gpxParser.parsedWaypoints {
+            if let userLocation = locationManager.lastKnownLocation {
+                let eta = calculateETA(
+                    to: CLLocationCoordinate2D(latitude: waypoint.latitude, longitude: waypoint.longitude),
+                    waypointElevation: waypoint.elevation,
+                    userLocation: userLocation,
+                    userElevation: locationManager.currentElevation,
+                    speed: locationManager.currentSpeed
+                )
+                
+                // Format ETA as a string
+                if let etaValue = eta {
+                    let etaString = String(format: "%.1f min", etaValue)
+                    etaValues.append("\(waypoint.name): \(etaString)")
+                } else {
+                    etaValues.append("\(waypoint.name): N/A")
+                }
+            } else {
+                etaValues.append("\(waypoint.name): N/A")
+            }
+        }
     }
 
     func setupRegionTrack() {
@@ -57,14 +103,6 @@ class UserNavigateViewModel: ObservableObject {
     }
 
     func startTimer() {
-        startTime = Date()
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if let startTime = self.startTime {
-                self.elapsedTime = Date().timeIntervalSince(startTime)
-                self.updateTrackStatus()
-            }
-        }
-        
         // Timer to add dots every 5 seconds if there's a connection
         dotTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
             if self.networkManager.isConnected{
@@ -76,12 +114,8 @@ class UserNavigateViewModel: ObservableObject {
     }
     
     func stopTimer() {
-        timer?.invalidate()
-        timer = nil
         dotTimer?.invalidate()
         dotTimer = nil
-        startTime = nil
-        elapsedTime = 0.0
         dots.removeAll()
     }
     
@@ -99,16 +133,10 @@ class UserNavigateViewModel: ObservableObject {
             print("error")
         }
         
-        dots.append(dot)
-    }
-    
-    // Update track status (on/off track)
-    private func updateTrackStatus() {
-        if let userLocation = locationManager.lastKnownLocation {
-            if let closestPoint = closestPointOnTrack(userLocation: userLocation, track: gpxParser.parsedTrack?.points ?? []) {
-                closestPointDistance = distanceBetween(userLocation, closestPoint)
-                isOnTrack = closestPointDistance <= 5.0
-            }
+        // Ensure that the UI update happens on the main thread
+        DispatchQueue.main.async {
+            print("DOTS ADDED")
+            self.dots.append(dot)
         }
     }
     
@@ -149,6 +177,7 @@ class UserNavigateViewModel: ObservableObject {
         } else {
             return nil  // If speed is 0, return nil
         }
+        
     }
     
     private func updateBatteryLevel() -> Int {
@@ -159,5 +188,37 @@ class UserNavigateViewModel: ObservableObject {
         return batteryHealth
     }
     
+    // Modified checkIfUserPassedWaypoint to handle reverse logic
+    func checkIfUserPassedWaypoint() {
+        guard !isReverseNavigation else {
+            if currentWaypointIndex >= 0 {
+                let currentWaypoint = gpxParser.parsedWaypointsPos[currentWaypointIndex]
+                if let userLocation = locationManager.lastKnownLocation {
+                    let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
+                    
+                    if distanceToWaypoint < 15.0 {
+                        currentWaypointIndex -= 1 // Move to previous waypoint
+                    }
+                }
+            }
+            return
+        }
+        
+        // Forward navigation logic
+        guard currentWaypointIndex < gpxParser.parsedWaypointsPos.count else {
+            isReverseNavigation = true // Start reverse journey
+            currentWaypointIndex = gpxParser.parsedWaypointsPos.count - 1
+            return
+        }
+        
+        let currentWaypoint = gpxParser.parsedWaypointsPos[currentWaypointIndex]
+        if let userLocation = locationManager.lastKnownLocation {
+            let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
+            
+            if distanceToWaypoint < 15.0 {
+                currentWaypointIndex += 1 // Move to next waypoint
+            }
+        }
+    }
     
 }

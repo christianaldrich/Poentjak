@@ -74,6 +74,7 @@ class EmergencyProsesViewModel: ObservableObject {
                     print ("this is in view model: \(self.emergencySessionActive)")// Check if session is active
                     //                    self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false  // Check if session is active
                     print("Fetched emergency session: active = \(self.emergencySessionActive)")
+                    print("this is fetch text after sos: \(self.sendSOSToFirebase)")
 
                     
                 case .failure(let error):

@@ -57,10 +57,10 @@ class UserViewModel: ObservableObject{
             stopTimer()
             timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
                 guard let self = self else { return }
-                
+                        
                 Task {
                     for hiker in self.hiker {
-                        if hiker.dueDate < Date() && hiker.emergencyStatus != "overdue" {
+                        if hiker.dueDate < Date() && hiker.emergencyStatus == "safe" {
                             do {
                                 try await self.activeEmRepo.updateEmergencyRequestToOverdue(id: hiker.id)
                                 print("Updated hiker \(hiker.id) to overdue")

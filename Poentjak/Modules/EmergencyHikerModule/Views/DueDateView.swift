@@ -92,7 +92,7 @@ struct DueDateView: View {
                     
 //                    DispatchQueue.main.async{
                     Task{
-                        await viewModelTest.createEmergencyHiking()
+                        await viewModelTest.createEmergencyHiking(trackId: trackLocation)
                         mountainViewModel.toggleIsPresenting()
                         navigationManager.popToRoot()
                     }

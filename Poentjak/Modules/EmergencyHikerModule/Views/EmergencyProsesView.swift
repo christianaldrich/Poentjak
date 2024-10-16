@@ -45,7 +45,7 @@ struct EmergencyProsesView: View {
                     //                        .zIndex(0)
 
                     //                    DummyMapView()
-                    MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: tracklocation)
+                    MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots)
                         .zIndex(0)
                     
 //                    RangerMapView(region: $rangerMapViewModel.region, waypoints: rangerMapViewModel.gpxParser.parsedWaypoints, track: rangerMapViewModel.gpxParser.parsedTrack, showsUserLocation: true, userLastLocation: rangerMapViewModel.userLastLocation).zIndex(0)
@@ -205,7 +205,6 @@ struct EmergencyProsesView: View {
                             navigateViewModel.isNavigating = false
                             navigateViewModel.stopTimer()
 
-                            navigateViewModel.locationManager.resetTotalDistance()
 //                            mountainViewModel.isPresenting = false
                             mountainViewModel.toggleIsPresenting()
 

@@ -77,12 +77,12 @@ struct DueDateView: View {
                 
                 // Picker Area
                 if showDatePicker {
-                    DatePicker("Select Date", selection: $viewModel.dueDate, displayedComponents: .date)
+                    DatePicker("Select Date", selection: $viewModelTest.dueDate, displayedComponents: .date)
                         .datePickerStyle(GraphicalDatePickerStyle())
                         .labelsHidden()
                         .transition(.opacity)
                 } else if showTimePicker {
-                    DatePicker("Select Time", selection: $viewModel.dueDate, displayedComponents: .hourAndMinute)
+                    DatePicker("Select Time", selection: $viewModelTest.dueDate, displayedComponents: .hourAndMinute)
                         .datePickerStyle(WheelDatePickerStyle())
                         .labelsHidden()
                         .transition(.opacity)

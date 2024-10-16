@@ -32,14 +32,16 @@ struct EmergencyProsesView: View {
     
     var body: some View {
         
+
         NavigationStack(path: $navigationManager.navigationPath) {
+
             VStack {
                 
                 ZStack (){
                     // Map View always in the background
                     //                                                        UserNavigateView(viewModel: navigateViewModel)
                     //                        .zIndex(0)
-//                    DummyMapView()
+                    //                    DummyMapView()
                     MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: tracklocation)
                         .zIndex(0)
                     
@@ -70,6 +72,7 @@ struct EmergencyProsesView: View {
                                     .font(.subheadline)
                             }
                             .padding()
+
                             .onTapGesture {
                                 navigationManager.navigationPath.append(DestinationView.editDueDate)
 //                                navigationManager.navigationPath.append("EditDueDateView")
@@ -104,10 +107,12 @@ struct EmergencyProsesView: View {
                     }
                     
                     // SOS View that slides in from the left
+
                     SOSButtonView(navigationPath: $navigationManager.navigationPath)
                         .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
                         .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
                         .zIndex(2)
+
                 }
                 
                 
@@ -123,6 +128,7 @@ struct EmergencyProsesView: View {
                             navigateViewModel.locationManager.resetTotalDistance()
 //                            mountainViewModel.isPresenting = false
                             mountainViewModel.toggleIsPresenting()
+
                         }
                     }
                     
@@ -140,6 +146,7 @@ struct EmergencyProsesView: View {
                         
                         Spacer()
                         
+
 //                        NavigationLink{
 //                            SOSButtonView(navigationPath: $navigationManager.navigationPath, sessionId: viewModel.sessionId)
 //                        }label: {
@@ -157,6 +164,7 @@ struct EmergencyProsesView: View {
                                 viewModel.showSOSButtonView.toggle()
                             }
                         }) {
+
                             Text(viewModel.showSOSButtonView ? "Map" : "SOS")
                                 .frame(maxWidth: .infinity)
                                 .padding()
@@ -164,6 +172,21 @@ struct EmergencyProsesView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
                         }
+                        
+                        
+                        //                        Button(action: {
+                        //                            // Toggle SOS View with animation
+                        //                            withAnimation {
+                        //                                viewModel.showSOSButtonView.toggle()
+                        //                            }
+                        //                        }) {
+                        //                            Text(viewModel.showSOSButtonView ? "Map" : "SOS")
+                        //                                .frame(maxWidth: .infinity)
+                        //                                .padding()
+                        //                                .background(viewModel.showSOSButtonView ? Color.blue : Color.red)
+                        //                                .foregroundColor(.white)
+                        //                                .cornerRadius(8)
+                        //                        }
                     }
                     .padding()
                     
@@ -171,6 +194,7 @@ struct EmergencyProsesView: View {
                 
                 
             }
+
 
             .navigationDestination(for: DestinationView.self) { destination in
                 switch destination {
@@ -185,48 +209,61 @@ struct EmergencyProsesView: View {
                 }
             }
 
-            
-//            UserNavigateView(viewModel: navigateViewModel)
-//                .frame(width: 700, height: 700)
-            
-//            Text("This is hiking session")
-//            
-//            Text(viewModel.status)
-//                .padding()
-//            Text(viewModel.userName)
-//                .padding()
-//            Text("\(viewModel.dueDate)")
-//                .padding()
-//            Text("\(viewModel.sessionId)")
-//                .padding()
-//            MapView()
-            
 
-//            
-//            Text("edit time")
-//            
-//            Text("SOS")
-//            
-////            Text("I am back at basecamp")
-//            Button("I am back at basecamp"){
-//                Task{
-//                    await viewModel.updateSessionDone()
-//                    navigateViewModel.isNavigating = false
-//                    navigateViewModel.stopTimer()
-//                    navigateViewModel.locationManager.resetTotalDistance()
-//                    
-////                    print("\(viewModel.sessionId)")
-////                               presentationMode.wrappedValue.dismiss()
-//                           
-//                }
-//            }
             
-//            Button("Delete Emergency") {
-//                Task {
-//                    await viewModel.deleteEmergency()
-//                    presentationMode.wrappedValue.dismiss()
-//                }
-//            }
+            //            .navigationDestination(for: DestinationView.self) { destination in
+            //                switch destination {
+            //                case .editDueDate:
+            //                    EditDueDateView(viewModel: viewModel)
+            //                case .chooseEmergency:
+            //                    ChooseEmergencyTypeView(viewModel: viewModel)
+            //                case .alertGuide:
+            //                    AlertGuideView(viewModel: viewModel)
+            //                case .countDown:
+            //                    CountDownView(viewModel: viewModel)
+            
+            
+            //            UserNavigateView(viewModel: navigateViewModel)
+            //                .frame(width: 700, height: 700)
+            
+            //            Text("This is hiking session")
+            //            
+            //            Text(viewModel.status)
+            //                .padding()
+            //            Text(viewModel.userName)
+            //                .padding()
+            //            Text("\(viewModel.dueDate)")
+            //                .padding()
+            //            Text("\(viewModel.sessionId)")
+            //                .padding()
+            //            MapView()
+            
+            
+            //            
+            //            Text("edit time")
+            //            
+            //            Text("SOS")
+            //            
+            ////            Text("I am back at basecamp")
+            //            Button("I am back at basecamp"){
+            //                Task{
+            //                    await viewModel.updateSessionDone()
+            //                    navigateViewModel.isNavigating = false
+            //                    navigateViewModel.stopTimer()
+            //                    navigateViewModel.locationManager.resetTotalDistance()
+            //                    
+            ////                    print("\(viewModel.sessionId)")
+            ////                               presentationMode.wrappedValue.dismiss()
+            //                           
+            //                }
+            //            }
+            
+            //            Button("Delete Emergency") {
+            //                Task {
+            //                    await viewModel.deleteEmergency()
+            //                    presentationMode.wrappedValue.dismiss()
+            //                }
+            //            }
             //            .navigationDestination(for: String.self) { destination in
             //                if destination == "EditDueDateView" {
             //                    EditDueDateView(viewModel: viewModel)
@@ -243,6 +280,7 @@ struct EmergencyProsesView: View {
             }
             
             
+
         }
         .environmentObject(navigationManager)
         .onAppear{
@@ -250,12 +288,11 @@ struct EmergencyProsesView: View {
             viewModel.startTimer()
             navigateViewModel.isNavigating = true
             navigateViewModel.startTimer()
+
             
         }
-        
     }
 }
-
 #Preview {
     EmergencyProsesView()
 }

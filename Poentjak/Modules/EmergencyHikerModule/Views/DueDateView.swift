@@ -22,7 +22,7 @@ struct DueDateView: View {
 //    @StateObject var mountainViewModel = MountainsTracksViewModel(mountainsTracksUseCase: MountainsTracksUseCase(mountainsTracksRepository: MountainsTracksRepository()))
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
     
-    @ObservedObject var navigationManager : MountainNavigationManager
+    @EnvironmentObject var navigationManager : MountainNavigationManager
     
     var body: some View {
         
@@ -90,11 +90,14 @@ struct DueDateView: View {
                 
                 Button(action: {
                     
-                    DispatchQueue.main.async{
-//                        await viewModelTest.createEmergencyHiking()
+//                    DispatchQueue.main.async{
+                    Task{
+                        await viewModelTest.createEmergencyHiking()
                         mountainViewModel.toggleIsPresenting()
-//                        navigationManager.popToRoot()
+                        navigationManager.popToRoot()
                     }
+                        
+//                    }
                     
 //                    Task {
 //                        await viewModelTest.createEmergencyHiking()

@@ -48,12 +48,17 @@ struct MountainsTracksView: View {
                 switch destination{
                 case .mountainTracksDetail(let mountain):
                     MountainTracksDetailView(mountain: mountain, navigationManager: navigationManager)
+                        .environmentObject(viewModel)
                         .environmentObject(navigationManager)
+                    
                 case .tracksDetail(let track):
                     TracksDetailView(track: track, navigationManager: navigationManager)
+                        .environmentObject(viewModel)
                         .environmentObject(navigationManager)
+                    
                 case .dueDate(let trackLocation):
-                    DueDateView(trackLocation: trackLocation, navigationManager: navigationManager)
+                    DueDateView(trackLocation: trackLocation)
+                        .environmentObject(viewModel)
                         .environmentObject(navigationManager)
                 }
                 

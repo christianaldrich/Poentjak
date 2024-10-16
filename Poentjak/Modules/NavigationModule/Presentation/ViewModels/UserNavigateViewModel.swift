@@ -169,7 +169,6 @@ class UserNavigateViewModel: ObservableObject {
         // Calculate 3D distance using Pythagorean theorem
         let totalDistance = sqrt(pow(horizontalDistance, 2) + pow(elevationDifference, 2))
         
-        print("calculateETA Called")
         // Calculate ETA if speed is greater than 0
         if speed > 0 {
             let etaInSeconds = totalDistance / speed  // ETA in seconds based on total distance

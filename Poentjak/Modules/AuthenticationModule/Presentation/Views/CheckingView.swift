@@ -11,6 +11,8 @@ struct CheckingView: View {
     @StateObject var viewModel: AuthViewModel
     @ObservedObject var viewModelEmergency: EmergencyProsesViewModel
     
+    @StateObject var navigationManager = NavigationManager()
+    
     var body: some View {
         Group {
             
@@ -27,6 +29,7 @@ struct CheckingView: View {
                 else {
 //                UserView(viewModel: viewModel)
                                 MountainsTracksView(authViewModel: viewModel)
+                        .environmentObject(navigationManager)
 //                                DueDateView()
                 }
             }

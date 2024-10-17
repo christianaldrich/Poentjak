@@ -11,6 +11,7 @@ import SwiftUI
 
 struct AdminEmergencyDetailView: View {
     @StateObject var viewModel: AdminEmergencyViewModel
+    @StateObject var mapViewModel: RangerMapViewModel
     @State private var showingModal = false
     var emergencyRequestId: String
     
@@ -20,6 +21,10 @@ struct AdminEmergencyDetailView: View {
                 Text("Loading emergency data...")
                     .foregroundColor(.gray)
             } else if let emergencyRequest = viewModel.emergencyRequest {
+                
+                
+                RangerMapView(region: $mapViewModel.region, waypoints: mapViewModel.gpxParser.parsedWaypoints, track: mapViewModel.gpxParser.parsedTrack, showsUserLocation: true, userLastLocation: emergencyRequest.lastLocation ?? Location(latitude: 0, longitude: 0))
+                
                 
                 Text("Emergency Type: \(emergencyRequest.emergencyType?.rawValue ?? "Not specified")")
                     .font(.headline)

@@ -40,8 +40,8 @@ struct ActiveEmergencyRepository : ActiveEmergencyRepositoryProtocol{
     func fetchEmergencyRequestByTrack(trackId: String, completion: @escaping([EmergencyRequestModel]) -> Void){
         db.collection("emergencyRequests")
             .whereField("user.trackId", isEqualTo: trackId)
-            .whereField("emergencyStatus", isEqualTo: "danger")
-//            .whereField("sessionDone", isEqualTo: false)
+//            .whereField("emergencyStatus", isEqualTo: "danger")
+            .whereField("sessionDone", isEqualTo: false)
             .addSnapshotListener{ snapshot, error in
                 if let error = error {
                     print("Error fetching emergencies: \(error)")

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ActiveEmergencyView: View {
-    @StateObject private var viewModel = UserViewModel()
+    @StateObject private var viewModel = UserViewModel(activeEmergencyUseCase: ActiveEmergencyUseCase(activeEmergencyRepository: ActiveEmergencyRepository(), userRepository: DefaultUserRepository()))
     //    @State private var activeEmergencies = [UserModel]()
     //    let hikers
     
@@ -21,6 +21,8 @@ struct ActiveEmergencyView: View {
         
         NavigationView {
             List {
+                
+                
                 
                 HikersNeedHelpSectionComponent(hikers: viewModel.hiker){ hiker in
                     viewModel.rescuing(id: hiker.id)
@@ -41,26 +43,27 @@ struct ActiveEmergencyView: View {
                     Task {
                         await authViewModel.signOut()
                     }
-                           }) {
-                               Text("Sign Out")
-                                   .font(.headline)
-                                   .padding()
-                                   .background(Color.red)
-                                   .foregroundColor(.white)
-                                   .cornerRadius(10)
-                           }
-                           .padding()
+                }) {
+                    Text("Sign Out")
+                        .font(.headline)
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
                 
             }
             .navigationTitle("Active Emergencies")
             
             .onAppear {
+                viewModel.fetchActiveEmergencyByTrack()
                 viewModel.fetchDangerHiker()
                 viewModel.startTimer()
             }
             .onDisappear {
-                            viewModel.stopTimer()
-                        }
+                viewModel.stopTimer()
+            }
             .background(
                 NavigationLink(
                     destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel() ,emergencyRequestId: idContainer),

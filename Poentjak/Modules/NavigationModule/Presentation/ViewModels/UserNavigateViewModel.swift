@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreLocation
 import MapKit
+import Combine
 
 class UserNavigateViewModel: ObservableObject {
     
@@ -23,9 +24,10 @@ class UserNavigateViewModel: ObservableObject {
     @Published var dots: [MKCircle] = [] // Array to store user location dots
     @Published var currentWaypointIndex = 0 // Track the current waypoint
     @Published var isReverseNavigation = false // New state to track reverse navigation
-    @Published var isSOS = false
+    @Published var isSOS: Bool = false
     @Published var etaValues: [String] = []
     
+    private var cancellables = Set<AnyCancellable>()
     private var dotTimer: Timer? // Timer to draw dots
     
     @State var fileName: String
@@ -40,6 +42,12 @@ class UserNavigateViewModel: ObservableObject {
             self?.checkIfUserPassedWaypoint()  // Check if the user passed the waypoint
             self?.updateETAs()
         }
+        
+        // Subscribe to SOS status updates
+        SOSManager.shared.$isSOS
+            .receive(on: RunLoop.main) // Ensure updates happen on the main thread
+            .assign(to: \.isSOS, on: self)
+            .store(in: &cancellables)
     }
     
     var nearestWarung: Waypoint? {

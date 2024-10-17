@@ -45,16 +45,6 @@ struct EmergencyProsesView: View {
                     
                     VStack {
                         VStack {
-                            
-                            Text("\(viewModel.trackId)")
-                            Text("\(trackLocation ?? "")")
-                            
-                            Button("Testing") {
-                                navigateViewModel.updateTrackId(viewModel.trackId)
-                                print("Track ID updated to: \(viewModel.trackId)")
-                            }
-
-                            
                             TopETAView(navigateViewModel: navigateViewModel)
                             
                             //INSERT NAVIGATION LINK HERE
@@ -119,8 +109,9 @@ struct EmergencyProsesView: View {
                             SOSManager.shared.isSOS = false
                             navigateViewModel.isSOS = false
                             
-
-//                            mountainViewModel.isPresenting = false
+                            
+                            //                            mountainViewModel.isPresenting = false
+                            mountainViewModel.toggleIsPresenting()
                             mountainViewModel.toggleIsPresenting()
                             
                             
@@ -180,20 +171,22 @@ struct EmergencyProsesView: View {
                 viewModel.deleteAnimation = false
                 navigateViewModel.setupRegionUser()
             }
+            .onChange(of: viewModel.sessionId){
+                if viewModel.sessionId == "no session id"{
+                    mountainViewModel.toggleIsPresenting()
+                }
+            }
         }
         .environmentObject(navigationManager)
         
         .onAppear{
             viewModel.fetchEmergency()
             navigateViewModel.fileName = viewModel.trackId
-//            navigateViewModel.updateTrackId(viewModel.trackId)
-//            navigateViewModel.setupRegionUser()
+            //            navigateViewModel.updateTrackId(viewModel.trackId)
+            //            navigateViewModel.setupRegionUser()
             viewModel.startTimer()
             navigateViewModel.isNavigating = true
             navigateViewModel.startTimer()
-            
-            
-            
         }
     }
 }

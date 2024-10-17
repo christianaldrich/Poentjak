@@ -32,26 +32,21 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var countDownTime = 5
     var countDownTimer: Timer?
     
-    //Temp
-//    @Published var backToProses: Bool = false
-    
-    
     
     func createEmergencyHiking(trackId: String) async {
         do {
             try await useCase.createEmergency(dueDate: dueDate, trackId: trackId)
             startTimer()
             print("Emergency hiking session created successfully")
-//            emergencySessionActive = true
             
             DispatchQueue.main.async { [weak self] in
                 self?.emergencySessionActive = true // Set success on the main thread
                 print("masuk viewmodel \(self?.emergencySessionActive ?? false)")
                         }
         } catch {
-            // Handle the error here
+            
             print("Failed to create emergency hiking session: \(error.localizedDescription)")
-//            emergencySessionActive = false
+
 
             DispatchQueue.main.async { [weak self] in
                 self?.emergencySessionActive = false // Set failure on the main thread
@@ -59,9 +54,6 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
-//    func createEmergencyHiking() {
-//        self.emergencySessionActive = true
-//    }
     
     func fetchEmergency() {
         useCase.fetchEmergency { result in
@@ -73,10 +65,9 @@ class EmergencyProsesViewModel: ObservableObject {
                     self.userName = emergency?.user.name ?? "no found"
                     self.dueDate = emergency?.dueDate ?? Date()
                     self.sessionId = emergency?.id ?? "no session id"
-                    self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false  // Check if session is active
-                    self.trackId = emergency?.user.trackId ?? "no track id" // Check if session is active
-                    print ("this is in view model: \(self.emergencySessionActive)")// Check if session is active
-                    //                    self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false  // Check if session is active
+                    self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false
+                    self.trackId = emergency?.user.trackId ?? "no track id"
+                    print ("this is in view model: \(self.emergencySessionActive)")
                     print("Fetched emergency session: active = \(self.emergencySessionActive)")
                     print("this is fetch text after sos: \(self.sendSOSToFirebase)")
 
@@ -84,7 +75,7 @@ class EmergencyProsesViewModel: ObservableObject {
                 case .failure(let error):
                     print("Failed to fetch emergency: \(error.localizedDescription)")
                     self.status = "Error fetching emergency"
-                    self.emergencySessionActive = false  // Set to false if there's an error
+                    self.emergencySessionActive = false
                 }
             }
         }
@@ -115,15 +106,7 @@ class EmergencyProsesViewModel: ObservableObject {
     func updateStatusType() async {
         
         do{
-//            print("\n\n\n\nSESSION ID: \(sessionId)")
-//            print("\n\n\n\nEMERGENCY TYPE: \(emergencyType)")
             try await useCase.updateStatusTypeEmergency(sessionId: sessionId, emergencyType: emergencyType.rawValue)
-            
-//            DispatchQueue.main.async{
-//                self.backToProses = true
-//                self.sendSOSToFirebase = true
-////                navigationManager.popToRoot()
-//            }
         } catch {
             print("Failed to update due date in vm: \(error.localizedDescription)")
             
@@ -131,12 +114,7 @@ class EmergencyProsesViewModel: ObservableObject {
     }
     
     
-    // Start the countdown
     func startCountDown(navigationManager: NavigationManager) {
-        
-//        print("\n\n\nSessionID: \(sessionId), emergencyType: \(emergencyType)")
-        
-        
         countDownTime = 5
         
         countDownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
@@ -151,7 +129,6 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
-    // The function to be called after 5 seconds
     func countDownFinished(navigationManager: NavigationManager) {
         print("Countdown Finished!")
         
@@ -170,48 +147,13 @@ class EmergencyProsesViewModel: ObservableObject {
     }
     
     func cancelCountDown() {
-        countDownTimer?.invalidate() // Stop the timer
-        countDownTimer = nil // Clear the timer reference
-        countDownTime = 5 // Reset the countdown time
+        countDownTimer?.invalidate()
+        countDownTimer = nil
+        countDownTime = 5
     }
     
-    
-    
-    //    func updateDueDate() async {
-    //            do {
-    //                try await useCase.updateDueDate(dueDate: dueDate)
-    //                print("due date updated successfully \(dueDate)")
-    //            } catch {
-    //                print("Failed to delete emergency: \(error.localizedDescription)")
-    //            }
-    //        }
-    
-    //    func fetchEmergency() {
-    //            useCase.fetchEmergency { result in
-    //                DispatchQueue.main.async {
-    //                    switch result {
-    //                    case .success(let emergency):
-    //                        self.status = emergency?.status ?? "No Status"
-    //                    case .failure(let error):
-    //                        print("Failed to fetch emergency: \(error.localizedDescription)")
-    //                        self.status = "Error fetching emergency"
-    //                    }
-    //                }
-    //            }
-    //        }
-    //
-    //    func deleteEmergency() async {
-    //        do {
-    //            try await useCase.deleteEmergency()
-    //            print("Emergency deleted successfully")
-    //        } catch {
-    //            print("Failed to delete emergency: \(error.localizedDescription)")
-    //        }
-    //    }
-    //
-    
     func startTimer() {
-        timer?.invalidate() // Invalidate any existing timer
+        timer?.invalidate()
         
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
@@ -234,7 +176,4 @@ class EmergencyProsesViewModel: ObservableObject {
     deinit {
         stopTimer()
     }
-    
-    
-    
 }

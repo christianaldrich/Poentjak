@@ -15,6 +15,7 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var dueDate: Date = Date()
     @Published var sessionId: String = "no session id"
     @Published var emergencyType: EmergencyType = .hipo
+    @Published var trackId: String = "gedeDefault"
     
     
     @Published var emergencySessionActive: Bool = false
@@ -25,6 +26,8 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var showSOSButtonView: Bool = false
     @Published var sendSOSToFirebase: Bool = false
     @Published var deleteAnimation: Bool = false
+    
+    @Published var isSignalSent: Bool = false
     
     @Published var countDownTime = 5
     var countDownTimer: Timer?
@@ -71,6 +74,7 @@ class EmergencyProsesViewModel: ObservableObject {
                     self.dueDate = emergency?.dueDate ?? Date()
                     self.sessionId = emergency?.id ?? "no session id"
                     self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false  // Check if session is active
+                    self.trackId = emergency?.user.trackId ?? "no track id" // Check if session is active
                     print ("this is in view model: \(self.emergencySessionActive)")// Check if session is active
                     //                    self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false  // Check if session is active
                     print("Fetched emergency session: active = \(self.emergencySessionActive)")
@@ -153,6 +157,7 @@ class EmergencyProsesViewModel: ObservableObject {
         
         DispatchQueue.main.async {
             Task {
+                self.isSignalSent = true
                 await self.updateStatusType()
                 self.sendSOSToFirebase = true
                 SOSManager.shared.isSOS = true

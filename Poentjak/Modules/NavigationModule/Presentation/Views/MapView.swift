@@ -14,7 +14,7 @@ struct MapView: UIViewRepresentable {
     var track: Track?
     var showsUserLocation: Bool
     var dots: [MKCircle]
-    // @State var fileName: String?
+     @State var fileName: String?
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
@@ -25,6 +25,8 @@ struct MapView: UIViewRepresentable {
 
         // Render overlays (track and dots)
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            
+            
             if let polyline = overlay as? MKPolyline {
                 let renderer = MKPolylineRenderer(polyline: polyline)
                 renderer.strokeColor = UIColor.yellow

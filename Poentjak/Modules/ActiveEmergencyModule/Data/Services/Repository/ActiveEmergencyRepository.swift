@@ -8,13 +8,17 @@
 import Foundation
 import FirebaseFirestore
 
-struct ActiveEmergencyRepository{
+protocol ActiveEmergencyRepositoryProtocol{
+    func fetchEmergencyRequestByTrack(trackId: String, completion: @escaping([EmergencyRequestModel]) -> Void)
+}
+
+struct ActiveEmergencyRepository : ActiveEmergencyRepositoryProtocol{
     let db = Firestore.firestore()
     private var listener: ListenerRegistration?
     
     func fetchEmergencyRequest(completion: @escaping([EmergencyRequestModel]) -> Void){
         db.collection("emergencyRequests")
-//            .whereField("status", isEqualTo: "pending")
+        //            .whereField("status", isEqualTo: "pending")
             .addSnapshotListener{ snapshot, error in
                 if let error = error {
                     print("Error fetching users: \(error)")
@@ -30,6 +34,27 @@ struct ActiveEmergencyRepository{
                 print("\n\n\nREQUESTS: \(requests)")
                 completion(requests)
                 
+            }
+    }
+    
+    func fetchEmergencyRequestByTrack(trackId: String, completion: @escaping([EmergencyRequestModel]) -> Void){
+        db.collection("emergencyRequests")
+            .whereField("emergencyStatus", isEqualTo: "danger")
+            .whereField("user.trackId", isEqualTo: trackId)
+            .addSnapshotListener{ snapshot, error in
+                if let error = error {
+                    print("Error fetching emergencies: \(error)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    print("No active emergency in this track!")
+                    return
+                }
+                let requests = documents.map { EmergencyRequestModel(dictionary: $0.data()) }
+                
+                print("\n\n\nREQUESTS: \(requests)")
+                completion(requests)
             }
     }
     

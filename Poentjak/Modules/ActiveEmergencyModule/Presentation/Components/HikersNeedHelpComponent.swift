@@ -22,6 +22,7 @@ struct HikersNeedHelpComponent: View {
             Text("Height: \(hiker.user?.height ?? 0)")
             Text("Emergency Type: \(hiker.emergencyType)")
             Text("Emergency Status: \(hiker.emergencyStatus)")
+            Text("TrackId: \(hiker.user?.trackId ?? "DEF")")
 //            Text("FullName: \(hiker.user?.contactName ?? "")")
             Button("Rescue"){
                 onConfirmRescue()

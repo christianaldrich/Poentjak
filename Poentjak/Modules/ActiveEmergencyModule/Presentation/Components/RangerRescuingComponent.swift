@@ -18,6 +18,7 @@ struct RangerRescuingComponent: View {
             Text("Height: \(hiker.user?.height ?? 0)")
             Text("Emergency Type: \(hiker.emergencyType)")
             Text("Emergency Status: \(hiker.emergencyStatus)")
+            Text("TrackId: \(hiker.user?.trackId ?? "default")")
             Button("Finish Rescue"){
                 onFinishRescue()
             }

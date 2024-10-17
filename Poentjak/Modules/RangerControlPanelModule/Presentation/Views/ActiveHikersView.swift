@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ActiveHikersView: View {
     
-    @StateObject var viewModel = ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository()))
+    @StateObject var viewModel = ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository()))
     
     @State var selectedUser: EmergencyRequestModel?
     @State private var isDetailViewActive = false
@@ -32,6 +32,7 @@ struct ActiveHikersView: View {
                                 Text("Emergency Type: \(hiker.emergencyType)")
                                 Text("Status: \(hiker.emergencyStatus)")
                                 Text("\(hiker.sessionDone ? "Udah Kelar" : "Belom Kelar")")
+                                Text("TrackId: \(hiker.user?.trackId ?? "Default")")
                                 
                             }
                             .padding(.vertical)

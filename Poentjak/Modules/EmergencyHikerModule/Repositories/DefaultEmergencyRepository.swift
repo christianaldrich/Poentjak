@@ -14,7 +14,7 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
     func createEmergency(with emergency: EmergencyRequest) async throws {
         let emergencyDTO = EmergencyRequestMapper.mapToDTO(emergency) // Map to DTO
         //        let documentRef = firestore.collection("emergencyRequests").document(emergency.id)
-        let documentRef = firestore.collection("sessions").document(emergency.id)
+        let documentRef = firestore.collection("emergencyRequests").document(emergency.id)
         
         
         do {
@@ -28,7 +28,7 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
     }
     
     func updateSessionDone(userId: String, sessionDone: Bool) async throws {
-        let collectionRef = firestore.collection("sessions")
+        let collectionRef = firestore.collection("emergencyRequests")
         
         let querySnapshot = try await collectionRef
             .whereField("user.id", isEqualTo: userId)
@@ -57,7 +57,7 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
     
     
     func updateDueDate(sessionId: String, dueDate: Date) async throws {
-        let documentRef = firestore.collection("sessions").document(sessionId)
+        let documentRef = firestore.collection("emergencyRequests").document(sessionId)
         
         do{
             try await documentRef.updateData([
@@ -72,7 +72,7 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
     }
     
     func updateStatusTypeEmergency(sessionId: String, emergencyStatus: String, emergencyType: String) async throws {
-        let documentRef = firestore.collection("sessions").document(sessionId)
+        let documentRef = firestore.collection("emergencyRequests").document(sessionId)
         
         do{
             try await documentRef.updateData([
@@ -90,7 +90,7 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
     
     
     func fetchEmergency(userId: String, completion: @escaping (Result<EmergencyRequest?, any Error>) -> Void) {
-        let collectionRef = firestore.collection("sessions")
+        let collectionRef = firestore.collection("emergencyRequests")
         
         collectionRef
             .whereField("user.id", isEqualTo: userId)
@@ -212,6 +212,23 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
     //                        completion(.success(emergency))
     //                    }
     //        }
+    
+    func updateEmergencyRequestToOverdue(id: String) async throws {
+        
+        let docRef = firestore.collection("emergencyRequests").document(id)
+        do {
+            try await docRef.updateData([
+                "emergencyType": "overdue",
+                "emergencyStatus": "danger"
+            ])
+            
+        }
+        catch {
+            print(error)
+            
+        }
+        
+    }
     
 }
 

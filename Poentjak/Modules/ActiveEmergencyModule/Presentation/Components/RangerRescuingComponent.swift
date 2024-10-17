@@ -18,9 +18,9 @@ struct RangerRescuingComponent: View {
             Text("Height: \(hiker.user?.height ?? 0)")
             Text("Emergency Type: \(hiker.emergencyType)")
             Text("Emergency Status: \(hiker.emergencyStatus)")
-//            Button("Finish Rescue"){
-//                onFinishRescue()
-//            }
+            Button("Finish Rescue"){
+                onFinishRescue()
+            }
         }
         
 //        VStack(alignment: .leading, spacing: 15){

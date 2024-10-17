@@ -19,14 +19,14 @@ class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
         self.emergencyRepository = emergencyRepository
     }
     
-    func createEmergency(dueDate: Date) async throws {
+    func createEmergency(dueDate: Date, trackId: String) async throws {
         let user = try await userRepository.fetchCurrentUserEmergency()
         //        let newEmergencyRef = Firestore.firestore().collection("emergencyRequests").document()
-        let newEmergencyRef = Firestore.firestore().collection("sessions").document()
+        let newEmergencyRef = Firestore.firestore().collection("emergencyRequests").document()
         
         
         let newEmergency = EmergencyRequest(id: newEmergencyRef.documentID, emergencyType: nil, emergencyStatus: .safe, assignedRangers: nil, batteryHealth: nil, lastLocation: nil, lastSeen: nil, dueDate: dueDate, sessionDone: false,
-                                            user: User(id: user.id, name: user.name, age: user.age, gender: user.gender, height: user.height, weight: user.weight, contactName: user.contactName, contactNumber: user.contactNumber, medicalRecord: user.medicalRecord, profileURL: user.profileURL, trackId: user.trackId))
+                                            user: User(id: user.id, name: user.name, age: user.age, gender: user.gender, height: user.height, weight: user.weight, contactName: user.contactName, contactNumber: user.contactNumber, medicalRecord: user.medicalRecord, profileURL: user.profileURL, trackId: trackId))
         
         print ("this is repo emergency!!! \(user.id)")
         
@@ -190,5 +190,15 @@ class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
     //                }
     //            }
     //        }
+    
+    func checkAndUpdateOverdue(dueDate: Date, id: String) async throws {
+        let currentDate = Date()
+        
+        if currentDate > dueDate {
+            try await emergencyRepository.updateEmergencyRequestToOverdue(id: id)
+            print("overdue")
+        }
+        print("not overdue\(dueDate) = \(currentDate)")
+    }
     
 }

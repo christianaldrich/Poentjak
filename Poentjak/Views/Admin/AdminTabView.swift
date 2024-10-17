@@ -19,6 +19,7 @@ struct AdminTabView: View {
             let authViewModel = DIContainer().makeAdminEmergencyViewModel()
 //            AdminEmergencyDetailView(viewModel: authViewModel, emergencyRequestId: "0x78aq8JdEKlVvofzx1R")
 //            RangerView()
+            
             ActiveEmergencyView(authViewModel: viewModel)
 
                 .tabItem {

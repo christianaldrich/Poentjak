@@ -18,7 +18,9 @@ struct DueDateView: View {
     @State private var navigateToTracking = false
     @State var trackLocation: String
     
-    /*@StateObject private var navigateViewModel = UserNavigateViewModel(fileName: "Naturale")*/
+    @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
+    
+    @EnvironmentObject var navigationManager : MountainNavigationManager
     
     var body: some View {
         
@@ -62,34 +64,27 @@ struct DueDateView: View {
                         .cornerRadius(10)
                 }
                 
-                
-                //            DatePicker("Select Date", selection: $viewModel.dueDate, displayedComponents: .date)
-                //                .datePickerStyle(GraphicalDatePickerStyle())
-                //                .padding()
-                //
-                //            DatePicker("Select Time", selection: $viewModel.dueDate, displayedComponents: .hourAndMinute)
-                //                .datePickerStyle(WheelDatePickerStyle())
-                //                .padding()
-                
-                // Picker Area
                 if showDatePicker {
-                    DatePicker("Select Date", selection: $viewModel.dueDate, displayedComponents: .date)
+                    DatePicker("Select Date", selection: $viewModelTest.dueDate, displayedComponents: .date)
                         .datePickerStyle(GraphicalDatePickerStyle())
                         .labelsHidden()
                         .transition(.opacity)
                 } else if showTimePicker {
-                    DatePicker("Select Time", selection: $viewModel.dueDate, displayedComponents: .hourAndMinute)
+                    DatePicker("Select Time", selection: $viewModelTest.dueDate, displayedComponents: .hourAndMinute)
                         .datePickerStyle(WheelDatePickerStyle())
                         .labelsHidden()
                         .transition(.opacity)
                 }
                 
                 Button(action: {
-                    Task {
-                        await viewModelTest.createEmergencyHiking()
-//                        navigateToEmergencyProcess = true // Trigger navigation after the task
-                        navigateToTracking = true
+                    
+                    Task{
+                        mountainViewModel.selectedTrackLocation = trackLocation
+                        await viewModelTest.createEmergencyHiking(trackId: trackLocation)
+                        mountainViewModel.toggleIsPresenting()
+                        navigationManager.popToRoot()
                     }
+                        
                 }) {
                     Text("Start Tracking")
                         .font(.headline)
@@ -100,123 +95,13 @@ struct DueDateView: View {
                 }
                 .padding(.top)
                 
-                // Use NavigationLink to navigate when the state changes
-//                .navigationDestination(isPresented: $navigateToEmergencyProcess) {
-//                    EmergencyProsesView()
-//                }
-                
-                .navigationDestination(isPresented: $navigateToTracking) {
-                    
-                    UserNavigateView(viewModel: UserNavigateViewModel(fileName: trackLocation))
-                }
-                
-                //                Button(action: {
-                //                    Task {
-                //                        //                    await viewModel.updateDueDate()
-                //                        await viewModel.createEmergencyHiking()
-                //                    }
-                //                }) {
-                //                    Text("Start Tracking")
-                //                        .font(.headline)
-                //                        .padding()
-                //                        .background(Color.green)
-                //                        .foregroundColor(.white)
-                //                        .cornerRadius(10)
-                //                }
-                
             }
-            
-            // Time Picker Button
-            Button(action: {
-                showTimePicker.toggle()
-                showDatePicker = false // Close date picker if open
-            }) {
-                Text(viewModel.dueTimeFormatted())
-                    .foregroundColor(.primary)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(10)
-            }
-            
-            // Picker Area
-            if showDatePicker {
-                DatePicker("Select Date", selection: $viewModel.dueDate, displayedComponents: .date)
-                    .datePickerStyle(GraphicalDatePickerStyle())
-                    .labelsHidden()
-                    .transition(.opacity)
-            } else if showTimePicker {
-                DatePicker("Select Time", selection: $viewModel.dueDate, displayedComponents: .hourAndMinute)
-                    .datePickerStyle(WheelDatePickerStyle())
-                    .labelsHidden()
-                    .transition(.opacity)
-            }
-            
-//            NavigationLink(value: ){
-//                Text("Start Tracking")
-//                    .font(.headline)
-//                    .padding()
-//                    .background(Color.green)
-//                    .foregroundColor(.white)
-//                    .cornerRadius(10)
-//            }
-//            .onTapGesture {
-//                Task{
-//                    await viewModelTest.createEmergencyHiking()
-//                }
-//            }
-            
-            
-            Button(action: {
-//                DispatchQueue.main.async{
-                    Task {
-                        await viewModelTest.createEmergencyHiking()
-       //                 viewModelTest.emergencySessionActive = true
-    //                    await viewModel.createEmergencyHiking()
-    //                    navigateToEmergencyProcess = true
-                        // Trigger navigation after the task
-                        //                        navigateToTracking = true
-                    }
-//                }
-               
-            }) {
-                Text("Start Tracking")
-                    .font(.headline)
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .padding(.top)
-                        
-//                            .navigationDestination(isPresented: $navigateToTracking) {
-//                                UserNavigateView()
-//                            }
-//            
-//                            Button(action: {
-//                                Task {
-//                                    //                    await viewModel.updateDueDate()
-//                                    await viewModel.createEmergencyHiking()
-//                                }
-//                            }) {
-//                                Text("Start Tracking")
-//                                    .font(.headline)
-//                                    .padding()
-//                                    .background(Color.green)
-//                                    .foregroundColor(.white)
-//                                    .cornerRadius(10)
-//                            }
-            
         }
-//        .navigationDestination(isPresented: $navigateToEmergencyProcess) {
-//            EmergencyProsesView()
-//        }
-//        .padding()
     }
     
     
 
 
 //#Preview {
-//    DueDateView()
+//    DueDateView(trackLocation: "", navigationManager: navigationmanag)
 //}

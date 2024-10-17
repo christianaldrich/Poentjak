@@ -10,8 +10,8 @@ import SwiftUI
 struct ChooseEmergencyTypeView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @StateObject var viewModel: EmergencyProsesViewModel
-
     
+    //    @State var sessionId: String?
     
     var body: some View {
         
@@ -23,7 +23,7 @@ struct ChooseEmergencyTypeView: View {
             Button("Hipotermia") {
                 viewModel.emergencyType = .hipo
                 navigationManager.navigationPath.append(DestinationView.alertGuide)
-//                navigationManager.navigationPath.append("AlertGuideView")
+                //                navigationManager.navigationPath.append("AlertGuideView")
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
             .background(Color.blue)
@@ -31,10 +31,11 @@ struct ChooseEmergencyTypeView: View {
             .cornerRadius(8)
             .padding()
             
+            
             Button("Lost") {
                 viewModel.emergencyType = .lost
                 navigationManager.navigationPath.append(DestinationView.alertGuide)
-//                navigationManager.navigationPath.append("AlertGuideView")
+                //                                navigationManager.navigationPath.append("AlertGuideView")
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
             .background(Color.orange)
@@ -45,22 +46,23 @@ struct ChooseEmergencyTypeView: View {
             Button("Injury") {
                 viewModel.emergencyType = .injury
                 navigationManager.navigationPath.append(DestinationView.alertGuide)
-//                navigationManager.navigationPath.append("AlertGuideView")
+                //                navigationManager.navigationPath.append("AlertGuideView")
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
             .background(Color.red)
             .foregroundColor(.white)
             .cornerRadius(8)
             .padding()
-                
+            
             
             Button("Close") {
                 navigationManager.navigationPath.removeLast()
             }
             .padding()
         }
-        .navigationBarBackButtonHidden(true)
 
+
+        
         
     }
 }

@@ -12,6 +12,7 @@ class AdminEmergencyViewModel: ObservableObject {
     @Published var emergencyRequest: EmergencyRequest?
     @Published var availableRangers: [Ranger] = []
     @Published var selectedRangerIds: [String] = []
+    @Published var isEvacuationComplete: Bool = false
 
     private let startRescueUseCase: StartRescueUseCaseProtocol
     private let rangerUseCase: RangerUseCaseProtocol
@@ -21,7 +22,7 @@ class AdminEmergencyViewModel: ObservableObject {
         self.rangerUseCase = rangerUseCase
     }
 
-    func loadEmergencyData(emergencyRequestId: String) {
+    func loadEmergencyData(emergencyRequestId: String) async {
         startRescueUseCase.fetchEmergencyRequest(emergencyRequest: emergencyRequestId) { result in
             switch result {
             case .success(let (request, rangers)):
@@ -39,7 +40,7 @@ class AdminEmergencyViewModel: ObservableObject {
         guard let emergencyRequest = emergencyRequest else { return }
         do {
             try await startRescueUseCase.assignRangersToEmergency(emergencyRequest: emergencyRequest.id, rangerIds: rangerIds)
-            loadEmergencyData(emergencyRequestId: emergencyRequest.id)
+            await loadEmergencyData(emergencyRequestId: emergencyRequest.id)
 
             selectedRangerIds.removeAll()
         } catch {
@@ -85,4 +86,15 @@ class AdminEmergencyViewModel: ObservableObject {
             print("Failed to delete ranger: \(error.localizedDescription)")
         }
     }
+    
+    func evacuate(id: String) async {
+            do {
+                try await startRescueUseCase.evacuate(emergencyRequest: id)
+                DispatchQueue.main.async {
+                    self.isEvacuationComplete = true
+                }
+            } catch {
+                print("Failed to complete evacuation: \(error.localizedDescription)")
+            }
+        }
 }

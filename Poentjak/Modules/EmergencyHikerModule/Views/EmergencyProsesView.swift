@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 enum DestinationView {
     case editDueDate
@@ -15,43 +16,46 @@ enum DestinationView {
 }
 
 struct EmergencyProsesView: View {
-    // @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel = EmergencyProsesViewModel()
     @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
     
+    @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
     
-    //    @State private var showSOSView = false
-    @State private var navigateToDueDate = false // State to navigate to EditDueDateView
+    @State var trackLocation: String?
     
     
-    @StateObject private var navigationManager = NavigationManager() // Initialize navigation manager
+    @State private var showSOSView = false
     
+    @State private var navigateToDueDate = false
+    
+    @StateObject private var navigationManager = NavigationManager()
     
     var body: some View {
         
-//        NavigationStack(path: $navigationManager.navigationPath) {
+        
+        
+        NavigationStack(path: $navigationManager.navigationPath) {
+            
             VStack {
                 
                 ZStack (){
-                    // Map View always in the background
-                    //                                                        UserNavigateView(viewModel: navigateViewModel)
-                    //                        .zIndex(0)
-                    DummyMapView()
+                    MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: viewModel.trackId)
                         .zIndex(0)
+                    
                     
                     VStack {
                         VStack {
-                            // Top View
-                            HStack {
-                                Text("Pos 1")
-                                    .font(.headline)
-                                Text("30-45 min")
-                                    .font(.subheadline)
-                                Spacer()
-                                Text("->")
-                                    .font(.subheadline)
+                            
+                            Text("\(viewModel.trackId)")
+                            Text("\(trackLocation ?? "")")
+                            
+                            Button("Testing") {
+                                navigateViewModel.updateTrackId(viewModel.trackId)
+                                print("Track ID updated to: \(viewModel.trackId)")
                             }
-                            .padding()
+
+                            
+                            TopETAView(navigateViewModel: navigateViewModel)
                             
                             //INSERT NAVIGATION LINK HERE
                             // buat yang di bawah
@@ -66,11 +70,10 @@ struct EmergencyProsesView: View {
                                     .font(.subheadline)
                             }
                             .padding()
-//                            .onTapGesture {
-//                                navigationManager.navigationPath.append(DestinationView.editDueDate)
-////                                navigationManager.navigationPath.append("EditDueDateView")
-//                                //                                navigateToDueDate = true // Trigger navigation
-//                            }
+                            
+                            .onTapGesture {
+                                navigationManager.navigationPath.append(DestinationView.editDueDate)
+                            }
                             
                             HStack{
                                 Text("name: \(viewModel.userName)")
@@ -80,15 +83,13 @@ struct EmergencyProsesView: View {
                             
                             Text("session id: \(viewModel.sessionId)")
                             Text("due: \(viewModel.dueDate)")
-                            Text(String(format: "%02d:%02d:%02d",
-                                        Int(navigateViewModel.elapsedTime) / 3600,
-                                        (Int(navigateViewModel.elapsedTime) % 3600) / 60,
-                                        Int(navigateViewModel.elapsedTime) % 60))
                             
                             if viewModel.sendSOSToFirebase{
                                 Text("Your SOS signal is being sent, stay calm.")
                                 
                             }
+                            
+                            
                             
                         }
                         .background(Color.white)
@@ -97,27 +98,39 @@ struct EmergencyProsesView: View {
                         Spacer()
                     }
                     
-                    // SOS View that slides in from the left
+                    
                     SOSButtonView(navigationPath: $navigationManager.navigationPath)
                         .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
                         .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
                         .zIndex(2)
+                    
                 }
                 
-                //bottom view
+                
+                
+                
                 VStack{
+                    
                     Button("I am back at basecamp"){
                         Task{
                             await viewModel.updateSessionDone()
                             navigateViewModel.isNavigating = false
                             navigateViewModel.stopTimer()
-                            navigateViewModel.locationManager.resetTotalDistance()
+                            SOSManager.shared.isSOS = false
+                            navigateViewModel.isSOS = false
+                            
+
+//                            mountainViewModel.isPresenting = false
+                            mountainViewModel.toggleIsPresenting()
+                            
+                            
                         }
                     }
                     
                     HStack{
                         Button(action: {
                             // Guide action
+                            navigationManager.navigationPath.append(DestinationView.alertGuide)
                         }) {
                             Text("Guide")
                                 .frame(maxWidth: .infinity)
@@ -129,12 +142,14 @@ struct EmergencyProsesView: View {
                         
                         Spacer()
                         
+                        
                         Button(action: {
                             // Toggle SOS View with animation
                             withAnimation {
                                 viewModel.showSOSButtonView.toggle()
                             }
                         }) {
+                            
                             Text(viewModel.showSOSButtonView ? "Map" : "SOS")
                                 .frame(maxWidth: .infinity)
                                 .padding()
@@ -149,86 +164,39 @@ struct EmergencyProsesView: View {
                 
                 
             }
-
-//            .navigationDestination(for: DestinationView.self) { destination in
-//                switch destination {
-//                case .editDueDate:
-//                    EditDueDateView(viewModel: viewModel)
-//                case .chooseEmergency:
-//                    ChooseEmergencyTypeView(viewModel: viewModel)
-//                case .alertGuide:
-//                    AlertGuideView(viewModel: viewModel)
-//                case .countDown:
-//                    CountDownView(viewModel: viewModel)
-
-            
-            UserNavigateView(viewModel: navigateViewModel)
-//                .frame(width: 700, height: 700)
-            
-//            Text("This is hiking session")
-//            
-//            Text(viewModel.status)
-//                .padding()
-//            Text(viewModel.userName)
-//                .padding()
-//            Text("\(viewModel.dueDate)")
-//                .padding()
-//            Text("\(viewModel.sessionId)")
-//                .padding()
-//            MapView()
-            
-
-            
-            Text("edit time")
-            
-            Text("SOS")
-            
-//            Text("I am back at basecamp")
-            Button("I am back at basecamp"){
-                Task{
-                    await viewModel.updateSessionDone()
-                    navigateViewModel.isNavigating = false
-                    navigateViewModel.stopTimer()
-                    navigateViewModel.locationManager.resetTotalDistance()
-                    
-//                    print("\(viewModel.sessionId)")
-//                               presentationMode.wrappedValue.dismiss()
-                           
+            .navigationDestination(for: DestinationView.self) { destination in
+                switch destination {
+                case .editDueDate:
+                    EditDueDateView(viewModel: viewModel)
+                case .chooseEmergency:
+                    ChooseEmergencyTypeView(viewModel: viewModel)
+                case .alertGuide:
+                    AlertGuideView(viewModel: viewModel)
+                case .countDown:
+                    CountDownView(viewModel: viewModel)
                 }
             }
-            
-//            Button("Delete Emergency") {
-//                Task {
-//                    await viewModel.deleteEmergency()
-//                    presentationMode.wrappedValue.dismiss()
-//                }
-//            }
-            //            .navigationDestination(for: String.self) { destination in
-            //                if destination == "EditDueDateView" {
-            //                    EditDueDateView(viewModel: viewModel)
-            //                } else if destination == "ChooseEmergencyView" { ChooseEmergencyTypeView(viewModel: viewModel)
-            //                } else if destination == "AlertGuideView" {
-            //                    AlertGuideView(viewModel: viewModel)
-            //                } else if destination == "CountDownView" {
-            //                    CountDownView(viewModel: viewModel)
-            //                }
-            //            }
             .onAppear{
                 viewModel.deleteAnimation = false
+                navigateViewModel.setupRegionUser()
             }
-            
-            
-//        }
-//        .environmentObject(navigationManager)
-//        .onAppear{
-//            viewModel.fetchEmergency()
-//            navigateViewModel.isNavigating = true
-//            navigateViewModel.startTimer()
-//        }
+        }
+        .environmentObject(navigationManager)
         
+        .onAppear{
+            viewModel.fetchEmergency()
+            navigateViewModel.fileName = viewModel.trackId
+//            navigateViewModel.updateTrackId(viewModel.trackId)
+//            navigateViewModel.setupRegionUser()
+            viewModel.startTimer()
+            navigateViewModel.isNavigating = true
+            navigateViewModel.startTimer()
+            
+            
+            
+        }
     }
 }
-
 #Preview {
     EmergencyProsesView()
 }
@@ -249,6 +217,7 @@ struct DummyMapView: View {
 }
 
 
+
 // Create a class to manage the navigation path
 class NavigationManager: ObservableObject {
     @Published var navigationPath = NavigationPath()
@@ -258,5 +227,7 @@ class NavigationManager: ObservableObject {
     // Method to pop to root (View A)
     func popToRoot() {
         navigationPath.removeLast(navigationPath.count) // Clear all the navigation stack
+        //        print("\n\n\nNAVPATH: \(navigationPath)")
+        
     }
 }

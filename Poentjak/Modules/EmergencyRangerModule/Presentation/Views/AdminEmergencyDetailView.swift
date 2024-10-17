@@ -11,6 +11,7 @@ import SwiftUI
 
 struct AdminEmergencyDetailView: View {
     @StateObject var viewModel: AdminEmergencyViewModel
+    @StateObject var mapViewModel: RangerMapViewModel
     @State private var showingModal = false
     var emergencyRequestId: String
     
@@ -20,6 +21,10 @@ struct AdminEmergencyDetailView: View {
                 Text("Loading emergency data...")
                     .foregroundColor(.gray)
             } else if let emergencyRequest = viewModel.emergencyRequest {
+                
+                
+                RangerMapView(region: $mapViewModel.region, waypoints: mapViewModel.gpxParser.parsedWaypoints, track: mapViewModel.gpxParser.parsedTrack, showsUserLocation: true, userLastLocation: emergencyRequest.lastLocation ?? Location(latitude: 0, longitude: 0))
+                
                 
                 Text("Emergency Type: \(emergencyRequest.emergencyType?.rawValue ?? "Not specified")")
                     .font(.headline)
@@ -50,8 +55,8 @@ struct AdminEmergencyDetailView: View {
                     }
                     
                     
-//                    Text("Last Location: (\(emergencyRequest.lastLocation.latitude), \(emergencyRequest.lastLocation.longitude))")
-//                        .font(.subheadline)
+                    //                    Text("Last Location: (\(emergencyRequest.lastLocation.latitude), \(emergencyRequest.lastLocation.longitude))")
+                    //                        .font(.subheadline)
                     
                     Text("Last Location: (\(emergencyRequest.lastLocation?.latitude ?? 0.0), \(emergencyRequest.lastLocation?.longitude ?? 0.0))")
                         .font(.subheadline)
@@ -63,6 +68,19 @@ struct AdminEmergencyDetailView: View {
                     Text("Due Date: \(emergencyRequest.dueDate, formatter: dateFormatter)")
                         .font(.subheadline)
                     
+                    Button(action: {
+                        Task {
+                            await viewModel.evacuate(id: emergencyRequest.id)
+                        }
+                    }) {
+                        Text("Evacuate")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .padding(.top, 16)
                     
                     Button(action: {
                         showingModal.toggle()

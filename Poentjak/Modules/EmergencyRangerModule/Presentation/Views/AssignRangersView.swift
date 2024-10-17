@@ -11,6 +11,7 @@ struct AssignRangersView: View {
     @StateObject var viewModel: AdminEmergencyViewModel
     @State private var newRangerName: String = ""
     @State private var isEditing: Bool = false
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationView {
@@ -118,8 +119,9 @@ struct AssignRangersView: View {
                 // New Button to Assign Rangers to Emergency
                 Button(action: {
                     Task {
-                        if let emergencyRequestId = viewModel.emergencyRequest?.id {
+                        if (viewModel.emergencyRequest?.id) != nil {
                             await viewModel.assignRangers(rangerIds: viewModel.selectedRangerIds)
+                            dismiss()
                         }
                     }
                 }) {

@@ -17,23 +17,23 @@ enum ButtonState {
 func foregroundColorButton(for state: ButtonState) -> Color {
     switch state {
     case .enabled, .loading:
-        return Color.white
+        return Color.neutralWhite
     case .disabled:
-        return Color.white
+        return Color.neutralWhite
     case .secondary:
-        return Color.blue
+        return Color.primaryGreen500
     }
 }
 
 func backgroundColorButton(for state: ButtonState) -> Color {
     switch state {
     case .enabled:
-        return Color.blue
+        return Color.primaryGreen500
     case .disabled:
-        return Color.blue.opacity(0.5)
+        return Color.primaryDisabledGreen
     case .loading:
-        return Color.blue
+        return Color.primaryGreen500
     case .secondary:
-        return Color.white
+        return Color.neutralWhite
     }
 }

@@ -32,8 +32,8 @@ struct CustomLargeButtonComponent: View {
                     }
                 } else {
                     Text(text)
-                        .font(.calloutEmphasized)
                         .foregroundColor(foregroundColorButton(for: state))
+                        .font(.calloutEmphasized)
                 }
             }
             .frame(width: 340, height: 72)

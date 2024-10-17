@@ -144,6 +144,23 @@ extension Font {
         return Font.system(size: 11, weight: .semibold).italic()
     }()
     
+    //custom
+    static var customLabelRescueStatus: Font = {
+        return Font.system(size: 10, weight: .bold)
+    }()
+    
+    static var customLabelHourLeft: Font = {
+        return Font.system(size: 13, weight: .bold)
+    }()
+    
+    static var customLabelEmergencyStatus: Font = {
+        return Font.system(size: 13, weight: .bold)
+    }()
+    
+    static var customPrimaryButton: Font = {
+        return Font.system(size: 16, weight: .bold)
+    }()
+    
     
     
     

@@ -15,7 +15,7 @@ struct CircularLoadingView: View {
         ZStack {
             Circle()
                 .trim(from: 0, to: 0.75)
-                .stroke(Color.white, lineWidth: 2)
+                .stroke(Color.neutralWhite, lineWidth: 2)
                 .frame(width: 14, height: 14)
                 .rotationEffect(Angle(degrees: isAnimating ? 360 : 0))
                 .animation(

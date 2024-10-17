@@ -24,7 +24,7 @@ struct CustomPrimaryButtonComponent: View {
                     .cornerRadius(16)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(state == .secondary ? .blue : .clear, lineWidth: state == .secondary ? 2 : 0)
+                            .stroke(state == .secondary ? Color.primaryGreen500 : .clear, lineWidth: state == .secondary ? 2 : 0)
                     )
 
                 if state == .loading {

@@ -33,7 +33,7 @@ struct DraggableView<LeadingView: View, TrailingView: View>: View {
     let slidingDirection: SlidingDirection
     let leadingView: LeadingView
     let trailingView: TrailingView
-    var buttonColor: Color = Color.red
+    var buttonColor: Color
     
     @State var actionState: ActionState = .initial
     @State private var width: CGFloat = 70
@@ -141,13 +141,16 @@ struct BackgroundView: View {
                         Spacer()
                         
                         Text("Finished Evacuating")
-                            .foregroundColor(Color.black)
-                            .font(.title3)
+                            .foregroundColor(Color.primaryGreen500)
+                            .font(Font.title3Regular)
+                        
+            
                     } else {
                         // RTL: Chevron < < and "Slide to Cancel" text
                         Text("Slide to Cancel")
-                            .foregroundColor(Color.black)
-                            .font(.title3)
+                            .foregroundColor(Color.primaryGreen500)
+                            .font(Font.title3Regular)
+                        
                         
                         Spacer()
                         
@@ -171,7 +174,6 @@ struct SlideToActionButton: View {
     
     let slidingDirection: SlidingDirection
     var buttonColor: Color = .red
-    var leadingIcon: String = "xmark"
     var trailingIcon: String = "checkmark"
     
     // New property for the action closure
@@ -186,7 +188,7 @@ struct SlideToActionButton: View {
                 DraggableView(
                     maxDraggableWidth: geometry.size.width,
                     slidingDirection: slidingDirection,
-                    leadingView: Image(systemName: leadingIcon)
+                    leadingView: Image(systemName: slidingDirection == .ltr ? "arrow.right" : "arrow.left")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30, height: 30)
@@ -196,7 +198,7 @@ struct SlideToActionButton: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30, height: 30)
                         .foregroundColor(.white),
-                    buttonColor: buttonColor,
+                    buttonColor: slidingDirection == .ltr ? Color.primaryGreen500 : Color.accentRedSos,
                     onActionCompleted: onActionCompleted // Pass the closure to the draggable view
                 )
             }
@@ -205,19 +207,16 @@ struct SlideToActionButton: View {
     }
 }
 
-
 #Preview {
     SlideToActionButton(
-        slidingDirection: .rtl,
-        buttonColor: .red, onActionCompleted: {
+        slidingDirection: .rtl,onActionCompleted: {
             print("hi")
         } // Set button color to red
     )
     .padding(.horizontal, 25)
     
     SlideToActionButton(
-        slidingDirection: .ltr,
-        buttonColor: .green , onActionCompleted: {
+        slidingDirection: .ltr, onActionCompleted: {
             print("hi")
         }// Set button color to red
     )

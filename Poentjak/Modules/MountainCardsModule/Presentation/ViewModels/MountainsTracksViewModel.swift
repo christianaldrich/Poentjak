@@ -13,6 +13,7 @@ class MountainsTracksViewModel: ObservableObject{
     private let mountainsTracksUseCase: MountainsTracksUseCaseProtocol
     
     @Published var isPresenting = false
+    @Published var selectedTrackLocation: String = ""
     
     init(mountainsTracksUseCase: MountainsTracksUseCaseProtocol) {
         self.mountainsTracksUseCase = mountainsTracksUseCase

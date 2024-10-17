@@ -22,28 +22,17 @@ struct MountainsTracksView: View {
     
     
     var body: some View {
-        //        Text("Is Presenting: \(viewModel.isPresenting)")
         
         NavigationStack(path: $navigationManager.navigationPath){
             List(viewModel.mountainsTracks, id: \.id){mountain in
-                //                NavigationLink(value: mountain){
-                //                    Text("Name: \(mountain.name)")
-                //                    navigationManager.navigationPath.append(mountain)
                 Button("Name: \(mountain.name)"){
                     navigationManager.navigationPath.append(MountainDestinationView.mountainTracksDetail(mountain: mountain))
                 }
-                //                }
+                
                 
             }
-            Button("testing"){
-                //                viewModel.isPresenting = true
-                //                navigationManager.popToRoot()
-                viewModel.toggleIsPresenting()
-            }
+            
             .navigationTitle("Mountain Card")
-            //            .navigationDestination(for: MountainTracksModel.self){mountain in
-            //                MountainTracksDetailView(mountain: mountain)
-            //            }
             .navigationDestination(for: MountainDestinationView.self){ destination in
                 switch destination{
                 case .mountainTracksDetail(let mountain):
@@ -64,7 +53,7 @@ struct MountainsTracksView: View {
                 
             }
             .fullScreenCover(isPresented: $viewModel.isPresenting){
-                EmergencyProsesView()
+                EmergencyProsesView(navigateViewModel: UserNavigateViewModel(fileName: viewModel.selectedTrackLocation))
                     .environmentObject(viewModel)
                 
             }
@@ -95,16 +84,11 @@ struct MountainsTracksView: View {
 //    MountainsTracksView()
 //}
 
-// Create a class to manage the navigation path
+
 class MountainNavigationManager: ObservableObject {
     @Published var navigationPath = NavigationPath()
-    //    @Published var selectedEmergencyType: String?
-    
-    
-    // Method to pop to root (View A)
+
     func popToRoot() {
-        navigationPath.removeLast(navigationPath.count) // Clear all the navigation stack
-        //        print("\n\n\nNAVPATH: \(navigationPath)")
-        
+        navigationPath.removeLast(navigationPath.count)
     }
 }

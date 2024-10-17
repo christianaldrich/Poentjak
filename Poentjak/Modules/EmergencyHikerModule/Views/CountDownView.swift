@@ -32,6 +32,11 @@ struct CountDownView: View {
                 .font(.title)
                 .padding()
             
+            if viewModel.isSignalSent{
+                Text("Trying to send your distress signal..")
+                
+            }
+            
 //            Button("Nanti ini Count Down"){
 //                Task{
 //                    await viewModel.updateStatusType()

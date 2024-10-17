@@ -54,7 +54,7 @@ class UserViewModel: ObservableObject{
         activeEmRepo.fetchEmergencyRequest{ [weak self] hiker in
             DispatchQueue.main.async{
                 self?.hiker = hiker
-                print("\n\n\n\(hiker)")
+//                print("\n\n\n\(hiker)")
             }
         }
     }

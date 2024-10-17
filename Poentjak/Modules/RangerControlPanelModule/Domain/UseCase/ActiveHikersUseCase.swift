@@ -14,15 +14,25 @@ protocol ActiveHikersUseCaseProtocol{
 class ActiveHikersUseCase: ActiveHikersUseCaseProtocol{
     
     private let activeHikersRepository: ActiveHikersRepositoryProtocol
+    private let userRepository: UserRepositoryProtocol
+
     
-    init(activeHikersRepository: ActiveHikersRepositoryProtocol) {
+    init(activeHikersRepository: ActiveHikersRepositoryProtocol, userRepository: UserRepositoryProtocol) {
         self.activeHikersRepository = activeHikersRepository
+        self.userRepository = userRepository
     }
     
     func fetchActiveHikers(completion: @escaping([EmergencyRequestModel]) -> Void){
         
-        activeHikersRepository.fetchActiveHikers{ requests in
-            completion(requests)
+        Task {
+            let rangerTrackId = try await userRepository.fetchCurrentUserEmergency().trackId
+//            print("\n\n\n\nTrackID: \(rangerTrackId)")
+            
+            activeHikersRepository.fetchActiveHikers(trackId: rangerTrackId){ requests in
+//                print("\n\nREQUESTS: \(requests)")
+                completion(requests)
+                
+            }
             
         }
     }

@@ -58,7 +58,7 @@ struct ActiveEmergencyView: View {
             
             .onAppear {
                 viewModel.fetchActiveEmergencyByTrack()
-                viewModel.fetchDangerHiker()
+//                viewModel.fetchDangerHiker()
                 viewModel.startTimer()
             }
             .onDisappear {

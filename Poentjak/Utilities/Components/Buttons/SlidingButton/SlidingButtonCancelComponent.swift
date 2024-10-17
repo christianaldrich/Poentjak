@@ -31,26 +31,24 @@ struct DraggableView<LeadingView: View, TrailingView: View>: View {
     
     let maxDraggableWidth: CGFloat
     let slidingDirection: SlidingDirection
-    
     let leadingView: LeadingView
     let trailingView: TrailingView
-    
-    // New property for button color
     var buttonColor: Color = Color.red
     
     @State var actionState: ActionState = .initial
     @State private var width: CGFloat = 70
+    @State private var dragCompleted: Bool = false
+    
+    // New property for the action closure
+    var onActionCompleted: () -> Void
     
     private let minWidth: CGFloat = 70
     private let imagePadding: CGFloat = 4
-    private let buttonDiameter: CGFloat = 58 // Set diameter for the button
+    private let buttonDiameter: CGFloat = 58
     
     var body: some View {
-        let opacity: Double = (width / maxDraggableWidth)
-        
-        // Set background color to red and overlay with white
         RoundedRectangle(cornerRadius: 50)
-            .fill(buttonColor) // Use red background
+            .fill(buttonColor)
             .padding(4)
             .frame(width: width)
             .overlay(
@@ -64,11 +62,11 @@ struct DraggableView<LeadingView: View, TrailingView: View>: View {
                 }, label: {
                     switch actionState {
                     case .initial:
-                        leadingView // Ensure leadingView is colored correctly
-                            .foregroundColor(.white) // Set leading view color to white
+                        leadingView
+                            .foregroundColor(.white)
                     case .loading:
                         ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .white)) // Use white for loading indicator
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     case .finish:
                         trailingView
                     }
@@ -76,24 +74,21 @@ struct DraggableView<LeadingView: View, TrailingView: View>: View {
                 .buttonStyle(CustomButtonStyle())
                 .disabled(actionState != .initial)
                 .font(.system(size: 20, weight: .regular, design: .rounded))
-                .foregroundColor(.white) // Ensure button text is white
-                .frame(width: buttonDiameter, height: buttonDiameter) // Circle button
-                    .background(
-                        Circle()
-                            .fill(Color.red) // Red background for button
-                    )
-                    .padding(.all, imagePadding),
+                .frame(width: buttonDiameter, height: buttonDiameter)
+                .background(
+                    Circle()
+                        .fill(buttonColor)
+                )
+                .padding(.all, imagePadding),
                 alignment: (slidingDirection == .ltr) ? .trailing : .leading
             )
             .highPriorityGesture(
                 DragGesture()
                     .onChanged { value in
                         guard actionState == .initial else { return }
-                        
-                        // Calculate new width based on translation
                         if slidingDirection == .rtl {
-                            let newWidth = max(minWidth, min((value.translation.width * slidingDirection.rawValue * 5) + minWidth, maxDraggableWidth))
-                            width = max(min(newWidth, maxDraggableWidth), minWidth) // Right to Left
+                            let newWidth = max(minWidth, min((value.translation.width * slidingDirection.rawValue * 3) + minWidth, maxDraggableWidth))
+                            width = max(min(newWidth, maxDraggableWidth), minWidth)
                         } else {
                             if value.translation.width * slidingDirection.rawValue > 0 {
                                 width = min((value.translation.width * slidingDirection.rawValue) + minWidth, maxDraggableWidth)
@@ -101,25 +96,29 @@ struct DraggableView<LeadingView: View, TrailingView: View>: View {
                         }
                     }
                     .onEnded { _ in
-                        guard (actionState == .initial) else { return }
-                        
+                        guard actionState == .initial else { return }
                         if width < maxDraggableWidth {
                             width = minWidth
+                            dragCompleted = false
                             return
                         }
+                        
+                        dragCompleted = true
                         withAnimation(.spring().delay(0.5)) {
                             actionState = .loading
                         }
-                        
-                        // Simulate doing something by transitioning to the finish state
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                             actionState = .finish
+                            onActionCompleted() // Call the action closure here
                         }
                     }
             )
             .animation(.spring(response: 0.5, dampingFraction: 1, blendDuration: 0), value: width)
     }
 }
+
+
+   
 
 struct BackgroundView: View {
     let slidingDirection: SlidingDirection
@@ -130,65 +129,97 @@ struct BackgroundView: View {
             .shadow(color: Color.black.opacity(0.2), radius: 16, x: 0, y: 4)
             .overlay(
                 HStack {
-                    
-                    Spacer()
-                    Spacer()
-                    Image(systemName: (slidingDirection == .ltr) ? "chevron.right" : "chevron.left.2")
-                        .foregroundColor(Color.gray.opacity(0.5)) // Gray for first chevron
-                    Image(systemName: (slidingDirection == .ltr) ? "chevron.right" : "chevron.left.2")
-                        .foregroundColor(Color.gray.opacity(0.7)) // Slightly lighter gray for second
-                    Spacer()
-                    
-                    Text(slidingDirection == .ltr ? "Finished Evacuating" : "Slide to Cancel")
-                        .foregroundColor(Color.black)
-                        .font(.title3)
+                    if slidingDirection == .ltr {
+                        // LTR: Chevron > > and "Finished Evacuating" text
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(Color.gray.opacity(0.5)) // First chevron
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(Color.gray.opacity(0.7)) // Second chevron
+                        
+                        Spacer()
+                        
+                        Text("Finished Evacuating")
+                            .foregroundColor(Color.black)
+                            .font(.title3)
+                    } else {
+                        // RTL: Chevron < < and "Slide to Cancel" text
+                        Text("Slide to Cancel")
+                            .foregroundColor(Color.black)
+                            .font(.title3)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(Color.gray.opacity(0.5)) // First chevron
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(Color.gray.opacity(0.7)) // Second chevron
+                        
+                        Spacer()
+                    }
                 }
-                    .padding()
-                
-                    .font(.system(size: 16, weight: .regular, design: .rounded))
-                    .foregroundStyle(Color.white.opacity(0.6)),
+                .padding()
+                .font(.system(size: 16, weight: .regular, design: .rounded))
+                .foregroundStyle(Color.white.opacity(0.6)),
                 alignment: .center
             )
-        
     }
 }
 
-struct SlideToActionButton<LeadingView: View, TrailingView: View>: View {
+struct SlideToActionButton: View {
     
     let slidingDirection: SlidingDirection
-    
-    let leadingView: LeadingView
-    let trailingView: TrailingView
-    
-    // Add buttonColor property
     var buttonColor: Color = .red
+    var leadingIcon: String = "xmark"
+    var trailingIcon: String = "checkmark"
+    
+    // New property for the action closure
+    var onActionCompleted: () -> Void
     
     var body: some View {
-        
         GeometryReader { geometry in
             ZStack(alignment: (slidingDirection == .ltr) ? .leading : .trailing) {
                 BackgroundView(slidingDirection: slidingDirection)
-                DraggableView(maxDraggableWidth: geometry.size.width,
-                              slidingDirection: slidingDirection,
-                              leadingView: leadingView,
-                              trailingView: trailingView,
-                              buttonColor: buttonColor) // Pass the buttonColor
+                
+                // Draggable view with predefined icons
+                DraggableView(
+                    maxDraggableWidth: geometry.size.width,
+                    slidingDirection: slidingDirection,
+                    leadingView: Image(systemName: leadingIcon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.white),
+                    trailingView: Image(systemName: trailingIcon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.white),
+                    buttonColor: buttonColor,
+                    onActionCompleted: onActionCompleted // Pass the closure to the draggable view
+                )
             }
         }
         .frame(height: 70)
     }
 }
 
+
 #Preview {
-    return SlideToActionButton(
+    SlideToActionButton(
         slidingDirection: .rtl,
-        leadingView: Image(systemName: "xmark")
-            .resizable() // Make the image resizable
-            .aspectRatio(contentMode: .fit) // Maintain aspect ratio
-            .frame(width: 30, height: 30) // Set the size of the "X" icon
-            .foregroundColor(.white), // Set the X button color to white
-        trailingView: Image(systemName: "checkmark"),
-        buttonColor: .red // Set button color to red
+        buttonColor: .red, onActionCompleted: {
+            print("hi")
+        } // Set button color to red
+    )
+    .padding(.horizontal, 25)
+    
+    SlideToActionButton(
+        slidingDirection: .ltr,
+        buttonColor: .green , onActionCompleted: {
+            print("hi")
+        }// Set button color to red
     )
     .padding(.horizontal, 25)
 }

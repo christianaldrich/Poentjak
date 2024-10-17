@@ -14,12 +14,12 @@ class RangerMapViewModel: ObservableObject {
     
     let locationManager = LocationManager()
     let fileName: String
-    let userLastLocation: Location
+    //let userLastLocation: Location
     
-    init(fileName: String, userLastLocation: Location) {
+    init(fileName: String) {
         self.fileName = fileName
         gpxParser.parseGPX(fileName: fileName)
-        self.userLastLocation = userLastLocation
+        //self.userLastLocation = userLastLocation
         setupRegionTrack()
     }
     

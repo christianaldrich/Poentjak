@@ -34,7 +34,7 @@ struct ActiveEmergencyView: View {
                 
                 RangerRescuingSectionComponent(hikers: viewModel.hiker){
                     hiker in
-                    viewModel.rescuing(id: hiker.id)
+//                    viewModel.rescuing(id: hiker.id)
                     selectedUser = hiker
                     idContainer = hiker.id
                     isDetailViewActive = true
@@ -58,7 +58,7 @@ struct ActiveEmergencyView: View {
             
             .onAppear {
                 viewModel.fetchActiveEmergencyByTrack()
-//                viewModel.fetchDangerHiker()
+                viewModel.fetchDangerHiker()
                 viewModel.startTimer()
             }
             .onDisappear {
@@ -66,7 +66,7 @@ struct ActiveEmergencyView: View {
             }
             .background(
                 NavigationLink(
-                    destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel() ,emergencyRequestId: idContainer),
+                    destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel(), mapViewModel: RangerMapViewModel(fileName: selectedUser?.user?.trackId ?? "gede1") ,emergencyRequestId: idContainer),
                     isActive: $isDetailViewActive,
                     label: { EmptyView() }
                 )

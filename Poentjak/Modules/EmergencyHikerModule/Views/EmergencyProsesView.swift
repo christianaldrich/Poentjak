@@ -45,16 +45,6 @@ struct EmergencyProsesView: View {
                     
                     VStack {
                         VStack {
-                            
-                            Text("\(viewModel.trackId)")
-                            Text("\(trackLocation ?? "")")
-                            
-                            //                            Button("Testing") {
-                            //                                navigateViewModel.updateTrackId(viewModel.trackId)
-                            //                                print("Track ID updated to: \(viewModel.trackId)")
-                            //                            }
-                            
-                            
                             TopETAView(navigateViewModel: navigateViewModel)
                             
                             //INSERT NAVIGATION LINK HERE
@@ -121,6 +111,7 @@ struct EmergencyProsesView: View {
                             
                             
                             //                            mountainViewModel.isPresenting = false
+                            mountainViewModel.toggleIsPresenting()
                             mountainViewModel.toggleIsPresenting()
                             
                             

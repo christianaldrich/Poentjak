@@ -15,6 +15,7 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var dueDate: Date = Date()
     @Published var sessionId: String = "no session id"
     @Published var emergencyType: EmergencyType = .hipo
+    
     @Published var trackId: String = "gedeDefault"
     
     
@@ -165,7 +166,7 @@ class EmergencyProsesViewModel: ObservableObject {
             guard let self = self else { return }
             Task {
                 do {
-                    try await self.useCase.checkAndUpdateOverdue(dueDate: self.dueDate, id: self.sessionId)
+                    try await self.useCase.checkAndUpdateOverdue(dueDate: self.dueDate, id: self.sessionId, emergencyStatus: self.status)
                     
                 } catch {
                     print("Error checking overdue: \(error.localizedDescription)")

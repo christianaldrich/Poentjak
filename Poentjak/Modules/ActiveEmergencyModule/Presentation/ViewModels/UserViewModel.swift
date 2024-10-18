@@ -66,6 +66,7 @@ class UserViewModel: ObservableObject{
             
             Task {
                 for hiker in self.hiker {
+//                    print("ajg \(hiker.dueDate) tes \(Date())")
                     if hiker.dueDate < Date() && hiker.emergencyStatus == "safe" {
                         do {
                             try await self.activeEmRepo.updateEmergencyRequestToOverdue(id: hiker.id)

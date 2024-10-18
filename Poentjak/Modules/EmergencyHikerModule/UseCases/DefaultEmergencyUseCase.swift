@@ -85,10 +85,10 @@ class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
         }
     }
     
-    func checkAndUpdateOverdue(dueDate: Date, id: String) async throws {
+    func checkAndUpdateOverdue(dueDate: Date, id: String, emergencyStatus: String) async throws {
         let currentDate = Date()
         
-        if currentDate > dueDate {
+        if currentDate > dueDate && emergencyStatus == "safe" {
             try await emergencyRepository.updateEmergencyRequestToOverdue(id: id)
             print("overdue")
         }

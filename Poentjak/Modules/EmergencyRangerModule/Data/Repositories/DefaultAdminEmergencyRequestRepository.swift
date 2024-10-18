@@ -74,7 +74,7 @@ class DefaultAdminEmergencyRequestRepository: AdminEmergencyRequestRepositoryPro
         let docRef = firestore.collection("emergencyRequests").document(request.id)
         do {
             try await docRef.updateData([
-                "emergencyStatus": request.emergencyStatus.rawValue,
+                "emergencyStatus": "ongoing",
                 "assignedRangers": request.assignedRangers as Any, // add as any
             ])
             print("Document successfully updated")

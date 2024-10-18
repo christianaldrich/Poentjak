@@ -35,12 +35,12 @@ class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
         
     }
     
-    func updateSessionDone(sessionDone: Bool) async throws {
+    func updateSessionDone(sessionDone: Bool, emergencyStatus: String) async throws {
         let user = try await userRepository.fetchCurrentUserEmergency()
         
         
         do{
-            try await emergencyRepository.updateSessionDone(userId: user.id, sessionDone: sessionDone)
+            try await emergencyRepository.updateSessionDone(userId: user.id, sessionDone: sessionDone, emergencyStatus: emergencyStatus)
         } catch {
             print("Failed to update session done: \(error.localizedDescription)")
             throw error

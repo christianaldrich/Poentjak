@@ -124,7 +124,7 @@ class UserNavigateViewModel: ObservableObject {
     
     func startTimer() {
         // Timer to add dots every 5 seconds if there's a connection
-        dotTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
+        dotTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
             if self.networkManager.isConnected{
                 Task {
                     await self.addDot()

@@ -13,6 +13,7 @@ enum DestinationView {
     case chooseEmergency
     case alertGuide
     case countDown
+    case soundBoard
 }
 
 struct EmergencyProsesView: View {
@@ -165,6 +166,8 @@ struct EmergencyProsesView: View {
                     AlertGuideView(viewModel: viewModel)
                 case .countDown:
                     CountDownView(viewModel: viewModel)
+                case .soundBoard:
+                    SoundBoardView()
                 }
             }
             .onAppear{

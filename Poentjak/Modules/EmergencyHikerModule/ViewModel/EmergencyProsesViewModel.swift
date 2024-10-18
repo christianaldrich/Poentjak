@@ -32,6 +32,12 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var countDownTime = 5
     var countDownTimer: Timer?
     
+    private var emergencyStatus: EmergencyStatus = .completed
+    
+    //Temp
+//    @Published var backToProses: Bool = false
+    
+
     
     func createEmergencyHiking(trackId: String) async {
         do {
@@ -83,7 +89,7 @@ class EmergencyProsesViewModel: ObservableObject {
     
     func updateSessionDone() async {
         do{
-            try await useCase.updateSessionDone(sessionDone: true)
+            try await useCase.updateSessionDone(sessionDone: true, emergencyStatus: emergencyStatus.rawValue)
             stopTimer()
             self.emergencySessionActive = false
             print("sukses update session done")
@@ -134,10 +140,10 @@ class EmergencyProsesViewModel: ObservableObject {
         
         DispatchQueue.main.async {
             Task {
+                SOSManager.shared.isSOS = true
                 self.isSignalSent = true
                 await self.updateStatusType()
                 self.sendSOSToFirebase = true
-                SOSManager.shared.isSOS = true
                 self.showSOSButtonView = false
                 self.deleteAnimation = true
                 navigationManager.popToRoot()

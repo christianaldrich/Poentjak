@@ -30,6 +30,14 @@ struct AlertGuideView: View {
             .cornerRadius(8)
             .padding()
             
+            Button("Open Sound Board") {
+                navigationManager.navigationPath.append(DestinationView.soundBoard)
+            }
+            .frame(maxWidth: .infinity, maxHeight: 50)
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(8)
+            .padding()
             
             
             Button("Cancel") {

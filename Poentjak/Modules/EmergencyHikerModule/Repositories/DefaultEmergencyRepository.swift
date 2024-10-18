@@ -27,7 +27,7 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
         
     }
     
-    func updateSessionDone(userId: String, sessionDone: Bool) async throws {
+    func updateSessionDone(userId: String, sessionDone: Bool, emergencyStatus: String) async throws {
         let collectionRef = firestore.collection("emergencyRequests")
         
         let querySnapshot = try await collectionRef
@@ -42,7 +42,8 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
         do{
             // Update the sessionDone field
             try await document.reference.updateData([
-                "sessionDone": sessionDone
+                "sessionDone": sessionDone,
+                "emergencyStatus": emergencyStatus
             ])
             
             print("SessionDone updated to \(sessionDone) for user: \(userId)")

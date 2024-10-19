@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomLabelGeneral: View {
     enum LabelType {
         case noFill
-        case hikerDetailAge(age: Int)
+        case hikerDetailData(type: HikerDetailDataType)
         case hikerDetailDate(date: String)
         case mdpl(altitude: Int)
         case extendOverdue(time: String)
@@ -33,25 +33,25 @@ struct CustomLabelGeneral: View {
                     .foregroundColor(.primaryGreen500)
             }
             
-        case .hikerDetailAge(let age):
+        case .hikerDetailData(let data):
             VStack (alignment: .leading){
                 HStack {
-                    Text("Age")
+                    Text(data.title)
                         .font(.footnoteRegular)
                         .foregroundColor(.black)
                     
                     Spacer()
                     
-                    Image.LabelIcon.age
+                    data.icon
                         .resizable()
                         .frame(width: 16, height: 16)
                         .foregroundColor(Color.primaryGreen500)
                 }
-                Text("\(age) ")
+                Text(data.value)
                     .font(.title3Emphasized)
                     .foregroundColor(Color.neutralBlack)
                 +
-                Text("years")
+                Text(data.unit)
                     .font(.calloutEmphasized)
                     .foregroundColor(Color.neutralBlack)
                 
@@ -94,12 +94,66 @@ struct CustomLabelGeneral: View {
             .cornerRadius(4)
         }
     }
+    
+    //enum buat hiker detail data
+    enum HikerDetailDataType {
+        case age(Int)
+        case weight(Int)
+        case height(Int)
+        
+        var title: String {
+            switch self {
+            case .age:
+                return "Age"
+            case .weight:
+                return "Weight"
+            case .height:
+                return "Height"
+            }
+        }
+        
+        var value: String {
+            switch self {
+            case .age(let value):
+                return "\(value) "
+            case .weight(let value):
+                return "\(value) "
+            case .height(let value):
+                return "\(value) "
+            }
+        }
+        
+        var unit: String {
+            switch self {
+            case .age:
+                return "years"
+            case .weight:
+                return "kg"
+            case .height:
+                return "cm"
+            }
+        }
+        
+        
+        var icon: Image {
+            switch self {
+            case .age:
+                return Image.LabelIcon.age
+            case .weight:
+                return Image.LabelIcon.weight
+            case .height:
+                return Image.LabelIcon.height
+            }
+        }
+    }
 }
 
 #Preview {
     VStack(spacing: 20) {
         CustomLabelGeneral(type: .noFill)
-        CustomLabelGeneral(type: .hikerDetailAge(age: 25))
+        CustomLabelGeneral(type: .hikerDetailData(type: .age(25)))
+        CustomLabelGeneral(type: .hikerDetailData(type: .weight(60)))
+        CustomLabelGeneral(type: .hikerDetailData(type: .height(170)))
         CustomLabelGeneral(type: .hikerDetailDate(date: "Tue, 24 Sep 19.00"))
         CustomLabelGeneral(type: .mdpl(altitude: 3000))
         CustomLabelGeneral(type: .extendOverdue(time: "30 mins"))

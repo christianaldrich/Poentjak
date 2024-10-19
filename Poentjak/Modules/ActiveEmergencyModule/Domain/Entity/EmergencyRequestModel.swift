@@ -24,7 +24,11 @@ struct EmergencyRequestModel: Identifiable ,Hashable{
         
         self.assignedRangers = dictionary["assignedRangers"] as? [String] ?? [""]
         self.batteryHealth = dictionary["batteryHealth"] as? Int ?? 0
-        self.dueDate = dictionary["dueDate"] as? Date ?? Date()
+        if let timestamp = dictionary["dueDate"] as? Timestamp {
+            self.dueDate = timestamp.dateValue()
+        } else {
+            self.dueDate = Date()
+        }
         self.emergencyStatus = dictionary["emergencyStatus"] as? String ?? ""
         self.emergencyType = dictionary["emergencyType"] as? String ?? ""
         self.id = dictionary["id"] as? String ?? ""
@@ -47,11 +51,11 @@ struct EmergencyRequestModel: Identifiable ,Hashable{
         
     }
     func hash(into hasher: inout Hasher) {
-            hasher.combine(id)  // Use the 'id' as a unique identifier
-        }
+        hasher.combine(id)  // Use the 'id' as a unique identifier
+    }
     static func == (lhs: EmergencyRequestModel, rhs: EmergencyRequestModel) -> Bool {
-            return lhs.id == rhs.id
-        }
+        return lhs.id == rhs.id
+    }
 }
 
 struct lastLocationModel{

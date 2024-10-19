@@ -21,9 +21,10 @@ class CheckOverdueEmergenciesUseCase: CheckOverdueEmergenciesUseCaseProtocol{
     
     func execute() {
         let now = Date()
+        print("\n\n\n\nDate Now: \(now)")
         emergencyRepository.fetchEmergencyRequest { emergencies in
             for emergency in emergencies {
-                if emergency.dueDate < now && emergency.emergencyStatus != "overdue" && emergency.emergencyType != "safe" {
+                if emergency.dueDate < now && emergency.emergencyStatus != "ongoing" && emergency.emergencyStatus != "completed" && emergency.emergencyType != "overdue"  {
                     Task {
                         do {
                             try await self.emergencyRepository.updateEmergencyRequestToOverdue(id: emergency.id)

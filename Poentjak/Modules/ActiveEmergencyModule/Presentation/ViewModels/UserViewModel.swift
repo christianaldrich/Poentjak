@@ -19,10 +19,27 @@ class UserViewModel: ObservableObject{
     private let activeEmRepo = ActiveEmergencyRepository()
     private var timer: Timer?
     
+    private let activeEmergencyUseCase: ActiveEmergencyUseCaseProtocol
+    
+    init( activeEmergencyUseCase: ActiveEmergencyUseCaseProtocol) {
+        
+        self.activeEmergencyUseCase = activeEmergencyUseCase
+        //        fetchEmergencyByTrack(trackId: "")
+    }
+    
     func fetchEmergency(){
         repo.fetchUserInDanger() { [weak self] user in
             DispatchQueue.main.async {
                 self?.user = user
+            }
+        }
+    }
+    func fetchActiveEmergencyByTrack(){
+        activeEmergencyUseCase.fetchActiveEmergencyByTrack(){ [weak self] hikers in
+            DispatchQueue.main.async {
+                
+                print("\n\nHIKERS IN VM: \(hikers)")
+                self?.hiker = hikers
             }
         }
     }
@@ -37,49 +54,39 @@ class UserViewModel: ObservableObject{
         activeEmRepo.fetchEmergencyRequest{ [weak self] hiker in
             DispatchQueue.main.async{
                 self?.hiker = hiker
-//                print("\n\n\(hiker[0].dueDate.formatted(date: .complete, time: .shortened))")
-                print("\n\n\n\(hiker)")
+//                print("\n\n\n\(hiker)")
             }
         }
     }
     
-//    func fetchHikerInfo(id: String){
-//        activeEmRepo.fetchDangerHikersInfo(id: id){[weak self] user in
-//            DispatchQueue.main.async{
-//                self?.user = user
-//                print("\n\n\nUSER: \(user)")
-//                print("\n\n\nID: \(id)")
-//            }
-//        }
-//    }
-    
     func startTimer() {
-            stopTimer()
-            timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
-                guard let self = self else { return }
-                        
-                Task {
-                    for hiker in self.hiker {
-                        if hiker.dueDate < Date() && hiker.emergencyStatus == "safe" {
-                            do {
-                                try await self.activeEmRepo.updateEmergencyRequestToOverdue(id: hiker.id)
-                                print("Updated hiker \(hiker.id) to overdue")
-                            } catch {
-                                print("Error updating hiker \(hiker.id) to overdue: \(error.localizedDescription)")
-                            }
+        stopTimer()
+        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            
+            Task {
+                for hiker in self.hiker {
+//                    print("ajg \(hiker.dueDate) tes \(Date())")
+                    if hiker.dueDate < Date() && hiker.emergencyStatus == "safe" {
+                        do {
+                            try await self.activeEmRepo.updateEmergencyRequestToOverdue(id: hiker.id)
+                            print("Updated hiker \(hiker.id) to overdue")
+                        } catch {
+                            print("Error updating hiker \(hiker.id) to overdue: \(error.localizedDescription)")
                         }
                     }
                 }
             }
         }
-        
-        func stopTimer() {
-            timer?.invalidate()
-            timer = nil
-        }
-        
-        deinit {
-            stopTimer()
-        }
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    deinit {
+        stopTimer()
+    }
     
 }

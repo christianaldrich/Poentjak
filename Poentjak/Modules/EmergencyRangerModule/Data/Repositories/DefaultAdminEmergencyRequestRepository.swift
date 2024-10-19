@@ -13,11 +13,13 @@ protocol AdminEmergencyRequestRepositoryProtocol {
     func fetchEmergencyRequest(by id: String) async throws -> EmergencyRequest
     func updateEmergencyRequest(request: EmergencyRequest) async throws
     func addListenerToEmergencyRequest(by id: String, completion: @escaping (Result<EmergencyRequest?, Error>) -> Void)
+    func updateEmergencyRequestToComplete(id: String) async throws
     
     
 }
 
 class DefaultAdminEmergencyRequestRepository: AdminEmergencyRequestRepositoryProtocol {
+    
     private let firestore = Firestore.firestore()
     
     func fetchEmergencyRequest(by id: String) async throws -> EmergencyRequest {
@@ -72,13 +74,26 @@ class DefaultAdminEmergencyRequestRepository: AdminEmergencyRequestRepositoryPro
         let docRef = firestore.collection("emergencyRequests").document(request.id)
         do {
             try await docRef.updateData([
-                "emergencyStatus": request.emergencyStatus.rawValue,
+                "emergencyStatus": "ongoing",
                 "assignedRangers": request.assignedRangers as Any, // add as any
             ])
             print("Document successfully updated")
         } catch {
             print("Error updating document: \(error)")
         }
+    }
+    
+    func updateEmergencyRequestToComplete(id: String) async throws {
+        let docRef = firestore.collection("emergencyRequests").document(id)
+        do {
+            try await docRef.updateData([
+                "emergencyStatus": "completed",
+                "sessionDone": true
+            ])
+        } catch {
+            print("error update document complete")
+        }
+        
     }
     
     

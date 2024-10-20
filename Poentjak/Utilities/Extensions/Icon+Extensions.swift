@@ -57,6 +57,10 @@ extension Image {
             return Image("Icons/button/i_btn_profile")
         }
         
+        static var sos: Image {
+            return Image("Icons/button/i_btn_sos")
+        }
+        
     }
     
     struct ExploreIcon{

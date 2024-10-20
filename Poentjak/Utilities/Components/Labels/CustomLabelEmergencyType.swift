@@ -75,7 +75,7 @@ struct CustomLabelEmergencyType: View {
                 .font(.footnoteEmphasizedBold)
                 .foregroundStyle(Color.white)
         }
-        .padding(10)
+        .padding(.init(top: 5, leading: 10, bottom: 5, trailing: 10))
         .background(type.backgroundColor)
         .cornerRadius(8)
     }

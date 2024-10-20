@@ -25,26 +25,38 @@ struct ActiveHikersView: View {
                 } else {
                     
                     List(viewModel.activeHikers, id: \.id) { hiker in
-                        NavigationLink(value:hiker){
-                            VStack(alignment: .leading) {
-                                Text(hiker.user?.name ?? "Unknown Hiker")
-                                    .font(.headline)
-                                Text("Emergency Type: \(hiker.emergencyType)")
-                                Text("Status: \(hiker.emergencyStatus)")
-                                Text("\(hiker.sessionDone ? "Udah Kelar" : "Belom Kelar")")
-                                Text("TrackId: \(hiker.user?.trackId ?? "Default")")
-                                
-                            }
+                        
+                        Button(action: {
+                            // Set the selected user and present the modal
+                            selectedUser = hiker
+                            isDetailViewActive = true
+                        }) {
+                            ActiveHikersCardComponent(name: hiker.user?.name ?? "",
+                                                      gender: hiker.user?.gender ?? "",
+                                                      dueDate: hiker.dueDate,
+                                                      viewModel: viewModel)
                             .padding(.vertical)
                         }
+                        .buttonStyle(PlainButtonStyle())
+                        //                        NavigationLink(value:hiker){
+                        //                            VStack(alignment: .leading) {
+                        //                                ActiveHikersCardComponent(name: hiker.user?.name ?? "", gender: hiker.user?.gender ?? "", dueDate: hiker.dueDate, viewModel: viewModel)
+                        //                            }
+                        //                            .padding(.vertical)
+                        //                        }
+                        //                        .buttonStyle(PlainButtonStyle())
+                        
                     }
                     
                     .listStyle(PlainListStyle())
                 }
             }
             
-            .navigationTitle("Active Hikers")
-            .navigationDestination(for: EmergencyRequestModel.self){hiker in
+            .navigationTitle("Active Hikers: \(viewModel.activeHikers.count)")
+            //            .navigationDestination(for: EmergencyRequestModel.self){hiker in
+            //                ActiveHikersDetailView(hiker: hiker)
+            //            }
+            .sheet(item: $selectedUser) { hiker in
                 ActiveHikersDetailView(hiker: hiker)
             }
         }

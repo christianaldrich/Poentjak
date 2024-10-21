@@ -104,6 +104,10 @@ extension Font {
         return Font.system(size: 13, weight: .semibold)
     }()
     
+    static var footnoteEmphasizedBold: Font = {
+        return Font.system(size: 13, weight: .bold)
+    }()
+    
     static var footnoteItalic: Font = {
         return Font.system(size: 13, weight: .regular).italic()
     }()
@@ -144,6 +148,10 @@ extension Font {
         return Font.system(size: 11, weight: .semibold).italic()
     }()
     
+    static var labelCaption1Emphasized: Font = {
+        return Font.system(size: 8, weight: .bold)
+    }()
+
     //custom
     static var customLabelRescueStatus: Font = {
         return Font.system(size: 10, weight: .bold)

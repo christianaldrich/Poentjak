@@ -17,17 +17,28 @@ struct HikersNeedHelpComponent: View {
         
         VStack(alignment: .leading){
 
-            Text("Name: \(hiker.user?.name ?? "")")
-            Text("Weight: \(hiker.user?.weight ?? 0)")
-            Text("Height: \(hiker.user?.height ?? 0)")
-            Text("Emergency Type: \(hiker.emergencyType)")
-            Text("Emergency Status: \(hiker.emergencyStatus)")
-            Text("TrackId: \(hiker.user?.trackId ?? "DEF")")
-//            Text("FullName: \(hiker.user?.contactName ?? "")")
-            Button("Rescue"){
-                onConfirmRescue()
+//            Text("Name: \(hiker.user?.name ?? "")")
+//            Text("Weight: \(hiker.user?.weight ?? 0)")
+//            Text("Height: \(hiker.user?.height ?? 0)")
+//            Text("Emergency Type: \(hiker.emergencyType)")
+//            Text("Emergency Status: \(hiker.emergencyStatus)")
+//            Text("TrackId: \(hiker.user?.trackId ?? "DEF")")
+            Button(action: onConfirmRescue){
+                EmergencyCardComponent(name: hiker.user?.name ?? "",
+                                       gender: hiker.user?.gender ?? "",
+                                       type: hiker.emergencyType,
+                                       age: hiker.user?.age ?? 0,
+                                       weight: hiker.user?.weight ?? 0,
+                                       height: hiker.user?.height ?? 0,
+                                       status: hiker.emergencyStatus)
             }
-            .background(.red)
+            .buttonStyle(PlainButtonStyle())
+
+//            Text("FullName: \(hiker.user?.contactName ?? "")")
+//            Button("Rescue"){
+//                onConfirmRescue()
+//            }
+//            .background(.red)
         }
         
         

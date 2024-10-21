@@ -25,7 +25,7 @@ extension Color {
     
     // accent red
     static let accentRedSos = Color(hex: "#ed3535")
-    static let accentRedSosDisabled = Color(hex: "#ed3535")
+    static let accentRedSosDisabled = Color(hex: "#FAC2C2")
     static let accentRedBgLabel = Color(hex: "#fbecec")
     static let accentRedEmergencyLabel = Color(hex: "#b63131")
     
@@ -72,4 +72,7 @@ extension Color {
     
     // custom label reminder text color
     static let customLabelsReminderTextRed = Color(hex: "#912018")
+    
+    // custom tabBar text color
+    static let customTabBarDisabledText = Color(hex: "999999")
 }

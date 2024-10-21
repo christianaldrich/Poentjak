@@ -20,16 +20,20 @@ struct AdminEmergencyDetailModalView: View {
             if let emergencyRequest = viewModel.emergencyRequest {
                 VStack(spacing: 16) {
                     userProfileView(emergencyRequest: emergencyRequest)
+                        .padding(.horizontal, 12)
                     
                     infoRow(title: "Arrived by", value: formatDateToCustomString(date: emergencyRequest.dueDate), status: "new")
+                        .padding(.horizontal, 12)
                     
-                    Text("Asthma")
+                    CustomLongRectangleDetail(type: .note(text: emergencyRequest.user.medicalRecord ?? "None"))
+                    
                     Text("Emergency Contact")
                     
                     Divider()
                         .padding(.horizontal, -24)
                     
                     vitalStatisticsView(user: emergencyRequest.user)
+                        .padding(.horizontal, 12)
                     
                     Divider()
                         .padding(.horizontal, -24)
@@ -39,7 +43,9 @@ struct AdminEmergencyDetailModalView: View {
                     actionButtonSection(emergencyRequest: emergencyRequest)
                 }
                 .padding(24)
+                
             }
+            
         }
     }
     
@@ -122,20 +128,33 @@ struct AdminEmergencyDetailModalView: View {
             Text("Rangers in rescue")
                 .font(.calloutRegular)
             
-            Button {
-                dismiss()
-                isNavigatingToAssignRangers = true
-            } label: {
-                rangersLabelText(emergencyRequest: emergencyRequest)
-            }
+            CustomLongRectanglePicker(
+                assignedRangers: assignedRangerNames(emergencyRequest: emergencyRequest), // Get assigned rangers
+                action: {
+                    dismiss() // Dismiss the current view
+                    isNavigatingToAssignRangers = true // Navigate to the ranger assignment view
+                }
+            )
         }
     }
+
+    // Helper function to determine assigned ranger names
+    private func assignedRangerNames(emergencyRequest: EmergencyRequest) -> [String] {
+        if !viewModel.selectedRangerNames.isEmpty && emergencyRequest.emergencyStatus == .danger {
+            return viewModel.selectedRangerNames
+        } else if let assignedRangers = emergencyRequest.assignedRangers, !assignedRangers.isEmpty && emergencyRequest.emergencyStatus == .ongoing {
+            return assignedRangers
+        } else {
+            return []
+        }
+    }
+
     
     private func rangersLabelText(emergencyRequest: EmergencyRequest) -> some View {
         if !viewModel.selectedRangerNames.isEmpty && emergencyRequest.emergencyStatus == .danger {
             return Text(viewModel.selectedRangerNames.joined(separator: ", "))
                 .font(.body)
-        } else if let assignedRangers = emergencyRequest.assignedRangers, !assignedRangers.isEmpty && emergencyRequest.emergencyStatus == .ongoing {
+        } else if let assignedRangers = emergencyRequest.assignedRangers, !assignedRangers.isEmpty && emergencyRequest.emergencyStatus == .ongoing && emergencyRequest.emergencyStatus == .completed {
             return Text(assignedRangers.joined(separator: ", "))
                 .font(.body)
         } else {
@@ -144,6 +163,7 @@ struct AdminEmergencyDetailModalView: View {
     }
     
     private func actionButtonSection(emergencyRequest: EmergencyRequest) -> some View {
+        
         VStack {
             if viewModel.selectedRangerNames.isEmpty && emergencyRequest.emergencyStatus == .danger {
                 CustomPrimaryButtonComponent(state: .disabled, text: "Rescue") { }

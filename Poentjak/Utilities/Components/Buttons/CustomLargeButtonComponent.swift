@@ -28,12 +28,14 @@ struct CustomLargeButtonComponent: View {
                         CircularLoadingView()
                         Text("Loading")
                             .font(.calloutEmphasized)
+                            .kerning(0.4)
                             .foregroundColor(foregroundColorButton(for: state))
                     }
                 } else {
                     Text(text)
                         .foregroundColor(foregroundColorButton(for: state))
                         .font(.calloutEmphasized)
+                        .kerning(0.4)
                 }
             }
             .frame(width: 340, height: 72)

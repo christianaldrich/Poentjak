@@ -1,140 +1,100 @@
-    //
-    //  AssignRangersView.swift
-    //  Poentjak
-    //
-    //  Created by Singgih Tulus Makmud on 03/10/24.
-    //
+//
+//  AssignRangersView.swift
+//  Poentjak
+//
+//  Created by Singgih Tulus Makmud on 03/10/24.
+//
 
 import SwiftUI
 
 struct AssignRangersView: View {
     @StateObject var viewModel: AdminEmergencyViewModel
     @State private var newRangerName: String = ""
-    @State private var isEditing: Bool = false
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
+                
+                
                 Text("Who’s in charge of the rescue?")
-                    .font(.headline)
-                    .padding()
-
+                    .font(.title2Emphasized)
+                
                 List {
                     ForEach(viewModel.availableRangers) { ranger in
-                        HStack {
-                            if isEditing {
-                                // Editing mode: TextField to edit ranger name
-                                TextField("Ranger Name", text: Binding(
-                                    get: { ranger.name },
-                                    set: { newName in
-                                        var updatedRanger = ranger
-                                        updatedRanger.name = newName
-                                        Task {
-                                            await viewModel.editRanger(updatedRanger)
-                                        }
-                                    })
-                                )
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .padding()
+                      
+                                HStack {
+                                    Text(ranger.name)
+                                        .font(.calloutRegular)
 
-                                Spacer()
+                                    Spacer()
 
-                                Button(action: {
-                                    Task {
-                                        await viewModel.deleteRanger(ranger)
-                                    }
-                                }) {
-                                    Image(systemName: "trash")
-                                        .foregroundColor(.red)
-                                }
-                            } else {
-                                // Selection mode: Toggle for selecting rangers
-                                Button(action: {
-                                    if viewModel.selectedRangerIds.contains(ranger.id) {
-                                        // Deselect the ranger
-                                        viewModel.selectedRangerIds.removeAll { $0 == ranger.id }
-                                    } else {
-                                        // Select the ranger
-                                        viewModel.selectedRangerIds.append(ranger.id)
-                                    }
-                                }) {
-                                    HStack {
-                                        Text(ranger.name)
-                                            .foregroundColor(.primary)
-
-                                        Spacer()
-
-                                        // Indicate if the ranger is selected
+                                    Button(action: {
                                         if viewModel.selectedRangerIds.contains(ranger.id) {
-                                            Image(systemName: "checkmark")
-                                                .foregroundColor(.green)
+                                            // Deselect the ranger
+                                            viewModel.selectedRangerIds.removeAll { $0 == ranger.id }
+                                            viewModel.selectedRangerNames.removeAll { $0 == ranger.name }
+                                        } else {
+                                            // Select the ranger
+                                            viewModel.selectedRangerIds.append(ranger.id)
+                                            viewModel.selectedRangerNames.append(ranger.name)
+                                        }
+                                    }) {
+                                        HStack {
+                                            if viewModel.selectedRangerIds.contains(ranger.id) {
+                                                Image.AdminIcon.checkboxChecked
+                                            } else {
+                                                Image.AdminIcon.checkboxUnchecked
+                                            }
                                         }
                                     }
-                                    .padding()
-                                    .background(viewModel.selectedRangerIds.contains(ranger.id) ? Color.green.opacity(0.2) : Color.clear)
-                                    .cornerRadius(8)
+                                    .buttonStyle(PlainButtonStyle())
                                 }
-                                .buttonStyle(PlainButtonStyle()) // Prevent default button styling
+                                .padding(.vertical, 24)
+                            
+                        
+                        .listRowInsets(EdgeInsets())
+                    }
+
+                }
+                .listStyle(PlainListStyle())
+                
+                
+                if viewModel.selectedRangerIds == [] {
+                    CustomPrimaryButtonComponent(state: .disabled, text: "Select Rangers"){
+                        
+                    }
+                }
+
+                else if let emergencyRequest = viewModel.emergencyRequest, emergencyRequest.emergencyStatus == .ongoing {
+                    CustomPrimaryButtonComponent(state: .enabled, text: "Save") {
+                        Task {
+                            if let emergencyId = viewModel.emergencyRequest?.id {
+                                await viewModel.assignRangers(rangerIds: viewModel.selectedRangerIds)
                             }
                         }
+                        dismiss()
                     }
-
-                    HStack {
-                        TextField("Add new ranger", text: $newRangerName)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                        Spacer()
-
-                        Button(action: {
-                            Task {
-                                if !newRangerName.isEmpty {
-                                    await viewModel.addNewRanger(name: newRangerName)
-                                    newRangerName = ""
-                                }
-                            }
-                        }) {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundColor(.green)
-                                .font(.system(size: 24))
-                        }
-                    }
+                } else {
+                    CustomPrimaryButtonComponent(state: .enabled, text: "Select Rangers"){
+                        dismiss()
                 }
-
-                Spacer()
-
-                // Button to toggle editing mode
-                Button(action: {
-                    isEditing.toggle()
-                }) {
-                    Text(isEditing ? "Done Editing" : "Edit Rangers")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(isEditing ? Color.gray : Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                
                 }
-                .padding(.bottom, 16)
-
-                // New Button to Assign Rangers to Emergency
-                Button(action: {
-                    Task {
-                        if (viewModel.emergencyRequest?.id) != nil {
-                            await viewModel.assignRangers(rangerIds: viewModel.selectedRangerIds)
-                            dismiss()
-                        }
-                    }
-                }) {
-                    Text("Assign Rangers to Emergency")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.red)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
-                .padding(.bottom, 16)
+                
             }
-            .navigationTitle("Ranger Assignment")
+            .padding(24)
+            
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) { 
+                NavigationLink {
+                    EditRangersView(viewModel: viewModel)
+                } label: {
+                    Text("Edit")
+                }
+            }
+            
         }
     }
 }

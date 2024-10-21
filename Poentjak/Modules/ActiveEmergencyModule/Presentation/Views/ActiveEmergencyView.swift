@@ -19,7 +19,6 @@ struct ActiveEmergencyView: View {
     
     var body: some View {
         
-        NavigationView {
             List {
                 
                 
@@ -72,8 +71,7 @@ struct ActiveEmergencyView: View {
                 )
             )
             
-        }
-        .ignoresSafeArea()
+        
         
         
         

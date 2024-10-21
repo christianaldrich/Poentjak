@@ -12,7 +12,7 @@ case checkbox(inRescue: Bool, onToggle: () -> Void)
 case edit(isEditing: Bool, rangerName: String, onDelete: () -> Void, onUpdate: ((String) -> Void)?) // Optional onUpdate for edit mode
 }
 
-struct ListRanger: View {
+struct CustomListRangerComponent: View {
     var rangerName: String
     var type: ListRangerType
     
@@ -97,12 +97,12 @@ struct ListRanger: View {
 }
 
 #Preview {
-    ListRanger(rangerName: "Ranger 1", type: .checkbox(inRescue: false, onToggle: { print("Toggled Ranger 1") }))
+    CustomListRangerComponent(rangerName: "Ranger 1", type: .checkbox(inRescue: false, onToggle: { print("Toggled Ranger 1") }))
     
-    ListRanger(rangerName: "Ranger 2", type: .checkbox(inRescue: true, onToggle: { print("Toggled Ranger 1") }))
+    CustomListRangerComponent(rangerName: "Ranger 2", type: .checkbox(inRescue: true, onToggle: { print("Toggled Ranger 1") }))
 
     
-    ListRanger(rangerName: "Ranger 3", type: .edit(isEditing: true, rangerName: "Ranger 2", onDelete: { print("Delete Ranger 2") }, onUpdate: { newName in print("Updated Ranger 2 to \(newName)") }))
+    CustomListRangerComponent(rangerName: "Ranger 3", type: .edit(isEditing: true, rangerName: "Ranger 2", onDelete: { print("Delete Ranger 2") }, onUpdate: { newName in print("Updated Ranger 2 to \(newName)") }))
     
-    ListRanger(rangerName: "Ranger 4", type: .edit(isEditing: false, rangerName: "Ranger 3", onDelete: { print("Delete Ranger 3") }, onUpdate: nil))
+    CustomListRangerComponent(rangerName: "Ranger 4", type: .edit(isEditing: false, rangerName: "Ranger 3", onDelete: { print("Delete Ranger 3") }, onUpdate: nil))
 }

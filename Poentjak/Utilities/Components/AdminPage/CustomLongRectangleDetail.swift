@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LongRectangleDetail: View {
+struct CustomLongRectangleDetail: View {
     enum DetailType {
         case note(text: String)
         case activeHiker(count: Int)
@@ -43,8 +43,8 @@ struct LongRectangleDetail: View {
 
 #Preview {
     VStack(spacing: 10) {
-        LongRectangleDetail(type: .note(text: "Asthma"))
+        CustomLongRectangleDetail(type: .note(text: "Asthma"))
         
-        LongRectangleDetail(type: .activeHiker(count: 120))
+        CustomLongRectangleDetail(type: .activeHiker(count: 120))
     }
 }

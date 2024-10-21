@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct LongRectanglePicker: View {
+struct CustomLongRectanglePicker: View {
     var assignedRangers: [String]
     var action: () -> Void
     
@@ -47,7 +47,7 @@ struct LongRectanglePicker: View {
 #Preview {
     VStack (alignment: .center){
         // contoh kalo [ ] kosong
-        LongRectanglePicker(
+        CustomLongRectanglePicker(
             assignedRangers: [],
             action: {
                 print("action 1")
@@ -55,7 +55,7 @@ struct LongRectanglePicker: View {
         )
         
         // contoh kalo [ ] ada isi
-        LongRectanglePicker(
+        CustomLongRectanglePicker(
             assignedRangers: ["Ranger 1", "Ranger 2"],
             action: {
                 print("action 2")

@@ -14,18 +14,21 @@ struct HikersNeedHelpSectionComponent: View {
     var onRescue: (EmergencyRequestModel) -> Void
     
     var body: some View {
-        Section(header: Text("Need Rescue").modifier(SectionModifier())) {
-            ForEach(hikers.filter{ hiker in
-                hiker.emergencyStatus == "danger"
-            }
+//        Section(header: Text("Need Rescue").modifier(SectionModifier())) {
+            ForEach(hikers
                     , id: \.id) { hiker in
                 HikersNeedHelpComponent(hiker: hiker){
                     onRescue(hiker)
                 }
                 
             }
-        }
+//        }
         
         
     }
 }
+
+
+//    .filter{ hiker in
+//        hiker.emergencyStatus == "danger"
+//    }

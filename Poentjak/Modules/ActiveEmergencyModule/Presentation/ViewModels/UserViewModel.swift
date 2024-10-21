@@ -13,6 +13,7 @@ class UserViewModel: ObservableObject{
     
     @Published var user: [UserModel] = []
     @Published var hiker: [EmergencyRequestModel] = []
+    @Published var completeRescue: [EmergencyRequestModel] = []
     
     
     private let repo = FirebaseDatabaseDS()
@@ -40,6 +41,15 @@ class UserViewModel: ObservableObject{
                 
                 print("\n\nHIKERS IN VM: \(hikers)")
                 self?.hiker = hikers
+            }
+        }
+    }
+    
+    func fetchCompleteRescue(){
+        activeEmergencyUseCase.fetchCompletedRescue(){ [weak self] rescues in
+            DispatchQueue.main.async {
+                self?.completeRescue = rescues
+                
             }
         }
     }
@@ -79,6 +89,14 @@ class UserViewModel: ObservableObject{
             }
         }
     }
+    
+    func formattedDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: Date())
+    }
+    
+    
     
     func stopTimer() {
         timer?.invalidate()

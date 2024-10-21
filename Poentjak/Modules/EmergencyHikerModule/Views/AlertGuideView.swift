@@ -15,7 +15,7 @@ struct AlertGuideView: View {
     var body: some View {
         VStack {
             Text("this is the guide")
-            
+                        
             Text("You chose this emergency type: \(viewModel.emergencyType)")
                 .font(.largeTitle)
                 .padding()

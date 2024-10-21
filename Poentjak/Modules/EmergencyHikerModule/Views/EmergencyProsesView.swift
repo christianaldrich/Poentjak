@@ -39,7 +39,7 @@ struct EmergencyProsesView: View {
             
             VStack {
                 
-                ZStack (){
+                ZStack{
                     MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: viewModel.trackId)
                         .zIndex(0)
                     

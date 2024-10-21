@@ -95,7 +95,7 @@ struct EmergencyCardComponent: View {
     
     func customStatus(_ status: String) -> CustomLabelRescueStatus {
         switch status.lowercased() {
-        case "complete":
+        case "completed":
             return CustomLabelRescueStatus(status: .complete)
         case "ongoing":
             return CustomLabelRescueStatus(status: .ongoing)

@@ -13,15 +13,19 @@ struct RangerRescuingComponent: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Name: \(hiker.user?.name ?? "")")
-            Text("Weight: \(hiker.user?.weight ?? 0)")
-            Text("Height: \(hiker.user?.height ?? 0)")
-            Text("Emergency Type: \(hiker.emergencyType)")
-            Text("Emergency Status: \(hiker.emergencyStatus)")
-            Text("TrackId: \(hiker.user?.trackId ?? "default")")
-            Button("Finish Rescue"){
-                onFinishRescue()
+            
+            Button(action: onFinishRescue){
+                EmergencyCardComponent(name: hiker.user?.name ?? "",
+                                       gender: hiker.user?.gender ?? "",
+                                       type: hiker.emergencyType,
+                                       age: hiker.user?.age ?? 0,
+                                       weight: hiker.user?.weight ?? 0,
+                                       height: hiker.user?.height ?? 0,
+                                       status: hiker.emergencyStatus)
             }
+            .buttonStyle(PlainButtonStyle())
+            
+            
         }
         
 //        VStack(alignment: .leading, spacing: 15){

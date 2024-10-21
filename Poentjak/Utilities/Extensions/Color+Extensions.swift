@@ -72,4 +72,7 @@ extension Color {
     
     // custom label reminder text color
     static let customLabelsReminderTextRed = Color(hex: "#912018")
+    
+    // custom tabBar text color
+    static let customTabBarDisabledText = Color(hex: "999999")
 }

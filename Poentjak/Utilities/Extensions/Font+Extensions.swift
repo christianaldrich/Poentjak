@@ -149,6 +149,10 @@ extension Font {
         return Font.system(size: 10, weight: .bold)
     }()
     
+    static var customTabTitle: Font = {
+        return Font.system(size: 10, weight: .medium)
+    }()
+    
     static var customLabelHourLeft: Font = {
         return Font.system(size: 13, weight: .bold)
     }()
@@ -161,8 +165,9 @@ extension Font {
         return Font.system(size: 16, weight: .bold)
     }()
     
-    
-    
+    static var customTabSymbol: Font = {
+        return Font.system(size: 18, weight: .medium)
+    }()
     
 }
 

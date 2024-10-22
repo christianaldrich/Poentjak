@@ -54,7 +54,7 @@ struct ActiveHikersView: View {
             .navigationTitle("Active Hikers: \(viewModel.activeHikers.count)")
             .sheet(item: $selectedUser) { hiker in
                 ActiveHikersDetailView(hiker: hiker)
-                    .presentationDetents([.fraction(0.5)])
+                    .presentationDetents([.fraction(0.65), .large])
             }
         }
         

@@ -23,36 +23,54 @@ struct AdminTabView: View {
                 //            RangerView()
                 
                 ActiveEmergencyView(authViewModel: viewModel)
-                
                     .tabItem {
-                        Image(systemName: selectedTab == 0 ? "house.fill" : "house")
-                            .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
+                        VStack {
+                            Image.TabBarIcon.sos
+                                .renderingMode(.template)
+                                .foregroundColor(selectedTab == 0 ? Color.errorRed500 : Color.customTabBarDisabledText)
+                            //                            .environment(\.symbolVariants, selectedTab == 0 ? .fill : .none)
+                            Text("Emergency")
+                                .foregroundColor(selectedTab == 0 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
+                                .font(.customTabTitle)
+                        }
+                        
+                        .onAppear{
+                            selectedTab = 0
+                        }
+                        .tag(0)
                     }
-                    .onAppear{
-                        selectedTab = 0
-                    }
-                    .tag(0)
-                
                 //            ControlPanelView()
                 ActiveHikersView()
                     .tabItem {
-                        Image(systemName: selectedTab == 1 ? "house.fill" : "house")
-                            .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
+                        VStack {
+                            Image.TabBarIcon.controlPanel
+                                .renderingMode(.template)
+                                .foregroundColor(selectedTab == 1 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
+                            //                            .environment(\.symbolVariants, selectedTab == 1 ? .fill : .none)
+                            Text("Control Panel")
+                                .foregroundColor(selectedTab == 1 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
+                                .font(.customTabTitle)
+                        }
+                        .onAppear{
+                            selectedTab = 1
+                        }
+                        .tag(1)
+                        
                     }
-                    .onAppear{
-                        selectedTab = 1
-                    }
-                    .tag(1)
+                
+                    
                 
                 
                 
                 
                 
             }
+            .accentColor(Color.primaryGreen500)
         }
     }
-
+    
 }
+
 
 #Preview {
     AdminView()

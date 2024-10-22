@@ -22,7 +22,6 @@ struct AlertGuideView: View {
             
             Button("Go to CountDown") {
                 navigationManager.navigationPath.append(DestinationView.countDown)
-//                navigationManager.navigationPath.append("CountDownView")
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
             .background(Color.green)
@@ -42,7 +41,6 @@ struct AlertGuideView: View {
             
             Button("Cancel") {
                 navigationManager.popToRoot()
-                //                    dismiss()
             }
             .frame(maxWidth: .infinity, maxHeight: 50)
             .background(Color.orange)

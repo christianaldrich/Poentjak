@@ -82,6 +82,15 @@ class ActiveHikersViewModel: ObservableObject{
         return dateString
     }
     
+    func callPhoneNumber(phoneNumber: String) {
+        if let url = URL(string: "tel://\(phoneNumber)"), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        } else {
+            print("This device cannot make phone calls.")
+        }
+    }
+    
+    
     
     
 }

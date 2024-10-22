@@ -32,6 +32,7 @@ struct ActiveHikersCardComponent: View {
                     .frame(width: 38,height: 36)
                     .clipShape(RoundedRectangle(cornerRadius: 7))
                 Text("\(name)")
+                    .font(.headlineRegular)
                 viewModel.customGender(gender)
                 Spacer()
                 viewModel.countDue(input: dueDate)

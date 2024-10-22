@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1638D5602CC6A9A6005BC582 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1638D55F2CC6A9A6005BC582 /* Localizable.xcstrings */; };
+		1638DE8B2CC80153005BC582 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1638DE8A2CC80153005BC582 /* Localizable.xcstrings */; };
 		24FF35FC2CA4738C00B29D19 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 24FF35FB2CA4738C00B29D19 /* FirebaseAuth */; };
 		24FF35FE2CA4738C00B29D19 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 24FF35FD2CA4738C00B29D19 /* FirebaseFirestore */; };
 		BA5D76C52CA18DE9003694FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA5D76C42CA18DE9003694FC /* Assets.xcassets */; };
@@ -40,7 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1638D55F2CC6A9A6005BC582 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		1638DE8A2CC80153005BC582 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		BA5D76BD2CA18DE8003694FC /* Poentjak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poentjak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5D76C42CA18DE9003694FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA5D76C72CA18DE9003694FC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 				BAB7417A2CA1D39E00B983FE /* GoogleService-Info.plist */,
 				BA5D76C42CA18DE9003694FC /* Assets.xcassets */,
 				BA5D76C62CA18DE9003694FC /* Preview Content */,
-				1638D55F2CC6A9A6005BC582 /* Localizable.xcstrings */,
+				1638DE8A2CC80153005BC582 /* Localizable.xcstrings */,
 			);
 			path = Poentjak;
 			sourceTree = "<group>";
@@ -268,7 +268,7 @@
 				BA5D76C82CA18DE9003694FC /* Preview Assets.xcassets in Resources */,
 				BA5D76C52CA18DE9003694FC /* Assets.xcassets in Resources */,
 				BAB7417B2CA1D39E00B983FE /* GoogleService-Info.plist in Resources */,
-				1638D5602CC6A9A6005BC582 /* Localizable.xcstrings in Resources */,
+				1638DE8B2CC80153005BC582 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,11 +463,11 @@
 				DEVELOPMENT_TEAM = CAPH2JRFFZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Hikewise;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -494,11 +494,11 @@
 				DEVELOPMENT_TEAM = CAPH2JRFFZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Hikewise;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (

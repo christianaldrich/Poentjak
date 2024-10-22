@@ -23,7 +23,7 @@ struct LoginView: View {
                     Spacer()
             
                     VStack(alignment: .leading) {
-                        Text("Welcome to \nPoentjak")
+                        Text("Welcome to \nHikewise")
                             .font(.largeTitleEmphasized)
                             .bold()
                         

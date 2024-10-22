@@ -20,7 +20,7 @@ struct LandingPageView: View {
                 
                 VStack{
                     VStack(alignment: .leading) {
-                        Text("Welcome to \nPoentjak")
+                        Text("Welcome to \nHikewise")
                             .font(.largeTitleEmphasized)
                             
                         

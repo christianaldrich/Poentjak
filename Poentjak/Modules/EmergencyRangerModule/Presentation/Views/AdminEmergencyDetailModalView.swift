@@ -19,175 +19,31 @@ struct AdminEmergencyDetailModalView: View {
         ScrollView {
             if let emergencyRequest = viewModel.emergencyRequest {
                 VStack(spacing: 16) {
-                    userProfileView(emergencyRequest: emergencyRequest)
+                    UserProfileView(emergencyRequest: emergencyRequest)
                         .padding(.horizontal, 12)
                     
-                    infoRow(title: "Arrived by", value: formatDateToCustomString(date: emergencyRequest.dueDate), status: "new")
+                    InfoRowView(title: "Arrived by", value: formatDateToCustomString(date: emergencyRequest.dueDate), emergencyRequest: emergencyRequest )
                         .padding(.horizontal, 12)
                     
                     CustomLongRectangleDetail(type: .note(text: emergencyRequest.user.medicalRecord ?? "None"))
                     
-                    Text("Emergency Contact")
+                    EmergencyContactButton(value: emergencyRequest.user.contactName) {
+                        
+                    }
+                        
+                    Divider().padding(.horizontal, -24)
                     
-                    Divider()
-                        .padding(.horizontal, -24)
-                    
-                    vitalStatisticsView(user: emergencyRequest.user)
+                    VitalStatisticsView(user: emergencyRequest.user)
                         .padding(.horizontal, 12)
                     
-                    Divider()
-                        .padding(.horizontal, -24)
+                    Divider().padding(.horizontal, -24)
                     
-                    rangersSection(emergencyRequest: emergencyRequest)
+                    RangersSection(emergencyRequest: emergencyRequest, dismiss: dismiss, isNavigatingToAssignRangers: $isNavigatingToAssignRangers, viewModel: viewModel)
                     
-                    actionButtonSection(emergencyRequest: emergencyRequest)
+                    ActionButtonSection(emergencyRequest: emergencyRequest, isLoading: $isLoading, viewModel: viewModel)
                 }
                 .padding(24)
-                
             }
-            
-        }
-    }
-    
-    private func userProfileView(emergencyRequest: EmergencyRequest) -> some View {
-        HStack {
-            Image(emergencyRequest.user.profileURL)
-                .resizable()
-                .clipShape(Rectangle())
-                .frame(width: 85, height: 85)
-                .cornerRadius(17)
-            
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text("dummy")
-                    Spacer()
-                    Text(minutesAgo(from: emergencyRequest.dueDate))
-                        .font(.caption1Regular)
-                        .foregroundStyle(Color.neutralGrayTertiaryGray)
-                }
-                
-                HStack {
-                    Text(emergencyRequest.user.name)
-                        .font(.headlineRegular)
-                    genderIcon(gender: emergencyRequest.user.gender)
-                    Spacer()
-                }
-            }
-            .padding(.leading, 12)
-        }
-    }
-    
-    private func genderIcon(gender: String) -> some View {
-        if gender == "male" {
-            return Image.GenderIcon.male
-        } else if gender == "female" {
-            return Image.GenderIcon.female
-        } else {
-            return Image.GenderIcon.others
-        }
-    }
-    
-    private func infoRow(title: String, value: String, status: String) -> some View {
-        HStack {
-            Text("\(title) \(value)")
-                .font(.footnoteRegular)
-            Spacer()
-            Text(status)
-        }
-    }
-    
-    private func vitalStatisticsView(user: User) -> some View {
-        HStack(spacing: 40) {
-            vitalStatItem(label: "Age", value: "\(user.age)", unit: "years", icon: Image.LabelIcon.age)
-            vitalStatItem(label: "Height", value: "\(Int(user.height))", unit: "cm", icon: Image.LabelIcon.height)
-            vitalStatItem(label: "Weight", value: "\(Int(user.weight))", unit: "kg", icon: Image.LabelIcon.weight)
-        }
-        .padding(.horizontal, 8)
-    }
-    
-    private func vitalStatItem(label: String, value: String, unit: String, icon: Image) -> some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(label)
-                    .font(.calloutRegular)
-                Spacer()
-                icon
-            }
-            HStack {
-                Text(value)
-                    .font(.title3Emphasized)
-                Text(unit)
-                    .font(.customPrimaryButton)
-                Spacer()
-            }
-        }
-    }
-    
-    private func rangersSection(emergencyRequest: EmergencyRequest) -> some View {
-        VStack(alignment: .leading) {
-            Text("Rangers in rescue")
-                .font(.calloutRegular)
-            
-            CustomLongRectanglePicker(
-                assignedRangers: assignedRangerNames(emergencyRequest: emergencyRequest), // Get assigned rangers
-                action: {
-                    dismiss() // Dismiss the current view
-                    isNavigatingToAssignRangers = true // Navigate to the ranger assignment view
-                }
-            )
-        }
-    }
-
-    // Helper function to determine assigned ranger names
-    private func assignedRangerNames(emergencyRequest: EmergencyRequest) -> [String] {
-        if !viewModel.selectedRangerNames.isEmpty && emergencyRequest.emergencyStatus == .danger {
-            return viewModel.selectedRangerNames
-        } else if let assignedRangers = emergencyRequest.assignedRangers, !assignedRangers.isEmpty && emergencyRequest.emergencyStatus == .ongoing {
-            return assignedRangers
-        } else {
-            return []
-        }
-    }
-
-    
-    private func rangersLabelText(emergencyRequest: EmergencyRequest) -> some View {
-        if !viewModel.selectedRangerNames.isEmpty && emergencyRequest.emergencyStatus == .danger {
-            return Text(viewModel.selectedRangerNames.joined(separator: ", "))
-                .font(.body)
-        } else if let assignedRangers = emergencyRequest.assignedRangers, !assignedRangers.isEmpty && emergencyRequest.emergencyStatus == .ongoing && emergencyRequest.emergencyStatus == .completed {
-            return Text(assignedRangers.joined(separator: ", "))
-                .font(.body)
-        } else {
-            return Text("None")
-        }
-    }
-    
-    private func actionButtonSection(emergencyRequest: EmergencyRequest) -> some View {
-        
-        VStack {
-            if viewModel.selectedRangerNames.isEmpty && emergencyRequest.emergencyStatus == .danger {
-                CustomPrimaryButtonComponent(state: .disabled, text: "Rescue") { }
-            } else if emergencyRequest.emergencyStatus == .danger {
-                CustomPrimaryButtonComponent(state: isLoading ? .loading : .enabled, text: "Rescue") {
-                    startRescue()
-                }
-            } else {
-                SlideToActionButton(slidingDirection: .ltr) {
-                    Task {
-                        await viewModel.evacuate(id: emergencyRequest.id)
-                    }
-                }
-            }
-        }
-    }
-    
-    private func startRescue() {
-        Task {
-            isLoading = true
-            if let emergencyId = viewModel.emergencyRequest?.id {
-                await viewModel.assignRangers(rangerIds: viewModel.selectedRangerIds)
-            }
-            isLoading = false
         }
     }
 }

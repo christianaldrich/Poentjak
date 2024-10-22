@@ -35,7 +35,6 @@ struct AssignRangersView: View {
                                             viewModel.selectedRangerIds.removeAll { $0 == ranger.id }
                                             viewModel.selectedRangerNames.removeAll { $0 == ranger.name }
                                         } else {
-                                            // Select the ranger
                                             viewModel.selectedRangerIds.append(ranger.id)
                                             viewModel.selectedRangerNames.append(ranger.name)
                                         }

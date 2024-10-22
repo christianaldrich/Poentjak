@@ -9,14 +9,7 @@ import Foundation
 
 func formatDateToCustomString(date: Date) -> String {
     let formatter = DateFormatter()
-    
-    // Set the output format to match the desired string format
     formatter.dateFormat = "E, dd MMM HH.mm"
-    
-//    // Set the locale to ensure correct day and month names
-//    formatter.locale = Locale(identifier: "en_US_POSIX")
-    
-    // Convert the Date object to a formatted string
     return formatter.string(from: date)
 }
 
@@ -26,7 +19,7 @@ func minutesAgo(from date: Date) -> String {
     
     if let minutes = diffComponents.minute {
         if minutes > 1 {
-            return "\(minutes) minutes ago"
+            return "\(minutes) mins ago"
         }
         else {
             return "Just now"

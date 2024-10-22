@@ -13,7 +13,7 @@ struct RangerRescuingSectionComponent: View {
     var onRescue: (EmergencyRequestModel) -> Void
     
     var body: some View {
-        Section(header: Text("Ongoing Rescues").modifier(SectionModifier())) {
+//        Section(header: Text("Ongoing Rescues").modifier(SectionModifier())) {
             ForEach(hikers.filter{ hiker in
                 hiker.emergencyStatus == "ongoing"
             
@@ -22,6 +22,6 @@ struct RangerRescuingSectionComponent: View {
                     onRescue(hiker)
                 }
             }
-        }
+//        }
     }
 }

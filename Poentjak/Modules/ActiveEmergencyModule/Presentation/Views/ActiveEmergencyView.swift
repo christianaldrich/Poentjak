@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+enum EmergencyStatusEnum: String, CaseIterable {
+    case all = "All"
+    case danger = "New"
+    case ongoing = "Ongoing"
+    case completed = "Completed"
+}
+
+
 struct ActiveEmergencyView: View {
     @StateObject private var viewModel = UserViewModel(activeEmergencyUseCase: ActiveEmergencyUseCase(activeEmergencyRepository: ActiveEmergencyRepository(), userRepository: DefaultUserRepository()))
     //    @State private var activeEmergencies = [UserModel]()
@@ -17,27 +25,50 @@ struct ActiveEmergencyView: View {
     @State private var idContainer: String = ""
     @StateObject var authViewModel: AuthViewModel
     
+    @State private var selectedCondition: EmergencyStatusEnum = .danger
+    
+    
     var body: some View {
         
-            List {
+        NavigationView {
+            VStack{
+                Picker("Select Condition", selection: $selectedCondition) {
+                    ForEach(EmergencyStatusEnum.allCases, id: \.self) { condition in
+                        Text(condition.rawValue).tag(condition)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
                 
-                
-                
-                HikersNeedHelpSectionComponent(hikers: viewModel.hiker){ hiker in
-                    viewModel.rescuing(id: hiker.id)
-                    selectedUser = hiker
-                    idContainer = hiker.id
-                    isDetailViewActive = true
+                List {
+                    HikersNeedHelpSectionComponent(hikers: filteredHikers()){ hiker in
+                        viewModel.rescuing(id: hiker.id)
+                        selectedUser = hiker
+                        idContainer = hiker.id
+                        isDetailViewActive = true
+                    }
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
+                    .buttonStyle(PlainButtonStyle())
+
+                    
+                    //                    RangerRescuingSectionComponent(hikers: filteredHikers()){
+                    //                        hiker in
+                    //                        //                    viewModel.rescuing(id: hiker.id)
+                    //                        selectedUser = hiker
+                    //                        idContainer = hiker.id
+                    //                        isDetailViewActive = true
+                    //                    }
+                    
                     
                 }
+                .padding()
+                .navigationBarBackButtonHidden()
+                .navigationTitle("Active Emergencies")
+                .listStyle(PlainListStyle())
+
                 
-                RangerRescuingSectionComponent(hikers: viewModel.hiker){
-                    hiker in
-//                    viewModel.rescuing(id: hiker.id)
-                    selectedUser = hiker
-                    idContainer = hiker.id
-                    isDetailViewActive = true
-                }
+                
                 Button(action: {
                     Task {
                         await authViewModel.signOut()
@@ -52,33 +83,67 @@ struct ActiveEmergencyView: View {
                 }
                 .padding()
                 
-            }
-            .navigationTitle("Active Emergencies")
-            
-            .onAppear {
-                viewModel.fetchActiveEmergencyByTrack()
-//                viewModel.fetchDangerHiker()
-                viewModel.startTimer()
-            }
-            .onDisappear {
-                viewModel.stopTimer()
-            }
-            .background(
-                NavigationLink(
-                    destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel(), mapViewModel: RangerMapViewModel(fileName: selectedUser?.user?.trackId ?? "gede1") ,emergencyRequestId: idContainer),
-                    isActive: $isDetailViewActive,
-                    label: { EmptyView() }
+                .onAppear {
+                    viewModel.fetchActiveEmergencyByTrack()
+                    viewModel.fetchCompleteRescue()
+                    //                viewModel.fetchDangerHiker()
+                    viewModel.startTimer()
+                }
+                .onDisappear {
+                    viewModel.stopTimer()
+                }
+                .background(
+                    NavigationLink(
+                        destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel(), mapViewModel: RangerMapViewModel(fileName: selectedUser?.user?.trackId ?? "gede1") ,emergencyRequestId: idContainer),
+                        isActive: $isDetailViewActive,
+                        label: { EmptyView() }
+                    )
                 )
-            )
-            
-        
+                
+            }
+//            .toolbar {
+//                ToolbarItem(placement: .principal) {
+//                    HStack{
+//                        VStack(alignment: .leading) {
+//                            Text(viewModel.formattedDate())
+//                                .font(.headline)
+//                                .foregroundColor(.gray)
+//                                .font(.footnoteRegular)
+//                            Text("Active Emergencies")
+//                                .font(.title1Emphasized)
+//                                .bold()
+//                        }
+//                        .padding()
+//                        Spacer()
+//                    }
+//                    
+//                }
+//                
+//            }
+        }
+        .ignoresSafeArea()
         
         
         
     }
     
+    func filteredHikers() -> [EmergencyRequestModel] {
+        switch selectedCondition {
+        case .danger:
+            return viewModel.hiker.filter { $0.emergencyStatus == "danger" }
+        case .ongoing:
+            return viewModel.hiker.filter { $0.emergencyStatus == "ongoing" }
+        case .completed:
+            return viewModel.completeRescue
+        default:
+            return viewModel.hiker.filter { $0.emergencyStatus != "safe"}
+        }
+    }
+    
+    
+    
 }
 
-//#Preview {
-//    ActiveEmergencyView()
-//}
+#Preview {
+    ActiveEmergencyView(authViewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())))
+}

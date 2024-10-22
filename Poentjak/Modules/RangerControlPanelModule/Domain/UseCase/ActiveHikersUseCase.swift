@@ -9,6 +9,7 @@ import Foundation
 
 protocol ActiveHikersUseCaseProtocol{
     func fetchActiveHikers(completion: @escaping([EmergencyRequestModel]) -> Void)
+    func updateHikerSession(userId: String) async throws
 }
 
 class ActiveHikersUseCase: ActiveHikersUseCaseProtocol{
@@ -36,5 +37,16 @@ class ActiveHikersUseCase: ActiveHikersUseCaseProtocol{
             
         }
     }
+    
+    func updateHikerSession(userId: String) async throws{
+        do {
+            try await activeHikersRepository.updateHikerSession(userId: userId)
+        } catch {
+            print("Failed to update hiker session from ranger side \(error.localizedDescription)")
+            throw error
+        }
+    }
+    
+    
     
 }

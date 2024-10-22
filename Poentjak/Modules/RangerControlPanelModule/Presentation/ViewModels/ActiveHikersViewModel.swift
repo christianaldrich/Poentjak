@@ -34,12 +34,12 @@ class ActiveHikersViewModel: ObservableObject{
         
         if currentDate < input {
             let hoursRemaining = Calendar.current.dateComponents([.hour], from: currentDate, to: input).hour ?? 0
-//            print(hoursRemaining)
-//            return hoursRemaining
+            print("\n\n\n\nTSETSETST\(hoursRemaining)")
+            //            return hoursRemaining
             
             if hoursRemaining <= 1{
                 print("sisa 1 jam")
-                return CustomLabelStatus(type: .redHours(remainingTime: "1 HR"))
+                return CustomLabelStatus(type: .redHours(remainingTime: "<= 1 HR"))
             }
             else if hoursRemaining <= 3{
                 print("sisa 3 jam ")
@@ -48,11 +48,11 @@ class ActiveHikersViewModel: ObservableObject{
             else{
                 print("masih lama")
                 return CustomLabelStatus(type: .greenHours(remainingTime: "\(hoursRemaining) HRS"))
-
+                
             }
             
         } else {
-            return CustomLabelStatus(type: .greenHours(remainingTime: "Undefined HRS"))
+            return CustomLabelStatus(type: .redHours(remainingTime: "0 HR"))
         }
     }
     func customGender(_ gender: String) -> Image{
@@ -65,7 +65,23 @@ class ActiveHikersViewModel: ObservableObject{
             return Image.GenderIcon.others
         }
     }
-
+    
+    func updateHikerSession(userId: String) async {
+        do {
+            try await activeHikersUseCase.updateHikerSession(userId: userId)
+        } catch {
+            print("Failed in Active Hikers View Model")
+        }
+    }
+    
+    func dateFormatter(input: Date) -> String{
+        let formattedDate = DateFormatter()
+        formattedDate.dateFormat = "E, MMM d 'at' HH:mm"
+        let dateString = formattedDate.string(from: input)
+        
+        return dateString
+    }
+    
     
     
 }

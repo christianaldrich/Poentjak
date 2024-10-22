@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 protocol ActiveEmergencyRepositoryProtocol{
     func fetchEmergencyRequestByTrack(trackId: String, completion: @escaping([EmergencyRequestModel]) -> Void)
+    func fetchCompletedRescue(completion: @escaping([EmergencyRequestModel]) -> Void)
 }
 
 struct ActiveEmergencyRepository : ActiveEmergencyRepositoryProtocol{
@@ -114,7 +115,27 @@ struct ActiveEmergencyRepository : ActiveEmergencyRepositoryProtocol{
         }
     }
     
-    
+    func fetchCompletedRescue(completion: @escaping([EmergencyRequestModel]) -> Void){
+        db.collection("emergencyRequests")
+            .whereField("sessionDone", isEqualTo: true)
+            .whereField("emergencyStatus", isEqualTo: "completed")
+        
+            .addSnapshotListener{ snapshot, error in
+                if let error = error {
+                    print("Error fetching emergencies: \(error)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    print("No active emergency in this track!")
+                    return
+                }
+                let requests = documents.map { EmergencyRequestModel(dictionary: $0.data()) }
+                
+//                print("\n\n\nREQUESTS: \(requests)")
+                completion(requests)
+            }
+    }
     
     
     

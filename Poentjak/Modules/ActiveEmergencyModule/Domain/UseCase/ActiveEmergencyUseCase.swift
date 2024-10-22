@@ -9,6 +9,7 @@ import Foundation
 
 protocol ActiveEmergencyUseCaseProtocol{
     func fetchActiveEmergencyByTrack(completion: @escaping ([EmergencyRequestModel]) -> Void)
+    func fetchCompletedRescue(completion: @escaping ([EmergencyRequestModel]) -> Void)
     
 }
 
@@ -34,6 +35,12 @@ struct ActiveEmergencyUseCase : ActiveEmergencyUseCaseProtocol{
                 
             }
             
+        }
+    }
+    
+    func fetchCompletedRescue(completion: @escaping ([EmergencyRequestModel]) -> Void){
+        activeEmergencyRepository.fetchCompletedRescue(){ request in
+            completion(request)
         }
     }
 }

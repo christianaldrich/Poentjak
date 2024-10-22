@@ -24,19 +24,22 @@ struct CustomPrimaryButtonComponent: View {
                     .cornerRadius(16)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(state == .secondary ? Color.primaryGreen500 : .clear, lineWidth: state == .secondary ? 2 : 0)
+                            .stroke(state == .secondary ? Color.primaryGreen500 : .clear, lineWidth: state == .secondary ? 1 : 0)
                     )
 
                 if state == .loading {
                     HStack {
-                        CircularLoadingView()
                         Text("Loading")
-                            .font(.calloutEmphasized)
+                            .font(.customPrimaryButton)
+                            .kerning(0.4)
                             .foregroundColor(foregroundColorButton(for: state))
+                        
+                        CircularLoadingView()
                     }
                 } else {
                     Text(text)
-                        .font(.calloutEmphasized)
+                        .font(state == .secondary ? .calloutRegular : .customPrimaryButton)
+                        .kerning(0.4)
                         .foregroundColor(foregroundColorButton(for: state))
                 }
             }
@@ -68,3 +71,4 @@ struct CustomPrimaryButtonComponent: View {
     }
     .padding()
 }
+

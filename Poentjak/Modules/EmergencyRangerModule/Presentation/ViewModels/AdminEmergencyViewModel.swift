@@ -12,6 +12,7 @@ class AdminEmergencyViewModel: ObservableObject {
     @Published var emergencyRequest: EmergencyRequest?
     @Published var availableRangers: [Ranger] = []
     @Published var selectedRangerIds: [String] = []
+    @Published var selectedRangerNames: [String] = []
     @Published var isEvacuationComplete: Bool = false
 
     private let startRescueUseCase: StartRescueUseCaseProtocol
@@ -42,7 +43,7 @@ class AdminEmergencyViewModel: ObservableObject {
             try await startRescueUseCase.assignRangersToEmergency(emergencyRequest: emergencyRequest.id, rangerIds: rangerIds)
             await loadEmergencyData(emergencyRequestId: emergencyRequest.id)
 
-            selectedRangerIds.removeAll()
+            //selectedRangerIds.removeAll()
         } catch {
             print("Failed to assign rangers: \(error.localizedDescription)")
         }

@@ -57,6 +57,10 @@ extension Image {
             return Image("Icons/button/i_btn_profile")
         }
         
+        static var sos: Image {
+            return Image("Icons/button/i_btn_sos")
+        }
+        
     }
     
     struct ExploreIcon{
@@ -182,6 +186,24 @@ extension Image {
         
         static var eyeUnhide: Image {
             return Image("Icons/textField/i_tf_eye_unhide")
+        }
+    }
+    
+    struct TabBarIcon{
+        static var controlPanel: Image {
+            return Image("Icons/tabBar/i_tabBar_control_panel")
+        }
+        
+        static var sos: Image {
+            return Image("Icons/tabBar/i_tabBar_sos")
+        }
+        
+        static var magnifier: Image {
+            return Image("Icons/tabBar/i_tabBar_magnifier")
+        }
+        
+        static var book: Image {
+            return Image("Icons/tabBar/i_tabBar_book")
         }
     }
         

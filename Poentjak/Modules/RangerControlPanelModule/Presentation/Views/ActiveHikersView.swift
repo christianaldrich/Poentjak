@@ -27,7 +27,6 @@ struct ActiveHikersView: View {
                     List(viewModel.activeHikers, id: \.id) { hiker in
                         
                         Button(action: {
-                            // Set the selected user and present the modal
                             selectedUser = hiker
                             isDetailViewActive = true
                         }) {
@@ -35,31 +34,30 @@ struct ActiveHikersView: View {
                                                       gender: hiker.user?.gender ?? "",
                                                       dueDate: hiker.dueDate,
                                                       viewModel: viewModel)
-                            .padding(.vertical)
+//                            .padding(.vertical)
+                            
+
                         }
                         .buttonStyle(PlainButtonStyle())
-                        //                        NavigationLink(value:hiker){
-                        //                            VStack(alignment: .leading) {
-                        //                                ActiveHikersCardComponent(name: hiker.user?.name ?? "", gender: hiker.user?.gender ?? "", dueDate: hiker.dueDate, viewModel: viewModel)
-                        //                            }
-                        //                            .padding(.vertical)
-                        //                        }
-                        //                        .buttonStyle(PlainButtonStyle())
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
+
+
                         
                     }
                     
                     .listStyle(PlainListStyle())
                 }
             }
+            .padding()
             
             .navigationTitle("Active Hikers: \(viewModel.activeHikers.count)")
-            //            .navigationDestination(for: EmergencyRequestModel.self){hiker in
-            //                ActiveHikersDetailView(hiker: hiker)
-            //            }
             .sheet(item: $selectedUser) { hiker in
                 ActiveHikersDetailView(hiker: hiker)
+                    .presentationDetents([.fraction(0.65), .large])
             }
         }
+        
     }
 }
 

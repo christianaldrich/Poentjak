@@ -33,6 +33,8 @@ struct HikersNeedHelpComponent: View {
                                        status: hiker.emergencyStatus)
             }
             .buttonStyle(PlainButtonStyle())
+            .shadow(color: Color.black.opacity(0.06), radius: 8, x: 0, y: 4)
+            .shadow(color: Color.black.opacity(0.04), radius: 4, x: 0, y: 0)
 
 //            Text("FullName: \(hiker.user?.contactName ?? "")")
 //            Button("Rescue"){

@@ -102,6 +102,16 @@
         }
       }
     },
+    "%lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
     "∙" : {
 
     },
@@ -523,6 +533,9 @@
 
     },
     "Save" : {
+
+    },
+    "Search here" : {
 
     },
     "Select Condition" : {

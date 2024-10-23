@@ -41,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		1638DE8A2CC80153005BC582 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		1638E6942CC928A6005BC582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BA5D76BD2CA18DE8003694FC /* Poentjak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poentjak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5D76C42CA18DE9003694FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA5D76C72CA18DE9003694FC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -112,6 +113,7 @@
 		BA5D76BF2CA18DE8003694FC /* Poentjak */ = {
 			isa = PBXGroup;
 			children = (
+				1638E6942CC928A6005BC582 /* Info.plist */,
 				24B411C82CBCC91100F5CE82 /* Utilities */,
 				BA106B032CB3F5FB0014D599 /* Application */,
 				BA1071F92CB643AA0014D599 /* Modules */,
@@ -460,9 +462,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Poentjak/Preview Content\"";
-				DEVELOPMENT_TEAM = CAPH2JRFFZ;
+				DEVELOPMENT_TEAM = UXFMYR2DJ9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Poentjak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hikewise;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
@@ -491,9 +494,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Poentjak/Preview Content\"";
-				DEVELOPMENT_TEAM = CAPH2JRFFZ;
+				DEVELOPMENT_TEAM = UXFMYR2DJ9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Poentjak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hikewise;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";

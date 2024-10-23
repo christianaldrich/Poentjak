@@ -36,6 +36,9 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
             lastKnownLocation = manager.location?.coordinate
             currentSpeed = manager.location?.speed ?? 0.0  // Get initial speed
             currentElevation = manager.location?.altitude ?? 0.0 // Get initial elevation
+            
+            manager.allowsBackgroundLocationUpdates = true
+            manager.pausesLocationUpdatesAutomatically = false
         @unknown default:
             print("Unknown location authorization")
         }

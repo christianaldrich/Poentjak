@@ -23,19 +23,25 @@
     "%@" : {
 
     },
-    "%@ %lld, %lld" : {
-      "extractionState" : "manual",
+    "%@ %@" : {
       "localizations" : {
-        "id" : {
+        "en" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ %lld, %lld"
+            "state" : "new",
+            "value" : "%1$@ %2$@"
           }
         }
       }
     },
     "%@ left till overdue, " : {
-
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ tersisa sebelum telat"
+          }
+        }
+      }
     },
     "%@: %@ min" : {
       "localizations" : {
@@ -73,50 +79,6 @@
         }
       }
     },
-    "%lld day ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld hari lalu"
-          }
-        }
-      }
-    },
-    "%lld days ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld hari lalu"
-          }
-        }
-      }
-    },
-    "%lld HR LEFT" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld JAM LAGI"
-          }
-        }
-      }
-    },
-    "%lld HRS LEFT" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld JAM LAGI"
-          }
-        }
-      }
-    },
     "%lld kg" : {
       "localizations" : {
         "id" : {
@@ -129,17 +91,6 @@
     },
     "%lld MDPL" : {
 
-    },
-    "%lld mins ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld menit lalu"
-          }
-        }
-      }
     },
     "%lld yrs" : {
       "localizations" : {
@@ -154,23 +105,10 @@
     "∙" : {
 
     },
-    "6 hr 27 min from now" : {
-
-    },
     "20 mins ago" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "20 menit lalu"
-          }
-        }
-      }
+
     },
     "30-45 min" : {
-
-    },
-    "47% 4 mins ago" : {
 
     },
     "A click away from a safe hiking \nexperience." : {
@@ -198,7 +136,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pendaki aktif:"
+            "value" : "Pendaki Aktif:"
           }
         }
       }
@@ -208,7 +146,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pendaki aktif: %lld"
+            "value" : "Pendaki Aktif: %lld"
           }
         }
       }
@@ -233,104 +171,12 @@
         }
       }
     },
-    "All" : {
-      "extractionState" : "manual",
+    "Arrived by %@" : {
       "localizations" : {
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Semua"
-          }
-        }
-      }
-    },
-    "Already have an account?" : {
-
-    },
-    "April" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "April"
-          }
-        }
-      }
-    },
-    "Arrival: Sun 6 Oct 17.00" : {
-
-    },
-    "ARRIVED" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "TIBA BASECAMP"
-          }
-        }
-      }
-    },
-    "Arrived by %@, %lld %@ %lld" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sampai pada %@, %lld %@ %lld"
-          }
-        }
-      }
-    },
-    "Assign Rangers" : {
-
-    },
-    "Assign Rangers to Emergency" : {
-
-    },
-    "Assigned Rangers:" : {
-
-    },
-    "August" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Agustus"
-          }
-        }
-      }
-    },
-    "Back" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Balik"
-          }
-        }
-      }
-    },
-    "Back at basecamp" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sudah di basecamp"
-          }
-        }
-      }
-    },
-    "Call emergency contact" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hubungi kontak darurat"
+            "value" : "Sampai pada %@"
           }
         }
       }
@@ -351,17 +197,6 @@
     "Close" : {
 
     },
-    "Complete" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selesai"
-          }
-        }
-      }
-    },
     "Connection Available" : {
 
     },
@@ -378,49 +213,22 @@
     "Count Down: %lld" : {
 
     },
-    "December" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Desember"
-          }
-        }
-      }
-    },
     "Desc: %@" : {
 
     },
     "Don't forget to return" : {
 
     },
-    "Don't have an account?" : {
-
-    },
-    "Done Editing" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selesai ubah"
-          }
-        }
-      }
-    },
-    "Due by 7 pm" : {
-
-    },
     "Due date" : {
-
-    },
-    "Due Date: %@" : {
 
     },
     "due: %@" : {
 
     },
     "Due: %@" : {
+
+    },
+    "Edit" : {
 
     },
     "Edit Due Date" : {
@@ -436,17 +244,6 @@
         }
       }
     },
-    "Email address" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Email"
-          }
-        }
-      }
-    },
     "Emergency" : {
       "localizations" : {
         "id" : {
@@ -458,7 +255,6 @@
       }
     },
     "Emergency Contact" : {
-      "extractionState" : "manual",
       "localizations" : {
         "id" : {
           "stringUnit" : {
@@ -469,7 +265,6 @@
       }
     },
     "Emergency Contact - %@" : {
-      "extractionState" : "manual",
       "localizations" : {
         "id" : {
           "stringUnit" : {
@@ -479,19 +274,27 @@
         }
       }
     },
-    "Emergency Type: %@" : {
-
-    },
     "Enter your email" : {
-
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan alamat email anda"
+          }
+        }
+      }
     },
     "Enter your password" : {
-
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan kata sandi anda"
+          }
+        }
+      }
     },
     "Estimated ETA " : {
-
-    },
-    "Evacuate" : {
 
     },
     "Explore" : {
@@ -499,17 +302,6 @@
     },
     "extend?" : {
 
-    },
-    "February" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Februari"
-          }
-        }
-      }
     },
     "Finished Evacuating" : {
       "localizations" : {
@@ -566,23 +358,16 @@
 
     },
     "Hiker Rescue Details" : {
-
-    },
-    "Hipotermia" : {
-
-    },
-    "History" : {
-      "extractionState" : "manual",
       "localizations" : {
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Riwayat"
+            "value" : "Detail evakuasi"
           }
         }
       }
     },
-    "HYPOTHERMIA" : {
+    "Hipotermia" : {
       "localizations" : {
         "id" : {
           "stringUnit" : {
@@ -598,30 +383,8 @@
     "ID: %@" : {
 
     },
-    "In rescue" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sedang bertugas"
-          }
-        }
-      }
-    },
     "ini testing buat icons" : {
 
-    },
-    "Injured" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terluka"
-          }
-        }
-      }
     },
     "Injury" : {
       "localizations" : {
@@ -629,69 +392,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Terluka"
-          }
-        }
-      }
-    },
-    "January" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Januari"
-          }
-        }
-      }
-    },
-    "July" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Juli"
-          }
-        }
-      }
-    },
-    "June" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Juni"
-          }
-        }
-      }
-    },
-    "Key" : {
-      "extractionState" : "manual"
-    },
-    "Last" : {
-
-    },
-    "Last Location: (%lf, %lf)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Last Location: (%1$lf, %2$lf)"
-          }
-        }
-      }
-    },
-    "Last seen" : {
-
-    },
-    "Last seen %lld mins ago" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terakhir dilihat %lld menit lalu"
           }
         }
       }
@@ -707,7 +407,14 @@
       }
     },
     "Loading emergency data..." : {
-
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memuat data keadaan darurat"
+          }
+        }
+      }
     },
     "Log in" : {
       "extractionState" : "manual",
@@ -719,19 +426,6 @@
           }
         }
       }
-    },
-    "Login" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Masuk"
-          }
-        }
-      }
-    },
-    "Lorem Joe" : {
-
     },
     "Lost" : {
       "localizations" : {
@@ -745,28 +439,6 @@
     },
     "Map" : {
 
-    },
-    "March" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Maret"
-          }
-        }
-      }
-    },
-    "May" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mei"
-          }
-        }
-      }
     },
     "Mountain Card" : {
 
@@ -793,27 +465,17 @@
     "Nearest Warung: %@, ETA: N/A" : {
 
     },
-    "Need Rescue" : {
-
-    },
-    "New" : {
-      "extractionState" : "manual",
+    "No active hikers" : {
       "localizations" : {
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Baru"
+            "value" : "Tidak ada"
           }
         }
       }
     },
-    "No active hikers" : {
-
-    },
     "No Connection" : {
-
-    },
-    "No rangers assigned." : {
 
     },
     "No Warung found nearby" : {
@@ -829,76 +491,8 @@
         }
       }
     },
-    "November" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "November"
-          }
-        }
-      }
-    },
-    "October" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oktober"
-          }
-        }
-      }
-    },
-    "Ongoing" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dicari"
-          }
-        }
-      }
-    },
-    "Ongoing Rescues" : {
-
-    },
     "Open Sound Board" : {
 
-    },
-    "or continue with" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "atau lanjutkan dengan"
-          }
-        }
-      }
-    },
-    "OVERDUE" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Telat"
-          }
-        }
-      }
-    },
-    "Password" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kata sandi"
-          }
-        }
-      }
     },
     "Play Sound Continuously" : {
 
@@ -906,17 +500,10 @@
     "Play Sound Once" : {
 
     },
-    "POS 2" : {
-
-    },
-    "Ranger Assignment" : {
-
-    },
     "Ranger Name" : {
 
     },
     "Rangers in rescue" : {
-      "extractionState" : "manual",
       "localizations" : {
         "id" : {
           "stringUnit" : {
@@ -932,43 +519,17 @@
     "Reached basecamp!" : {
 
     },
-    "Rescue" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mulai Evakuasi"
-          }
-        }
-      }
+    "Return by %@" : {
+
     },
     "Save" : {
 
     },
-    "Search hikers" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cari pendaki"
-          }
-        }
-      }
+    "Select Condition" : {
+
     },
     "Select Date" : {
 
-    },
-    "Select Rangers" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selesai pilih ranger"
-          }
-        }
-      }
     },
     "Select Time" : {
 
@@ -976,56 +537,19 @@
     "Selected Date: %@" : {
 
     },
-    "September" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "September"
-          }
-        }
-      }
-    },
     "session id: %@" : {
-
-    },
-    "Sign in" : {
 
     },
     "Sign Out" : {
 
     },
     "Sign up" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Daftar"
-          }
-        }
-      }
-    },
-    "Sign Up" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Daftar"
-          }
-        }
-      }
-    },
-    "Signing Up..." : {
-
-    },
-    "Skip" : {
       "extractionState" : "manual",
       "localizations" : {
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lewati"
+            "value" : "Daftar"
           }
         }
       }
@@ -1034,15 +558,11 @@
 
     },
     "SOS" : {
-
-    },
-    "SOS ALERT" : {
-      "extractionState" : "manual",
       "localizations" : {
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "PANGGILAN SOS"
+            "value" : "SOS"
           }
         }
       }
@@ -1056,33 +576,8 @@
     "status: %@" : {
 
     },
-    "Status: %@" : {
-
-    },
-    "Still ongoing in a week" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Masih dicari dalam pekan ini"
-          }
-        }
-      }
-    },
     "Stop Sound" : {
 
-    },
-    "Successfully evacuated!" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Berhasil dievakuasi!"
-          }
-        }
-      }
     },
     "Tell us when you will be back" : {
 
@@ -1097,9 +592,6 @@
 
     },
     "this is the guide" : {
-
-    },
-    "Track ID: %@" : {
 
     },
     "Track Name: %@" : {
@@ -1121,18 +613,7 @@
         }
       }
     },
-    "Welcome to \nPoentjak" : {
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selamat datang di Poentjak"
-          }
-        }
-      }
-    },
-    "Welcome to Hikewise" : {
-      "extractionState" : "manual",
+    "Welcome to \nHikewise" : {
       "localizations" : {
         "id" : {
           "stringUnit" : {
@@ -1148,17 +629,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pilih ranger yang bertugas"
-          }
-        }
-      }
-    },
-    "years" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "tahun"
           }
         }
       }

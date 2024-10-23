@@ -26,7 +26,7 @@ struct RegistrationView: View {
 //                    .frame(width: 120, height: 120)
 //                    .padding()
                 VStack(alignment: .leading) {
-                    Text("Welcome to \nPoentjak")
+                    Text("Welcome to \nHikewise")
                         .font(.largeTitleEmphasized)
                         .bold()
                     

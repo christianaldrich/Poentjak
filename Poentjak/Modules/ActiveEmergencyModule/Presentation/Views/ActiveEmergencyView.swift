@@ -42,7 +42,7 @@ struct ActiveEmergencyView: View {
                 
                 List {
                     HikersNeedHelpSectionComponent(hikers: filteredHikers()){ hiker in
-                        viewModel.rescuing(id: hiker.id)
+//                        viewModel.rescuing(id: hiker.id)
                         selectedUser = hiker
                         idContainer = hiker.id
                         isDetailViewActive = true

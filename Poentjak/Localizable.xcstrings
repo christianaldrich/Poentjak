@@ -112,6 +112,9 @@
         }
       }
     },
+    "+62 " : {
+
+    },
     "∙" : {
 
     },
@@ -283,6 +286,12 @@
           }
         }
       }
+    },
+    "Emergency Contact Name" : {
+
+    },
+    "Emergency Contact Number" : {
+
     },
     "Enter your email" : {
       "localizations" : {
@@ -536,6 +545,9 @@
 
     },
     "Search here" : {
+
+    },
+    "Select a number" : {
 
     },
     "Select Condition" : {

@@ -26,7 +26,7 @@ enum WheelPicker {
 
 struct CustomWheelComponent: View {
     var wheelType: WheelPicker
-    @State private var selectedNumber: Int = 1
+    @Binding var selectedNumber: Int
     
     // Create an array of integers from 1 to 150
     let numbers = Array(1...200)
@@ -63,7 +63,7 @@ struct CustomWheelComponent: View {
 }
 
 #Preview {
-    CustomWheelComponent(wheelType: .weight)
+//    CustomWheelComponent(wheelType: .weight)
 //    CustomWheelComponent(wheelType: .age)
 //    CustomWheelComponent(wheelType: .height)
 }

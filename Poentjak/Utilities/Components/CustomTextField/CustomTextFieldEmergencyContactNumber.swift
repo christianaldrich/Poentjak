@@ -25,12 +25,12 @@ struct CustomTextFieldEmergencyContactNumber: View {
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(Color.neutralGrayQuaternaryGray, lineWidth: 1)
                 )
-                .onAppear {
-                    // Set initial text if it doesn't already start with +62
-                    if !text.starts(with: "+62 ") {
-                        text = "+62 "
-                    }
-                }
+//                .onAppear {
+//                    // Set initial text if it doesn't already start with +62
+//                    if !text.starts(with: "+62 ") {
+//                        text = "+62 "
+//                    }
+//                }
                 .onChange(of: text) { newValue in
                     // Allow only digits, and ensure text always starts with +62
                     let filtered = newValue.filter { $0.isNumber || $0 == "+" || $0 == "6" || $0 == "2" }

@@ -171,6 +171,12 @@
         }
       }
     },
+    "Age" : {
+
+    },
+    "Age: %@" : {
+
+    },
     "Age: %lld" : {
       "localizations" : {
         "id" : {
@@ -226,6 +232,9 @@
     "Desc: %@" : {
 
     },
+    "Do you have any specific medicinal needs? (optional)" : {
+
+    },
     "Don't forget to return" : {
 
     },
@@ -236,6 +245,9 @@
 
     },
     "Due: %@" : {
+
+    },
+    "e.g., Asthma" : {
 
     },
     "Edit" : {
@@ -283,6 +295,24 @@
           }
         }
       }
+    },
+    "Enter Age" : {
+
+    },
+    "Enter Contact Name" : {
+
+    },
+    "Enter Contact Number" : {
+
+    },
+    "Enter Height" : {
+
+    },
+    "Enter Medical Condition (optional)" : {
+
+    },
+    "Enter Weight" : {
+
     },
     "Enter your email" : {
       "localizations" : {
@@ -343,6 +373,12 @@
 
     },
     "Guide" : {
+
+    },
+    "Height, cm" : {
+
+    },
+    "Height: %@" : {
 
     },
     "Height: %lld" : {
@@ -616,6 +652,15 @@
     "Trying to send your distress signal.." : {
 
     },
+    "We need some of your biodata for emergency situations" : {
+
+    },
+    "Weight, kg" : {
+
+    },
+    "Weight: %@" : {
+
+    },
     "Weight: %lld" : {
       "localizations" : {
         "id" : {
@@ -635,6 +680,9 @@
           }
         }
       }
+    },
+    "Who should we call in an emergency?" : {
+
     },
     "Who’s in charge of the rescue?" : {
       "localizations" : {

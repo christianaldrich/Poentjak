@@ -11,7 +11,7 @@ struct LandingPageView: View {
     @StateObject var viewModel: AuthViewModel
 
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
                 
                 Image("background")
@@ -41,7 +41,7 @@ struct LandingPageView: View {
                         .allowsHitTesting(false)
                     }
                     
-                    NavigationLink(destination:                     LoginView(viewModel: viewModel)
+                    NavigationLink(destination:LoginView(viewModel: viewModel)
                         /*.navigationBarBackButtonHidden(true)*/){
                             CustomPrimaryButtonComponent(state: .secondary, text: "Log in"){
                             print("TEST")

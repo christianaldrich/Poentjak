@@ -20,6 +20,9 @@
     "->" : {
 
     },
+    ", extend?" : {
+
+    },
     "%@" : {
 
     },
@@ -92,6 +95,16 @@
     "%lld MDPL" : {
 
     },
+    "%lld of %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld"
+          }
+        }
+      }
+    },
     "%lld yrs" : {
       "localizations" : {
         "id" : {
@@ -102,6 +115,7 @@
         }
       }
     },
+
     "%lld/%lld" : {
       "localizations" : {
         "en" : {
@@ -115,10 +129,14 @@
     "+62 " : {
 
     },
+
     "∙" : {
 
     },
     "20 mins ago" : {
+
+    },
+    "30 mins left till overdue" : {
 
     },
     "30-45 min" : {
@@ -136,6 +154,9 @@
           }
         }
       }
+    },
+    "Activate SOS" : {
+
     },
     "Active Emergencies" : {
       "localizations" : {
@@ -187,6 +208,9 @@
         }
       }
     },
+    "Always hike with caution and be **aware of\nyour surroundings.**" : {
+
+    },
     "Arrived by %@" : {
       "localizations" : {
         "id" : {
@@ -197,6 +221,12 @@
         }
       }
     },
+    "As well as your gender." : {
+
+    },
+    "ASDAS" : {
+
+    },
     "Cancel" : {
       "localizations" : {
         "id" : {
@@ -206,6 +236,9 @@
           }
         }
       }
+    },
+    "Checkpoint 1" : {
+
     },
     "Choose Emergency Type" : {
 
@@ -227,6 +260,9 @@
       }
     },
     "Count Down: %lld" : {
+
+    },
+    "default" : {
 
     },
     "Desc: %@" : {
@@ -321,13 +357,20 @@
     "Estimated ETA " : {
 
     },
+
     "experience" : {
+
+    "ETA 30-40 mins" : {
+
 
     },
     "Explore" : {
 
     },
     "extend?" : {
+
+    },
+    "Finish" : {
 
     },
     "Finished Evacuating" : {
@@ -354,6 +397,9 @@
 
     },
     "Gender: %@" : {
+
+    },
+    "Give us a selfie!" : {
 
     },
     "Go to CountDown" : {
@@ -394,7 +440,11 @@
         }
       }
     },
+
     "Hikewise" : {
+
+    "Hikewise is designed to assist by providing\nalerts to **local rangers in emergency\nsituations.** However, we cannot guarantee\nassistance or outcomes, especially in areas\nwith poor or no signal." : {
+
 
     },
     "Hipotermia" : {
@@ -425,6 +475,18 @@
           }
         }
       }
+    },
+    "Insert full name" : {
+
+    },
+    "It is the user’s responsibility to **follow\nsafety guidelines and make responsible\ndecisions while hiking.** Hikewise is not\nliable for any incidents resulting from\nfailure to follow instructions, lack of signal,\nor reckless behavior. " : {
+
+    },
+    "Legal Disclaimer" : {
+
+    },
+    "Let's start with your full name" : {
+
     },
     "Loading" : {
       "localizations" : {
@@ -470,6 +532,9 @@
     "Map" : {
 
     },
+    "Mark as Overdue" : {
+
+    },
     "Mountain Card" : {
 
     },
@@ -493,6 +558,9 @@
       }
     },
     "Nearest Warung: %@, ETA: N/A" : {
+
+    },
+    "Next View " : {
 
     },
     "No active hikers" : {
@@ -590,6 +658,9 @@
         }
       }
     },
+    "Skip" : {
+
+    },
     "Slide to Cancel" : {
 
     },
@@ -637,6 +708,9 @@
 
     },
     "Trying to send your distress signal.." : {
+
+    },
+    "We need your profile picture to help rescuers\nidentify you quickly in an emergency!" : {
 
     },
     "Weight: %lld" : {

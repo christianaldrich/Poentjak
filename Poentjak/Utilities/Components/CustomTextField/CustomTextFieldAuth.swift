@@ -37,7 +37,7 @@ struct CustomTextFieldAuth: View {
                         .padding(16)
                 }
                 
-                if isPassword {
+                if isPassword && !text.isEmpty{
                     Button(action: {
                         isSecure.toggle()
                     }) {
@@ -87,7 +87,7 @@ struct CustomTextFieldAuth: View {
     )}
     .padding(.vertical, 16)
     
-    StatefulPreviewWrapper("hjgh") { CustomTextFieldAuth(
+    StatefulPreviewWrapper("") { CustomTextFieldAuth(
         text: $0,
         titleTextField: "Password",
         errorMessage: "Must be 8 characters",

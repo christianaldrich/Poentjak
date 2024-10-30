@@ -12,11 +12,13 @@ struct LoginView: View {
     @StateObject var viewModel: AuthViewModel
     
     var body: some View {
-        NavigationStack {
+
+        
 //            ZStack{
 //                Image("background")
 //                    .resizable()
 //                    .aspectRatio(contentMode: .fill)
+
                 
             
                 VStack {
@@ -131,7 +133,7 @@ struct LoginView: View {
             
 //            }
         }
-    }
+    
 }
 
 

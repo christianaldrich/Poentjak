@@ -29,7 +29,7 @@ struct PoentjakApp: App {
             
             
 //            ProfilePictureView()
-//            FirstNameLastNameView()
+//            FirstNameLastNameView(viewModel: authViewModel)
 //            RangerView()
 
 //            let authViewModel = diContainer.makeAuthViewModel()

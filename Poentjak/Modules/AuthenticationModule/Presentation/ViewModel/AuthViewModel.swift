@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 @MainActor
 class AuthViewModel: ObservableObject {
@@ -24,6 +25,12 @@ class AuthViewModel: ObservableObject {
     @Published var age: Int = 1
     @Published var weight: Int = 1
     @Published var height: Int = 1
+    
+    
+    @Published var name: String = ""
+    @Published var gender: String = ""
+    @Published var currentIndex: Int = -1
+    @Published var capturedImage: UIImage?
     
     
     private let useCase: DefaultAuthUseCase
@@ -73,7 +80,8 @@ class AuthViewModel: ObservableObject {
     
     func register() async {
         isLoading = true
-        let request = AuthRequestDTO(email: email, password: password, isAdmin: false, contactName: contactName, contactNumber: contactNumber, medicalCondition: medicalCondition, age: age, weight: weight, height: height)
+        let request = AuthRequestDTO(email: email, password: password, isAdmin: false, contactName: contactName, contactNumber: contactNumber, medicalCondition: medicalCondition, age: age, weight: weight, height: height, name: name, gender: gender)
+//        , profileURL: capturedImage
         do {
             let user = try await useCase.register(request: request)
             userSession = user

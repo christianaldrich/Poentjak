@@ -11,6 +11,9 @@ struct OnboardingView: View {
     @State private var currentTab = 0
     private let onboardingDataList = OnboardingData.list
     
+    @StateObject var viewModel: AuthViewModel
+
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack {
@@ -28,7 +31,11 @@ struct OnboardingView: View {
                 HStack {
                     if currentTab == onboardingDataList.count - 1 {
                         Button(action: {
-                            print("clicked")
+//                            print("clicked")
+                            Task {
+                                await viewModel.register()
+                            }
+                            
                         }) {
                             Text("Finish")
                                 .font(.title3Emphasized)
@@ -63,6 +70,6 @@ struct OnboardingView: View {
     }
 }
 
-#Preview {
-    OnboardingView()
-}
+//#Preview {
+//    OnboardingView()
+//}

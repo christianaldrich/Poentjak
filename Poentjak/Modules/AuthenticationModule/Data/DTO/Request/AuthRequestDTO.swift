@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import PhotosUI
+
 
 struct AuthRequestDTO: Codable {
     let email: String
@@ -19,7 +21,10 @@ struct AuthRequestDTO: Codable {
     let weight: Int
     let height: Int
     
-//    let gender: String
-//    let 
+    let name: String
+    let gender: String
+//    @CodableImage var profileURL: UIImage?
+    var profileURL: String?
+//    let
 }
 

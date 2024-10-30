@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct DisclaimerView: View {
+    
+    @StateObject var viewModel: AuthViewModel
+    @State private var nextViewActive: Bool = false
+    
     var body: some View {
         VStack{
             Spacer()
@@ -31,16 +35,21 @@ struct DisclaimerView: View {
             
             Spacer()
             
-            NavigationLink(destination: FirstNameLastNameView()){
+//            NavigationLink(destination: FirstNameLastNameView(viewModel: viewModel)){
                 CustomLargeButtonComponent(state: .enabled, text: "I agree"){
-                    print("ASDFASDF")
+//                    print("ASDFASDF")
+                    viewModel.currentIndex += 1
+                    nextViewActive = true
                 }
-                .allowsHitTesting(false)
-            }
+//                .allowsHitTesting(false)
+//            }
             
             
             Spacer()
             
+        }
+        .navigationDestination(isPresented: $nextViewActive){
+            FirstNameLastNameView(viewModel: viewModel)
         }
         .foregroundStyle(Color.primaryGreen500)
         .padding()
@@ -48,6 +57,6 @@ struct DisclaimerView: View {
     }
 }
 
-#Preview {
-    DisclaimerView()
-}
+//#Preview {
+//    DisclaimerView()
+//}

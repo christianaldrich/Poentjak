@@ -17,18 +17,20 @@ struct RegistrationEmergencyContactView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
+            Spacer().frame(height: 100)
             Text("Who should we call in an emergency?")
                 .font(.title3Emphasized)
                 .foregroundStyle(Color.primaryGreen500)
                 .padding(.horizontal, 32)
             
             CustomTextFieldEmergencyContactName(text: $viewModel.contactName)
-             CustomTextFieldEmergencyContactNumber(text: $viewModel.contactNumber)
+            CustomTextFieldEmergencyContactNumber(text: $viewModel.contactNumber)
             
             Spacer()
             
             CustomLargeButtonComponent(state: isFormFilled ? .enabled : .disabled, text: "Next") {
                 if isFormFilled {
+                    viewModel.currentIndex += 1
                     navigateToNext = true
                 }
             }
@@ -36,6 +38,14 @@ struct RegistrationEmergencyContactView: View {
         }
         .navigationDestination(isPresented: $navigateToNext) {
             MedicalReportView(viewModel: viewModel)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                BackButtonComponent{
+                    viewModel.currentIndex -= 1
+                }
+            }
         }
     }
 }

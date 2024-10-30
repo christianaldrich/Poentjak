@@ -20,9 +20,9 @@ class AuthViewModel: ObservableObject {
     @Published var contactName: String = ""
     @Published var contactNumber: String = ""
     @Published var medicalCondition: String = ""
-    @Published var age: String = ""
-    @Published var weight: String = ""
-    @Published var height: String = ""
+    @Published var age: Int = 1
+    @Published var weight: Int = 1
+    @Published var height: Int = 1
     
     
     private let useCase: DefaultAuthUseCase
@@ -72,7 +72,7 @@ class AuthViewModel: ObservableObject {
     
     func register() async {
         isLoading = true
-        let request = AuthRequestDTO(email: email, password: password, isAdmin: false)
+        let request = AuthRequestDTO(email: email, password: password, isAdmin: false, contactName: contactName, contactNumber: contactNumber, medicalCondition: medicalCondition, age: age, weight: weight, height: height)
         do {
             let user = try await useCase.register(request: request)
             userSession = user

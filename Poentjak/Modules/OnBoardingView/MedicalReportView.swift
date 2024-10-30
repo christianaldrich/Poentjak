@@ -7,47 +7,39 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct MedicalReportView: View {
-
+    @StateObject var viewModel: AuthViewModel
     @State private var navigateNext = false
     
-    @StateObject var viewModel: AuthViewModel
-    
     var body: some View {
-        
-            VStack(alignment: .leading, spacing: 16) {
-                Text("Do you have any specific medicinal needs? (optional)")
-                    .font(.title3Emphasized)
-                    .foregroundStyle(Color.primaryGreen500)
-                    .padding(.horizontal, 16)
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Do you have any specific medicinal needs? (optional)")
+                .font(.title3Emphasized)
+                .foregroundStyle(Color.primaryGreen500)
+                .padding(.horizontal, 32)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                CustomTextFieldMedical(text: $viewModel.medicalCondition)
                 
-                VStack(alignment: .leading, spacing: 4) {
-                    TextField("Enter Medical Condition (optional)", text: $viewModel.medicalCondition)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal, 16)
-                    
-                    Text("e.g., Asthma")
-                        .font(.footnoteRegular)
-                        .foregroundColor(.neutralGrayTertiaryGray)
-                        .padding(.horizontal, 16)
-                }
-                
-                Spacer()
-                
-//                NavigationLink(destination: FinalView(), isActive: $navigateNext) {
-//                    EmptyView()
-//                }
-                
-                CustomLargeButtonComponent(state: .enabled, text: "Finish") {
-                    navigateNext = true
-                    //usecase
-                }
-                .padding(.horizontal, 16)
+                Text("e.g., Asthma")
+                    .font(.footnoteRegular)
+                    .foregroundColor(.neutralGrayTertiaryGray)
+                    .padding(.horizontal, 32)
             }
+            
+            Spacer()
+            
+            CustomLargeButtonComponent(state: .enabled, text: "Finish") {
+                Task {
+                    await viewModel.register()
+                }
+                navigateNext = true
+            }
+            .padding(.horizontal, 16)
         }
-    
+       
+//        .navigationDestination(isPresented: $navigateNext) {
+//            //FinalView()
+//        }
+    }
 }
-
-

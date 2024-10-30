@@ -11,7 +11,7 @@ struct LandingPageView: View {
     @StateObject var viewModel: AuthViewModel
 
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
                 
                 Image("background")

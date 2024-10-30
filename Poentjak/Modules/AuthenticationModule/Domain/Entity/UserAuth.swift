@@ -11,8 +11,8 @@ struct UserAuth: Codable {
     let id: String
     var name: String?
     var email: String
-    var weight: Double?
-    var height: Double?
+    var weight: Int?
+    var height: Int?
     var gender: String?
     var age: Int?
     var contactNumber: String?

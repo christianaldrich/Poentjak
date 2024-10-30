@@ -124,6 +124,9 @@
     "30-45 min" : {
 
     },
+    "A click away from a safe hiking" : {
+
+    },
     "A click away from a safe hiking \nexperience." : {
       "localizations" : {
         "id" : {
@@ -294,6 +297,7 @@
 
     },
     "Enter your email" : {
+      "extractionState" : "stale",
       "localizations" : {
         "id" : {
           "stringUnit" : {
@@ -304,6 +308,7 @@
       }
     },
     "Enter your password" : {
+      "extractionState" : "stale",
       "localizations" : {
         "id" : {
           "stringUnit" : {
@@ -314,6 +319,9 @@
       }
     },
     "Estimated ETA " : {
+
+    },
+    "experience" : {
 
     },
     "Explore" : {
@@ -385,6 +393,9 @@
           }
         }
       }
+    },
+    "Hikewise" : {
+
     },
     "Hipotermia" : {
       "localizations" : {
@@ -637,6 +648,9 @@
           }
         }
       }
+    },
+    "Welcome to" : {
+
     },
     "Welcome to \nHikewise" : {
       "localizations" : {

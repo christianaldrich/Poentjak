@@ -23,15 +23,16 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
         
         let userAuth = UserAuth(
             id: authResult.user.uid,
-            //name:
+            name: request.name,
             email: request.email,
             weight: request.weight,
             height: request.height,
-            //gender:
+            gender: request.gender,
             age: request.age,
             contactNumber: request.contactNumber,
             trackId: "none",
             contactName: request.contactName,
+//            profileURL: request.profileURL,
             profileURL: "dummy",
             medicalRecord: request.medicalCondition,
             

@@ -13,6 +13,7 @@ struct MedicalReportView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
+            Spacer().frame(height: 100)
             Text("Do you have any specific medicinal needs? (optional)")
                 .font(.title3Emphasized)
                 .foregroundStyle(Color.primaryGreen500)
@@ -29,13 +30,27 @@ struct MedicalReportView: View {
             
             Spacer()
             
-            CustomLargeButtonComponent(state: .enabled, text: "Finish") {
-                Task {
-                    await viewModel.register()
+            VStack{
+                CustomLargeButtonComponent(state: .enabled, text: "Finish") {
+                    viewModel.currentIndex += 1
+    //                Task {
+    //                    await viewModel.register()
+    //                }
+                    navigateNext = true
                 }
-                navigateNext = true
+                .padding(.horizontal, 16)
             }
-            .padding(.horizontal, 16)
+            .navigationDestination(isPresented: $navigateNext){
+                OnboardingView(viewModel: viewModel)
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                BackButtonComponent{
+                    viewModel.currentIndex -= 1
+                }
+            }
         }
        
 //        .navigationDestination(isPresented: $navigateNext) {

@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct NextTempView: View {
-    @StateObject var viewModel: HikerRegisViewModel
+    @StateObject var viewModel: AuthViewModel
 
     var body: some View {
         Text("Next View ")
             .toolbar{
                 ToolbarItem(placement: .topBarLeading){
                     BackButtonComponent{
-                        viewModel.currentIndex = (viewModel.currentIndex ?? 0) - 1
+                        viewModel.currentIndex = (viewModel.currentIndex) - 1
                     }
                 }
             }
     }
 }
 
-#Preview {
-    NextTempView(viewModel: HikerRegisViewModel())
-}
+//#Preview {
+//    NextTempView(viewModel: AuthViewModel)
+//}

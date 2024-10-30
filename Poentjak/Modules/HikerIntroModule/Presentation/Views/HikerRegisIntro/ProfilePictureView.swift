@@ -13,7 +13,7 @@ struct ProfilePictureView: View {
     @State private var selectedImage: UIImage?
     @State var image: UIImage?
     
-    @StateObject var viewModel: HikerRegisViewModel
+    @StateObject var viewModel: AuthViewModel
     @State private var isNextViewActive = false // Control navigation
 
 //    @StateObject var authViewModel: AuthViewModel
@@ -21,10 +21,14 @@ struct ProfilePictureView: View {
     
     var body: some View {
         VStack {
-            Spacer()
+            
+            Spacer().frame(height: 100)
+//            CustomIndicatorLongRectangle(totalCount: 4, currentIndex: viewModel.currentIndex)
+//                .padding(.top, 50)
+//                .zIndex(1)
 //            CustomIndicatorLongRectangle(totalCount: 4, currentIndex: viewModel.currentIndex ?? 1)
-            Spacer()
-            VStack(alignment: .leading){
+//            Spacer()
+            VStack(alignment: .leading, spacing: 8){
                 Text("Give us a selfie!")
                     .font(.title3Emphasized)
                 Text("We need your profile picture to help rescuers\nidentify you quickly in an emergency!")
@@ -47,9 +51,6 @@ struct ProfilePictureView: View {
                 
                 if viewModel.capturedImage == nil {
                     VStack{
-                        
-    //                    Text("\(String(describing: viewModel.capturedImage))")
-                        
                         TakePhotoComponent {
                             self.showCamera.toggle()
                             
@@ -62,7 +63,7 @@ struct ProfilePictureView: View {
                 } else {
                     
                     VStack{
-    //                    Text("\(String(describing: viewModel.capturedImage))")
+
                         RetakePhotoComponent {
                             self.showCamera.toggle()
                         }
@@ -73,39 +74,29 @@ struct ProfilePictureView: View {
                                 .background(.black)
                         }
                         
-    //                    Text("Testing")
+
                     }
                     
                 }
             }
             
             Spacer()
-            
-//            Text("\(String(describing: viewModel.fullName))")
-//            Text("\(String(describing: selectedImage))")
-//            NavigationLink(destination: NextTempView()){
             CustomLargeButtonComponent(state: (viewModel.capturedImage == nil) ? .disabled : .enabled, text: "Next") {
-//                    viewModel.storeCurrentProfilePicture(capturedImage: selectedImage!)
-                viewModel.updateCurrentIndex(currentIndex: (viewModel.currentIndex ?? 1 ) + 1)
+                viewModel.currentIndex += 1
                     isNextViewActive = true
                 }
-                
-//                .allowsHitTesting(false)
-//            }
             .disabled(viewModel.capturedImage == nil)
             
-            
-            
-            
         }
+        .padding()
         .navigationDestination(isPresented: $isNextViewActive){
-            NextTempView(viewModel: viewModel)
+            RegistrationAgeView(viewModel: viewModel)
         }
         .navigationBarBackButtonHidden(true)
         .toolbar{
             ToolbarItem(placement: .topBarLeading){
                 BackButtonComponent{
-                    viewModel.currentIndex = (viewModel.currentIndex ?? 0) - 1
+                    viewModel.currentIndex -= 1
                 }
             }
         }
@@ -117,7 +108,7 @@ struct accessCameraView: UIViewControllerRepresentable {
     
 //    @Binding var selectedImage: UIImage?
     @Environment(\.presentationMode) var isPresented
-    @ObservedObject var viewModel: HikerRegisViewModel // Use @ObservedObject to observe the view model
+    @ObservedObject var viewModel: AuthViewModel
 
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
@@ -127,7 +118,6 @@ struct accessCameraView: UIViewControllerRepresentable {
         imagePicker.cameraFlashMode = .off
         imagePicker.allowsEditing = true
         imagePicker.delegate = context.coordinator
-        //        print("\n\n\nIMAGEPICKER: \(imagePicker)")
         
         return imagePicker
     }
@@ -144,10 +134,10 @@ struct accessCameraView: UIViewControllerRepresentable {
 // Coordinator will help to preview the selected image in the View.
 class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     var picker: accessCameraView
-    var viewModel: HikerRegisViewModel
+    var viewModel: AuthViewModel
 
     
-    init(picker: accessCameraView, viewModel: HikerRegisViewModel) {
+    init(picker: accessCameraView, viewModel: AuthViewModel) {
         self.picker = picker
         self.viewModel = viewModel
 
@@ -158,7 +148,7 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
 //        self.picker.selectedImage = selectedImage
         self.viewModel.capturedImage = selectedImage // Update the view model's captured image
 //        print("Image: \(String(describing: self.viewModel.capturedImage))")
-        self.viewModel.storeCurrentProfilePicture(capturedImage: selectedImage)
+//        self.viewModel.storeCurrentProfilePicture(capturedImage: selectedImage)
         self.picker.isPresented.wrappedValue.dismiss()
     }
 }

@@ -17,8 +17,9 @@ struct RegistrationAgeView: View {
     }
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             VStack(alignment: .leading) {
+                Spacer().frame(height: 100)
                 Text("We need some of your biodata for emergency situations")
                     .font(.title3Emphasized)
                     .foregroundStyle(Color.primaryGreen500)
@@ -78,6 +79,7 @@ struct RegistrationAgeView: View {
                 // NavigationLink is no longer needed here
                 CustomLargeButtonComponent(state: isFormFilled ? .enabled : .disabled, text: "Next") {
                     if isFormFilled {
+                        viewModel.currentIndex += 1
                         navigateNext = true
                     }
                 }
@@ -85,6 +87,14 @@ struct RegistrationAgeView: View {
             }
             .navigationDestination(isPresented: $navigateNext) {
                 RegistrationEmergencyContactView(viewModel: viewModel) 
+            }
+//        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                BackButtonComponent{
+                    viewModel.currentIndex -= 1
+                }
             }
         }
     }

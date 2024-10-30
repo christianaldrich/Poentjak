@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PhotosUI
 
 struct AuthResponseDTO: Codable {
     let id: String
@@ -18,6 +19,7 @@ struct AuthResponseDTO: Codable {
     var contactNumber: String?
     var trackId: String?
     var contactName: String?
+//    @CodableImage var profileURL: UIImage?
     var profileURL: String?
     var medicalRecord: String?
     var isAdmin: Bool

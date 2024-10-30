@@ -12,6 +12,7 @@ struct CheckingView: View {
     @ObservedObject var viewModelEmergency: EmergencyProsesViewModel
     
     @StateObject var navigationManager = NavigationManager()
+    @StateObject var mountainViewModel = MountainsTracksViewModel(mountainsTracksUseCase: MountainsTracksUseCase(mountainsTracksRepository: MountainsTracksRepository()))
     
     var body: some View {
         Group {
@@ -22,6 +23,7 @@ struct CheckingView: View {
             else if viewModel.userSession != nil {
                 if viewModelEmergency.emergencySessionActive { // harus cek sudah pilih tanggal belum 
                     EmergencyProsesView()
+                        .environmentObject(mountainViewModel)
                 }
                 else if viewModel.isAdmin {
                     AdminTabView(viewModel: viewModel)

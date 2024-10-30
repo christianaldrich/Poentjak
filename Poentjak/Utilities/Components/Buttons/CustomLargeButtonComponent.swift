@@ -38,7 +38,8 @@ struct CustomLargeButtonComponent: View {
                         .kerning(0.4)
                 }
             }
-            .frame(width: 340, height: 72)
+            .frame(maxWidth: .infinity)
+            .frame(height: 72)
         }
         .disabled(state == .disabled || state == .loading)
     }

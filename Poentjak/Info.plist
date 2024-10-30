@@ -7,7 +7,5 @@
 		<string>fetch</string>
 		<string>location</string>
 	</array>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>GPS Permission</string>
 </dict>
 </plist>

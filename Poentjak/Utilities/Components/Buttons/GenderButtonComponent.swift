@@ -37,13 +37,14 @@ enum GenderButton {
 
 struct GenderButtonComponent: View {
     var genderType: GenderButton
-    //var action: () -> Void
     var state: ButtonState = .enabled
+    var action: () -> Void
+    
     
     var body: some View {
         Button {
-            if state == .enabled {
-                //action()
+            if state == .secondary || state == .enabled{
+                action()
             }
         } label: {
             ZStack {
@@ -70,7 +71,7 @@ struct GenderButtonComponent: View {
     }
 }
 
-#Preview {
-    GenderButtonComponent(genderType: .female)
-    GenderButtonComponent(genderType: .female, state: .secondary)
-}
+//#Preview {
+//    GenderButtonComponent(genderType: .female)
+//    GenderButtonComponent(genderType: .female, state: .secondary)
+//}

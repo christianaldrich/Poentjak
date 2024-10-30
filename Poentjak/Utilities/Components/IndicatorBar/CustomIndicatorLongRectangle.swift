@@ -22,7 +22,7 @@ struct CustomIndicatorLongRectangle: View {
             }
             .padding(.bottom, 4)
             
-            Text("\(currentIndex)/\(totalCount)")
+            Text("\(currentIndex) of \(totalCount)")
                 .font(.footnoteRegular)
                 .foregroundStyle(Color.primaryGreen500)
         }
@@ -43,6 +43,6 @@ struct CustomIndicatorLongRectangle: View {
 
 #Preview {
     VStack {
-        CustomIndicatorLongRectangle(totalCount: 4, currentIndex: 0)
+        CustomIndicatorLongRectangle(totalCount: 4, currentIndex: 1)
     }
 }

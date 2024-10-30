@@ -95,6 +95,16 @@
     "%lld MDPL" : {
 
     },
+    "%lld of %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld"
+          }
+        }
+      }
+    },
     "%lld yrs" : {
       "localizations" : {
         "id" : {
@@ -105,6 +115,7 @@
         }
       }
     },
+
     "%lld/%lld" : {
       "localizations" : {
         "en" : {
@@ -115,6 +126,10 @@
         }
       }
     },
+    "+62 " : {
+
+    },
+
     "∙" : {
 
     },
@@ -190,6 +205,9 @@
         }
       }
     },
+    "Always hike with caution and be **aware of\nyour surroundings.**" : {
+
+    },
     "Arrived by %@" : {
       "localizations" : {
         "id" : {
@@ -199,6 +217,12 @@
           }
         }
       }
+    },
+    "As well as your gender." : {
+
+    },
+    "ASDAS" : {
+
     },
     "Cancel" : {
       "localizations" : {
@@ -299,6 +323,12 @@
         }
       }
     },
+    "Emergency Contact Name" : {
+
+    },
+    "Emergency Contact Number" : {
+
+    },
     "Enter your email" : {
       "localizations" : {
         "id" : {
@@ -360,6 +390,9 @@
     "Gender: %@" : {
 
     },
+    "Give us a selfie!" : {
+
+    },
     "Go to CountDown" : {
 
     },
@@ -398,6 +431,9 @@
         }
       }
     },
+    "Hikewise is designed to assist by providing\nalerts to **local rangers in emergency\nsituations.** However, we cannot guarantee\nassistance or outcomes, especially in areas\nwith poor or no signal." : {
+
+    },
     "Hipotermia" : {
       "localizations" : {
         "id" : {
@@ -426,6 +462,18 @@
           }
         }
       }
+    },
+    "Insert full name" : {
+
+    },
+    "It is the user’s responsibility to **follow\nsafety guidelines and make responsible\ndecisions while hiking.** Hikewise is not\nliable for any incidents resulting from\nfailure to follow instructions, lack of signal,\nor reckless behavior. " : {
+
+    },
+    "Legal Disclaimer" : {
+
+    },
+    "Let's start with your full name" : {
+
     },
     "Loading" : {
       "localizations" : {
@@ -499,6 +547,9 @@
     "Nearest Warung: %@, ETA: N/A" : {
 
     },
+    "Next View " : {
+
+    },
     "No active hikers" : {
       "localizations" : {
         "id" : {
@@ -560,6 +611,9 @@
 
     },
     "Search here" : {
+
+    },
+    "Select a number" : {
 
     },
     "Select Condition" : {
@@ -641,6 +695,9 @@
 
     },
     "Trying to send your distress signal.." : {
+
+    },
+    "We need your profile picture to help rescuers\nidentify you quickly in an emergency!" : {
 
     },
     "Weight: %lld" : {

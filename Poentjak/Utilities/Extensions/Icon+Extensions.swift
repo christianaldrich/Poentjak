@@ -49,6 +49,10 @@ extension Image {
             return Image("Icons/button/i_btn_edit")
         }
         
+        static var editBig: Image {
+            return Image("Icons/button/i_btn_editBig")
+        }
+        
         static var guide: Image {
             return Image("Icons/button/i_btn_guide")
         }
@@ -112,6 +116,10 @@ extension Image {
     struct LabelIcon{
         static var add: Image {
             return Image("Icons/label/i_lb_add")
+        }
+        
+        static var addBig: Image {
+            return Image("Icons/label/i_lb_addBig")
         }
         
         static var age: Image {

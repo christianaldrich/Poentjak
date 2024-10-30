@@ -62,6 +62,7 @@ struct TestingIcon: View {
             
             HStack{
                 Image.LabelIcon.add
+                Image.LabelIcon.addBig
                 Image.LabelIcon.age
                 Image.LabelIcon.clock
                 Image.LabelIcon.height

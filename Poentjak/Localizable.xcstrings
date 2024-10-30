@@ -112,6 +112,21 @@
         }
       }
     },
+
+    "%lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "+62 " : {
+
+    },
+
     "∙" : {
 
     },
@@ -292,6 +307,12 @@
           }
         }
       }
+    },
+    "Emergency Contact Name" : {
+
+    },
+    "Emergency Contact Number" : {
+
     },
     "Enter your email" : {
       "localizations" : {
@@ -566,6 +587,9 @@
 
     },
     "Search here" : {
+
+    },
+    "Select a number" : {
 
     },
     "Select Condition" : {

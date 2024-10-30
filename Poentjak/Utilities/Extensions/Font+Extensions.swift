@@ -177,5 +177,8 @@ extension Font {
         return Font.system(size: 18, weight: .medium)
     }()
     
+    static var customFootNote: Font = {
+        return Font.system(size: 13, weight: .bold)
+    }()
 }
 

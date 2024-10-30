@@ -1,0 +1,711 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    " %@ from %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " %1$@ from %2$@"
+          }
+        }
+      }
+    },
+    " left from schedule" : {
+
+    },
+    "->" : {
+
+    },
+    "%@" : {
+
+    },
+    "%@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$@"
+          }
+        }
+      }
+    },
+    "%@ left till overdue, " : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ tersisa sebelum telat"
+          }
+        }
+      }
+    },
+    "%@: %@ min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@: %2$@ min"
+          }
+        }
+      }
+    },
+    "%@: ETA %@ min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@: ETA %2$@ min"
+          }
+        }
+      }
+    },
+    "%@: N/A" : {
+
+    },
+    "%lld" : {
+
+    },
+    "%lld cm" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld cm"
+          }
+        }
+      }
+    },
+    "%lld kg" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld kg"
+          }
+        }
+      }
+    },
+    "%lld MDPL" : {
+
+    },
+    "%lld of %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld"
+          }
+        }
+      }
+    },
+    "%lld yrs" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld thn"
+          }
+        }
+      }
+    },
+
+    "%lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "+62 " : {
+
+    },
+
+    "∙" : {
+
+    },
+    "20 mins ago" : {
+
+    },
+    "30-45 min" : {
+
+    },
+    "A click away from a safe hiking \nexperience." : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Satu klik untuk pengalaman daki yang lebih aman"
+          }
+        }
+      }
+    },
+    "Active Emergencies" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keadaan Darurat"
+          }
+        }
+      }
+    },
+    "Active hikers:" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pendaki Aktif:"
+          }
+        }
+      }
+    },
+    "Active Hikers: %lld" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pendaki Aktif: %lld"
+          }
+        }
+      }
+    },
+    "Add new ranger" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tambah ranger baru"
+          }
+        }
+      }
+    },
+    "Age: %lld" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umur: %lld"
+          }
+        }
+      }
+    },
+    "Always hike with caution and be **aware of\nyour surroundings.**" : {
+
+    },
+    "Arrived by %@" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sampai pada %@"
+          }
+        }
+      }
+    },
+    "As well as your gender." : {
+
+    },
+    "ASDAS" : {
+
+    },
+    "Cancel" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batal"
+          }
+        }
+      }
+    },
+    "Choose Emergency Type" : {
+
+    },
+    "Close" : {
+
+    },
+    "Connection Available" : {
+
+    },
+    "Control Panel" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dasbor"
+          }
+        }
+      }
+    },
+    "Count Down: %lld" : {
+
+    },
+    "Desc: %@" : {
+
+    },
+    "Don't forget to return" : {
+
+    },
+    "Due date" : {
+
+    },
+    "due: %@" : {
+
+    },
+    "Due: %@" : {
+
+    },
+    "Edit" : {
+
+    },
+    "Edit Due Date" : {
+
+    },
+    "Edit Rangers" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ubah ranger"
+          }
+        }
+      }
+    },
+    "Emergency" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Darurat"
+          }
+        }
+      }
+    },
+    "Emergency Contact" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontak Darurat"
+          }
+        }
+      }
+    },
+    "Emergency Contact - %@" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontak Darurat - %@"
+          }
+        }
+      }
+    },
+    "Emergency Contact Name" : {
+
+    },
+    "Emergency Contact Number" : {
+
+    },
+    "Enter your email" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan alamat email anda"
+          }
+        }
+      }
+    },
+    "Enter your password" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan kata sandi anda"
+          }
+        }
+      }
+    },
+    "Estimated ETA " : {
+
+    },
+    "Explore" : {
+
+    },
+    "extend?" : {
+
+    },
+    "Finished Evacuating" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selesai dievakuasi"
+          }
+        }
+      }
+    },
+    "Forgot Password?" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lupa kata sandi?"
+          }
+        }
+      }
+    },
+    "From %@" : {
+
+    },
+    "Gender: %@" : {
+
+    },
+    "Give us a selfie!" : {
+
+    },
+    "Go to CountDown" : {
+
+    },
+    "Guide" : {
+
+    },
+    "Height: %lld" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tinggi: %lld"
+          }
+        }
+      }
+    },
+    "Hello, admin!" : {
+
+    },
+    "Hello, ControlPanel" : {
+
+    },
+    "Hello, World!" : {
+
+    },
+    "Hiker details unavailable" : {
+
+    },
+    "Hiker Rescue Details" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detail evakuasi"
+          }
+        }
+      }
+    },
+    "Hikewise is designed to assist by providing\nalerts to **local rangers in emergency\nsituations.** However, we cannot guarantee\nassistance or outcomes, especially in areas\nwith poor or no signal." : {
+
+    },
+    "Hipotermia" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hipotermia"
+          }
+        }
+      }
+    },
+    "I am back at basecamp" : {
+
+    },
+    "ID: %@" : {
+
+    },
+    "ini testing buat icons" : {
+
+    },
+    "Injury" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terluka"
+          }
+        }
+      }
+    },
+    "Insert full name" : {
+
+    },
+    "It is the user’s responsibility to **follow\nsafety guidelines and make responsible\ndecisions while hiking.** Hikewise is not\nliable for any incidents resulting from\nfailure to follow instructions, lack of signal,\nor reckless behavior. " : {
+
+    },
+    "Legal Disclaimer" : {
+
+    },
+    "Let's start with your full name" : {
+
+    },
+    "Loading" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading"
+          }
+        }
+      }
+    },
+    "Loading emergency data..." : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memuat data keadaan darurat"
+          }
+        }
+      }
+    },
+    "Log in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masuk"
+          }
+        }
+      }
+    },
+    "Lost" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tersesat"
+          }
+        }
+      }
+    },
+    "Map" : {
+
+    },
+    "Mountain Card" : {
+
+    },
+    "Mountain Details" : {
+
+    },
+    "name: %@" : {
+
+    },
+    "Name: %@" : {
+
+    },
+    "Nearest Warung: %@, ETA: %@ min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nearest Warung: %1$@, ETA: %2$@ min"
+          }
+        }
+      }
+    },
+    "Nearest Warung: %@, ETA: N/A" : {
+
+    },
+    "Next View " : {
+
+    },
+    "No active hikers" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak ada"
+          }
+        }
+      }
+    },
+    "No Connection" : {
+
+    },
+    "No Warung found nearby" : {
+
+    },
+    "None" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belum dipilih"
+          }
+        }
+      }
+    },
+    "Open Sound Board" : {
+
+    },
+    "Play Sound Continuously" : {
+
+    },
+    "Play Sound Once" : {
+
+    },
+    "Ranger Name" : {
+
+    },
+    "Rangers in rescue" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ranger yang bertugas"
+          }
+        }
+      }
+    },
+    "Rangers Settings" : {
+
+    },
+    "Reached basecamp!" : {
+
+    },
+    "Return by %@" : {
+
+    },
+    "Save" : {
+
+    },
+    "Search here" : {
+
+    },
+    "Select a number" : {
+
+    },
+    "Select Condition" : {
+
+    },
+    "Select Date" : {
+
+    },
+    "Select Time" : {
+
+    },
+    "Selected Date: %@" : {
+
+    },
+    "session id: %@" : {
+
+    },
+    "Sign Out" : {
+
+    },
+    "Sign up" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daftar"
+          }
+        }
+      }
+    },
+    "Slide to Cancel" : {
+
+    },
+    "SOS" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SOS"
+          }
+        }
+      }
+    },
+    "SOS View" : {
+
+    },
+    "Start Tracking" : {
+
+    },
+    "status: %@" : {
+
+    },
+    "Stop Sound" : {
+
+    },
+    "Tell us when you will be back" : {
+
+    },
+    "This information will help us alert \n rangers in case of emergency" : {
+
+    },
+    "This is Count Down View" : {
+
+    },
+    "This is sound board view" : {
+
+    },
+    "this is the guide" : {
+
+    },
+    "Track Name: %@" : {
+
+    },
+    "Tracks: " : {
+
+    },
+    "Trying to send your distress signal.." : {
+
+    },
+    "We need your profile picture to help rescuers\nidentify you quickly in an emergency!" : {
+
+    },
+    "Weight: %lld" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berat: %lld"
+          }
+        }
+      }
+    },
+    "Welcome to \nHikewise" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selamat datang di Hikewise"
+          }
+        }
+      }
+    },
+    "Who’s in charge of the rescue?" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pilih ranger yang bertugas"
+          }
+        }
+      }
+    },
+    "Your SOS signal is being sent, stay calm." : {
+
+    }
+  },
+  "version" : "1.0"
+}

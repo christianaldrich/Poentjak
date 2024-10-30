@@ -11,6 +11,7 @@ struct RegistrationView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var navigateNext = false
+    // @State private var nextView: Bool = false
     
     var body: some View {
         NavigationStack { // Wrap in NavigationStack
@@ -60,6 +61,62 @@ struct RegistrationView: View {
                     }
                 }
             }
+            //pang
+//                     NavigationLink(destination: DisclaimerView()){
+//                         CustomPrimaryButtonComponent(state: (viewModel.email.isEmpty || viewModel.password.isEmpty) ? .disabled : .enabled, text: "Sign up"){
+//     //                        Task {
+//     //                            await viewModel.register()
+//     //                        }
+//     //                        nextView = true
+//                         }
+                        
+//                         .allowsHitTesting(false)
+                        
+// //                        .disabled(viewModel.isLoading)
+//                     }
+//                     .disabled(viewModel.email.isEmpty || viewModel.password.isEmpty)
+                    
+                    
+//                 }
+                
+                
+                
+// //                Button {
+// //                    Task {
+// //                        await viewModel.register()
+// //                    }
+// //                    
+// //                } label: {
+// //                    Text(viewModel.isLoading ? "Signing Up..." : "Sign Up")
+// //                        .font(.subheadline)
+// //                        .fontWeight(.semibold)
+// //                        .foregroundColor(.white)
+// //                        .frame(width: 352, height: 44)
+// //                        .background(.black)
+// //                        .cornerRadius(8)
+// //                }
+// //                .padding(.top, 16)
+// //                .disabled(viewModel.isLoading)
+                
+// //                Spacer()
+// //                Divider()
+                
+// //                Button {
+// //                    dismiss()
+// //                } label: {
+// //                    HStack(spacing: 3) {
+// //                        Text("Already have an account?")
+// //                        Text("Sign in")
+// //                            .fontWeight(.semibold)
+// //                    }
+// //                    .foregroundColor(.black)
+// //                    .font(.footnote)
+// //                }
+// //                .padding(.vertical, 16)
+//             }
+// //            .navigationDestination(isPresented: $nextView){
+// //                DisclaimerView()
+// //            }
         }
     }
 }

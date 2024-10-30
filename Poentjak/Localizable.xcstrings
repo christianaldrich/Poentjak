@@ -20,6 +20,9 @@
     "->" : {
 
     },
+    ", extend?" : {
+
+    },
     "%@" : {
 
     },
@@ -118,6 +121,9 @@
     "20 mins ago" : {
 
     },
+    "30 mins left till overdue" : {
+
+    },
     "30-45 min" : {
 
     },
@@ -130,6 +136,9 @@
           }
         }
       }
+    },
+    "Activate SOS" : {
+
     },
     "Active Emergencies" : {
       "localizations" : {
@@ -201,6 +210,9 @@
         }
       }
     },
+    "Checkpoint 1" : {
+
+    },
     "Choose Emergency Type" : {
 
     },
@@ -221,6 +233,9 @@
       }
     },
     "Count Down: %lld" : {
+
+    },
+    "default" : {
 
     },
     "Desc: %@" : {
@@ -307,10 +322,16 @@
     "Estimated ETA " : {
 
     },
+    "ETA 30-40 mins" : {
+
+    },
     "Explore" : {
 
     },
     "extend?" : {
+
+    },
+    "Finish" : {
 
     },
     "Finished Evacuating" : {
@@ -450,6 +471,9 @@
     "Map" : {
 
     },
+    "Mark as Overdue" : {
+
+    },
     "Mountain Card" : {
 
     },
@@ -566,6 +590,9 @@
           }
         }
       }
+    },
+    "Skip" : {
+
     },
     "Slide to Cancel" : {
 

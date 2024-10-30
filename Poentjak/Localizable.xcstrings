@@ -112,6 +112,9 @@
         }
       }
     },
+    "+62 " : {
+
+    },
     "∙" : {
 
     },
@@ -312,6 +315,10 @@
 
     },
     "Enter Weight" : {
+    "Emergency Contact Name" : {
+
+    },
+    "Emergency Contact Number" : {
 
     },
     "Enter your email" : {
@@ -572,6 +579,9 @@
 
     },
     "Search here" : {
+
+    },
+    "Select a number" : {
 
     },
     "Select Condition" : {

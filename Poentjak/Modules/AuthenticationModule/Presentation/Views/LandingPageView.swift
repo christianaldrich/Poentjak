@@ -19,7 +19,8 @@ struct LandingPageView: View {
                     .aspectRatio(contentMode: .fill)
                 
                 VStack{
-                    VStack(alignment: .leading) {
+                    Spacer()
+                    VStack(alignment: .leading, spacing: 12) {
                         Text("Welcome to \nHikewise")
                             .font(.largeTitleEmphasized)
                             
@@ -49,7 +50,7 @@ struct LandingPageView: View {
                     }
                     
                 }
-                
+                .padding(.bottom, 195)
                 
             }
         }

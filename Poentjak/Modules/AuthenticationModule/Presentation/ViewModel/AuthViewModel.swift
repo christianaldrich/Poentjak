@@ -16,6 +16,7 @@ class AuthViewModel: ObservableObject {
     @Published var registrationError: String? = nil
     @Published var email: String = ""
     @Published var password: String = ""
+    @Published var checkPassword: String = ""
     
     @Published var contactName: String = ""
     @Published var contactNumber: String = ""

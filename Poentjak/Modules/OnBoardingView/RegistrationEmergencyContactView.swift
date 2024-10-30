@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-struct NextViewTest: View {
-    @State private var contactName: String = ""
-    @State private var contactNumber: String = ""
+struct RegistrationEmergencyContactView: View {
+    @StateObject var viewModel: AuthViewModel
     @State private var navigateNext = false
     
     var isFormFilled: Bool {
-        !contactName.isEmpty && !contactNumber.isEmpty
+        !viewModel.contactName.isEmpty && !viewModel.contactNumber.isEmpty
     }
     
     var body: some View {
@@ -25,11 +24,11 @@ struct NextViewTest: View {
                     .padding(.horizontal, 16)
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    TextField("Enter Contact Name", text: $contactName)
+                    TextField("Enter Contact Name", text: $viewModel.contactName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.horizontal, 16)
                     
-                    TextField("Enter Contact Number", text: $contactNumber)
+                    TextField("Enter Contact Number", text: $viewModel.contactNumber)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.horizontal, 16)
                         .keyboardType(.phonePad)
@@ -37,9 +36,8 @@ struct NextViewTest: View {
                 
                 Spacer()
                 
-                // NavigationLink with isActive Binding
-                NavigationLink(destination: MedicalReportView(), isActive: $navigateNext) {
-                    EmptyView() // Hidden NavigationLink
+                NavigationLink(destination: MedicalReportView(viewModel: viewModel), isActive: $navigateNext) {
+                    EmptyView()
                 }
                 
                 CustomLargeButtonComponent(state: isFormFilled ? .enabled : .disabled, text: "Next") {
@@ -53,6 +51,4 @@ struct NextViewTest: View {
     
 }
 
-#Preview {
-    NextViewTest()
-}
+

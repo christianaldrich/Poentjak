@@ -10,8 +10,10 @@ import SwiftUI
 import SwiftUI
 
 struct MedicalReportView: View {
-    @State private var medicalCondition: String = ""
+
     @State private var navigateNext = false
+    
+    @StateObject var viewModel: AuthViewModel
     
     var body: some View {
         
@@ -22,7 +24,7 @@ struct MedicalReportView: View {
                     .padding(.horizontal, 16)
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    TextField("Enter Medical Condition (optional)", text: $medicalCondition)
+                    TextField("Enter Medical Condition (optional)", text: $viewModel.medicalCondition)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.horizontal, 16)
                     
@@ -48,7 +50,4 @@ struct MedicalReportView: View {
     
 }
 
-#Preview {
-    MedicalReportView()
-}
 

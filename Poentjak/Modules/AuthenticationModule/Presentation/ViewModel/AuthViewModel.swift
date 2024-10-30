@@ -17,6 +17,13 @@ class AuthViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     
+    @Published var contactName: String = ""
+    @Published var contactNumber: String = ""
+    @Published var medicalCondition: String = ""
+    @Published var age: String = ""
+    @Published var weight: String = ""
+    @Published var height: String = ""
+    
     
     private let useCase: DefaultAuthUseCase
 

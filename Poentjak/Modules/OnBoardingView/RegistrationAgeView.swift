@@ -7,15 +7,13 @@
 
 import SwiftUI
 
-struct RegistrationOnBoardingView: View {
+struct RegistrationAgeView: View {
+    @StateObject var viewModel: AuthViewModel
     @State private var expandedIndex: Int? = nil
-    @State private var age: String = ""
-    @State private var weight: String = ""
-    @State private var height: String = ""
-    @State private var navigateNext = false // Controls navigation activation
+    @State private var navigateNext = false 
     
     var isFormFilled: Bool {
-        !age.isEmpty && !weight.isEmpty && !height.isEmpty
+        !viewModel.age.isEmpty && !viewModel.weight.isEmpty && !viewModel.height.isEmpty
     }
     
     var body: some View {
@@ -36,29 +34,30 @@ struct RegistrationOnBoardingView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
                                 if idx == 0 {
-                                    Text("Age: \(age.isEmpty ? "..." : age)")
+                                    Text("Age: \(viewModel.age.isEmpty ? "..." : viewModel.age)")
                                     Spacer()
-                                    TextField("Enter Age", text: $age)
+                                    TextField("Enter Age", text: $viewModel.age)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
                                         .frame(width: 100)
                                     
                                 } else if idx == 1 {
-                                    Text("Weight: \(weight.isEmpty ? "..." : weight)")
+                                    Text("Weight: \(viewModel.weight.isEmpty ? "..." : viewModel.weight)")
                                     Spacer()
-                                    TextField("Enter Weight", text: $weight)
+                                    TextField("Enter Weight", text: $viewModel.weight)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
                                         .frame(width: 100)
                                     
                                 } else if idx == 2 {
-                                    Text("Height: \(height.isEmpty ? "..." : height)")
+                                    Text("Height: \(viewModel.height.isEmpty ? "..." : viewModel.height)")
                                     Spacer()
-                                    TextField("Enter Height", text: $height)
+                                    TextField("Enter Height", text: $viewModel.height)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
                                         .frame(width: 100)
                                 }
                             }
                             .padding(.vertical, 16)
                         }
+                        .listRowSeparator(.hidden)
                     } label: {
                         HStack {
                             Text(idx == 0 ? "Age" :
@@ -68,13 +67,13 @@ struct RegistrationOnBoardingView: View {
                             .font(Font.subheadlineRegular)
                             .foregroundStyle(Color.primaryGreen500)
                             Spacer()
-                            Text(idx == 0 ? (age.isEmpty ? "21" : age) :
-                                    idx == 1 ? (weight.isEmpty ? "72" : weight) :
-                                    (height.isEmpty ? "175" : height))
+                            Text(idx == 0 ? (viewModel.age.isEmpty ? "21" : viewModel.age) :
+                                    idx == 1 ? (viewModel.weight.isEmpty ? "72" : viewModel.weight) :
+                                    (viewModel.height.isEmpty ? "175" : viewModel.height))
                             .font(Font.bodyEmphasized)
-                            .foregroundStyle(idx == 0 ? (age.isEmpty ? Color.neutralGrayLightGray : Color.primaryGreen500) :
-                                                idx == 1 ? (weight.isEmpty ? Color.neutralGrayLightGray : Color.primaryGreen500) :
-                                                (height.isEmpty ? Color.neutralGrayLightGray : Color.primaryGreen500))
+                            .foregroundStyle(idx == 0 ? (viewModel.age.isEmpty ? Color.neutralGrayLightGray : Color.primaryGreen500) :
+                                                idx == 1 ? (viewModel.weight.isEmpty ? Color.neutralGrayLightGray : Color.primaryGreen500) :
+                                                (viewModel.height.isEmpty ? Color.neutralGrayLightGray : Color.primaryGreen500))
                                 
                                 
                         }
@@ -92,7 +91,7 @@ struct RegistrationOnBoardingView: View {
                 Spacer()
                 
                 // NavigationLink with isActive Binding
-                NavigationLink(destination: NextViewTest(), isActive: $navigateNext) {
+                NavigationLink(destination: RegistrationEmergencyContactView(viewModel: viewModel), isActive: $navigateNext) {
                     EmptyView() // Link is hidden but activated by button
                 }
                 
@@ -105,8 +104,4 @@ struct RegistrationOnBoardingView: View {
             }
         }
     }
-}
-
-#Preview {
-    RegistrationOnBoardingView()
 }

@@ -16,9 +16,9 @@ struct RegistrationView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Image("background")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+//                Image("background")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
                 
                 VStack {
                     VStack(alignment: .leading, spacing: 12) {

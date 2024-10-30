@@ -11,6 +11,8 @@ struct RegistrationView: View {
     @StateObject var viewModel: AuthViewModel
     @Environment(\.dismiss) var dismiss
     
+    @State private var nextView: Bool = false
+    
     var body: some View {
         ZStack{
             Image("background")
@@ -55,13 +57,24 @@ struct RegistrationView: View {
                         }
                     }
                     
-                    CustomPrimaryButtonComponent(state: .enabled, text: "Sign up"){
-                        Task {
-                            await viewModel.register()
+                    NavigationLink(destination: DisclaimerView()){
+                        CustomPrimaryButtonComponent(state: (viewModel.email.isEmpty || viewModel.password.isEmpty) ? .disabled : .enabled, text: "Sign up"){
+    //                        Task {
+    //                            await viewModel.register()
+    //                        }
+    //                        nextView = true
                         }
+                        
+                        .allowsHitTesting(false)
+                        
+//                        .disabled(viewModel.isLoading)
                     }
-                    .disabled(viewModel.isLoading)
+                    .disabled(viewModel.email.isEmpty || viewModel.password.isEmpty)
+                    
+                    
                 }
+                
+                
                 
 //                Button {
 //                    Task {
@@ -96,7 +109,9 @@ struct RegistrationView: View {
 //                }
 //                .padding(.vertical, 16)
             }
-            
+//            .navigationDestination(isPresented: $nextView){
+//                DisclaimerView()
+//            }
         }
     }
 }

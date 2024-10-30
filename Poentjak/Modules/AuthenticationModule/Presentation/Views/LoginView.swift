@@ -12,7 +12,7 @@ struct LoginView: View {
     @StateObject var viewModel: AuthViewModel
     
     var body: some View {
-        NavigationStack {
+        
             ZStack{
                 Image("background")
                     .resizable()
@@ -114,7 +114,7 @@ struct LoginView: View {
                 .padding()
             }
         }
-    }
+    
 }
 
 

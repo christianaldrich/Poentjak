@@ -68,7 +68,7 @@ struct CustomLabelGeneral: View {
             Text("\(altitude) MDPL")
                 .font(.caption1Emphasized)
                 .foregroundColor(Color.primaryGreen500)
-                .padding(.horizontal, 12)
+                .padding(.horizontal, 8)
                 .padding(.vertical, 2)
                 .background(Color.primaryLightGreen)
                 .cornerRadius(4)

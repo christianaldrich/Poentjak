@@ -467,7 +467,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Poentjak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hikewise;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need Camera";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "GPS Permission";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -499,7 +500,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Poentjak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hikewise;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need Camera";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "GPS Permission";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

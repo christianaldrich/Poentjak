@@ -19,6 +19,7 @@ class GPXParser: NSObject, XMLParserDelegate {
     private var longitude: CLLocationDegrees?
     private var elevation: CLLocationDistance = 0.0
     private var waypointName = ""
+    private var waypointDesc = "" // New variable for description
 
     var parsedWaypoints: [Waypoint] {
         return waypoints
@@ -67,13 +68,15 @@ class GPXParser: NSObject, XMLParserDelegate {
             }
         } else if currentElement == "name" {
             waypointName += trimmedString
+        } else if currentElement == "desc" {
+            waypointDesc += trimmedString // Capture the <desc> content
         }
     }
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "wpt" {
             if let lat = latitude, let lon = longitude {
-                let waypoint = Waypoint(latitude: lat, longitude: lon, elevation: elevation, name: waypointName)
+                let waypoint = Waypoint(latitude: lat, longitude: lon, elevation: elevation, name: waypointName, desc: waypointDesc)
                 
                 // Check if the waypoint name contains "Warung"
                 if waypointName.localizedCaseInsensitiveContains("Warung") {
@@ -104,6 +107,7 @@ class GPXParser: NSObject, XMLParserDelegate {
         longitude = nil
         elevation = 0.0
         waypointName = ""
+        waypointDesc = "" // Reset description
     }
 
     // Reset track point data after each track point element is parsed

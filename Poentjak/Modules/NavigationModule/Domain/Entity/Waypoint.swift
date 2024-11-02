@@ -14,4 +14,5 @@ struct Waypoint: Identifiable {
     let longitude: CLLocationDegrees
     let elevation: CLLocationDistance
     let name: String
+    let desc: String
 }

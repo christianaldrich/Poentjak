@@ -12,7 +12,7 @@ struct CustomLabelCheckpoint: View {
     let fromCheckpoint: String
     let etaDuration: String
     let etaUnit: String
-    let altitude: Int
+    let altitude: Double
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -46,7 +46,7 @@ struct CustomLabelCheckpoint: View {
             }
             .frame(maxWidth: 320, alignment: .leading)
             .overlay(
-                CustomLabelGeneral(type: .mdpl(altitude: altitude)),
+                CustomLabelGeneral(type: .mdpl(altitude: Int(altitude))),
                 alignment: .topTrailing
             )
             

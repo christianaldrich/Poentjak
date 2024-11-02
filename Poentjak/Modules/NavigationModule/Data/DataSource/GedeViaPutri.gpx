@@ -5,36 +5,41 @@
     <ele>1613</ele>
     <name>POS PENDAFTARAN</name>
     <cmt>POS PENDAFTARAN</cmt>
+    <desc>Ini Pos Pendaftaran</desc>
   </wpt>
   <wpt lat="-6.760544" lon="107.005675">
     <ele>1663</ele>
     <name>POS PEMERIKSAAN</name>
     <cmt>POS PEMERIKSAAN</cmt>
+    <desc>Ini Pos Pemeriksaan</desc>
   </wpt>
   <wpt lat="-6.767648" lon="107.001275">
     <ele>1861</ele>
     <name>POS1</name>
     <cmt>POS1</cmt>
+    <desc>Ini Pos 1</desc>
   </wpt>
   <wpt lat="-6.768985" lon="107.000076">
     <ele>1928</ele>
     <name>POS -</name>
     <cmt>POS -</cmt>
+    <desc>Ini Pos -</desc>
   </wpt>
   <wpt lat="-6.769882" lon="106.998693">
     <ele>1977</ele>
     <name>POS 2 - LEGOK LEUNCA</name>
     <cmt>POS 2 - LEGOK LEUNCA</cmt>
+    <desc>Ini Pos 2 - Legok Leunca</desc>
   </wpt>
   <wpt lat="-6.773836" lon="106.994326">
-    <ele>2156.095383295278</ele>
+    <ele>2156</ele>
     <name>Warung bu Nurjana</name>
     <cmt>Ini Warungnya bu Nurjana</cmt>
     <desc>Ini Warungnya bu Nurjana</desc>
     <sym>Convenience Store</sym>
   </wpt>
   <wpt lat="-6.774841" lon="106.993596">
-    <ele>2205.0440262546276</ele>
+    <ele>2205</ele>
     <name>Warung bu Ami</name>
     <cmt>Ini warungnya bu Ami, semangka goceng</cmt>
     <desc>Ini warungnya bu Ami, semangka goceng</desc>
@@ -44,41 +49,47 @@
     <ele>2249</ele>
     <name>POS3 - Buntut Lutung</name>
     <cmt>POS3 - Buntut Lutung</cmt>
+    <desc>Ini Pos 3 - Buntut Lutung</desc>
   </wpt>
   <wpt lat="-6.783645" lon="106.991413">
-    <ele>0</ele>
+    <ele>2620</ele>
     <name>SIMPANG MALEBER</name>
     <cmt>SIMPANG MALEBER</cmt>
+    <desc>Ini Simpang Maleber</desc>
   </wpt>
   <wpt lat="-6.786869" lon="106.99253">
-    <ele>0</ele>
+    <ele>2752</ele>
     <name>ALUN-ALUN TIMUR SURYAKENCANA</name>
     <cmt>ALUN-ALUN TIMUR SURYAKENCANA</cmt>
+    <desc>Ini Surken timur</desc>
   </wpt>
-  <wpt lat="-6.795083" lon="106.985363">
-    <ele>0</ele>
-    <name>camp</name>
-    <cmt>camp</cmt>
-  </wpt>
+<!--  <wpt lat="-6.795083" lon="106.985363">-->
+<!--    <ele>0</ele>-->
+<!--    <name>camp</name>-->
+<!--    <cmt>camp</cmt>-->
+<!--  </wpt>-->
   <wpt lat="-6.79558" lon="106.985206">
-    <ele>0</ele>
+    <ele>2738</ele>
     <name>Alun-Alun Barat Suryakencana</name>
     <cmt>Alun-Alun Barat Suryakencana</cmt>
+    <desc>Ini Surken barat</desc>
   </wpt>
-  <wpt lat="-6.795885" lon="106.984549">
-    <ele>2752</ele>
-    <name>JUNCTION - SALABINTANA GN PUTRI</name>
-    <cmt>JUNCTION - SALABINTANA GN PUTRI</cmt>
-  </wpt>
+<!--  <wpt lat="-6.795885" lon="106.984549">-->
+<!--    <ele>2752</ele>-->
+<!--    <name>JUNCTION - SALABINTANA GN PUTRI</name>-->
+<!--    <cmt>JUNCTION - SALABINTANA GN PUTRI</cmt>-->
+<!--  </wpt>-->
   <wpt lat="-6.796422" lon="106.984297">
     <ele>2738</ele>
     <name>WATER SOURCE</name>
     <cmt>WATER SOURCE</cmt>
+    <desc>Ini Sumber air</desc>
   </wpt>
   <wpt lat="-6.78989" lon="106.98313">
     <ele>2948</ele>
     <name>GEDE SUMMIT</name>
     <cmt>GEDE SUMMIT</cmt>
+    <desc>Ini Puncak Gede</desc>
   </wpt>
   <trk>
     <name>Mount Gede via Gunung Putri</name>

@@ -14,6 +14,7 @@ struct MountainTracksModel: Identifiable, Hashable{
     var location: Location
     var name: String
     var tracks: [String]
+    var streetName: String
     
     init(dictionary: [String: Any]) {
         self.description = dictionary["description"] as? String ?? ""
@@ -22,6 +23,7 @@ struct MountainTracksModel: Identifiable, Hashable{
         self.location = dictionary["location"] as? Location ?? Location(latitude: 0, longitude: 0)
         self.name = dictionary["name"] as? String ?? ""
         self.tracks = dictionary["tracks"] as? [String] ?? [""]
+        self.streetName = dictionary["streetName"] as? String ?? ""
     }
     
     

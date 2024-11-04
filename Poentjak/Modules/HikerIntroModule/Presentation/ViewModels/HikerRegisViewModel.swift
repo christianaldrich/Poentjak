@@ -21,14 +21,14 @@ class HikerRegisViewModel: ObservableObject{
     
     func storeCurrentNameGender(fullName: String, gender: String){
         
-        print("masuk")
+//        print("masuk")
         
         self.fullName = fullName
         self.gender = gender
 //        self.currentIndex = currentIndex
         
-        print("\n\nFullname: \(fullName)\n")
-        print("Gender: \(gender)\n")
+//        print("\n\nFullname: \(fullName)\n")
+//        print("Gender: \(gender)\n")
 //        print("CurrentIndex: \(currentIndex)\n")
         
     }
@@ -36,10 +36,14 @@ class HikerRegisViewModel: ObservableObject{
     func storeCurrentProfilePicture(capturedImage: UIImage){
         self.capturedImage = capturedImage
         
-        print("\n\nFullname: \(String(describing: fullName))\n")
-        print("Gender: \(String(describing: gender))\n")
-        print("CurrentIndex: \(String(describing: currentIndex))\n")
-        print("capturedIMage: \(capturedImage)\n")
+//        print("\n\nFullname: \(String(describing: fullName))\n")
+//        print("Gender: \(String(describing: gender))\n")
+//        print("CurrentIndex: \(String(describing: currentIndex))\n")
+//        print("capturedIMage: \(capturedImage)\n")
+    }
+    
+    func uploadPhoto(){
+        
     }
     
 }

@@ -12,7 +12,7 @@ struct CheckingView: View {
     @ObservedObject var viewModelEmergency: EmergencyProsesViewModel
     
     @StateObject var navigationManager = NavigationManager()
-    @StateObject var mountainViewModel = MountainsTracksViewModel(mountainsTracksUseCase: MountainsTracksUseCase(mountainsTracksRepository: MountainsTracksRepository()))
+    @StateObject var mountainViewModel = MountainsTracksViewModel(mountainsTracksUseCase: MountainsTracksUseCase(mountainsTracksRepository: MountainsTracksRepository()), tracksUseCase: TracksUseCase(tracksRepository: TracksRepository()))
     
     var body: some View {
         Group {

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct HalfButtonComponent: View {
     var halfType: HalfButton
-    //var action: () -> Void
+    var action: () -> Void
     //var state: ButtonState = .enabled
     
     var body: some View {
         Button {
-            
+            action()
         } label: {
             ZStack {
                 Rectangle()
@@ -43,10 +43,20 @@ struct HalfButtonComponent: View {
 
 #Preview {
     VStack{
-        HalfButtonComponent(halfType: .primaryGuide)
-        HalfButtonComponent(halfType: .SOS)
-        HalfButtonComponent(halfType: .SOSSending)
-        HalfButtonComponent(halfType: .SOSSent)
-        HalfButtonComponent(halfType: .secondaryGuide)
+        HalfButtonComponent(halfType: .primaryGuide){
+            
+        }
+        HalfButtonComponent(halfType: .SOS){
+            
+        }
+        HalfButtonComponent(halfType: .SOSSending){
+            
+        }
+        HalfButtonComponent(halfType: .SOSSent){
+            
+        }
+        HalfButtonComponent(halfType: .secondaryGuide){
+            
+        }
     }
 }

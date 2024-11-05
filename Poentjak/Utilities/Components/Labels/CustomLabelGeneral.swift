@@ -13,6 +13,8 @@ struct CustomLabelGeneral: View {
         case hikerDetailData(type: HikerDetailDataType)
         case hikerDetailDate(date: String)
         case mdpl(altitude: Int)
+        case mdplCheckpoint(altitude: Int)
+        case mdplCheckpointTapped(altitude: Int)
         case extendOverdue(time: String)
     }
     
@@ -71,6 +73,24 @@ struct CustomLabelGeneral: View {
                 .padding(.horizontal, 8)
                 .padding(.vertical, 2)
                 .background(Color.primaryLightGreen)
+                .cornerRadius(4)
+            
+        case .mdplCheckpoint(let altitude):
+            Text("\(altitude) MDPL")
+                .font(.caption1Emphasized)
+                .foregroundColor(Color.neutralBlack)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 2)
+                .background(Color.custommdplLabel)
+                .cornerRadius(4)
+            
+        case .mdplCheckpointTapped(let altitude):
+            Text("\(altitude) MDPL")
+                .font(.caption1Emphasized)
+                .foregroundColor(Color.neutralWhite)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 2)
+                .background(Color.primaryGreen500)
                 .cornerRadius(4)
             
         case .extendOverdue(time: let time):

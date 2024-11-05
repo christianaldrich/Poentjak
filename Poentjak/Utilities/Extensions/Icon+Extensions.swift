@@ -165,6 +165,14 @@ extension Image {
         static var weight: Image {
             return Image("Icons/label/i_lb_weight")
         }
+        
+        static var post: Image {
+            return Image("Icons/label/i_ib_post")
+        }
+        
+        static var summit: Image {
+            return Image("Icons/label/i_ib_summit")
+        }
     }
     
     struct PickerIcon{

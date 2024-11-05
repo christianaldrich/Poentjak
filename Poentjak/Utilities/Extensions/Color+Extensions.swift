@@ -75,4 +75,7 @@ extension Color {
     
     // custom tabBar text color
     static let customTabBarDisabledText = Color(hex: "999999")
+    
+    // custom label mdpl color
+    static let custommdplLabel = Color(hex: "BAC4BE")
 }

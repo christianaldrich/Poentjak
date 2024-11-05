@@ -5,32 +5,48 @@
 //  Created by Felicia Himawan on 19/10/24.
 //
 
+
+enum LabelCheckpoint {
+    case post
+    case summit
+    case emergency
+    
+    var iconName: Image {
+        switch self {
+        case .post:
+            return Image.LabelIcon.post
+        case .summit:
+            return Image.LabelIcon.summit
+        case .emergency:
+            return Image.LabelIcon.postBig
+        }
+    }
+}
+
 import SwiftUI
 
 struct CustomLabelCheckpoint: View {
+    var labelType: LabelCheckpoint
     let checkpointTitle: String
     let fromCheckpoint: String
     let etaDuration: String
     let etaUnit: String
-    let altitude: Int
+    let altitude: Double
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {
-                Image.LabelIcon.postBig
+                labelType.iconName
                     .padding(.trailing, 24)
                 
                 VStack(alignment: .leading) {
                     Text(checkpointTitle)
                         .font(.headlineRegular)
                         .foregroundStyle(Color.primaryGreen500)
+                        .multilineTextAlignment(.leading)
+                        .padding(.bottom, 2)
                     
-                    Text("From \(fromCheckpoint)")
-                        .font(.footnoteRegular)
-                        .foregroundStyle(Color.neutralGrayTertiaryGray)
-                        .padding(.bottom, 4)
-                    
-                    Text("Estimated ETA ")
+                    Text("ETA ")
                         .font(.footnoteRegular)
                         .foregroundStyle(Color.primaryGreen500)
                     +
@@ -38,26 +54,30 @@ struct CustomLabelCheckpoint: View {
                         .font(.footnoteEmphasizedBold)
                         .foregroundStyle(Color.primaryGreen500)
                     +
-                    Text(" \(etaUnit) from \(fromCheckpoint)")
+                    Text(" \(etaUnit) from ")
                         .font(.footnoteRegular)
                         .foregroundStyle(Color.primaryGreen500)
-                    
+                    +
+                    Text("\(fromCheckpoint)")
+                        .font(.footnoteRegular)
+                        .foregroundStyle(Color.neutralGrayTertiaryGray)
                 }
             }
-            .frame(maxWidth: 320, alignment: .leading)
+            .frame(maxWidth: 341, alignment: .leading)
+            .padding(.vertical, 2)
             .overlay(
-                CustomLabelGeneral(type: .mdpl(altitude: altitude)),
+                CustomLabelGeneral(type: .mdplCheckpoint(altitude: Int(altitude))),
                 alignment: .topTrailing
             )
             
-            Rectangle()
-                .fill(Color.neutralGrayLightGray)
-                .frame(width: 366, height: 0.98)
+//            Rectangle()
+//                .fill(Color.neutralGrayLightGray)
+//                .frame(width: 366, height: 0.98)
         }
         
     }
 }
 
 #Preview {
-    CustomLabelCheckpoint(checkpointTitle: "Checkpoint 2", fromCheckpoint: "Chekpoint 1", etaDuration: "30-40", etaUnit: "mins", altitude: 200)
+    CustomLabelCheckpoint(labelType: .summit, checkpointTitle: "Checkpoint 2", fromCheckpoint: "Chekpoint 1", etaDuration: "30-40", etaUnit: "mins", altitude: 200)
 }

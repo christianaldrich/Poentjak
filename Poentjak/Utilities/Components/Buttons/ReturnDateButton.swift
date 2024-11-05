@@ -16,12 +16,13 @@ struct ReturnDateButton: View {
             action()
         } label: {
             RoundedRectangle(cornerRadius: 16)
-                .frame(width: 340, height: 45)
+                .frame(height: 45)
+                .frame(maxWidth: .infinity)
                 .foregroundStyle(Color.neutralWhite)
                 .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2) // Add shadow
                 .overlay {
                     HStack {
-                        Image.AdminIcon.call
+                        Image.LabelIcon.clock
                         Text("Return by \(formatDate(time))") // Format time
                             .foregroundStyle(Color.primaryGreen500)
                         Spacer()

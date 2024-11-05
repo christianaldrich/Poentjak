@@ -130,6 +130,10 @@ extension Image {
             return Image("Icons/label/i_lb_clock")
         }
         
+        static var clockBig: Image {
+            return Image("Icons/label/i_lb_clockBig")
+        }
+        
         static var height: Image {
             return Image("Icons/label/i_lb_height")
         }

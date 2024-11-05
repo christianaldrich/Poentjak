@@ -33,6 +33,10 @@ struct MedicalReportView: View {
             VStack{
                 CustomLargeButtonComponent(state: .enabled, text: "Finish") {
                     viewModel.currentIndex += 1
+                    
+                    if viewModel.currentIndex > 4{
+                        viewModel.currentIndex = -1
+                    }
     //                Task {
     //                    await viewModel.register()
     //                }

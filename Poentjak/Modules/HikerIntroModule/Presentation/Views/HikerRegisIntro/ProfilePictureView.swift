@@ -82,7 +82,13 @@ struct ProfilePictureView: View {
             
             Spacer()
             CustomLargeButtonComponent(state: (viewModel.capturedImage == nil) ? .disabled : .enabled, text: "Next") {
-                viewModel.currentIndex += 1
+                //upload image
+                
+                Task{
+                    await viewModel.uploadPhoto(userName: viewModel.name)
+                }
+                
+                    viewModel.currentIndex += 1
                     isNextViewActive = true
                 }
             .disabled(viewModel.capturedImage == nil)

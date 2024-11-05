@@ -8,6 +8,9 @@
 import SwiftUI
 import PhotosUI
 
+import FirebaseStorage
+import FirebaseFirestore
+
 @MainActor
 class AuthViewModel: ObservableObject {
     @Published var userSession: UserAuth? = nil
@@ -91,5 +94,38 @@ class AuthViewModel: ObservableObject {
             print("Failed to register: \(error.localizedDescription)")
         }
         isLoading = false
+    }
+    
+    func uploadPhoto(userName: String) async{
+        guard capturedImage != nil else {
+            return
+        }
+        
+        let storageRef = Storage.storage().reference()
+        
+        let imageData = capturedImage!.jpegData(compressionQuality: 0.8)
+        
+        guard imageData != nil else {
+            return
+        }
+        
+        let path = "images/\(userName).jpg"
+        
+        let fileRef = storageRef.child(path)
+        
+        let uploadTask = fileRef.putData(imageData!, metadata: nil){ metadata, error in
+            
+//            if error == nil && metadata != nil{
+//                //save reference
+//                
+//                let db = Firestore.firestore()
+//                db.collection("users").document().setData(["profileURL": path])
+//                
+//                
+//            }
+            
+        }
+        
+        
     }
 }

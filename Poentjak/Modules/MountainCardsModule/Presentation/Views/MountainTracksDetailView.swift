@@ -15,12 +15,16 @@ struct MountainTracksDetailView: View {
     
     
     @Environment(\.dismiss) private var dismiss
+    
+    @State private var isMountainCardPresented = false
+
 
     var body: some View {
         VStack(alignment: .leading) {
             if let mountain = mountain {
                 HStack {
                     Button(action: {
+//                        navigationManager.popToRoot()
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -48,11 +52,45 @@ struct MountainTracksDetailView: View {
                     Spacer()
                     Spacer()
                     
-                    Image(systemName: "info.circle.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(Color.neutralGrayTertiaryGray)
-                        .padding(.bottom, 16)
+                    Button {
+                        isMountainCardPresented = true
+                    } label: {
+                        Image(systemName: "info.circle.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundStyle(Color.neutralGrayTertiaryGray)
+                            .padding(.bottom, 16)
+                    }
+                    .sheet(isPresented: $isMountainCardPresented) {
+                        NavigationStack {
+                            MountainCardComponent(mountain: mountain)
+                                .toolbar {
+                                    ToolbarItem(placement: .cancellationAction) {
+                                        Button{
+                                            isMountainCardPresented = false
+                                        }label:{
+                                            Image(systemName: "chevron.left")
+                                                .resizable()
+                                                .frame(width: 10, height: 18)
+                                                .foregroundStyle(.black)
+                                        }
+                                    }
+                                }
+                        }
+                        .presentationDetents([.fraction(0.55), .large])
+                    }
+                    
+//                    NavigationLink(destination: MountainCardComponent(mountain: mountain)){
+//                        Image(systemName: "info.circle.fill")
+//                            .resizable()
+//                            .frame(width: 20, height: 20)
+//                            .foregroundStyle(Color.neutralGrayTertiaryGray)
+//                            .padding(.bottom, 16)
+//                    }
+                    
+                        
+                    
+                    
                 }
                 .padding(.horizontal, 24)
                 .onAppear {

@@ -13,6 +13,8 @@ struct MountainTracksModel: Identifiable, Hashable {
     var description: String
     var height: Int
     var location: Location
+    var streetName: String
+    
     var tracks: [String] // Change to hold track IDs instead of TrackMountain
     var imageURL: String
 
@@ -22,8 +24,9 @@ struct MountainTracksModel: Identifiable, Hashable {
         self.description = dictionary["description"] as? String ?? ""
         self.height = dictionary["height"] as? Int ?? 0
         self.location = dictionary["location"] as? Location ?? Location(latitude: 0, longitude: 0)
+        self.name = dictionary["name"] as? String ?? ""
+        self.streetName = dictionary["streetName"] as? String ?? ""
         self.imageURL = dictionary["imageURL"] as? String ?? ""
-        
         // Assuming tracks are represented as IDs in the Firestore
         self.tracks = dictionary["tracks"] as? [String] ?? []
     }

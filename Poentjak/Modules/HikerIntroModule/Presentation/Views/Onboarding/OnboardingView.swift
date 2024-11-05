@@ -67,6 +67,14 @@ struct OnboardingView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                BackButtonComponent{
+                    viewModel.currentIndex -= 1
+                }
+            }
+        }
     }
 }
 

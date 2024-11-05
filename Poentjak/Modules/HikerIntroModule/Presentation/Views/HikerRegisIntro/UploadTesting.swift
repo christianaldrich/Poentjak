@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NextTempView: View {
+struct UploadTesting: View {
     @StateObject var viewModel: AuthViewModel
 
     var body: some View {

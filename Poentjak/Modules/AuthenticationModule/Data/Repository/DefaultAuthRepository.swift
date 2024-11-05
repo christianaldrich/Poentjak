@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
 class DefaultAuthRepository: AuthRepositoryProtocol {
     private let firestore = Firestore.firestore()
@@ -33,7 +34,7 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
             trackId: "none",
             contactName: request.contactName,
 //            profileURL: request.profileURL,
-            profileURL: "dummy",
+            profileURL: "images/\(request.name).jpg",
             medicalRecord: request.medicalCondition,
             
             

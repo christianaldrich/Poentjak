@@ -15,4 +15,7 @@ struct Waypoint: Identifiable {
     let elevation: CLLocationDistance
     let name: String
     let desc: String
+    let idx: Int
+    let imageName: String
+    let checkPointStatus: String
 }

@@ -13,6 +13,7 @@ class GPXParser: NSObject, XMLParserDelegate {
     private var trackPoints: [CLLocationCoordinate2D] = []
     private var waypointsPos: [Waypoint] = []
     private var waypointsWarung: [Waypoint] = []
+    private var nextIndex = 1 // Index counter
 
     private var currentElement = ""
     private var latitude: CLLocationDegrees?
@@ -20,6 +21,8 @@ class GPXParser: NSObject, XMLParserDelegate {
     private var elevation: CLLocationDistance = 0.0
     private var waypointName = ""
     private var waypointDesc = "" // New variable for description
+    private var imageName: String = ""
+    private var checkPointStatus: String = ""
 
     var parsedWaypoints: [Waypoint] {
         return waypoints
@@ -70,16 +73,27 @@ class GPXParser: NSObject, XMLParserDelegate {
             waypointName += trimmedString
         } else if currentElement == "desc" {
             waypointDesc += trimmedString // Capture the <desc> content
+        } else if currentElement == "image" { // Capture image name
+            imageName += trimmedString
+        } else if currentElement == "checkpointstatus" { // Capture image name
+            checkPointStatus += trimmedString
         }
     }
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "wpt" {
             if let lat = latitude, let lon = longitude {
-                let waypoint = Waypoint(latitude: lat, longitude: lon, elevation: elevation, name: waypointName, desc: waypointDesc)
+                let waypoint = Waypoint(latitude: lat, longitude: lon, elevation: elevation, name: waypointName, desc: waypointDesc, idx: nextIndex, imageName: imageName, checkPointStatus: checkPointStatus)
                 
+                nextIndex+=1
                 // Check if the waypoint name contains "Warung"
-                if waypointName.localizedCaseInsensitiveContains("Warung") {
+//                if waypointName.localizedCaseInsensitiveContains("Warung") {
+//                    waypointsWarung.append(waypoint)
+//                } else {
+//                    waypointsPos.append(waypoint)
+//                }
+                
+                if checkPointStatus == "emergency" {
                     waypointsWarung.append(waypoint)
                 } else {
                     waypointsPos.append(waypoint)
@@ -108,6 +122,8 @@ class GPXParser: NSObject, XMLParserDelegate {
         elevation = 0.0
         waypointName = ""
         waypointDesc = "" // Reset description
+        imageName = ""
+        checkPointStatus = ""
     }
 
     // Reset track point data after each track point element is parsed

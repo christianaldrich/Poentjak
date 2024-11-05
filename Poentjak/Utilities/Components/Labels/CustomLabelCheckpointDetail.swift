@@ -21,7 +21,7 @@ struct CustomLabelCheckpointDetail: View {
                     .bold()
                     .foregroundColor(Color.primaryGreen500)
                 Spacer()
-                CustomLabelGeneral(type: .mdpl(altitude: Int(mdpl)))
+                CustomLabelGeneral(type: .mdplCheckpointTapped(altitude: Int(mdpl)))
             }
             Text("\(checkPointName)")
                 .font(.title2Regular)

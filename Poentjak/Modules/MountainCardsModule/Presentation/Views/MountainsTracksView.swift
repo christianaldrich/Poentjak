@@ -28,11 +28,14 @@ struct MountainsTracksView: View {
     @State private var isShowingModal = true
     @State private var selectedDetent = PresentationDetent.fraction(0.7)
     
-    
+    @State  var isSearchActive = false
     @State private var selectedTrack: String?
+    @Environment(\.isSearching) private var isSearching
     
-    var searchResult: [MountainTracksModel] {
-        if searchMountain.isEmpty {
+    @FocusState private var isSearchFocused: Bool
+    
+    var searchResult: [MountainTracksModel]{
+        if searchMountain.isEmpty || !viewModel.mountainsTracks.contains(where: { $0.name.localizedCaseInsensitiveContains(searchMountain) }){
             return viewModel.mountainsTracks
         } else {
             return viewModel.mountainsTracks.filter { mountain in
@@ -51,55 +54,32 @@ struct MountainsTracksView: View {
             //
             //
             //            }
-            
             ZStack{
                 
                 MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: "")
-                    .zIndex(0)
                 
-                VStack{
-                    Spacer()
-                    Text("asdfasdf")
-                        .background(.blue)
-                    
-                    
-                    
-                        .navigationTitle("Mountain Card")
-                        .navigationDestination(for: MountainDestinationView.self) { destination in
-                            switch destination {
-                            case .mountainTracksDetail(let mountain):
-                                MountainTracksDetailView(mountain: mountain, navigationManager: navigationManager, viewModel: viewModel, isShowingModal: $isShowingModal)
-                                    .environmentObject(viewModel)
-                                    .environmentObject(navigationManager)
-                            case .tracksDetail(let track):
-                                TracksDetailView(track: track, navigationManager: navigationManager, isShowingModal: $isShowingModal)
-                                    .environmentObject(viewModel)
-                                    .environmentObject(navigationManager)
-                            case .dueDate(let trackLocation):
-                                DueDateView(trackLocation: trackLocation)
-                                    .environmentObject(viewModel)
-                                    .environmentObject(navigationManager)
-                            }
-                        }
-                        .fullScreenCover(isPresented: $viewModel.isPresenting) {
-                            EmergencyProsesView(navigateViewModel: UserNavigateViewModel(fileName: viewModel.selectedTrackLocation))
+                //                    .zIndex(0)
+                
+                    .navigationDestination(for: MountainDestinationView.self) { destination in
+                        switch destination {
+                        case .mountainTracksDetail(let mountain):
+                            MountainTracksDetailView(mountain: mountain, navigationManager: navigationManager, viewModel: viewModel, isShowingModal: $isShowingModal)
                                 .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
+                        case .tracksDetail(let track):
+                            TracksDetailView(track: track, navigationManager: navigationManager, isShowingModal: $isShowingModal)
+                                .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
+                        case .dueDate(let trackLocation):
+                            DueDateView(trackLocation: trackLocation)
+                                .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
                         }
-                    
-                    Button(action: {
-                        Task {
-                            await authViewModel.signOut()
-                        }
-                    }) {
-                        Text("Sign Out")
-                            .font(.headline)
-                            .padding()
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
                     }
-                    .padding()
-                    
+                    .fullScreenCover(isPresented: $viewModel.isPresenting) {
+                        EmergencyProsesView(navigateViewModel: UserNavigateViewModel(fileName: viewModel.selectedTrackLocation))
+                            .environmentObject(viewModel)
+                    }
                     .onChange(of: navigationManager.navigationPath) { newPath in
                         if newPath.isEmpty {
                             DispatchQueue.main.async {
@@ -110,6 +90,7 @@ struct MountainsTracksView: View {
                     .sheet(isPresented: $isShowingModal) {
                         NavigationStack {
                             VStack(alignment: .leading) {
+                                //                Text(isSearching ? "search" : "not searching")
                                 Text("Suggested Mountains")
                                     .font(.bodyEmphasized)
                                     .foregroundStyle(Color.primaryGreen500)
@@ -147,21 +128,69 @@ struct MountainsTracksView: View {
                             .interactiveDismissDisabled(true)
                         }
                     }
-                    
-                    .environmentObject(navigationManager)
-                    .searchable(text: $searchMountain, prompt: "Find Mountains"){
-                        ForEach(searchResult, id: \.self) {
-                            result in
-                            Button{
-                                navigationManager.navigationPath.append(MountainDestinationView.mountainTracksDetail(mountain: result))
-                            }label: {
-                                SearchMountainCardComponent(mountain: result.name, streetName: result.streetName)
-                            }
-                        }
-                    }
+                
+            }
+            
+        }
+//        .searchable(text: $searchMountain,
+//                    tokens: $selectedTokens,
+//                    suggestedTokens: $suggestedTokens,
+//                    isPresented: $isSearchActive,
+//                    placement: .automatic,
+//                    prompt: "Find Mountains",
+//                    token: { temp in
+//            Text(temp.name)
+//        })
+        
+        
+        //        {_ in
+//                    ForEach(searchResult, id: \.self) {
+//                        result in
+//                        Button{
+//                            navigationManager.navigationPath.append(MountainDestinationView.mountainTracksDetail(mountain: result))
+//                        }label: {
+//                            SearchMountainCardComponent(mountain: result.name, streetName: result.streetName)
+//                        }
+//                    }
+        //        }
+        .searchable(text: $searchMountain, isPresented: $isSearchActive, prompt: "Find Mountains")
+        .searchable(text: $searchMountain, prompt: "Find Mountains"){
+            ForEach(searchResult, id: \.self) {
+                result in
+                Button{
+                    isShowingModal = false
+                    navigationManager.navigationPath.append(MountainDestinationView.mountainTracksDetail(mountain: result))
+                }label: {
+                    SearchMountainCardComponent(mountain: result.name, streetName: result.streetName)
                 }
             }
         }
+//        .focused($isSearchFocused)
+        .onChange(of: isSearchActive){
+            
+            isShowingModal = false
+        }
+        .ignoresSafeArea()
+        .environmentObject(navigationManager)
+        
+        
+//                        .searchable(text: $searchMountain, prompt: "Find Mountains"){
+//        
+//                                    ForEach(searchResult, id: \.self) {
+//                                        result in
+//                                        Button{
+//                                            navigationManager.navigationPath.append(MountainDestinationView.mountainTracksDetail(mountain: result))
+//                                        }label: {
+//                                            SearchMountainCardComponent(mountain: result.name, streetName: result.streetName)
+//                                        }
+//                                    }
+//        
+//                        }
+        
+        
+        
+        
+        
     }
     
     
@@ -182,3 +211,18 @@ class MountainNavigationManager: ObservableObject {
         }
     }
 }
+
+
+//            Button(action: {
+//                Task {
+//                    await authViewModel.signOut()
+//                }
+//            }) {
+//                Text("Sign Out")
+//                    .font(.headline)
+//                    .padding()
+//                    .background(Color.red)
+//                    .foregroundColor(.white)
+//                    .cornerRadius(10)
+//            }
+//            .padding()

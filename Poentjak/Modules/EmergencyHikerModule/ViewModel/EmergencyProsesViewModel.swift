@@ -36,9 +36,9 @@ class EmergencyProsesViewModel: ObservableObject {
     private var emergencyStatus: EmergencyStatus = .completed
     
     //Temp
-//    @Published var backToProses: Bool = false
+    //    @Published var backToProses: Bool = false
     
-
+    
     
     func createEmergencyHiking(trackId: String) async {
         do {
@@ -49,15 +49,15 @@ class EmergencyProsesViewModel: ObservableObject {
             DispatchQueue.main.async { [weak self] in
                 self?.emergencySessionActive = true // Set success on the main thread
                 print("masuk viewmodel \(self?.emergencySessionActive ?? false)")
-                        }
+            }
         } catch {
             
             print("Failed to create emergency hiking session: \(error.localizedDescription)")
-
-
+            
+            
             DispatchQueue.main.async { [weak self] in
                 self?.emergencySessionActive = false // Set failure on the main thread
-                        }
+            }
         }
     }
     
@@ -77,7 +77,7 @@ class EmergencyProsesViewModel: ObservableObject {
                     print ("this is in view model: \(self.emergencySessionActive)")
                     print("Fetched emergency session: active = \(self.emergencySessionActive)")
                     print("this is fetch text after sos: \(self.sendSOSToFirebase)")
-
+                    
                     
                 case .failure(let error):
                     print("Failed to fetch emergency: \(error.localizedDescription)")
@@ -92,7 +92,11 @@ class EmergencyProsesViewModel: ObservableObject {
         do{
             try await useCase.updateSessionDone(sessionDone: true, emergencyStatus: emergencyStatus.rawValue)
             stopTimer()
-            self.emergencySessionActive = false
+            
+            DispatchQueue.main.async {
+                self.emergencySessionActive = false
+            }
+            //            self.emergencySessionActive = false
             print("sukses update session done")
         } catch {
             print("Failed to delete emergency: \(error.localizedDescription)")

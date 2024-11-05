@@ -11,6 +11,7 @@ struct TracksDetailView: View {
     let track: String
     @State private var navigateToDueDate = false
     @ObservedObject var navigationManager : MountainNavigationManager
+    @Binding var isShowingModal: Bool
     
     var body: some View {
         VStack{
@@ -40,6 +41,7 @@ struct TracksDetailView: View {
 //            }
 //           
         }
+        
 //        .navigationDestination(isPresented: $navigateToDueDate){
 //            DueDateView()
 //        }

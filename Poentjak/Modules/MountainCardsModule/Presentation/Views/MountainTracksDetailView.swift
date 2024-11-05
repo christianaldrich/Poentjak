@@ -9,52 +9,102 @@ import SwiftUI
 
 struct MountainTracksDetailView: View {
     let mountain: MountainTracksModel?
-    @ObservedObject var navigationManager : MountainNavigationManager
-
+    @ObservedObject var navigationManager: MountainNavigationManager
+    @ObservedObject var viewModel: MountainsTracksViewModel
+    @Binding var isShowingModal: Bool
     
+    
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
-            VStack{
-                
-                if let mountain = mountain{
-                    Text("Name: \(mountain.name)")
-                    Text("Desc: \(mountain.description)")
-                    Text("Height: \(mountain.height)")
-                    Text("Tracks: ")
-                    ForEach(mountain.tracks, id: \.self){ track in
-//                        NavigationLink(value: track){
-//                            Text("\(track)")
-//                        }
-                        Button("\(track)"){
-                            navigationManager.navigationPath.append(MountainDestinationView.tracksDetail(tracks: track))
+        VStack(alignment: .leading) {
+            if let mountain = mountain {
+                HStack {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .resizable()
+                            .frame(width: 10, height: 18)
+                            .foregroundStyle(.black)
+                    }
+                    .padding(.leading, 24)
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text("Your current location")
+                            .font(.footnoteRegular)
+                            .foregroundStyle(Color.primaryGreen500)
+                        
+                        HStack {
+                            Image.ExploreIcon.mountainSmall
+                            Text(mountain.name)
+                                .font(.bodyEmphasized)
+                                .foregroundStyle(Color.primaryGreen500)
                         }
                     }
                     
-    //                List(mountain.tracks, id: \.self){track in
-    //
-    //                }
+                    Spacer()
+                    Spacer()
                     
-                    Text("Location: \(mountain.location))")
-                    
-                    
+                    Image(systemName: "info.circle.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(Color.neutralGrayTertiaryGray)
+                        .padding(.bottom, 16)
                 }
-            }
-//            .navigationDestination(for: String.self){track in
-//                TracksDetailView(track: track)
-//            }
-//            .navigationDestination(for: MountainDestinationView.self){ destination in
-//                switch destination{
-//                case .mountainTracksDetail(let mountain):
-//                    MountainTracksDetailView(mountain: mountain, navigationManager: navigationManager)
-//                case .tracksDetail(let track):
-//                    TracksDetailView(track: track)
-//                }
-//                
-//            }
-            .navigationTitle("Mountain Details")
+                .padding(.horizontal, 24)
+                .onAppear {
+                    let trackIds = mountain.tracks.map { $0 }
+                    viewModel.fetchTracksForSelectedMountain(trackIds: trackIds)
+                }
+                
+                HStack {
+                    Image.ExploreIcon.track
+                    Text("\(viewModel.selectedTracks.count) tracks available")
+                        .font(.footnoteRegular)
+                        .foregroundStyle(Color.primaryGreen500)
+                }
+                .padding(.horizontal, 24)
 
+                // Horizontal ScrollView for tracks
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        if !viewModel.selectedTracks.isEmpty {
+                            ForEach(viewModel.selectedTracks, id: \.self) { track in
+                                Button(action: {
+                                    navigationManager.navigationPath.append(MountainDestinationView.tracksDetail(tracks: track.id))
+                                    isShowingModal = false
+                                }) {
+                                    VStack(alignment: .leading) {
+                                        Image(track.imageURL)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 205, height: 150)
+                                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        
+                                        Text(track.name)
+                                            .font(.subheadlineRegular)
+                                            .foregroundStyle(Color.primaryGreen500)
+                                            
+                                    }
+                                }
+                            }
+                        } else {
+                            Text("No tracks available.")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    .padding(.horizontal, 24)
+                }
+                
+                
+            } else {
+                Text("No mountain details available.")
+            }
+        }
+        .navigationBarBackButtonHidden(true) // Hide default back button
+        .navigationTitle("") // Remove default title
     }
 }
-
-//#Preview {
-//    MountainTracksDetailView()
-//}

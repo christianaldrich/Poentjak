@@ -12,16 +12,14 @@ struct MountainCardComponent: View {
 
     var body: some View {
         VStack{
-            Image("dummy")
+            Image("gunungGede")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 338, height: 184)
+//                .frame(width: 878, height: 154)
             
             HStack{
                 Image.ExploreIcon.mountainBig
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 35)
+                
                 Text("\(mountain?.name ?? "")")
                     .font(.title2Emphasized)
             }
@@ -31,17 +29,10 @@ struct MountainCardComponent: View {
         }
         .padding()
         .navigationBarBackButtonHidden(true)
-        .toolbar{
-            ToolbarItem(placement: .topBarLeading){
-                BackButtonComponent{
-                    print("asdf")
-                }
-            }
-        }
         
     }
 }
 
 //#Preview {
-//    MountainCardComponent(mountain: MountainTracksModel(dictionary: <#[String : Any]#>))
+//    MountainCardComponent(mountain: MountainTracksModel(dictionary: [String : Any]))
 //}

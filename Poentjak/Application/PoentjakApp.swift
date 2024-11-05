@@ -36,7 +36,7 @@ struct PoentjakApp: App {
 //            CheckingView(viewModel: authViewModel)
 //            RangerView()
 //            ActiveHikersView()
-            // MountainsTracksView()
+            //MountainsTracksView(authViewModel: authViewModel)
 
         }
     }

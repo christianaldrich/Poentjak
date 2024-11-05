@@ -39,7 +39,6 @@ struct DraggableView<LeadingView: View, TrailingView: View>: View {
     @State private var width: CGFloat = 70
     @State private var dragCompleted: Bool = false
     
-    // New property for the action closure
     var onActionCompleted: () -> Void
     
     private let minWidth: CGFloat = 70
@@ -53,10 +52,11 @@ struct DraggableView<LeadingView: View, TrailingView: View>: View {
             .frame(width: width)
             .overlay(
                 Button(action: {
-                    if actionState == .initial {
+                    if actionState == .initial && dragCompleted {
                         actionState = .loading
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                             actionState = .finish
+                            onActionCompleted()
                         }
                     }
                 }, label: {
@@ -109,7 +109,7 @@ struct DraggableView<LeadingView: View, TrailingView: View>: View {
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                             actionState = .finish
-                            onActionCompleted() // Call the action closure here
+                            onActionCompleted()
                         }
                     }
             )
@@ -117,48 +117,35 @@ struct DraggableView<LeadingView: View, TrailingView: View>: View {
     }
 }
 
-
-   
-
 struct BackgroundView: View {
     let slidingDirection: SlidingDirection
+    var text: String
     
     var body: some View {
         RoundedRectangle(cornerRadius: 50)
             .fill(Color.white)
-            .shadow(color: Color.black.opacity(0.2), radius: 16, x: 0, y: 4)
+            .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 8)
             .overlay(
                 HStack {
                     if slidingDirection == .ltr {
-                        // LTR: Chevron > > and "Finished Evacuating" text
                         Spacer()
-                        
                         Image(systemName: "chevron.right")
-                            .foregroundColor(Color.gray.opacity(0.5)) // First chevron
+                            .foregroundColor(Color.gray.opacity(0.5))
                         Image(systemName: "chevron.right")
-                            .foregroundColor(Color.gray.opacity(0.7)) // Second chevron
-                        
+                            .foregroundColor(Color.gray.opacity(0.7))
                         Spacer()
-                        
-                        Text("Finished Evacuating")
+                        Text(text)
                             .foregroundColor(Color.primaryGreen500)
                             .font(Font.title3Regular)
-                        
-            
                     } else {
-                        // RTL: Chevron < < and "Slide to Cancel" text
-                        Text("Slide to Cancel")
+                        Text(text)
                             .foregroundColor(Color.primaryGreen500)
                             .font(Font.title3Regular)
-                        
-                        
                         Spacer()
-                        
                         Image(systemName: "chevron.left")
-                            .foregroundColor(Color.gray.opacity(0.5)) // First chevron
+                            .foregroundColor(Color.gray.opacity(0.5))
                         Image(systemName: "chevron.left")
-                            .foregroundColor(Color.gray.opacity(0.7)) // Second chevron
-                        
+                            .foregroundColor(Color.gray.opacity(0.7))
                         Spacer()
                     }
                 }
@@ -175,20 +162,19 @@ struct SlideToActionButton: View {
     let slidingDirection: SlidingDirection
     var buttonColor: Color = .red
     var trailingIcon: String = "checkmark"
-    
-    // New property for the action closure
+    var text: String
     var onActionCompleted: () -> Void
+    
     
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: (slidingDirection == .ltr) ? .leading : .trailing) {
-                BackgroundView(slidingDirection: slidingDirection)
+                BackgroundView(slidingDirection: slidingDirection, text: text)
                 
-                // Draggable view with predefined icons
                 DraggableView(
                     maxDraggableWidth: geometry.size.width,
                     slidingDirection: slidingDirection,
-                    leadingView: Image(systemName: slidingDirection == .ltr ? "arrow.right" : "arrow.left")
+                    leadingView: Image(systemName: slidingDirection == .ltr ? "arrowshape.right.fill" : "arrowshape.left.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30, height: 30)
@@ -199,7 +185,7 @@ struct SlideToActionButton: View {
                         .frame(width: 30, height: 30)
                         .foregroundColor(.white),
                     buttonColor: slidingDirection == .ltr ? Color.primaryGreen500 : Color.accentRedSos,
-                    onActionCompleted: onActionCompleted // Pass the closure to the draggable view
+                    onActionCompleted: onActionCompleted
                 )
             }
         }
@@ -209,16 +195,16 @@ struct SlideToActionButton: View {
 
 #Preview {
     SlideToActionButton(
-        slidingDirection: .rtl,onActionCompleted: {
-            print("hi")
-        } // Set button color to red
+        slidingDirection: .rtl, text: "Slide to cancel", onActionCompleted: {
+            print("Cancel action completed")
+        }
     )
     .padding(.horizontal, 25)
     
     SlideToActionButton(
-        slidingDirection: .ltr, onActionCompleted: {
-            print("hi")
-        }// Set button color to red
+        slidingDirection: .ltr, text: "Finished evacuating", onActionCompleted: {
+            print("Finish action completed")
+        }
     )
     .padding(.horizontal, 25)
 }

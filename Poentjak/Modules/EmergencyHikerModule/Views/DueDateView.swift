@@ -5,12 +5,13 @@
 //  Created by Felicia Himawan on 02/10/24.
 //
 
+
 import SwiftUI
 
 struct DueDateView: View {
     @StateObject var viewModel = DueDateViewModel()
     @StateObject var viewModelTest = EmergencyProsesViewModel()
-
+    
     
     @State private var showDatePicker = false
     @State private var showTimePicker = false
@@ -18,88 +19,108 @@ struct DueDateView: View {
     @State private var navigateToTracking = false
     @State var trackLocation: String
     
+    var formattedDueDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E d MMM HH.mm" // "E" for day (Mon), "d" for day number, "MMM" for month, "HH.mm" for time
+        return formatter.string(from: viewModelTest.dueDate)
+    }
+    
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
     
     @EnvironmentObject var navigationManager : MountainNavigationManager
     
     var body: some View {
         
-            VStack {
-                
-                Text("Track Name: \(trackLocation)")
-                
-                Text("Tell us when you will be back")
-                    .font(.title2)
-                    .bold()
-                    .padding(.bottom, 11)
-                
-                Text("This information will help us alert \n rangers in case of emergency")
-                    .font(.subheadline)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
-                
-                // Date Picker Button
-                Button(action: {
-                    showDatePicker.toggle()
-                    showTimePicker = false // Close time picker if open
-                }) {
-                    Text(viewModel.dueDateFormatted(format: "MMMM d, yyyy"))
-                        .foregroundColor(.primary)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(10)
-                }
-                
-                // Time Picker Button
-                Button(action: {
-                    showTimePicker.toggle()
-                    showDatePicker = false // Close date picker if open
-                }) {
-                    Text(viewModel.dueTimeFormatted())
-                        .foregroundColor(.primary)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(10)
-                }
-                
-                if showDatePicker {
-                    DatePicker("Select Date", selection: $viewModelTest.dueDate, displayedComponents: .date)
-                        .datePickerStyle(GraphicalDatePickerStyle())
-                        .labelsHidden()
-                        .transition(.opacity)
-                } else if showTimePicker {
-                    DatePicker("Select Time", selection: $viewModelTest.dueDate, displayedComponents: .hourAndMinute)
-                        .datePickerStyle(WheelDatePickerStyle())
-                        .labelsHidden()
-                        .transition(.opacity)
-                }
-                
-                Button(action: {
+        VStack (alignment: .leading){
+            
+            Text("Tell us when you will be back")
+                .font(.title3Emphasized)
+                .foregroundColor(Color.primaryGreen500)
+                .padding(.horizontal, 12)
+                .padding(.top, 8)
+            
+            Text("When overdue, we will alert rangers in case of emergency.")
+                .font(.subheadlineRegular)
+                .foregroundColor(Color.primaryGreen500)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.horizontal, 12)
+                .padding(.top, 0.5)
+            
+            List {
+                DisclosureGroup() {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            CustomDateSliderComponent(selectedDate: $viewModelTest.dueDate)
+                            Spacer()
+                        }
+                    }
                     
+                } label: {
+                    HStack {
+                        Text("Arrival Date")
+                            .font(Font.subheadlineRegular)
+                            .foregroundStyle(Color.primaryGreen500)
+                        Spacer()
+                        Text(formattedDueDate)
+                            .font(.subheadlineRegular)
+                            .foregroundStyle(Color.primaryGreen500)
+                    }
+                    .padding(.vertical, 12)
+                    .padding(.horizontal, 12)
+                    .alignmentGuide(.listRowSeparatorTrailing) { d in
+                        d[.trailing] + 16
+                    }
+                }
+                //.padding(.horizontal, 16) // Consistent padding for each row
+                .animation(.easeOut, value: 1)
+                .accentColor(.primaryGreen500)
+            }
+            //.listStyle(PlainListStyle()) // Add this line
+            .shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2)
+            .scrollContentBackground(.hidden)
+            
+            HStack{
+                Spacer()
+                VStack{
+                    HStack{
+                        Text("Important :")
+                            .font(.subheadlineRegular)
+                            .foregroundColor(Color.errorRed500)
+                            .multilineTextAlignment(.center)
+                        Text("Make sure to not finish the")
+                            .font(.subheadlineRegular)
+                            .foregroundColor(Color.primaryGreen500)
+                            .multilineTextAlignment(.center)
+                    }
+                    Text("trip before arriving back at the basecamp")
+                        .font(.subheadlineRegular)
+                        .foregroundColor(Color.primaryGreen500)
+                        .multilineTextAlignment(.center)
+                }
+                Spacer()
+            }
+            
+            HStack{
+                Spacer()
+                CustomLargeButtonComponent(state: .enabled, text: "I'm ready"){
                     Task{
                         mountainViewModel.selectedTrackLocation = trackLocation
                         await viewModelTest.createEmergencyHiking(trackId: trackLocation)
                         mountainViewModel.toggleIsPresenting()
                         navigationManager.popToRoot()
                     }
-                        
-                }) {
-                    Text("Start Tracking")
-                        .font(.headline)
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
                 }
-                .padding(.top)
-                
+                .frame(width: 340, height: 72)
+                Spacer()
             }
+            
         }
     }
-    
-    
+}
+
+
 
 
 //#Preview {

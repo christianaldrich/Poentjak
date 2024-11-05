@@ -26,6 +26,7 @@ class UserNavigateViewModel: ObservableObject {
     @Published var isReverseNavigation = false // New state to track reverse navigation
     @Published var isSOS: Bool = false
     @Published var etaValues: [String] = []
+    @Published var selectedWaypoint: Waypoint?
     
     private var cancellables = Set<AnyCancellable>()
     private var dotTimer: Timer? // Timer to draw dots
@@ -155,7 +156,6 @@ class UserNavigateViewModel: ObservableObject {
         
         // Ensure that the UI update happens on the main thread
         DispatchQueue.main.async {
-            print("DOTS ADDED")
             self.dots.append(dot)
         }
     }
@@ -195,7 +195,9 @@ class UserNavigateViewModel: ObservableObject {
             let etaInSeconds = totalDistance / speed  // ETA in seconds based on total distance
             return etaInSeconds / 60  // Convert to minutes
         } else {
-            return nil  // If speed is 0, return nil
+            // return nil  // If speed is 0, return nil
+            let etaInSeconds = totalDistance / 0.83  // ETA in seconds based on total distance
+            return etaInSeconds / 60
         }
         
     }

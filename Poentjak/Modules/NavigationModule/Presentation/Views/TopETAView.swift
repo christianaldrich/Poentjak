@@ -29,8 +29,8 @@ struct TopETAView: View {
                             ) {
                                 CustomDirectionsCard(
                                     status: DirectionCardStatus.default,
-                                    checkpointTitle: currentWaypoint.name,
-                                    etaText: "ETA \(String(format: "%.1f", eta)) min",
+                                    checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
+                                    etaText: "ETA \(String(format: "%.0f", eta)) min",
                                     altitude: Int(currentWaypoint.elevation),
                                     overdueText: "15 mins left till overdue"
                                 ) {
@@ -40,7 +40,7 @@ struct TopETAView: View {
                             } else {
                                 CustomDirectionsCard(
                                     status: DirectionCardStatus.default,
-                                    checkpointTitle: currentWaypoint.name,
+                                    checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                     etaText: "Not yet walk",
                                     altitude: Int(currentWaypoint.elevation),
                                     overdueText: "15 mins left till overdue"
@@ -65,7 +65,7 @@ struct TopETAView: View {
                             ) {
                                 CustomDirectionsCard(
                                     status: DirectionCardStatus.default,
-                                    checkpointTitle: currentWaypoint.name,
+                                    checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                     etaText: "ETA \(String(format: "%.1f", eta)) min",
                                     altitude: Int(currentWaypoint.elevation),
                                     overdueText: "15 mins left till overdue"
@@ -76,7 +76,7 @@ struct TopETAView: View {
                             } else {
                                 CustomDirectionsCard(
                                     status: DirectionCardStatus.default,
-                                    checkpointTitle: currentWaypoint.name,
+                                    checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                     etaText: "N/A",
                                     altitude: Int(currentWaypoint.elevation),
                                     overdueText: "15 mins left till overdue"
@@ -101,11 +101,27 @@ struct TopETAView: View {
                         )
                         
                         if let eta = eta {
-                            Text("Nearest Warung: \(nearestWarung.name), ETA: \(String(format: "%.1f", eta)) min")
-                                .padding()
+                            CustomDirectionsCard(
+                                status: DirectionCardStatus.default,
+                                checkpointTitle: nearestWarung.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(nearestWarung.idx)",
+                                etaText: "ETA \(String(format: "%.1f", eta)) min",
+                                altitude: Int(nearestWarung.elevation),
+                                overdueText: "15 mins left till overdue"
+                            ) {
+                                isShowingModal = false
+                                navigateToDetail = true
+                            }
                         } else {
-                            Text("Nearest Warung: \(nearestWarung.name), ETA: N/A")
-                                .padding()
+                            CustomDirectionsCard(
+                                status: DirectionCardStatus.default,
+                                checkpointTitle: nearestWarung.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(nearestWarung.idx)",
+                                etaText: "N/A",
+                                altitude: Int(nearestWarung.elevation),
+                                overdueText: "15 mins left till overdue"
+                            ) {
+                                isShowingModal = false
+                                navigateToDetail = true
+                            }
                         }
                     } else {
                         Text("No Warung found nearby")

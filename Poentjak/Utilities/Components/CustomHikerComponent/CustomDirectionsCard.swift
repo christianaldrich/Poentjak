@@ -23,14 +23,15 @@ struct CustomDirectionsCard: View {
         VStack(spacing: 12) {
             // Top part
             HStack(spacing: 8) {
-                Image.LabelIcon.postBig
+                Image.LabelIcon.postSmall
                     .resizable()
-                    .frame(width: 52, height: 52)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 32, height: 32)
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    HStack(spacing: 16) {
+                    HStack(alignment: .center, spacing: 16) {
                         Text(checkpointTitle)
-                            .font(.headlineRegular)
+                            .font(.caption1RegularCustom)
                             .foregroundColor(Color.primaryGreen500)
                         
                         Spacer()
@@ -38,7 +39,7 @@ struct CustomDirectionsCard: View {
                         CustomLabelGeneral(type: .mdpl(altitude: altitude))
                     }
                     Text(etaText)
-                        .font(.calloutRegular)
+                        .font(.caption1Regular)
                         .foregroundColor(Color.primaryGreen500)
                 }
                 

@@ -45,7 +45,7 @@ struct DetailPostView: View {
                 
                 Rectangle()
                     .fill(Color.neutralGrayLightGray)
-                    .frame(width: 262, height: 0.98)
+                    .frame(width: 250, height: 0.98)
                 Spacer()
             }
             .padding(.top, 10)

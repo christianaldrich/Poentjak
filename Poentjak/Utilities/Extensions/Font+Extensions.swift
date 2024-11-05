@@ -116,6 +116,10 @@ extension Font {
         return Font.system(size: 13, weight: .semibold).italic()
     }()
     
+    static var caption1RegularCustom: Font = {
+        return Font.system(size: 16, weight: .medium)
+    }()
+    
     static var caption1Regular: Font = {
         return Font.system(size: 12, weight: .regular)
     }()

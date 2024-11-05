@@ -33,7 +33,7 @@ struct EmergencyProsesView: View {
     @StateObject private var navigationManager = NavigationManager()
     
     @State private var isShowingModal = true
-    @State private var selectedDetent = PresentationDetent.fraction(0.1)
+    @State private var selectedDetent = PresentationDetent.fraction(0.4)
     
     
     var body: some View {
@@ -141,7 +141,7 @@ struct EmergencyProsesView: View {
                                 
                             }
                         }
-                        .presentationDetents([.fraction(0.1), .fraction(0.4)], selection: $selectedDetent)
+                        .presentationDetents([.fraction(0.4), .fraction(0.1)], selection: $selectedDetent)
                         .presentationDragIndicator(.visible)
                         .presentationBackgroundInteraction(
                             .enabled(upThrough: .fraction(0.4))

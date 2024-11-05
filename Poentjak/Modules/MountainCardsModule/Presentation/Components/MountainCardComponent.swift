@@ -29,6 +29,7 @@ struct MountainCardComponent: View {
             Text("\(mountain?.description ?? "")")
                 .font(.calloutRegular)
         }
+        .padding()
         .navigationBarBackButtonHidden(true)
         .toolbar{
             ToolbarItem(placement: .topBarLeading){

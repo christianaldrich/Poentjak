@@ -21,6 +21,7 @@ struct MountainTracksDetailView: View {
             if let mountain = mountain {
                 HStack {
                     Button(action: {
+                        navigationManager.popToRoot()
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -48,11 +49,16 @@ struct MountainTracksDetailView: View {
                     Spacer()
                     Spacer()
                     
-                    Image(systemName: "info.circle.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(Color.neutralGrayTertiaryGray)
-                        .padding(.bottom, 16)
+                    NavigationLink(destination: MountainCardComponent(mountain: mountain)){
+                        Image(systemName: "info.circle.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundStyle(Color.neutralGrayTertiaryGray)
+                            .padding(.bottom, 16)
+                    }
+                        
+                    
+                    
                 }
                 .padding(.horizontal, 24)
                 .onAppear {

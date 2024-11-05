@@ -30,6 +30,8 @@ struct MountainsTracksView: View {
     
     @State  var isSearchActive = false
     @State private var selectedTrack: String?
+    @State private var selectedSearchResult: MountainTracksModel?
+    
     @Environment(\.isSearching) private var isSearching
     
     @FocusState private var isSearchFocused: Bool
@@ -86,40 +88,43 @@ struct MountainsTracksView: View {
                                 isShowingModal = true
                             }
                         }
-                    }
-                    .sheet(isPresented: $isShowingModal) {
+                    }.sheet(isPresented: $isShowingModal) {
                         NavigationStack {
                             VStack(alignment: .leading) {
-                                //                Text(isSearching ? "search" : "not searching")
-                                Text("Suggested Mountains")
-                                    .font(.bodyEmphasized)
-                                    .foregroundStyle(Color.primaryGreen500)
-                                    .padding(.horizontal, 24)
-                                
-                                
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 16) {
-                                        ForEach(viewModel.mountainsTracks, id: \.id) { mountain in
-                                            NavigationLink(destination: MountainTracksDetailView(mountain: mountain, navigationManager: navigationManager, viewModel: viewModel, isShowingModal: $isShowingModal)) {
-                                                VStack(alignment: .leading) {
-                                                    Image(mountain.imageURL)
-                                                        .resizable()
-                                                        .aspectRatio(contentMode: .fill)
-                                                        .frame(width: 205, height: 150)
-                                                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                                                    
-                                                    Text(mountain.name)
-                                                        .font(.subheadlineRegular)
-                                                        .foregroundStyle(Color.primaryGreen500)
-                                                    
+                                if let mountain = selectedSearchResult{
+                                    MountainTracksDetailView(mountain: mountain, navigationManager: navigationManager, viewModel: viewModel, isShowingModal: $isShowingModal)
+                                }
+                                else{
+                                    Text("Suggested Mountains")
+                                        .font(.bodyEmphasized)
+                                        .foregroundStyle(Color.primaryGreen500)
+                                        .padding(.horizontal, 24)
+                                    
+                                    
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 16) {
+                                            ForEach(viewModel.mountainsTracks, id: \.id) { mountain in
+                                                NavigationLink(destination: MountainTracksDetailView(mountain: mountain, navigationManager: navigationManager, viewModel: viewModel, isShowingModal: $isShowingModal)) {
+                                                    VStack(alignment: .leading) {
+                                                        Image(mountain.imageURL)
+                                                            .resizable()
+                                                            .aspectRatio(contentMode: .fill)
+                                                            .frame(width: 205, height: 150)
+                                                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                                                        
+                                                        Text(mountain.name)
+                                                            .font(.subheadlineRegular)
+                                                            .foregroundStyle(Color.primaryGreen500)
+                                                        
+                                                    }
                                                 }
                                             }
                                         }
+                                        .padding(.horizontal, 24)
+                                        
                                     }
-                                    .padding(.horizontal, 24)
-                                    
+                                    .padding(.top, 8)
                                 }
-                                .padding(.top, 8)
                             }
                             .padding(.vertical, 8)
                             .presentationDetents([.fraction(0.4)], selection: $selectedDetent)
@@ -128,6 +133,7 @@ struct MountainsTracksView: View {
                             .interactiveDismissDisabled(true)
                         }
                     }
+                   
                 
             }
             
@@ -158,8 +164,9 @@ struct MountainsTracksView: View {
             ForEach(searchResult, id: \.self) {
                 result in
                 Button{
-                    isShowingModal = false
-                    navigationManager.navigationPath.append(MountainDestinationView.mountainTracksDetail(mountain: result))
+                    isShowingModal = true
+                    selectedSearchResult = result
+//                    navigationManager.navigationPath.append(MountainDestinationView.mountainTracksDetail(mountain: result))
                 }label: {
                     SearchMountainCardComponent(mountain: result.name, streetName: result.streetName)
                 }
@@ -168,10 +175,16 @@ struct MountainsTracksView: View {
 //        .focused($isSearchFocused)
         .onChange(of: isSearchActive){
             
-            isShowingModal = false
+            if isSearchActive == true{
+                isShowingModal = false
+            }else{
+                selectedSearchResult = nil
+                isShowingModal = true
+            }
         }
         .ignoresSafeArea()
         .environmentObject(navigationManager)
+        
         
         
 //                        .searchable(text: $searchMountain, prompt: "Find Mountains"){

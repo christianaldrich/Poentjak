@@ -21,7 +21,7 @@ struct ActionButtonSection: View {
                     startRescue()
                 }
             } else {
-                SlideToActionButton(slidingDirection: .ltr) {
+                SlideToActionButton(slidingDirection: .ltr, text: "Finished Evacuating") {
                     Task {
                         await viewModel.evacuate(id: emergencyRequest.id)
                     }

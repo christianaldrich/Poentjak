@@ -20,6 +20,7 @@ struct EmergencyProsesView: View {
     @StateObject var viewModel = EmergencyProsesViewModel()
     @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
     
+    
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
     
     @State var trackLocation: String?
@@ -31,167 +32,176 @@ struct EmergencyProsesView: View {
     
     @StateObject private var navigationManager = NavigationManager()
     
+    @State private var isShowingModal = true
+    @State private var selectedDetent = PresentationDetent.fraction(0.1)
+    
+    
     var body: some View {
-        
-        
-        
         NavigationStack(path: $navigationManager.navigationPath) {
             
             VStack {
                 
-                ZStack{
+                GeometryReader { geometry in
                     MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: viewModel.trackId)
-                        .zIndex(0)
+                        .frame(height: geometry.size.height * 1.1)
+                        .edgesIgnoringSafeArea(.all)
                     
                     
                     VStack {
                         VStack {
-                            TopETAView(navigateViewModel: navigateViewModel)
+                            TopETAView(navigateViewModel: navigateViewModel, isShowingModal: $isShowingModal)
                             
-                            //INSERT NAVIGATION LINK HERE
-                            // buat yang di bawah
-                            
-                            HStack {
-                                Text("Due date")
-                                    .font(.headline)
-                                Text("30-45 min")
-                                    .font(.subheadline)
-                                Spacer()
-                                Text("->")
-                                    .font(.subheadline)
-                            }
-                            .padding()
-                            
-                            .onTapGesture {
-                                navigationManager.navigationPath.append(DestinationView.editDueDate)
-                            }
-                            
-                            HStack{
-                                Text("name: \(viewModel.userName)")
-                                Text("status: \(viewModel.status)")
+                            //                            HStack{
+                            //                                Text("name: \(viewModel.userName)")
+                            //                                Text("status: \(viewModel.status)")
+                            //
+                            //                            }
+                            //
+                            //                            Text("session id: \(viewModel.sessionId)")
+                            //                            Text("due: \(viewModel.dueDate)")
+                            //
+                            //                            if viewModel.sendSOSToFirebase{
+                            //                                Text("Your SOS signal is being sent, stay calm.")
+                            //
+                            //                            }
+                            //
+                            //
+                            //
+                            //                        }
+                            //                        .background(Color.white)
+                            //                        .zIndex(1)
+                            //
+                            //                        Spacer()
+                        }
+                        
+                        
+                        SOSButtonView(navigationPath: $navigationManager.navigationPath)
+                            .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
+                            .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
+                            .zIndex(2)
+                        
+                    }
+                    .sheet(isPresented: $isShowingModal) {
+                        ScrollView{
+                            VStack{
+                                
+                                HStack{
+                                    HalfButtonComponent(halfType: .secondaryGuide) {
+                                        isShowingModal = false
+                                        navigationManager.navigationPath.append(DestinationView.alertGuide)
+                                    }
+                                    Spacer()
+                                    
+                                    HalfButtonComponent(halfType: .SOS) {
+                                        isShowingModal = false
+                                        withAnimation {
+                                            viewModel.showSOSButtonView.toggle()
+                                        }
+                                    }
+                                }
+                                .padding(.horizontal, 24)
+                                .padding(.top, 32)
+                                .padding(.bottom, 16)
+                                
+                                ReturnDateButton(time: viewModel.dueDate) {
+                                    isShowingModal = false
+                                    navigationManager.navigationPath.append(DestinationView.editDueDate)
+                                }
+                                .padding(.horizontal, 24)
+                                
+                                VStack(alignment: .center) {
+                                    Text("Important:")
+                                        .foregroundColor(.errorRed500)
+                                        .font(.subheadlineEmphasized) +
+                                    Text(" Make sure to finish the trip \nwhen arriving at the basecamp.")
+                                        .foregroundColor(.primaryGreen500) // Default color for the rest of the text
+                                        .font(.subheadlineRegular)
+                                }
+                                .multilineTextAlignment(.center)
+                                .padding(.top, 16)
+                                
+                                SlideToActionButton(slidingDirection: .ltr, buttonColor: .primaryGreen500, text: "Finish trip") {
+                                    Task{
+                                        await viewModel.updateSessionDone()
+                                        navigateViewModel.isNavigating = false
+                                        navigateViewModel.stopTimer()
+                                        SOSManager.shared.isSOS = false
+                                        navigateViewModel.isSOS = false
+                                        
+                                        
+                                        //                            mountainViewModel.isPresenting = false
+                                        mountainViewModel.toggleIsPresenting()
+                                        mountainViewModel.toggleIsPresenting()
+                                        
+                                        
+                                    }
+                                }
+                                .padding(.horizontal, 24)
+                                .padding(.top, 16)
                                 
                             }
-                            
-                            Text("session id: \(viewModel.sessionId)")
-                            Text("due: \(viewModel.dueDate)")
-                            
-                            if viewModel.sendSOSToFirebase{
-                                Text("Your SOS signal is being sent, stay calm.")
-                                
-                            }
-                            
-                            
-                            
                         }
-                        .background(Color.white)
-                        .zIndex(1)
-                        
-                        Spacer()
+                        .presentationDetents([.fraction(0.1), .fraction(0.4)], selection: $selectedDetent)
+                        .presentationDragIndicator(.visible)
+                        .presentationBackgroundInteraction(
+                            .enabled(upThrough: .fraction(0.4))
+                        )
+                        .interactiveDismissDisabled(true)
                     }
                     
                     
-                    SOSButtonView(navigationPath: $navigationManager.navigationPath)
-                        .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
-                        .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
-                        .zIndex(2)
                     
                 }
-                
-                
-                
-                
-                VStack{
-                    
-                    Button("I am back at basecamp"){
-                        Task{
-                            await viewModel.updateSessionDone()
-                            navigateViewModel.isNavigating = false
-                            navigateViewModel.stopTimer()
-                            SOSManager.shared.isSOS = false
-                            navigateViewModel.isSOS = false
-                            
-                            
-                            //                            mountainViewModel.isPresenting = false
-                            mountainViewModel.toggleIsPresenting()
-                            mountainViewModel.toggleIsPresenting()
-                            
-                            
-                        }
+                .navigationDestination(for: DestinationView.self) { destination in
+                    switch destination {
+                    case .editDueDate:
+                        EditDueDateView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                    case .chooseEmergency:
+                        ChooseEmergencyTypeView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                    case .alertGuide:
+                        AlertGuideView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                    case .countDown:
+                        CountDownView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                    case .soundBoard:
+                        SoundBoardView()
+                            .environmentObject(navigationManager)
                     }
-                    
-                    HStack{
-                        Button(action: {
-                            // Guide action
-                            navigationManager.navigationPath.append(DestinationView.alertGuide)
-                        }) {
-                            Text("Guide")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.green)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
-                        
-                        Spacer()
-                        
-                        
-                        Button(action: {
-                            // Toggle SOS View with animation
-                            withAnimation {
-                                viewModel.showSOSButtonView.toggle()
-                            }
-                        }) {
-                            
-                            Text(viewModel.showSOSButtonView ? "Map" : "SOS")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(viewModel.showSOSButtonView ? Color.blue : Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
-                    }
-                    .padding()
-                    
                 }
-                
+                .onAppear{
+                    viewModel.deleteAnimation = false
+                    navigateViewModel.setupRegionUser()
+                    isShowingModal = true
+                }
+                .onChange(of: viewModel.sessionId){
+                    if viewModel.sessionId == "no session id"{
+                        mountainViewModel.toggleIsPresenting()
+                    }
+                }
                 
             }
-            .navigationDestination(for: DestinationView.self) { destination in
-                switch destination {
-                case .editDueDate:
-                    EditDueDateView(viewModel: viewModel)
-                case .chooseEmergency:
-                    ChooseEmergencyTypeView(viewModel: viewModel)
-                case .alertGuide:
-                    AlertGuideView(viewModel: viewModel)
-                case .countDown:
-                    CountDownView(viewModel: viewModel)
-                case .soundBoard:
-                    SoundBoardView()
-                }
-            }
+            .environmentObject(navigationManager)
+            
             .onAppear{
-                viewModel.deleteAnimation = false
-                navigateViewModel.setupRegionUser()
+                viewModel.fetchEmergency()
+                navigateViewModel.fileName = viewModel.trackId
+                //            navigateViewModel.updateTrackId(viewModel.trackId)
+                //            navigateViewModel.setupRegionUser()
+                viewModel.startTimer()
+                navigateViewModel.isNavigating = true
+                navigateViewModel.startTimer()
+                isShowingModal = true
             }
-            .onChange(of: viewModel.sessionId){
-                if viewModel.sessionId == "no session id"{
-                    mountainViewModel.toggleIsPresenting()
-                }
-            }
-        }
-        .environmentObject(navigationManager)
-        
-        .onAppear{
-            viewModel.fetchEmergency()
-            navigateViewModel.fileName = viewModel.trackId
-            //            navigateViewModel.updateTrackId(viewModel.trackId)
-            //            navigateViewModel.setupRegionUser()
-            viewModel.startTimer()
-            navigateViewModel.isNavigating = true
-            navigateViewModel.startTimer()
-        }
-    }
+            .onChange(of: navigationManager.navigationPath) { newPath in
+                            // Check if we're navigating back to this view
+                            if newPath.isEmpty { // Adjust this logic based on your navigation structure
+                                isShowingModal = true // Show modal when going back to the view
+                            }
+                        }
+        }}
 }
 #Preview {
     EmergencyProsesView()

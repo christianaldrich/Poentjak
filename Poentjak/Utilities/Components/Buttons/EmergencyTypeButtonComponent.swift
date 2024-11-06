@@ -62,7 +62,8 @@ struct EmergencyButtonComponent: View {
             .frame(width: 340, height: 64)
             .background(Color.neutralWhite)
             .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.2), radius: 8, x: 0, y: 4)
+            .shadow(color: Color.black.opacity(0.06), radius: 8, x: 0, y: 4)
+            .shadow(color: Color.black.opacity(0.04), radius: 4, x: 0, y: 0)
 
         }
     }

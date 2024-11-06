@@ -13,7 +13,7 @@ struct CustomLargeButtonComponent: View {
     var action: () -> Void
     var body: some View {
         Button {
-            if state == .enabled {
+            if state == .enabled || state == .danger {
                 action()
             }
         } label: {

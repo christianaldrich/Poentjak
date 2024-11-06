@@ -173,6 +173,26 @@ extension Image {
         static var summit: Image {
             return Image("Icons/label/i_ib_summit")
         }
+        
+        static var number1: Image {
+            return Image("Icons/numberIcon/i_lb_number1")
+        }
+        
+        static var number2: Image {
+            return Image("Icons/numberIcon/i_lb_number2")
+        }
+        
+        static var number3: Image {
+            return Image("Icons/numberIcon/i_lb_number3")
+        }
+        
+        static var number4: Image {
+            return Image("Icons/numberIcon/i_lb_number4")
+        }
+        
+        static var number5: Image {
+            return Image("Icons/numberIcon/i_lb_number5")
+        }
     }
     
     struct PickerIcon{

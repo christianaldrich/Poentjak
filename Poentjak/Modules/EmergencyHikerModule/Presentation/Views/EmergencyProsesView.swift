@@ -50,28 +50,6 @@ struct EmergencyProsesView: View {
                     VStack {
                         VStack {
                             TopETAView(navigateViewModel: navigateViewModel, isShowingModal: $isShowingModal)
-                            
-                            //                            HStack{
-                            //                                Text("name: \(viewModel.userName)")
-                            //                                Text("status: \(viewModel.status)")
-                            //
-                            //                            }
-                            //
-                            //                            Text("session id: \(viewModel.sessionId)")
-                            //                            Text("due: \(viewModel.dueDate)")
-                            //
-                            //                            if viewModel.sendSOSToFirebase{
-                            //                                Text("Your SOS signal is being sent, stay calm.")
-                            //
-                            //                            }
-                            //
-                            //
-                            //
-                            //                        }
-                            //                        .background(Color.white)
-                            //                        .zIndex(1)
-                            //
-                            //                        Spacer()
                         }
                         
                         
@@ -128,8 +106,6 @@ struct EmergencyProsesView: View {
                                         SOSManager.shared.isSOS = false
                                         navigateViewModel.isSOS = false
                                         
-                                        
-                                        //                            mountainViewModel.isPresenting = false
                                         mountainViewModel.toggleIsPresenting()
                                         mountainViewModel.toggleIsPresenting()
                                         
@@ -196,11 +172,11 @@ struct EmergencyProsesView: View {
                 isShowingModal = true
             }
             .onChange(of: navigationManager.navigationPath) { newPath in
-                            // Check if we're navigating back to this view
-                            if newPath.isEmpty { // Adjust this logic based on your navigation structure
-                                isShowingModal = true // Show modal when going back to the view
-                            }
-                        }
+                // Check if we're navigating back to this view
+                if newPath.isEmpty { // Adjust this logic based on your navigation structure
+                    isShowingModal = true // Show modal when going back to the view
+                }
+            }
         }}
 }
 #Preview {

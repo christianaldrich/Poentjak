@@ -16,7 +16,7 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var sessionId: String = "no session id"
     @Published var emergencyType: EmergencyType = .hipo
     
-    @Published var trackId: String = "gedeDefault"
+    @Published var trackId: String = "GedeViaPutri"
     
     
     @Published var emergencySessionActive: Bool = false

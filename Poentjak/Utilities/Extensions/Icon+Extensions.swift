@@ -183,11 +183,11 @@ extension Image {
     
     struct SoundBoardIcon{
         static var airhorn: Image {
-            return Image("Icons/soundBoard/i_sb_airhorn")
+            return Image("Icons/SoundBoard/i_sb_airhorn")
         }
         
         static var alarm: Image {
-            return Image("Icons/soundBoard/i_sb_alarm")
+            return Image("Icons/SoundBoard/i_sb_alarm")
         }
         
         static var sosMorse: Image {
@@ -195,7 +195,7 @@ extension Image {
         }
         
         static var whistle: Image {
-            return Image("Icons/soundBoard/i_sb_whistle")
+            return Image("Icons/SoundBoard/i_sb_whistle")
         }
     }
     

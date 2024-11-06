@@ -14,7 +14,20 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var userName: String = "name..."
     @Published var dueDate: Date = Date()
     @Published var sessionId: String = "no session id"
-    @Published var emergencyType: EmergencyType = .hipo
+    @Published var emergencyType: EmergencyType = .hipo {
+        didSet {
+            switch emergencyType {
+            case .hipo:
+                self.text = "WARM"
+            case .overdue:
+                self.text = "WARM"
+            case .lost:
+                self.text = "STOP"
+            case .injury:
+                self.text = "CARE"
+            }
+        }
+    }
     
     @Published var trackId: String = "GedeViaPutri"
     
@@ -38,7 +51,26 @@ class EmergencyProsesViewModel: ObservableObject {
     //Temp
     //    @Published var backToProses: Bool = false
     
+    @Published var text = "CARE" {
+        didSet {
+            getContentData()
+        }
+    }
+    @Published var idSelected: Int = 1 {
+        didSet {
+            getContentData()  // Call getContentData whenever idSelected changes
+        }
+    }
     
+    @Published var contentData: AlertGuideContentDataModel = AlertGuideData.defaultData
+    
+    init() {
+        getContentData()  // Initial load of content data
+    }
+    
+    func getContentData() {
+        self.contentData = AlertGuideData.data[text]?[idSelected] ?? AlertGuideData.defaultData
+    }
     
     func createEmergencyHiking(trackId: String) async {
         do {

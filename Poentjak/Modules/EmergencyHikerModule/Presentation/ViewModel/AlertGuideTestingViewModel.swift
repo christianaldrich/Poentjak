@@ -14,13 +14,17 @@ class AlertGuideTestingViewModel: ObservableObject {
             getContentData()  // Call getContentData whenever idSelected changes
         }
     }
+        
     @Published var contentData: AlertGuideContentDataModel = AlertGuideData.defaultData
-
-    init() {
-        getContentData()  // Initial load of content data
-    }
+    
+        init() {
+            getContentData()  // Initial load of content data
+        }
     
     func getContentData() {
         self.contentData = AlertGuideData.data[text]?[idSelected] ?? AlertGuideData.defaultData
     }
+    
 }
+
+

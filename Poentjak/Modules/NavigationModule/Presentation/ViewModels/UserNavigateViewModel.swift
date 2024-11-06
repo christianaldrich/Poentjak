@@ -31,9 +31,10 @@ class UserNavigateViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var dotTimer: Timer? // Timer to draw dots
     
-    @State var fileName: String
+    @Published var fileName: String
     
     init(fileName: String) {
+        print("\n\n\n\nTESTINGFILENAME: \(fileName)")
         self.fileName = fileName
         gpxParser.parseGPX(fileName: fileName)
         setupRegionUser()
@@ -112,6 +113,7 @@ class UserNavigateViewModel: ObservableObject {
             let centerLon = totalLon / Double(trackPoints.count)
             region.center = CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon)
             region.span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+//            region.span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
         }
     }
     
@@ -119,6 +121,8 @@ class UserNavigateViewModel: ObservableObject {
         if let location = locationManager.lastKnownLocation {
             region.center = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             region.span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+//            region.span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+
         }
         
     }

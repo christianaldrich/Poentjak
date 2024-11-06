@@ -13,6 +13,8 @@ struct SuggestedMountainComponent: View {
     @State private var isShowingModal = true
     @State private var selectedDetent = PresentationDetent.fraction(0.7)
     @Environment(\.isSearching) private var isSearching
+    @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
+
 
 
     var body: some View {

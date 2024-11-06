@@ -18,13 +18,13 @@ class EmergencyProsesViewModel: ObservableObject {
         didSet {
             switch emergencyType {
             case .hipo:
-                self.text = "WARM"
+                self.alertGuideTextTabBar = "WARM"
             case .overdue:
-                self.text = "WARM"
+                self.alertGuideTextTabBar = "WARM"
             case .lost:
-                self.text = "STOP"
+                self.alertGuideTextTabBar = "STOP"
             case .injury:
-                self.text = "CARE"
+                self.alertGuideTextTabBar = "CARE"
             }
         }
     }
@@ -51,27 +51,31 @@ class EmergencyProsesViewModel: ObservableObject {
     //Temp
     //    @Published var backToProses: Bool = false
     
-    @Published var text = "CARE" {
+    
+    // MARK: - start: ni logic buat alert guide
+    @Published var alertGuideTextTabBar = "CARE" {
         didSet {
             getContentData()
         }
     }
     @Published var idSelected: Int = 1 {
         didSet {
-            getContentData()  // Call getContentData whenever idSelected changes
+            getContentData()
         }
     }
     
     @Published var contentData: AlertGuideContentDataModel = AlertGuideData.defaultData
     
     init() {
-        getContentData()  // Initial load of content data
+        getContentData()
     }
     
     func getContentData() {
-        self.contentData = AlertGuideData.data[text]?[idSelected] ?? AlertGuideData.defaultData
+        self.contentData = AlertGuideData.data[alertGuideTextTabBar]?[idSelected] ?? AlertGuideData.defaultData
     }
+    // MARK: - end
     
+    // MARK: - start: ini logic buat di due date view
     func createEmergencyHiking(trackId: String) async {
         do {
             try await useCase.createEmergency(dueDate: dueDate, trackId: trackId)
@@ -92,8 +96,9 @@ class EmergencyProsesViewModel: ObservableObject {
             }
         }
     }
+    // MARK: - end
     
-    
+    // MARK: - start: ini logic buat di emergency proses view
     func fetchEmergency() {
         useCase.fetchEmergency { result in
             DispatchQueue.main.async {
@@ -156,7 +161,7 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
-    
+    // MARK: - start: ini logic buat di countdown view
     func startCountDown(navigationManager: NavigationManager) {
         countDownTime = 5
         

@@ -10,7 +10,6 @@ import SwiftUI
 struct AlertGuideView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @StateObject var viewModel: EmergencyProsesViewModel
-    @StateObject var viewModelAlert = AlertGuideTestingViewModel()
     
     var body: some View {
         VStack {
@@ -23,7 +22,7 @@ struct AlertGuideView: View {
             //
             //            Text("You chose this emergency type: \(viewModel.emergencyType)")
             
-            AlertGuideTabBar(idSelected: $viewModel.idSelected, text: viewModel.text)
+            AlertGuideTabBar(idSelected: $viewModel.idSelected, text: viewModel.alertGuideTextTabBar)
             AlertGuideContent(contentData: viewModel.contentData)
             
             Text("You chose this emergency type: \(viewModel.emergencyType)")
@@ -106,6 +105,9 @@ struct AlertGuideView: View {
         }
         .navigationBarBackButtonHidden(true)
         .padding(.horizontal, 24)
+        .onAppear{
+            viewModel.idSelected = 1
+        }
         
         
     }
@@ -152,8 +154,8 @@ extension AlertGuideView {
                     .background(Color.primaryGreen500)
                     .cornerRadius(16)
             }
-            .opacity(viewModelAlert.idSelected == 1 ? 0 : 1)
-            .disabled(viewModelAlert.idSelected == 1)
+            .opacity(viewModel.idSelected == 1 ? 0 : 1)
+            .disabled(viewModel.idSelected == 1)
             
             
             Button(action: {
@@ -178,8 +180,8 @@ extension AlertGuideView {
                     .background(Color.primaryGreen500)
                     .cornerRadius(16)
             }
-            .opacity(viewModelAlert.idSelected == 4 ? 0 : 1)
-            .disabled(viewModelAlert.idSelected == 4)
+            .opacity(viewModel.idSelected == 4 ? 0 : 1)
+            .disabled(viewModel.idSelected == 4)
             
         }
     }

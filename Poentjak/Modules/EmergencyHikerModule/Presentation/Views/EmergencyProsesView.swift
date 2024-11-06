@@ -72,9 +72,10 @@ struct EmergencyProsesView: View {
                                     
                                     HalfButtonComponent(halfType: .SOS) {
                                         isShowingModal = false
-                                        withAnimation {
-                                            viewModel.showSOSButtonView.toggle()
-                                        }
+                                        navigationManager.navigationPath.append(DestinationView.chooseEmergency)
+//                                        withAnimation {
+//                                            viewModel.showSOSButtonView.toggle()
+//                                        }
                                     }
                                 }
                                 .padding(.horizontal, 24)

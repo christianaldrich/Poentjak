@@ -58,7 +58,9 @@ struct MountainsTracksView: View {
             //            }
             ZStack{
                 
-                MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: "")
+//                MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: "")
+                
+                MKMapViewRepresentable()
                 
                 //                    .zIndex(0)
                 

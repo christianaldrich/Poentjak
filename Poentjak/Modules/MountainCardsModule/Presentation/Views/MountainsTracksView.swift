@@ -65,7 +65,6 @@ struct MountainsTracksView: View {
 
                 
                 //                    .zIndex(0)
-                Text("ASDF")
                 
                     .navigationDestination(for: MountainDestinationView.self) { destination in
                         switch destination {

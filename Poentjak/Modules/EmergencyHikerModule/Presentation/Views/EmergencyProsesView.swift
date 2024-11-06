@@ -49,7 +49,7 @@ struct EmergencyProsesView: View {
                     
                     VStack {
                         VStack {
-                            TopETAView(navigateViewModel: navigateViewModel, isShowingModal: $isShowingModal)
+                            TopETAView(navigateViewModel: navigateViewModel, viewModel: viewModel, isShowingModal: $isShowingModal)
                         }
                         
                         
@@ -70,12 +70,29 @@ struct EmergencyProsesView: View {
                                     }
                                     Spacer()
                                     
-                                    HalfButtonComponent(halfType: .SOS) {
-                                        isShowingModal = false
-                                        withAnimation {
-                                            viewModel.showSOSButtonView.toggle()
+                                    if viewModel.isSignalSent && viewModel.sendSOSToFirebase{
+                                        HalfButtonComponent(halfType: .SOSSent) {
+                                            isShowingModal = false
+                                            withAnimation {
+                                                viewModel.showSOSButtonView.toggle()
+                                            }
+                                        }
+                                    } else if viewModel.isSignalSent && !viewModel.sendSOSToFirebase{
+                                        HalfButtonComponent(halfType: .SOSSending) {
+                                            isShowingModal = false
+                                            withAnimation {
+                                                viewModel.showSOSButtonView.toggle()
+                                            }
+                                        }
+                                    } else {
+                                        HalfButtonComponent(halfType: .SOS) {
+                                            isShowingModal = false
+                                            withAnimation {
+                                                viewModel.showSOSButtonView.toggle()
+                                            }
                                         }
                                     }
+
                                 }
                                 .padding(.horizontal, 24)
                                 .padding(.top, 32)

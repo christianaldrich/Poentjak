@@ -18,12 +18,8 @@ enum HalfButton {
         switch self {
         case .primaryGuide, .secondaryGuide:
             return Image.ButtonIcon.guide
-        case .SOS:
+        case .SOS, .SOSSent, .SOSSending:
             return Image.ButtonIcon.sos
-        case .SOSSending:
-            return nil
-        case .SOSSent:
-            return nil
         }
     }
 

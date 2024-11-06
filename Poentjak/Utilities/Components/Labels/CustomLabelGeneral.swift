@@ -69,10 +69,10 @@ struct CustomLabelGeneral: View {
         case .mdpl(let altitude):
             Text("\(altitude) MDPL")
                 .font(.caption1Emphasized)
-                .foregroundColor(Color.primaryGreen500)
+                .foregroundColor(Color.neutralWhite)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 2)
-                .background(Color.primaryLightGreen)
+                .background(Color.primaryGreen500)
                 .cornerRadius(4)
             
         case .mdplCheckpoint(let altitude):

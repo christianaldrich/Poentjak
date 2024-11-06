@@ -58,20 +58,27 @@ struct MountainsTracksView: View {
             //            }
             ZStack{
                 
+
 //                MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: "")
                 
                 MKMapViewRepresentable()
+
                 
                 //                    .zIndex(0)
+                Text("ASDF")
                 
                     .navigationDestination(for: MountainDestinationView.self) { destination in
                         switch destination {
                         case .mountainTracksDetail(let mountain):
-                            MountainTracksDetailView(mountain: mountain, navigationManager: navigationManager, viewModel: viewModel, isShowingModal: $isShowingModal)
+                            MountainTracksDetailView(
+                                mountain: mountain,
+                                navigationManager: navigationManager,
+                                viewModel: viewModel,
+                                isShowingModal: $isShowingModal)
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
                         case .tracksDetail(let track):
-                            TracksDetailView(track: track, navigationManager: navigationManager, isShowingModal: $isShowingModal)
+                            TracksDetailView(track: track, navigationManager: navigationManager, isShowingModal: $isShowingModal, viewModel: EmergencyProsesViewModel(), navigateViewModel: UserNavigateViewModel(fileName: track), authViewModel: authViewModel)
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
                         case .dueDate(let trackLocation):
@@ -228,16 +235,4 @@ class MountainNavigationManager: ObservableObject {
 }
 
 
-//            Button(action: {
-//                Task {
-//                    await authViewModel.signOut()
-//                }
-//            }) {
-//                Text("Sign Out")
-//                    .font(.headline)
-//                    .padding()
-//                    .background(Color.red)
-//                    .foregroundColor(.white)
-//                    .cornerRadius(10)
-//            }
-//            .padding()
+

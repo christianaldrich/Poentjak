@@ -17,6 +17,9 @@ struct MountainTracksDetailView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var isMountainCardPresented = false
+    
+    @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
+
 
 
     var body: some View {
@@ -112,6 +115,8 @@ struct MountainTracksDetailView: View {
                         if !viewModel.selectedTracks.isEmpty {
                             ForEach(viewModel.selectedTracks, id: \.self) { track in
                                 Button(action: {
+//                                    mountainViewModel.selectedTrackLocation = track.id
+                                    
                                     navigationManager.navigationPath.append(MountainDestinationView.tracksDetail(tracks: track.id))
                                     isShowingModal = false
                                 }) {

@@ -49,16 +49,17 @@ struct EmergencyProsesView: View {
                         .edgesIgnoringSafeArea(.all)
                     
                     
+
                     VStack {
                         VStack {
                             TopETAView(navigateViewModel: navigateViewModel, viewModel: viewModel, isShowingModal: $isShowingModal)
+                                .frame(maxWidth: .infinity)
                         }
                         
-                        
-                        SOSButtonView(navigationPath: $navigationManager.navigationPath)
-                            .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
-                            .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
-                            .zIndex(2)
+                        //                        SOSButtonView(navigationPath: $navigationManager.navigationPath)
+                        //                            .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
+                        //                            .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
+                        //                            .zIndex(2)
                         
                     }
                     .sheet(isPresented: $isShowingModal) {
@@ -72,26 +73,30 @@ struct EmergencyProsesView: View {
                                     }
                                     Spacer()
                                     
+
                                     if viewModel.isSignalSent && viewModel.sendSOSToFirebase{
                                         HalfButtonComponent(halfType: .SOSSent) {
                                             isShowingModal = false
-                                            withAnimation {
-                                                viewModel.showSOSButtonView.toggle()
-                                            }
+                                            navigationManager.navigationPath.append(DestinationView.chooseEmergency)
+//                                            withAnimation {
+//                                                viewModel.showSOSButtonView.toggle()
+//                                            }
                                         }
                                     } else if viewModel.isSignalSent && !viewModel.sendSOSToFirebase{
                                         HalfButtonComponent(halfType: .SOSSending) {
                                             isShowingModal = false
-                                            withAnimation {
-                                                viewModel.showSOSButtonView.toggle()
-                                            }
+                                            navigationManager.navigationPath.append(DestinationView.chooseEmergency)
+//                                            withAnimation {
+//                                                viewModel.showSOSButtonView.toggle()
+//                                            }
                                         }
                                     } else {
                                         HalfButtonComponent(halfType: .SOS) {
                                             isShowingModal = false
-                                            withAnimation {
-                                                viewModel.showSOSButtonView.toggle()
-                                            }
+                                            navigationManager.navigationPath.append(DestinationView.chooseEmergency)
+//                                            withAnimation {
+//                                                viewModel.showSOSButtonView.toggle()
+//                                            }
                                         }
                                     }
                                     

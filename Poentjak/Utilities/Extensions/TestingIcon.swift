@@ -22,6 +22,10 @@ struct TestingIcon: View {
             
             HStack{
                 Image.AlertIcon.success
+
+                Image.ButtonIcon.sound
+                Image.ButtonIcon.soundMute
+
                 
             }
             

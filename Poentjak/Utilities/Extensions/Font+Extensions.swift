@@ -32,6 +32,10 @@ extension Font {
         return Font.system(size: 22, weight: .bold)
     }()
     
+    static var title2Semi: Font = {
+        return Font.system(size: 22, weight: .semibold)
+    }()
+    
     static var title3Regular: Font = {
         return Font.system(size: 20, weight: .regular)
     }()

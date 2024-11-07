@@ -246,5 +246,23 @@ extension Image {
             return Image("Icons/tabBar/i_tabBar_book")
         }
     }
+    
+    struct MapIcon{
+        static var warung: Image {
+            return Image("Icons/map/i_m_warung")
+        }
+        
+        static var checkpoint: Image {
+            return Image("Icons/map/i_m_checkpoint")
+        }
+        
+        static var summit: Image {
+            return Image("Icons/map/i_m_summit")
+        }
+        
+        static var gnGede: Image {
+            return Image("Icons/map/i_m_gnGede")
+        }
+    }
         
 }

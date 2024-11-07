@@ -1,19 +1,19 @@
 //
-//  CompleteButtonComponent.swift
+//  CustomConfirmationButton.swift
 //  Poentjak
 //
-//  Created by Singgih Tulus Makmud on 14/10/24.
+//  Created by Shan Havilah on 07/11/24.
 //
 
 import SwiftUI
 
-struct CustomLargeButtonComponent: View {
+struct CustomConfirmationButton: View {
     var state: ButtonState = .enabled
-    var text: String = "Complete"
+    var text: String
     var action: () -> Void
     var body: some View {
         Button {
-            if state == .enabled || state == .danger {
+            if state == .enabled {
                 action()
             }
         } label: {
@@ -38,22 +38,14 @@ struct CustomLargeButtonComponent: View {
                         .kerning(0.4)
                 }
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 72)
+            .frame(width: 279, height: 48)
         }
         .disabled(state == .disabled || state == .loading)
     }
 }
 
 #Preview {
-    VStack {
-        CustomLargeButtonComponent(state: .disabled){
-            print("hi")
-        }
+    CustomConfirmationButton(text: "Yes, I've returned"){
         
-        CustomLargeButtonComponent(){
-            print("hi")
-        }
     }
 }
-

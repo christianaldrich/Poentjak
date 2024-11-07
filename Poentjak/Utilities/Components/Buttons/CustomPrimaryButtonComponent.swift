@@ -14,7 +14,7 @@ struct CustomPrimaryButtonComponent: View {
     
     var body: some View {
         Button {
-            if state == .enabled {
+            if state == .enabled || state == .danger{
                 action()
             }
         } label: {
@@ -67,6 +67,10 @@ struct CustomPrimaryButtonComponent: View {
         
         CustomPrimaryButtonComponent(state: .secondary, text: "Log In") {
             print("Secondary button tapped")
+        }
+        
+        CustomPrimaryButtonComponent(state: .danger, text: "Danger") {
+            print("Danger button tapped")
         }
     }
     .padding()

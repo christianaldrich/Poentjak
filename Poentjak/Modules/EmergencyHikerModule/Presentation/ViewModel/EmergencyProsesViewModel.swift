@@ -48,8 +48,7 @@ class EmergencyProsesViewModel: ObservableObject {
     
     private var emergencyStatus: EmergencyStatus = .completed
     
-    //Temp
-    //    @Published var backToProses: Bool = false
+    @Published var emergencyScale: Double = 1
     
     
     // MARK: - start: ni logic buat alert guide

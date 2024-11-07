@@ -30,9 +30,17 @@ struct HalfButtonComponent: View {
                         .renderingMode(.template) // This allows the icon to be tinted
                         .foregroundColor(foregroundColorButton(for: halfType))
                     
-                    Text(halfType.title)
-                        .foregroundColor(foregroundColorButton(for: halfType))
-                        .font(.title3Emphasized)
+                    if halfType == .SOSSending || halfType == .SOSSent{
+                        Text(halfType.title)
+                            .foregroundColor(foregroundColorButton(for: halfType))
+                            .font(.customPrimaryButton)
+                    }
+                    else{
+                        Text(halfType.title)
+                            .foregroundColor(foregroundColorButton(for: halfType))
+                            .font(.title3Emphasized)
+                    }
+
                 }
             }
             .frame(width: 162, height: 54)

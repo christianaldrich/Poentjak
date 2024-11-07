@@ -52,12 +52,12 @@ class UserNavigateViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    var nearestWarung: Waypoint? {
+    var nearestWaypoint: Waypoint? {
         guard let userLocation = locationManager.lastKnownLocation else { return nil }
-        return closestPointOnTrack(userLocation: userLocation, track: gpxParser.parsedWaypointsWarung.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) })
-            .flatMap { warungLocation in
-                gpxParser.parsedWaypointsWarung.first { warung in
-                    warung.latitude == warungLocation.latitude && warung.longitude == warungLocation.longitude
+        return closestPointOnTrack(userLocation: userLocation, track: gpxParser.parsedWaypoints.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) })
+            .flatMap { waypointLocation in
+                gpxParser.parsedWaypoints.first { waypoint in
+                    waypoint.latitude == waypointLocation.latitude && waypoint.longitude == waypointLocation.longitude
                 }
             }
     }

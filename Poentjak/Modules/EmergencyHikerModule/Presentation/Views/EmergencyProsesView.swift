@@ -12,6 +12,7 @@ enum DestinationView {
     case editDueDate
     case chooseEmergency
     case alertGuide
+    case emergencyScale
     case countDown
     case soundBoard
 }
@@ -33,6 +34,7 @@ struct EmergencyProsesView: View {
     @StateObject private var navigationManager = NavigationManager()
     
     @State private var isShowingModal = true
+    @State private var showConfirmationModal = false
     @State private var selectedDetent = PresentationDetent.fraction(0.4)
     
     
@@ -47,14 +49,11 @@ struct EmergencyProsesView: View {
                         .edgesIgnoringSafeArea(.all)
                     
                     
-                    VStack{
-                        //                        VStack(alignment: .center) {
-                        //                            TopETAView(navigateViewModel: navigateViewModel, isShowingModal: $isShowingModal)
-                        //
-                        //                        }
-                        //
-                        TopETAView(navigateViewModel: navigateViewModel, isShowingModal: $isShowingModal)
-                            .frame(maxWidth: .infinity)
+
+                    VStack {
+                        VStack {
+                            TopETAView(navigateViewModel: navigateViewModel, viewModel: viewModel, isShowingModal: $isShowingModal)
+                        }
                         
                         //                        SOSButtonView(navigationPath: $navigationManager.navigationPath)
                         //                            .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
@@ -73,13 +72,30 @@ struct EmergencyProsesView: View {
                                     }
                                     Spacer()
                                     
-                                    HalfButtonComponent(halfType: .SOS) {
-                                        isShowingModal = false
-                                        navigationManager.navigationPath.append(DestinationView.chooseEmergency)
-                                        //                                        withAnimation {
-                                        //                                            viewModel.showSOSButtonView.toggle()
-                                        //                                        }
+
+                                    if viewModel.isSignalSent && viewModel.sendSOSToFirebase{
+                                        HalfButtonComponent(halfType: .SOSSent) {
+                                            isShowingModal = false
+//                                            withAnimation {
+//                                                viewModel.showSOSButtonView.toggle()
+//                                            }
+                                        }
+                                    } else if viewModel.isSignalSent && !viewModel.sendSOSToFirebase{
+                                        HalfButtonComponent(halfType: .SOSSending) {
+                                            isShowingModal = false
+//                                            withAnimation {
+//                                                viewModel.showSOSButtonView.toggle()
+//                                            }
+                                        }
+                                    } else {
+                                        HalfButtonComponent(halfType: .SOS) {
+                                            isShowingModal = false
+//                                            withAnimation {
+//                                                viewModel.showSOSButtonView.toggle()
+//                                            }
+                                        }
                                     }
+                                    
                                 }
                                 .padding(.horizontal, 24)
                                 .padding(.top, 32)
@@ -102,18 +118,40 @@ struct EmergencyProsesView: View {
                                 .multilineTextAlignment(.center)
                                 .padding(.top, 16)
                                 
+                                //                                SlideToActionButton(slidingDirection: .ltr, buttonColor: .primaryGreen500, text: "Finish trip") {
+                                //                                    Task{
+                                //                                        await viewModel.updateSessionDone()
+                                //                                        navigateViewModel.isNavigating = false
+                                //                                        navigateViewModel.stopTimer()
+                                //                                        SOSManager.shared.isSOS = false
+                                //                                        navigateViewModel.isSOS = false
+                                //
+                                //                                        mountainViewModel.toggleIsPresenting()
+                                //                                        mountainViewModel.toggleIsPresenting()
+                                //
+                                //
+                                //                                    }
+                                //                                }
+                                //                                .padding(.horizontal, 24)
+                                //                                .padding(.top, 16)
+                                
                                 SlideToActionButton(slidingDirection: .ltr, buttonColor: .primaryGreen500, text: "Finish trip") {
-                                    Task{
-                                        await viewModel.updateSessionDone()
-                                        navigateViewModel.isNavigating = false
-                                        navigateViewModel.stopTimer()
-                                        SOSManager.shared.isSOS = false
-                                        navigateViewModel.isSOS = false
-                                        
-                                        mountainViewModel.toggleIsPresenting()
-                                        mountainViewModel.toggleIsPresenting()
-                                        
-                                        
+                                    if viewModel.isSignalSent {
+                                        // Show the confirmation modal when isSignalSent is true
+                                        showConfirmationModal = true
+                                        isShowingModal = false
+                                    } else {
+                                        // Run the task as before if isSignalSent is not true
+                                        Task {
+                                            await viewModel.updateSessionDone()
+                                            navigateViewModel.isNavigating = false
+                                            navigateViewModel.stopTimer()
+                                            SOSManager.shared.isSOS = false
+                                            navigateViewModel.isSOS = false
+                                            
+                                            mountainViewModel.toggleIsPresenting()
+                                            mountainViewModel.toggleIsPresenting()
+                                        }
                                     }
                                 }
                                 .padding(.horizontal, 24)
@@ -140,6 +178,9 @@ struct EmergencyProsesView: View {
                     case .chooseEmergency:
                         ChooseEmergencyTypeView(viewModel: viewModel)
                             .environmentObject(navigationManager)
+                    case .emergencyScale:
+                        EmergencyScaleView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
                     case .alertGuide:
                         AlertGuideView(viewModel: viewModel)
                             .environmentObject(navigationManager)
@@ -163,6 +204,33 @@ struct EmergencyProsesView: View {
                 }
                 
             }
+            .overlay {
+                // Show the modal overlay with darkened background when the modal is shown
+                if showConfirmationModal {
+                    ZStack{
+                        Color.black.opacity(0.4)
+                            .edgesIgnoringSafeArea(.all)
+                        
+                        CustomConfirmationComponent(confirmType: .evacuated, isModalVisible: $showConfirmationModal, sosGuideModalVisible: $isShowingModal){
+                            // Run the task when the confirmation button is tapped
+                            Task {
+                                await viewModel.updateSessionDone()
+                                navigateViewModel.isNavigating = false
+                                navigateViewModel.stopTimer()
+                                SOSManager.shared.isSOS = false
+                                navigateViewModel.isSOS = false
+    
+                                mountainViewModel.toggleIsPresenting()
+                                mountainViewModel.toggleIsPresenting()
+                            }
+                            // Dismiss the modal
+                            showConfirmationModal = false
+                        }
+                        
+                    }
+
+                }
+            }
             .environmentObject(navigationManager)
             
             .onAppear{
@@ -181,8 +249,10 @@ struct EmergencyProsesView: View {
                     isShowingModal = true // Show modal when going back to the view
                 }
             }
-        }}
+        }
+    }
 }
+
 #Preview {
     EmergencyProsesView()
 }

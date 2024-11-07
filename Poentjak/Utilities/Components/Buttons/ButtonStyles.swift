@@ -12,6 +12,7 @@ enum ButtonState {
     case disabled
     case loading
     case secondary
+    case danger
 }
 
 func foregroundColorButton(for state: ButtonState) -> Color {
@@ -22,6 +23,8 @@ func foregroundColorButton(for state: ButtonState) -> Color {
         return Color.neutralWhite
     case .secondary:
         return Color.primaryGreen500
+    case .danger:
+        return Color.neutralWhite
     }
 }
 
@@ -35,5 +38,7 @@ func backgroundColorButton(for state: ButtonState) -> Color {
         return Color.primaryGreen500
     case .secondary:
         return Color.neutralWhite
+    case .danger:
+        return Color.accentRedSos
     }
 }

@@ -58,12 +58,13 @@ struct MountainsTracksView: View {
             //            }
             ZStack{
                 
-                //BIKIN MAP BARU 
-                
+
 //                MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: "")
                 
+                MKMapViewRepresentable()
+
+                
                 //                    .zIndex(0)
-                Text("ASDF")
                 
                     .navigationDestination(for: MountainDestinationView.self) { destination in
                         switch destination {

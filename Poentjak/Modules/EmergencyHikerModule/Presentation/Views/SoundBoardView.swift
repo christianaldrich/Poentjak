@@ -11,61 +11,78 @@ import AudioToolbox
 
 struct SoundBoardView: View {
     @EnvironmentObject var navigationManager: NavigationManager
-    @State private var isLooping: Bool = false
-    @State private var timer: Timer?
+    @State private var activeSound: SoundBoardButton? = nil // Track active sound button
+    @State private var timer: Timer? // Shared timer for looping sound
     
     var body: some View {
-        VStack{
-            Text("This is sound board view")
+        VStack(alignment: .leading) {
+            Text("Soundboard")
+                .font(.title1Emphasized)
+                .foregroundStyle(Color.primaryGreen500)
             
-            Button(action: {
-                AudioServicesPlaySystemSound(1333) // Play system sound once
-            }) {
-                Text("Play Sound Once")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            VStack {
+                HStack {
+                    SoundBoardButtonComponent(
+                        soundBoardType: .airhorn,
+                        activeSound: $activeSound,
+                        currentActiveSound: .airhorn,
+                        timer: $timer
+                    )
+                    SoundBoardButtonComponent(
+                        soundBoardType: .whistle,
+                        activeSound: $activeSound,
+                        currentActiveSound: .whistle,
+                        timer: $timer
+                    )
+                }
+                
+                HStack {
+                    SoundBoardButtonComponent(
+                        soundBoardType: .siren,
+                        activeSound: $activeSound,
+                        currentActiveSound: .siren,
+                        timer: $timer
+                    )
+                    SoundBoardButtonComponent(
+                        soundBoardType: .morse,
+                        activeSound: $activeSound,
+                        currentActiveSound: .morse,
+                        timer: $timer
+                    )
+                }
             }
-            .padding()
             
-            Button(action: {
-                toggleLoopSound()
-            }) {
-                Text(isLooping ? "Stop Sound" : "Play Sound Continuously")
-                    .padding()
-                    .background(isLooping ? Color.red : Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            VStack {
+                
+                
+                
+                Text("Use the soundboard in emergencies to ")
+                    .font(.calloutRegular)
+                    .foregroundColor(.primaryGreen500) +
+                Text("alert rangers and nearby hikers")
+                    .font(.calloutEmphasized)
+                    .foregroundColor(.primaryGreen500)
+                    
             }
-            .padding()
+            .padding(.top, 24)
+            .padding(.horizontal, 0)
+            
+            Text("Tap on a distress sound and stay visible while waiting for help.")
+                .font(.calloutRegular)
+                .foregroundColor(.primaryGreen500)
+                .padding(.top, 16)
             
             
+            
+            
+            Spacer()
         }
+        .padding(.horizontal, 24)
+        .padding(.vertical, 8)
     }
-    
-    func toggleLoopSound() {
-            if isLooping {
-                stopLoopingSound()
-            } else {
-                startLoopingSound()
-            }
-            isLooping.toggle()
-        }
-
-        // Start looping the system sound using a timer
-        func startLoopingSound() {
-            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-                AudioServicesPlaySystemSound(1026)
-            }
-        }
-
-        // Stop the looping sound
-        func stopLoopingSound() {
-            timer?.invalidate() // Stop the timer
-            timer = nil
-        }
 }
+
+
 
 #Preview {
     SoundBoardView()

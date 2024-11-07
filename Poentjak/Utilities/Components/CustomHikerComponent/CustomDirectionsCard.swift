@@ -7,7 +7,7 @@
 import SwiftUI
 
 enum DirectionCardStatus {
-    case `default`, sos, overdue
+    case `default`, sos, overdue, sosSent
 }
 
 struct CustomDirectionsCard: View {
@@ -84,6 +84,18 @@ struct CustomDirectionsCard: View {
                             .font(.subheadlineEmphasized)
                             .foregroundColor(Color.primaryGreen500)
                     }
+                    
+                    if status == .sosSent {
+                        HStack(spacing: 10){
+                            Image.MapIcon.checkpoint
+                                .resizable()
+                                .frame(width: 29, height: 35)
+                            
+                            Text("Please try your best to navigate to the nearest evacuation point.")
+                                .font(.subheadlineRegular)
+                                .foregroundColor(Color.primaryGreen500)
+                        }
+                    }
                 }
                 .padding(.bottom, 16)
                 .padding(.horizontal, 8)
@@ -121,6 +133,11 @@ struct ParentView: View {
             // Buttons to change status
             Button("Activate SOS") {
                 status = .sos
+            }
+            .buttonStyle(.borderedProminent)
+            
+            Button("Activate SOS-Sent") {
+                status = .sosSent
             }
             .buttonStyle(.borderedProminent)
             

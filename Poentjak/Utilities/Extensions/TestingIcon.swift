@@ -85,6 +85,11 @@ struct TestingIcon: View {
                 Image.LabelIcon.postBig
                 Image.LabelIcon.postSmall
                 Image.LabelIcon.tap
+                Image.LabelIcon.number1
+                Image.LabelIcon.number2
+                Image.LabelIcon.number3
+                Image.LabelIcon.number4
+                Image.LabelIcon.number5
             }
             
             

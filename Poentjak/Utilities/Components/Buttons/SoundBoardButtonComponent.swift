@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import AVFoundation
+import AudioToolbox
 
 enum SoundBoardButton {
     case airhorn
     case whistle
     case siren
     case morse
-
+    
     var iconName: Image {
         switch self {
         case .airhorn:
@@ -25,7 +27,7 @@ enum SoundBoardButton {
             return Image.SoundBoardIcon.sosMorse
         }
     }
-
+    
     var title: String {
         switch self {
         case .airhorn:
@@ -38,44 +40,74 @@ enum SoundBoardButton {
             return "SOS Morse"
         }
     }
+    
+    var soundID: SystemSoundID {
+        switch self {
+        case .airhorn: return 1023
+        case .whistle: return 1024
+        case .siren: return 1025
+        case .morse: return 1026
+        }
+    }
 }
 
 struct SoundBoardButtonComponent: View {
     var soundBoardType: SoundBoardButton
-    //var action: () -> Void
-    var state: ButtonState = .enabled
+    @Binding var activeSound: SoundBoardButton? // Track which button is active
+    var currentActiveSound: SoundBoardButton // Identifier for this button
+    @Binding var timer: Timer? // Shared timer for sound loop
     
     var body: some View {
         Button {
-            if state == .enabled {
-                //action()
+            if activeSound == currentActiveSound {
+                stopLoopingSound()
+                activeSound = nil
+            } else {
+                stopAllSounds()
+                activeSound = currentActiveSound
+                startLoopingSound()
             }
         } label: {
             ZStack {
                 Rectangle()
-                    .fill(backgroundColorButton(for: state))
+                    .fill(activeSound == currentActiveSound ? Color.primaryGreen500 : Color.white)
                     .cornerRadius(16)
+                    .shadow(color: Color.black.opacity(0.3), radius: 4, x: 0, y: 2) // Shadow effect
                 
                 VStack {
                     soundBoardType.iconName
-                        .renderingMode(.template) // This allows the icon to be tinted
-                        .foregroundColor(foregroundColorButton(for: state))
+                        .renderingMode(.template)
+                        .foregroundColor(activeSound == currentActiveSound ? .white : Color.primaryGreen500)
+                        .frame(width: 50, height: 50)
                     
                     Text(soundBoardType.title)
-                        .foregroundColor(foregroundColorButton(for: state))
+                        .foregroundColor(activeSound == currentActiveSound ? .white : Color.primaryGreen500)
                         .font(.title3Emphasized)
-                    
                 }
                 
             }
             .frame(width: 170, height: 159)
         }
+        .onDisappear {
+            stopAllSounds() // Stop all sounds when view disappears (when navigating away)
+        }
     }
-}
+    
+    func startLoopingSound() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            AudioServicesPlaySystemSound(soundBoardType.soundID)
+        }
+    }
+    
+    func stopLoopingSound() {
+        timer?.invalidate()
+        timer = nil
+    }
 
-#Preview {
-    SoundBoardButtonComponent(soundBoardType: .airhorn)
-    SoundBoardButtonComponent(soundBoardType: .whistle)
-    SoundBoardButtonComponent(soundBoardType: .siren)
-    SoundBoardButtonComponent(soundBoardType: .morse)
+    func stopAllSounds() {
+        if let timer = timer {
+            timer.invalidate()
+            self.timer = nil
+        }
+    }
 }

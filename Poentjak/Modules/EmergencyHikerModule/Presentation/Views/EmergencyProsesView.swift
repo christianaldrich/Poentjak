@@ -12,6 +12,7 @@ enum DestinationView {
     case editDueDate
     case chooseEmergency
     case alertGuide
+    case emergencyScale
     case countDown
     case soundBoard
 }
@@ -175,6 +176,9 @@ struct EmergencyProsesView: View {
                             .environmentObject(navigationManager)
                     case .chooseEmergency:
                         ChooseEmergencyTypeView(viewModel: viewModel)
+                            .environmentObject(navigationManager)
+                    case .emergencyScale:
+                        EmergencyScaleView(viewModel: viewModel)
                             .environmentObject(navigationManager)
                     case .alertGuide:
                         AlertGuideView(viewModel: viewModel)

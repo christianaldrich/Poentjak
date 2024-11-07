@@ -37,7 +37,7 @@ class EmergencyProsesViewModel: ObservableObject {
     
     private var timer: Timer?
     
-    @Published var showSOSButtonView: Bool = false
+//    @Published var showSOSButtonView: Bool = false
     @Published var sendSOSToFirebase: Bool = false
     @Published var deleteAnimation: Bool = false
     
@@ -73,9 +73,9 @@ class EmergencyProsesViewModel: ObservableObject {
     func getContentData() {
         self.contentData = AlertGuideData.data[alertGuideTextTabBar]?[idSelected] ?? AlertGuideData.defaultData
     }
-    // MARK: - end
+
     
-    // MARK: - start: ini logic buat di due date view
+    // MARK: - start: ini logic buat create di due date view
     func createEmergencyHiking(trackId: String) async {
         do {
             try await useCase.createEmergency(dueDate: dueDate, trackId: trackId)
@@ -96,9 +96,9 @@ class EmergencyProsesViewModel: ObservableObject {
             }
         }
     }
-    // MARK: - end
+
     
-    // MARK: - start: ini logic buat di emergency proses view
+    // MARK: - start: ini logic buat fetch active hiking dri firebase di emergency proses view
     func fetchEmergency() {
         useCase.fetchEmergency { result in
             DispatchQueue.main.async {
@@ -125,6 +125,8 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
+    
+    // MARK: - start: ini logic buat "i am back at basecamp" di emergency proses view
     func updateSessionDone() async {
         do{
             try await useCase.updateSessionDone(sessionDone: true, emergencyStatus: emergencyStatus.rawValue)
@@ -142,6 +144,8 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
+    
+    // MARK: - start: ini logic buat edit due date view
     func updateDueDate() async {
         do{
             try await useCase.updateDueDate(sessionId: sessionId, dueDate: dueDate)
@@ -151,6 +155,8 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
+    
+    // MARK: - start: ini logic buat update emergency status ke firebase dari count down view
     func updateStatusType() async {
         
         do{
@@ -186,7 +192,7 @@ class EmergencyProsesViewModel: ObservableObject {
                 self.isSignalSent = true
                 await self.updateStatusType()
                 self.sendSOSToFirebase = true
-                self.showSOSButtonView = false
+//                self.showSOSButtonView = false
                 self.deleteAnimation = true
                 navigationManager.popToRoot()
             }
@@ -200,6 +206,8 @@ class EmergencyProsesViewModel: ObservableObject {
         countDownTime = 5
     }
     
+    
+    // MARK: - start: ini logic buat overdue
     func startTimer() {
         timer?.invalidate()
         

@@ -47,16 +47,19 @@ struct EmergencyProsesView: View {
                         .edgesIgnoringSafeArea(.all)
                     
                     
-                    VStack {
-                        VStack {
-                            TopETAView(navigateViewModel: navigateViewModel, isShowingModal: $isShowingModal)
-                        }
+                    VStack{
+                        //                        VStack(alignment: .center) {
+                        //                            TopETAView(navigateViewModel: navigateViewModel, isShowingModal: $isShowingModal)
+                        //
+                        //                        }
+                        //
+                        TopETAView(navigateViewModel: navigateViewModel, isShowingModal: $isShowingModal)
+                            .frame(maxWidth: .infinity)
                         
-                        
-                        SOSButtonView(navigationPath: $navigationManager.navigationPath)
-                            .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
-                            .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
-                            .zIndex(2)
+                        //                        SOSButtonView(navigationPath: $navigationManager.navigationPath)
+                        //                            .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
+                        //                            .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
+                        //                            .zIndex(2)
                         
                     }
                     .sheet(isPresented: $isShowingModal) {
@@ -73,9 +76,9 @@ struct EmergencyProsesView: View {
                                     HalfButtonComponent(halfType: .SOS) {
                                         isShowingModal = false
                                         navigationManager.navigationPath.append(DestinationView.chooseEmergency)
-//                                        withAnimation {
-//                                            viewModel.showSOSButtonView.toggle()
-//                                        }
+                                        //                                        withAnimation {
+                                        //                                            viewModel.showSOSButtonView.toggle()
+                                        //                                        }
                                     }
                                 }
                                 .padding(.horizontal, 24)

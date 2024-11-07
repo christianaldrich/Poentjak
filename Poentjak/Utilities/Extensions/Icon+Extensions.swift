@@ -65,6 +65,14 @@ extension Image {
             return Image("Icons/button/i_btn_sos")
         }
         
+        static var soundMute: Image {
+            return Image("Icons/button/i_btn_sound_mute")
+        }
+        
+        static var sound: Image {
+            return Image("Icons/button/i_btn_sound_sound")
+        }
+        
     }
     
     struct ExploreIcon{
@@ -191,7 +199,7 @@ extension Image {
         }
         
         static var sosMorse: Image {
-            return Image("Icons/soundBoard/i_sb_sos_morse")
+            return Image("Icons/SoundBoard/i_sb_sos_morse")
         }
         
         static var whistle: Image {

@@ -12,15 +12,15 @@ struct AlertGuideData{
     
     static var data: [String: [Int: AlertGuideContentDataModel]] = [
         "STOP": [
-            1: AlertGuideContentDataModel(image: "dummy", title: "Stop!", content: "Take a deep breath and pause for a moment. Rushing won’t help, so stay calm."),
-            2: AlertGuideContentDataModel(image: "dummy", title: "Think", content: "Give yourself a second to think things through. A clear mind leads to better choices!"),
-            3: AlertGuideContentDataModel(image: "dummy", title: "Observe", content: "Look around and check your surroundings. Where are you? What's nearby? Do you recognize any rocks or trees that you’ve past through?"),
-            4: AlertGuideContentDataModel(image: "dummy", title: "Plan", content: "If you can’t identify your surroundings, stay where you are and try to send an SOS signal. If you do not have signal, try to head to your nearest last seen location if possible.")
+            1: AlertGuideContentDataModel(image: "AlertGuideData/lostAlertGuide1", title: "Stop!", content: "Take a deep breath and pause for a moment. Rushing won’t help, so stay calm."),
+            2: AlertGuideContentDataModel(image: "AlertGuideData/lostAlertGuide2", title: "Think", content: "Give yourself a second to think things through. A clear mind leads to better choices!"),
+            3: AlertGuideContentDataModel(image: "AlertGuideData/lostAlertGuide3", title: "Observe", content: "Look around and check your surroundings. Where are you? What's nearby? Do you recognize any rocks or trees that you’ve past through?"),
+            4: AlertGuideContentDataModel(image: "AlertGuideData/lostAlertGuide4", title: "Plan", content: "If you can’t identify your surroundings, stay where you are and try to send an SOS signal. If you do not have signal, try to head to your nearest last seen location if possible.")
         ],
         
         "WARM": [
-            1: AlertGuideContentDataModel(image: "dummy", title: "Wrap up", content: "Bundle the person in anything warm and dry. Blankets, jackets, an emergency blanket, even extra clothes. Keep that body heat in!"),
-            2: AlertGuideContentDataModel(image: "dummy", title: "Assess", content: "Take a quick look at how they’re doing, are they shivering, confused, or really cold? Check their condition."),
+            1: AlertGuideContentDataModel(image: "AlertGuideData/hipoAlertGuide1", title: "Wrap up", content: "Bundle the person in anything warm and dry. Blankets, jackets, an emergency blanket, even extra clothes. Keep that body heat in!"),
+            2: AlertGuideContentDataModel(image: "AlertGuideData/hipoAlertGuide2", title: "Assess", content: "Take a quick look at how they’re doing, are they shivering, confused, or really cold? Check their condition."),
             3: AlertGuideContentDataModel(image: "dummy", title: "Raise Heat", content: "Slowly warm them up with your body heat, warm drinks (if they’re awake), or heat packs, just go gentle, no sudden heat!"),
             4: AlertGuideContentDataModel(image: "dummy", title: "Move to Safety", content: "Get them to a warm, safe spot as soon as you can to keep them protected from the cold. If symptoms get worse, alert our rangers!")
         ],

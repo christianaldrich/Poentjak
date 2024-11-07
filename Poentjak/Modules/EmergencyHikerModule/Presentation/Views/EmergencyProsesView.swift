@@ -53,6 +53,7 @@ struct EmergencyProsesView: View {
                     VStack {
                         VStack {
                             TopETAView(navigateViewModel: navigateViewModel, viewModel: viewModel, isShowingModal: $isShowingModal)
+                                .frame(maxWidth: .infinity)
                         }
                         
                         //                        SOSButtonView(navigationPath: $navigationManager.navigationPath)
@@ -76,6 +77,7 @@ struct EmergencyProsesView: View {
                                     if viewModel.isSignalSent && viewModel.sendSOSToFirebase{
                                         HalfButtonComponent(halfType: .SOSSent) {
                                             isShowingModal = false
+                                            navigationManager.navigationPath.append(DestinationView.chooseEmergency)
 //                                            withAnimation {
 //                                                viewModel.showSOSButtonView.toggle()
 //                                            }
@@ -83,6 +85,7 @@ struct EmergencyProsesView: View {
                                     } else if viewModel.isSignalSent && !viewModel.sendSOSToFirebase{
                                         HalfButtonComponent(halfType: .SOSSending) {
                                             isShowingModal = false
+                                            navigationManager.navigationPath.append(DestinationView.chooseEmergency)
 //                                            withAnimation {
 //                                                viewModel.showSOSButtonView.toggle()
 //                                            }
@@ -90,6 +93,7 @@ struct EmergencyProsesView: View {
                                     } else {
                                         HalfButtonComponent(halfType: .SOS) {
                                             isShowingModal = false
+                                            navigationManager.navigationPath.append(DestinationView.chooseEmergency)
 //                                            withAnimation {
 //                                                viewModel.showSOSButtonView.toggle()
 //                                            }

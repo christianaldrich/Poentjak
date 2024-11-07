@@ -137,6 +137,7 @@ struct EmergencyProsesView: View {
                                     if viewModel.isSignalSent {
                                         // Show the confirmation modal when isSignalSent is true
                                         showConfirmationModal = true
+                                        isShowingModal = false
                                     } else {
                                         // Run the task as before if isSignalSent is not true
                                         Task {
@@ -205,7 +206,7 @@ struct EmergencyProsesView: View {
                         Color.black.opacity(0.4)
                             .edgesIgnoringSafeArea(.all)
                         
-                        CustomConfirmationComponent(confirmType: .evacuated, isModalVisible: $showConfirmationModal){
+                        CustomConfirmationComponent(confirmType: .evacuated, isModalVisible: $showConfirmationModal, sosGuideModalVisible: $isShowingModal){
                             // Run the task when the confirmation button is tapped
                             Task {
                                 await viewModel.updateSessionDone()

@@ -38,6 +38,7 @@ enum confirmationState {
 struct CustomConfirmationComponent: View {
     var confirmType: confirmationState
     @Binding var isModalVisible: Bool
+    @Binding var sosGuideModalVisible: Bool
     var action: () -> Void
     
     var body: some View {
@@ -55,6 +56,7 @@ struct CustomConfirmationComponent: View {
                 }
                 Button{
                     isModalVisible = false
+                    sosGuideModalVisible = true
                 } label: {
                     Text("Cancel")
                         .font(.calloutEmphasized)

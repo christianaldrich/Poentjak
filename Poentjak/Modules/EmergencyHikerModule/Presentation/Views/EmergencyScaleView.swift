@@ -12,15 +12,28 @@ struct EmergencyScaleView: View {
     @StateObject var viewModel: EmergencyProsesViewModel
     
     @State private var isAnimating = false
+    @State private var isAnimatingGreen = false
     
     var body: some View {
-        VStack{
-            Text("Emergency Scale View")
-            Text("\(viewModel.emergencyType)")
+        VStack(alignment: .center){
+            Spacer()
             
-            EmergencyScaleComponent(viewModel: viewModel)
-//            Text("\(viewModel.emergencyScale)")
-            EmergencyScaleDescComponent(emergencyTypeDesc: viewModel.emergencyType)
+            VStack(alignment: .center){
+                Text("On a scale 1 - 5 how are")
+                    Text("you feeling ?")
+            }
+            .font(.title3Emphasized)
+                    
+    //            Text("\(viewModel.emergencyType)")
+                Spacer()
+                VStack(spacing: 42){
+                    EmergencyScaleComponent(viewModel: viewModel)
+        //            Text("\(viewModel.emergencyScale)")
+                    EmergencyScaleDescComponent(emergencyTypeDesc: viewModel.emergencyType)
+                }
+            
+            
+            Spacer()
             
             if viewModel.emergencyScale <= 4{
                 CustomLargeButtonComponent(state: .enabled, text: "Next"){
@@ -30,6 +43,7 @@ struct EmergencyScaleView: View {
 //                    }
                     
                 }
+                .opacity(isAnimatingGreen ? 0.2 : 1.0)
                 
                 
             }
@@ -41,7 +55,7 @@ struct EmergencyScaleView: View {
 //                    }
 
                 }
-                .opacity(isAnimating ? 1.0 : 0.8)
+                .opacity(isAnimating ? 1.0 : 0.2)
                 
             }
         }
@@ -58,10 +72,14 @@ struct EmergencyScaleView: View {
             withAnimation(.easeInOut(duration: 0.4)){
                 if viewModel.emergencyScale == 5 {
                     isAnimating = true
+                    isAnimatingGreen = true
                 }
                 else{
                     isAnimating = false
+                    isAnimatingGreen = false
                 }
+                
+                
 
             }
         }

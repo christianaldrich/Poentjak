@@ -14,7 +14,20 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var userName: String = "name..."
     @Published var dueDate: Date = Date()
     @Published var sessionId: String = "no session id"
-    @Published var emergencyType: EmergencyType = .hipo
+    @Published var emergencyType: EmergencyType = .hipo {
+        didSet {
+            switch emergencyType {
+            case .hipo:
+                self.alertGuideTextTabBar = "WARM"
+            case .overdue:
+                self.alertGuideTextTabBar = "WARM"
+            case .lost:
+                self.alertGuideTextTabBar = "STOP"
+            case .injury:
+                self.alertGuideTextTabBar = "CARE"
+            }
+        }
+    }
     
     @Published var trackId: String = "GedeViaPutri"
     
@@ -24,7 +37,6 @@ class EmergencyProsesViewModel: ObservableObject {
     
     private var timer: Timer?
     
-    @Published var showSOSButtonView: Bool = false
     @Published var sendSOSToFirebase: Bool = false
     @Published var deleteAnimation: Bool = false
     
@@ -38,7 +50,30 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var emergencyScale: Double = 1
     
     
+    // MARK: - start: ni logic buat alert guide
+    @Published var alertGuideTextTabBar = "CARE" {
+        didSet {
+            getContentData()
+        }
+    }
+    @Published var idSelected: Int = 1 {
+        didSet {
+            getContentData()
+        }
+    }
     
+    @Published var contentData: AlertGuideContentDataModel = AlertGuideData.defaultData
+    
+    init() {
+        getContentData()
+    }
+    
+    func getContentData() {
+        self.contentData = AlertGuideData.data[alertGuideTextTabBar]?[idSelected] ?? AlertGuideData.defaultData
+    }
+
+    
+    // MARK: - start: ini logic buat create di due date view
     func createEmergencyHiking(trackId: String) async {
         do {
             try await useCase.createEmergency(dueDate: dueDate, trackId: trackId)
@@ -59,8 +94,9 @@ class EmergencyProsesViewModel: ObservableObject {
             }
         }
     }
+
     
-    
+    // MARK: - start: ini logic buat fetch active hiking dri firebase di emergency proses view
     func fetchEmergency() {
         useCase.fetchEmergency { result in
             DispatchQueue.main.async {
@@ -87,6 +123,8 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
+    
+    // MARK: - start: ini logic buat "i am back at basecamp" di emergency proses view
     func updateSessionDone() async {
         do{
             try await useCase.updateSessionDone(sessionDone: true, emergencyStatus: emergencyStatus.rawValue)
@@ -95,7 +133,6 @@ class EmergencyProsesViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.emergencySessionActive = false
             }
-            //            self.emergencySessionActive = false
             print("sukses update session done")
         } catch {
             print("Failed to delete emergency: \(error.localizedDescription)")
@@ -104,6 +141,8 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
+    
+    // MARK: - start: ini logic buat edit due date view
     func updateDueDate() async {
         do{
             try await useCase.updateDueDate(sessionId: sessionId, dueDate: dueDate)
@@ -113,6 +152,8 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
+    
+    // MARK: - start: ini logic buat update emergency status ke firebase dari count down view
     func updateStatusType() async {
         
         do{
@@ -123,7 +164,7 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
-    
+    // MARK: - start: ini logic buat di countdown view
     func startCountDown(navigationManager: NavigationManager) {
         countDownTime = 5
         
@@ -148,7 +189,6 @@ class EmergencyProsesViewModel: ObservableObject {
                 self.isSignalSent = true
                 await self.updateStatusType()
                 self.sendSOSToFirebase = true
-                self.showSOSButtonView = false
                 self.deleteAnimation = true
                 navigationManager.popToRoot()
             }
@@ -162,6 +202,8 @@ class EmergencyProsesViewModel: ObservableObject {
         countDownTime = 5
     }
     
+    
+    // MARK: - start: ini logic buat overdue
     func startTimer() {
         timer?.invalidate()
         

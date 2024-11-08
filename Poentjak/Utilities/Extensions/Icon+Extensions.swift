@@ -65,6 +65,14 @@ extension Image {
             return Image("Icons/button/i_btn_sos")
         }
         
+        static var soundMute: Image {
+            return Image("Icons/button/i_btn_sound_mute")
+        }
+        
+        static var sound: Image {
+            return Image("Icons/button/i_btn_sound_sound")
+        }
+        
     }
     
     struct ExploreIcon{

@@ -103,30 +103,14 @@ struct EmergencyProsesView: View {
                                 .multilineTextAlignment(.center)
                                 .padding(.top, 16)
                                 
-                                //                                SlideToActionButton(slidingDirection: .ltr, buttonColor: .primaryGreen500, text: "Finish trip") {
-                                //                                    Task{
-                                //                                        await viewModel.updateSessionDone()
-                                //                                        navigateViewModel.isNavigating = false
-                                //                                        navigateViewModel.stopTimer()
-                                //                                        SOSManager.shared.isSOS = false
-                                //                                        navigateViewModel.isSOS = false
-                                //
-                                //                                        mountainViewModel.toggleIsPresenting()
-                                //                                        mountainViewModel.toggleIsPresenting()
-                                //
-                                //
-                                //                                    }
-                                //                                }
-                                //                                .padding(.horizontal, 24)
-                                //                                .padding(.top, 16)
                                 
                                 SlideToActionButton(slidingDirection: .ltr, buttonColor: .primaryGreen500, text: "Finish trip") {
                                     if viewModel.isSignalSent {
-                                        // Show the confirmation modal when isSignalSent is true
+                                        
                                         showConfirmationModal = true
                                         isShowingModal = false
                                     } else {
-                                        // Run the task as before if isSignalSent is not true
+                                        
                                         Task {
                                             await viewModel.updateSessionDone()
                                             navigateViewModel.isNavigating = false
@@ -180,7 +164,7 @@ struct EmergencyProsesView: View {
                 .onAppear{
                     viewModel.deleteAnimation = false
                     navigateViewModel.setupRegionUser()
-                    isShowingModal = true
+//                    isShowingModal = true
                 }
                 .onChange(of: viewModel.sessionId){
                     if viewModel.sessionId == "no session id"{
@@ -229,9 +213,9 @@ struct EmergencyProsesView: View {
                 isShowingModal = true
             }
             .onChange(of: navigationManager.navigationPath) { newPath in
-                // Check if we're navigating back to this view
-                if newPath.isEmpty { // Adjust this logic based on your navigation structure
-                    isShowingModal = true // Show modal when going back to the view
+                
+                if newPath.isEmpty {
+                    isShowingModal = true
                 }
             }
         }

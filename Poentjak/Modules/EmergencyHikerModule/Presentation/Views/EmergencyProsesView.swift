@@ -25,12 +25,7 @@ struct EmergencyProsesView: View {
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
     
     @State var trackLocation: String?
-    
-    
-    @State private var showSOSView = false
-    
-    @State private var navigateToDueDate = false
-    
+        
     @StateObject private var navigationManager = NavigationManager()
     
     @State private var isShowingModal = true
@@ -56,11 +51,6 @@ struct EmergencyProsesView: View {
                                 .frame(maxWidth: .infinity)
                         }
                         
-                        //                        SOSButtonView(navigationPath: $navigationManager.navigationPath)
-                        //                            .offset(x: viewModel.showSOSButtonView ? 0 : -UIScreen.main.bounds.width)
-                        //                            .animation(viewModel.deleteAnimation ? nil : .easeInOut(duration: 0.5), value: viewModel.showSOSButtonView)
-                        //                            .zIndex(2)
-                        
                     }
                     .sheet(isPresented: $isShowingModal) {
                         ScrollView{
@@ -78,25 +68,16 @@ struct EmergencyProsesView: View {
                                         HalfButtonComponent(halfType: .SOSSent) {
                                             isShowingModal = false
                                             navigationManager.navigationPath.append(DestinationView.chooseEmergency)
-//                                            withAnimation {
-//                                                viewModel.showSOSButtonView.toggle()
-//                                            }
                                         }
                                     } else if viewModel.isSignalSent && !viewModel.sendSOSToFirebase{
                                         HalfButtonComponent(halfType: .SOSSending) {
                                             isShowingModal = false
                                             navigationManager.navigationPath.append(DestinationView.chooseEmergency)
-//                                            withAnimation {
-//                                                viewModel.showSOSButtonView.toggle()
-//                                            }
                                         }
                                     } else {
                                         HalfButtonComponent(halfType: .SOS) {
                                             isShowingModal = false
                                             navigationManager.navigationPath.append(DestinationView.chooseEmergency)
-//                                            withAnimation {
-//                                                viewModel.showSOSButtonView.toggle()
-//                                            }
                                         }
                                     }
                                     

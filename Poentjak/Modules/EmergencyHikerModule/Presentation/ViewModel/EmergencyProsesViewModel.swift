@@ -37,7 +37,6 @@ class EmergencyProsesViewModel: ObservableObject {
     
     private var timer: Timer?
     
-//    @Published var showSOSButtonView: Bool = false
     @Published var sendSOSToFirebase: Bool = false
     @Published var deleteAnimation: Bool = false
     
@@ -134,7 +133,6 @@ class EmergencyProsesViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.emergencySessionActive = false
             }
-            //            self.emergencySessionActive = false
             print("sukses update session done")
         } catch {
             print("Failed to delete emergency: \(error.localizedDescription)")
@@ -191,7 +189,6 @@ class EmergencyProsesViewModel: ObservableObject {
                 self.isSignalSent = true
                 await self.updateStatusType()
                 self.sendSOSToFirebase = true
-//                self.showSOSButtonView = false
                 self.deleteAnimation = true
                 navigationManager.popToRoot()
             }

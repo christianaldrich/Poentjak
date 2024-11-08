@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct DueDateView: View {
-    @StateObject var viewModel = DueDateViewModel()
-    @StateObject var viewModelTest = EmergencyProsesViewModel()
-    
+    @StateObject var viewModel = EmergencyProsesViewModel()
     
     @State private var showDatePicker = false
     @State private var showTimePicker = false
@@ -22,7 +20,7 @@ struct DueDateView: View {
     var formattedDueDate: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "E d MMM HH.mm" // "E" for day (Mon), "d" for day number, "MMM" for month, "HH.mm" for time
-        return formatter.string(from: viewModelTest.dueDate)
+        return formatter.string(from: viewModel.dueDate)
     }
     
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
@@ -52,7 +50,7 @@ struct DueDateView: View {
                     VStack {
                         HStack {
                             Spacer()
-                            CustomDateSliderComponent(selectedDate: $viewModelTest.dueDate)
+                            CustomDateSliderComponent(selectedDate: $viewModel.dueDate)
                             Spacer()
                         }
                     }
@@ -107,7 +105,7 @@ struct DueDateView: View {
                 CustomLargeButtonComponent(state: .enabled, text: "I'm ready"){
                     Task{
                         mountainViewModel.selectedTrackLocation = trackLocation
-                        await viewModelTest.createEmergencyHiking(trackId: trackLocation)
+                        await viewModel.createEmergencyHiking(trackId: trackLocation)
                         mountainViewModel.toggleIsPresenting()
                         navigationManager.popToRoot()
                     }

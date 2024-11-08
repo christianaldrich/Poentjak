@@ -112,7 +112,7 @@ class UserNavigateViewModel: ObservableObject {
             let centerLat = totalLat / Double(trackPoints.count)
             let centerLon = totalLon / Double(trackPoints.count)
             region.center = CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon)
-            region.span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+            region.span = MKCoordinateSpan(latitudeDelta: 0.038, longitudeDelta: 0.038)
 //            region.span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
         }
     }

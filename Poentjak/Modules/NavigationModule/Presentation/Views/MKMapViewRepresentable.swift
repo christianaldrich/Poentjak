@@ -20,7 +20,17 @@ struct MKMapViewRepresentable: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        // You can update the map view settings here if needed.
+        guard let userLocation = uiView.userLocation.location else { return }
+        
+        // Center the map with an offset (latitude shift)
+        let region = MKCoordinateRegion(
+            center: CLLocationCoordinate2D(
+                latitude: userLocation.coordinate.latitude - 0.004, // Shift upward by 0.001 degrees (~111 meters)
+                longitude: userLocation.coordinate.longitude
+            ),
+            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01) // Adjust span as needed
+        )
+        uiView.setRegion(region, animated: true)
     }
     
     func makeCoordinator() -> Coordinator {

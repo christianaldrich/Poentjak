@@ -1,41 +1,13 @@
 //
-//  CustomWheelComponent.swift
+//  CustomEditWheelComponent.swift
 //  Poentjak
 //
-//  Created by Shan Havilah on 29/10/24.
+//  Created by Shan Havilah on 08/11/24.
 //
 
 import SwiftUI
 
-enum WheelPicker {
-    case age
-    case weight
-    case height
-    
-    var postFix: String {
-        switch self {
-        case .age:
-            return "years old"
-        case .weight:
-            return "kg"
-        case .height:
-            return "cm"
-        }
-    }
-    
-    var title: String {
-        switch self {
-        case .age:
-            return "How old are you?"
-        case .weight:
-            return "How much do you weigh?"
-        case .height:
-            return "How tall are you?"
-        }
-    }
-}
-
-struct CustomWheelComponent: View {
+struct CustomEditWheelComponent: View {
     var wheelType: WheelPicker
     @Binding var selectedNumber: Int
     
@@ -51,12 +23,12 @@ struct CustomWheelComponent: View {
                         // Only show postfix for the selected item
                         if number == selectedNumber {
                             Text("\(number)").tag(number)
-                                .font(.largeTitleEmphasized)
+                                .font(.customLargeTitle)
                                 .foregroundColor(Color.primaryGreen500)
                             
                         } else {
                             Text("\(number)").tag(number)
-                                .font(.title2Regular)
+                                .font(.customLargeTitle2)
                                 .foregroundColor(Color.primaryGreen500)
                         }
                     }
@@ -65,7 +37,7 @@ struct CustomWheelComponent: View {
                 .frame(width: 100, height: 215)
                 
                 Text("\(wheelType.postFix)")
-                    .font(.bodyEmphasized)
+                    .font(.title3Emphasized)
                     .foregroundColor(Color.primaryGreen500)
             }
         }
@@ -73,8 +45,14 @@ struct CustomWheelComponent: View {
     }
 }
 
-#Preview {
-//    CustomWheelComponent(wheelType: .weight)
-//    CustomWheelComponent(wheelType: .age)
-//    CustomWheelComponent(wheelType: .height)
+struct CustomEditWheelComponent_Previews: PreviewProvider {
+    @State static private var previewSelectedNumber = 50 // Sample number for preview
+
+    static var previews: some View {
+        CustomEditWheelComponent(
+            wheelType: .age, // Replace with appropriate initializer for `WheelPicker`
+            selectedNumber: $previewSelectedNumber
+        )
+        .previewLayout(.sizeThatFits) // Optional: adjust preview layout
+    }
 }

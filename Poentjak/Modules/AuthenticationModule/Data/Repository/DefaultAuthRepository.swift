@@ -65,4 +65,19 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
             throw error
         }
     }
+    
+    func checkEmailExists(email: String) async -> Bool {
+        do {
+            let emailNormalized = email.lowercased() 
+            let querySnapshot = try await firestore.collection("users").whereField("email", isEqualTo: emailNormalized).getDocuments()
+            
+            // Debugging output to confirm the query result
+            print("Query snapshot: \(querySnapshot)")
+            return querySnapshot.documents.count > 0
+        } catch {
+            print("Failed to check email existence: \(error.localizedDescription)")
+            return false
+        }
+    }
+
 }

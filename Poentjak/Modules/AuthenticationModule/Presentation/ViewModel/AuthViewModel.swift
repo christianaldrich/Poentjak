@@ -9,6 +9,7 @@ import SwiftUI
 import PhotosUI
 
 import FirebaseStorage
+import FirebaseAuth
 import FirebaseFirestore
 
 @MainActor
@@ -36,6 +37,8 @@ class AuthViewModel: ObservableObject {
     @Published var capturedImage: UIImage?
     
     
+    private var isEmailValidated = false
+    
     private let useCase: DefaultAuthUseCase
 
     init(useCase: DefaultAuthUseCase) {
@@ -44,6 +47,37 @@ class AuthViewModel: ObservableObject {
             await fetchCurrentUser()
         }
     }
+    
+    func isValidEmail(_ email: String) -> Bool {
+            let emailRegex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+            let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+            return emailPredicate.evaluate(with: email)
+        }
+
+    func validateEmail(email: String) async -> String? {
+            if !isValidEmail(email) {
+                return "Invalid email address"
+            }
+            
+        let emailExists = await useCase.checkEmailExists(email: email)
+            
+        if emailExists {
+                return "Email has already been used"
+            }
+            
+            isEmailValidated = true
+            return nil
+        }
+
+        func validatePassword() -> String? {
+            if password.count < 8 {
+                return "Must be at least 8 characters"
+            }
+            if password != checkPassword {
+                return "Passwords do not match"
+            }
+            return nil
+        }
     
     func fetchCurrentUser() async {
         isLoading = true

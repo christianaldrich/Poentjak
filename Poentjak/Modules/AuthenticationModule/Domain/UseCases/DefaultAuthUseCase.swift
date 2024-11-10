@@ -31,4 +31,10 @@ class DefaultAuthUseCase: AuthUseCaseProtocol {
     func fetchCurrentUser() async throws -> UserAuth {
         return try await userRepository.fetchCurrentUser()
     }
+    
+    func checkEmailExists(email: String) async -> Bool {
+        return await authRepository.checkEmailExists(email: email)
+           
+        }
+    
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     
     @StateObject var viewModel: AuthViewModel
+    @State private var isSubmitted = false
     
     var body: some View {
 
@@ -58,10 +59,23 @@ struct LoginView: View {
                     //                    }
                     
                     VStack {
-                        CustomTextFieldAuth(text: $viewModel.email, titleTextField: "Email Address", errorMessage: "Invalid email", isError: false, isPassword: false)
-                            .padding(.bottom, 10)
-                        
-                        CustomTextFieldAuth(text: $viewModel.password, titleTextField: "Password", errorMessage: "Password incorrect", isError: false, isPassword: true)
+                        CustomTextFieldAuth(
+                                            text: $viewModel.email,
+                                            titleTextField: "Email Address",
+                                            errorMessage: isSubmitted && !viewModel.email.isValidEmail() ? "Invalid email" : "",
+                                            isError: isSubmitted && !viewModel.email.isValidEmail(),
+                                            isPassword: false
+                                        )
+                                        .padding(.bottom, 10)
+                                        
+                                        // Password Field
+                                        CustomTextFieldAuth(
+                                            text: $viewModel.password,
+                                            titleTextField: "Password",
+                                            errorMessage: isSubmitted && viewModel.loginError != nil ? "Incorrect password" : "", 
+                                            isError: isSubmitted && viewModel.loginError != nil,
+                                            isPassword: true
+                                        )
                     }
                     
                     
@@ -74,7 +88,9 @@ struct LoginView: View {
                     //                    }
                     
                     CustomPrimaryButtonComponent(state: (viewModel.email.isEmpty || viewModel.password.isEmpty) ? .disabled: .enabled, text: "Log in"){
+                        isSubmitted = true
                         Task {
+                            
                             await viewModel.login(email: viewModel.email, password: viewModel.password)
                         }
                     }

@@ -48,6 +48,10 @@ struct DisclaimerView: View {
             Spacer()
             
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButtonComponent(action: {
+            
+        }).padding(.horizontal, 16))
         .navigationDestination(isPresented: $nextViewActive){
             FirstNameLastNameView(viewModel: viewModel)
         }

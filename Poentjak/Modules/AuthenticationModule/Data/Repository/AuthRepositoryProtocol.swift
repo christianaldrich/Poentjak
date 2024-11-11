@@ -11,6 +11,7 @@ protocol AuthRepositoryProtocol {
     func createUser(with request: AuthRequestDTO) async throws -> UserAuth
     func signIn(with email: String, password: String) async throws -> UserAuth
     func signOut() async throws
+    func deleteAccount() async throws
     func checkEmailExists(email: String) async -> Bool
 }
 

@@ -36,6 +36,10 @@ class AuthViewModel: ObservableObject {
     @Published var currentIndex: Int = -1
     @Published var capturedImage: UIImage?
     
+    //buat delete
+    @Published var isLoadingDelete: Bool = false
+    @Published var errorMessageDelete: String = ""
+    
     
     private var isEmailValidated = false
     
@@ -161,5 +165,18 @@ class AuthViewModel: ObservableObject {
         }
         
         
+    }
+    
+    func deleteAccount() async {
+        isLoadingDelete = true
+        errorMessageDelete = ""
+        
+        do {
+            try await useCase.deleteAccount()
+        } catch {
+            errorMessageDelete = "Failed to delete account: \(error.localizedDescription)"
+        }
+        
+        isLoading = false
     }
 }

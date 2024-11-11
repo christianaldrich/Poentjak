@@ -79,5 +79,32 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
             return false
         }
     }
+    
+    func deleteAccount() async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw NSError(domain: "No user signed in", code: 401, userInfo: nil)
+        }
+
+        let userEmail = user.email
+
+        do {
+            if let email = userEmail {
+                let firestore = Firestore.firestore()
+                let usersCollection = firestore.collection("users")
+                
+                let querySnapshot = try await usersCollection.whereField("email", isEqualTo: email).getDocuments()
+
+                if let document = querySnapshot.documents.first {
+                    try await document.reference.delete()
+                }
+            }
+
+            try await user.delete()
+
+        } catch {
+            throw error
+        }
+    }
+
 
 }

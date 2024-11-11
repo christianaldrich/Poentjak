@@ -90,6 +90,10 @@ struct RegistrationView: View {
                 .disabled(viewModel.isLoading)
             }
             .padding(.top, 10)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: BackButtonComponent(action: {
+                
+            }).padding(.horizontal, 16))
             Spacer()
         }
     }

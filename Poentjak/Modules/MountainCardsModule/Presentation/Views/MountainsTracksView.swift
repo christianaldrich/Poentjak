@@ -13,7 +13,16 @@ enum MountainDestinationView: Hashable {
     case dueDate(trackLocation: String)
     case hikerProfile
     case editProfile
+    case editGender
+    case editEmergencyContact
+    case editMedicalRecords
+    case editAge
+    case editWeight
+    case editHeight
 }
+
+
+
 
 
 
@@ -95,7 +104,31 @@ struct MountainsTracksView: View {
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
                         case .editProfile:
-                            EditProfileView(viewModel: authViewModel)
+                            EditProfileView(authViewModel: authViewModel, viewModel: HikerProfileViewModel(authViewModel: authViewModel, hikerProfileUseCase: HikerProfileUseCase(userRepository: DefaultUserRepository())), navigationManager: navigationManager)
+                                .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
+                        case .editGender:
+                            EditGenderView(viewModel: authViewModel, navigationManager: navigationManager)
+                                .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
+                        case .editEmergencyContact:
+                            EditEmergencyContactView(viewModel: authViewModel, navigationManager: navigationManager)
+                                .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
+                        case .editMedicalRecords:
+                            EditMedicalRecordsView(viewModel: authViewModel, navigationManager: navigationManager)
+                                .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
+                        case .editAge:
+                            EditNumberView(viewModel: authViewModel, navigationManager: navigationManager, state: .age)
+                                .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
+                        case .editWeight:
+                            EditNumberView(viewModel: authViewModel, navigationManager: navigationManager, state: .weight)
+                                .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
+                        case .editHeight:
+                            EditNumberView(viewModel: authViewModel, navigationManager: navigationManager, state: .height)
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
                         }

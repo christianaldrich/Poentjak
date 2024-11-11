@@ -75,7 +75,7 @@ struct ProfileDescComponent: View {
                     Text("Medical Condition")
                         .font(.subheadlineRegular)
                     Spacer()
-                    Text("\(gender)")
+                    Text("\(medicalCondition)")
                         .font(.bodyEmphasized)
                         .foregroundStyle(Color.primaryGreen500)
                 }

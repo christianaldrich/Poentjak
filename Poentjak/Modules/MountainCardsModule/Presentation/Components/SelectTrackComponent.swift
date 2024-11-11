@@ -17,7 +17,7 @@ struct SelectTrackComponent: View {
     var body: some View {
         VStack{
             
-            HStack(spacing: 50){
+            HStack(spacing: 40){
                 VStack(alignment: .center, spacing: 10){
                     Text("Est. Time")
                         .font(.caption1Regular)
@@ -42,8 +42,6 @@ struct SelectTrackComponent: View {
             .padding()
             
             
-            
-            
             Divider()
             
             Spacer().frame(height:24)
@@ -53,6 +51,8 @@ struct SelectTrackComponent: View {
                 if result.id == track{
                     Text("\(result.desc)")
                         .font(.calloutRegular)
+                        .foregroundStyle(Color.primaryGreen500)
+
                 }
             }
             

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct EditMedicalRecordsView: View {
-     @StateObject var viewModel: EditProfileViewModel
+    @StateObject var viewModel: AuthViewModel
+    @ObservedObject var navigationManager: MountainNavigationManager
     //@Binding var medicalNeeds: String
     var body: some View {
         VStack{
@@ -35,8 +36,18 @@ struct EditMedicalRecordsView: View {
             
             CustomLargeButtonComponent(state: .enabled, text: "Save Changes"){
                 
+                navigationManager.popToPrevious()
+
             }
             .padding(.horizontal, 24)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                    BackButtonComponent{
+//                        navigationManager.popToPrevious()
+                    }
+            }
         }
     }
 }

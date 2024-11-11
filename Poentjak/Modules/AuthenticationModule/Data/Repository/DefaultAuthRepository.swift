@@ -65,7 +65,6 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
         let newValues: [String: Any] = [
             "id": userId,
             "name": request.name,
-            "email": request.email,
             "weight": request.weight,
             "height": request.height,
             "gender": request.gender,
@@ -78,7 +77,7 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
         
         do {
             // Use setData to update or create the document with new values
-            try await collectionRef.document(userId).setData(newValues)
+            try await collectionRef.document(userId).updateData(newValues)
             print("User stored with new document reference: \(userId)")
             
             // Return the updated user authentication object

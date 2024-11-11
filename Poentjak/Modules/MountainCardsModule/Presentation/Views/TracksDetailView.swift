@@ -14,28 +14,20 @@ struct TracksDetailView: View {
     @Binding var isShowingModal: Bool
     
     @StateObject var viewModel : EmergencyProsesViewModel
-//    @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
     @StateObject var navigateViewModel = TracksMapViewModel(fileName: "")
     @StateObject var authViewModel: AuthViewModel
     
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
     @State private var isShowingSelectTrackModal = true
-
-    
-//    @ObservedObject var viewModel: MountainsTracksViewModel
-
+    @State private var selectedDetent = PresentationDetent.fraction(0.5)
     
     
     var body: some View {
         VStack{
-            //            Text("Name: \(track)")
-            
-//            MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: track)
+
             
             TracksMapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedFirstLastWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true)
-            
-            
-            
+        
             Button(action: {
                 Task {
                     await authViewModel.deleteAccount()
@@ -50,19 +42,9 @@ struct TracksDetailView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-            
-            
-            
-            
-            
-            
-            //            NavigationLink{
-            //                DueDateView(trackLocation: track)
-            //            }label: {
-            //                Text("Start Tracking")
-            //            }
-            //
+
         }
+        
         .environmentObject(navigationManager)
         .onAppear{
              navigateViewModel.fileName = track
@@ -70,21 +52,25 @@ struct TracksDetailView: View {
             navigateViewModel.setupRegionTrack()
             viewModel.fetchEmergency()
             isShowingSelectTrackModal = true
-            //            navigateViewModel.fileName = viewModel.trackId
-            //            print("VM Track ID : \(viewModel.trackId)")
-            //            print("\n\nTRACK: \(track)")
-            //
-            //
-            //            print("\n\nFILENAME: \(navigateViewModel.fileName)")
-            //            print("\n\nviewModel.trackID: \(viewModel.trackId)")
-            //            navigateViewModel.updateTrackId(track)
+
         }
         .sheet(isPresented: $isShowingSelectTrackModal){
             SelectTrackComponent(track: track, mountainViewModel: mountainViewModel, navigationManager: navigationManager){
                 isShowingSelectTrackModal = false
             }
-                .presentationDetents([.fraction(0.5), .large])
+                .presentationDetents([.fraction(0.5)], selection: $selectedDetent)
+//                .presentationDragIndicator(.visible)
+//                .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
+//                .interactiveDismissDisabled(true)
 
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                BackButtonComponent{
+                    
+                }
+            }
         }
         
         

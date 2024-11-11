@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EditPhotoNameComponent: View {
     var profileURL: String
+    var defaultName: String
     @Binding var name: String
     
     var action: () -> Void
@@ -47,7 +48,7 @@ struct EditPhotoNameComponent: View {
                     
                 }
                 
-                TextField("", text: $name)
+                TextField("\(defaultName)", text: $name)
                 
                 Spacer()
             }
@@ -59,8 +60,8 @@ struct EditPhotoNameComponent: View {
 }
 
 
-#Preview {
-    EditPhotoNameComponent(profileURL: "test", name: .constant("adsf")){
-        
-    }
-}
+//#Preview {
+//    EditPhotoNameComponent(profileURL: "test", name: .constant("adsf")){
+//        
+//    }
+//}

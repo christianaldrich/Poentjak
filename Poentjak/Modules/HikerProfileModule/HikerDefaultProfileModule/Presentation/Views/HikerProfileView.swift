@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HikerProfileView: View {
-    @ObservedObject var viewModel = HikerProfileViewModel(hikerProfileUseCase: HikerProfileUseCase(userRepository: DefaultUserRepository()))
+    @ObservedObject var viewModel = HikerProfileViewModel(authViewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())), hikerProfileUseCase: HikerProfileUseCase(userRepository: DefaultUserRepository()))
     @StateObject var authViewModel: AuthViewModel
     @ObservedObject var navigationManager: MountainNavigationManager
 

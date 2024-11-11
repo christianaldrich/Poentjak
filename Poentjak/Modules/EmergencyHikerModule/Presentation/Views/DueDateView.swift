@@ -116,6 +116,14 @@ struct DueDateView: View {
             }
             
         }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                BackButtonComponent{
+                    
+                }
+            }
+        }
     }
 }
 

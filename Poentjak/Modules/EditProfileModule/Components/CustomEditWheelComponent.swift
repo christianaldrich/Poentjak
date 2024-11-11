@@ -23,21 +23,22 @@ struct CustomEditWheelComponent: View {
                         // Only show postfix for the selected item
                         if number == selectedNumber {
                             Text("\(number)").tag(number)
-                                .font(.customLargeTitle)
+                                .font(.largeTitleEmphasized)
                                 .foregroundColor(Color.primaryGreen500)
                             
                         } else {
                             Text("\(number)").tag(number)
-                                .font(.customLargeTitle2)
+                                .font(.title2Regular)
                                 .foregroundColor(Color.primaryGreen500)
                         }
                     }
                 }
                 .pickerStyle(WheelPickerStyle())
-                .frame(width: 100, height: 215)
+                .frame(width: 100)
+                .frame(maxHeight: 130)
                 
                 Text("\(wheelType.postFix)")
-                    .font(.title3Emphasized)
+                    .font(.bodyEmphasized)
                     .foregroundColor(Color.primaryGreen500)
             }
         }

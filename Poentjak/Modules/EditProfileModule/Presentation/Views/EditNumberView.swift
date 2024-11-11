@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct EditNumberView: View {
-    //@StateObject var viewModel: EditProfileViewModel
-    @Binding var number: Int
+    @StateObject var viewModel: EditProfileViewModel
+    //@Binding var number: Int
     var state: WheelPicker
         
     var body: some View {
@@ -18,24 +18,38 @@ struct EditNumberView: View {
                 Text("\(state.title)")
                     .foregroundColor(Color.primaryGreen500)
                     .font(.title3Emphasized)
-                    .padding(.leading, 24)
+                    .padding(.horizontal, 24)
+                    .padding(.top, 24)
                 Spacer()
             }
             Spacer()
-            CustomWheelComponent(wheelType: state, selectedNumber: $number)
+            
+            if state == .age{
+                CustomEditWheelComponent(wheelType: state, selectedNumber: $viewModel.age)
+                    .scaleEffect(1.5)
+            }
+            else if state == .weight{
+                CustomEditWheelComponent(wheelType: state, selectedNumber: $viewModel.weight)
+                    .scaleEffect(1.5)
+            }
+            else {
+                CustomEditWheelComponent(wheelType: state, selectedNumber: $viewModel.height)
+                    .scaleEffect(1.5)
+            }
+
             Spacer()
             CustomLargeButtonComponent(state: .enabled, text: "Save Changes"){
                 
             }
-            .frame(width: 340, height: 72)
+            .padding(.horizontal, 24)
         }
     }
 }
 
-struct EditNumberView_Previews: PreviewProvider {
-    @State static var previewNumber = 25 // Provide an initial value for the preview
-
-    static var previews: some View {
-        EditNumberView(number: $previewNumber, state: .age)
-    }
-}
+//struct EditNumberView_Previews: PreviewProvider {
+//    @State static var previewNumber = 25
+//
+//    static var previews: some View {
+//        EditNumberView(number: $previewNumber, state: .age)
+//    }
+//}

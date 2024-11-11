@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct EditMedicalRecordsView: View {
-    // @StateObject var viewModel: EditProfileViewModel
-    @Binding var medicalNeeds: String
+     @StateObject var viewModel: EditProfileViewModel
+    //@Binding var medicalNeeds: String
     var body: some View {
         VStack{
             VStack{
                 HStack{
-                    Text("Do you have any specific medical needs?")
+                    Text("Do you have any specific medical\nneeds? (optional)")
                         .foregroundColor(Color.primaryGreen500)
                         .font(.title3Emphasized)
-                        .padding(.leading, 24)
+                        .padding(.horizontal, 24)
                     Spacer()
                 }
                 VStack(alignment: .leading, spacing: 4) {
-                    CustomTextFieldMedical(text: $medicalNeeds)
+                    CustomTextFieldMedical(text: $viewModel.medicalCondition)
                     
-                    Text("*optional")
+                    Text("e.g Asthma")
                         .font(.footnoteRegular)
                         .foregroundColor(.neutralGrayTertiaryGray)
                         .padding(.horizontal, 32)
@@ -36,15 +36,15 @@ struct EditMedicalRecordsView: View {
             CustomLargeButtonComponent(state: .enabled, text: "Save Changes"){
                 
             }
-            .frame(width: 340, height: 72)
+            .padding(.horizontal, 24)
         }
     }
 }
 
-struct EditMedicalRecordsView_Previews: PreviewProvider {
-    @State static var medicalNeeds = "dfd"
-    
-    static var previews: some View {
-        EditMedicalRecordsView(medicalNeeds: $medicalNeeds)
-    }
-}
+//struct EditMedicalRecordsView_Previews: PreviewProvider {
+//    @State static var medicalNeeds = ""
+//    
+//    static var previews: some View {
+//        EditMedicalRecordsView(medicalNeeds: $medicalNeeds)
+//    }
+//}

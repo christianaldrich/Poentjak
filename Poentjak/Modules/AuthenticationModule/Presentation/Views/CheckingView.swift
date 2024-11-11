@@ -17,11 +17,12 @@ struct CheckingView: View {
     var body: some View {
         Group {
             
-            if viewModel.isLoading {
-                            // LoadingView()
+            if viewModel.appIsLoading == true {
+                
             }
-            else if viewModel.userSession != nil {
-                if viewModelEmergency.emergencySessionActive { // harus cek sudah pilih tanggal belum 
+            
+           else if viewModel.userSession != nil {
+                if viewModelEmergency.emergencySessionActive { // harus cek sudah pilih tanggal belum
                     EmergencyProsesView()
                         .environmentObject(mountainViewModel)
                 }

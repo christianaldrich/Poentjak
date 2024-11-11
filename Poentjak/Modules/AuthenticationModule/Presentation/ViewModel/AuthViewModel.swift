@@ -40,6 +40,8 @@ class AuthViewModel: ObservableObject {
     @Published var isLoadingDelete: Bool = false
     @Published var errorMessageDelete: String = ""
     
+    @Published var appIsLoading: Bool = false
+    
     
     private var isEmailValidated = false
     
@@ -85,6 +87,7 @@ class AuthViewModel: ObservableObject {
     
     func fetchCurrentUser() async {
         isLoading = true
+        appIsLoading = true
         do {
             let user = try await useCase.fetchCurrentUser()
             userSession = user
@@ -93,6 +96,7 @@ class AuthViewModel: ObservableObject {
             print("Failed to fetch user: \(error.localizedDescription)")
         }
         isLoading = false
+        appIsLoading = false
     }
     
     func login(email: String, password: String) async {

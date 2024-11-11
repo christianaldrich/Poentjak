@@ -60,14 +60,15 @@ struct LoginView: View {
                 )
             }
             
-            CustomPrimaryButtonComponent(state: (viewModel.email.isEmpty || viewModel.password.isEmpty) ? .disabled: .enabled, text: "Log in"){
+            CustomPrimaryButtonComponent(state: viewModel.isLoading ? .loading : (viewModel.email.isEmpty || viewModel.password.isEmpty ? .disabled : .enabled),
+                                         text: "Log in"){
                 isSubmitted = true
                 Task {
                     
                     await viewModel.login(email: viewModel.email, password: viewModel.password)
                 }
             }
-            .padding(.top, 12)
+                                         .padding(.top, 12)
             
             NavigationLink {
                 Text("Forgot Password?")

@@ -25,6 +25,10 @@ class DefaultAuthUseCase: AuthUseCaseProtocol {
         return try await authRepository.createUser(with: request)
     }
     
+    func editUser(request: AuthRequestDTO) async throws {
+        return try await authRepository.editUser(with: request)
+    }
+    
     func signOut() async throws {
         try await authRepository.signOut()
     }

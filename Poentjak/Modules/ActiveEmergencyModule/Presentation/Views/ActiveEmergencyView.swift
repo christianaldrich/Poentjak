@@ -42,7 +42,6 @@ struct ActiveEmergencyView: View {
                 
                 List {
                     HikersNeedHelpSectionComponent(hikers: filteredHikers()){ hiker in
-//                        viewModel.rescuing(id: hiker.id)
                         selectedUser = hiker
                         idContainer = hiker.id
                         isDetailViewActive = true
@@ -50,16 +49,6 @@ struct ActiveEmergencyView: View {
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
                     .buttonStyle(PlainButtonStyle())
-
-                    
-                    //                    RangerRescuingSectionComponent(hikers: filteredHikers()){
-                    //                        hiker in
-                    //                        //                    viewModel.rescuing(id: hiker.id)
-                    //                        selectedUser = hiker
-                    //                        idContainer = hiker.id
-                    //                        isDetailViewActive = true
-                    //                    }
-                    
                     
                 }
                 .padding()

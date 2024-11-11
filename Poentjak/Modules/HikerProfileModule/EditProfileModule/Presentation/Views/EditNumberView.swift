@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct EditNumberView: View {
-    @StateObject var viewModel: EditProfileViewModel
+    @StateObject var viewModel: AuthViewModel
+    @ObservedObject var navigationManager: MountainNavigationManager
     //@Binding var number: Int
     var state: WheelPicker
         
@@ -39,9 +40,18 @@ struct EditNumberView: View {
 
             Spacer()
             CustomLargeButtonComponent(state: .enabled, text: "Save Changes"){
-                
+                navigationManager.popToPrevious()
+
             }
             .padding(.horizontal, 24)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                    BackButtonComponent{
+//                        navigationManager.popToPrevious()
+                    }
+            }
         }
     }
 }

@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct EditGenderView: View {
-    @StateObject var viewModel: EditProfileViewModel
+    @StateObject var viewModel: AuthViewModel
+    @ObservedObject var navigationManager: MountainNavigationManager
+
+
     // @Binding var gender: String
     var body: some View {
         VStack{
@@ -17,8 +20,17 @@ struct EditGenderView: View {
             
             CustomLargeButtonComponent(state: .enabled, text: "Save Changes"){
                 
+                navigationManager.popToPrevious()
             }
             .padding(.horizontal, 24)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                    BackButtonComponent{
+//                        navigationManager.popToPrevious()
+                    }
+            }
         }
     }
 }

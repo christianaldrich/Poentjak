@@ -19,6 +19,7 @@ struct MountainTracksDetailView: View {
     @State private var isMountainCardPresented = false
     
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
+    @State private var selectedDetent = PresentationDetent.fraction(0.6)
 
 
 
@@ -80,7 +81,11 @@ struct MountainTracksDetailView: View {
                                     }
                                 }
                         }
-                        .presentationDetents([.fraction(0.55), .large])
+                        .presentationDetents([.fraction(0.6)], selection: $selectedDetent)
+                        .presentationDragIndicator(.visible)
+                        .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.6)))
+                        .interactiveDismissDisabled(true)
+
                     }
                     
 //                    NavigationLink(destination: MountainCardComponent(mountain: mountain)){
@@ -147,6 +152,7 @@ struct MountainTracksDetailView: View {
                 Text("No mountain details available.")
             }
         }
+        
         .navigationBarBackButtonHidden(true) // Hide default back button
         .navigationTitle("") // Remove default title
     }

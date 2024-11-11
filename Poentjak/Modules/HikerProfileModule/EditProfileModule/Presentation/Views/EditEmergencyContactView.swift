@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct EditEmergencyContactView: View {
-    @StateObject var viewModel: EditProfileViewModel
+    @StateObject var viewModel: AuthViewModel
+    @ObservedObject var navigationManager: MountainNavigationManager
 //    @Binding var contactName: String
 //    @Binding var contactNumber: String
     
@@ -30,9 +31,18 @@ struct EditEmergencyContactView: View {
             Spacer()
             
             CustomLargeButtonComponent(state: .enabled, text: "Save Changes"){
+                navigationManager.popToPrevious()
                 
             }
             .padding(.horizontal, 24)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                    BackButtonComponent{
+//                        navigationManager.popToPrevious()
+                    }
+            }
         }
     }
 }

@@ -106,6 +106,8 @@ struct EmergencyProsesView: View {
                                             mountainViewModel.toggleIsPresenting()
                                             mountainViewModel.toggleIsPresenting()
                                         }
+                                        
+                                        isShowingModal = false
                                     }
                                 }
                                 .padding(.horizontal, 24)

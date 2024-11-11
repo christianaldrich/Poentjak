@@ -45,6 +45,23 @@ struct TracksDetailView: View {
             }
             .padding()
             
+            Button(action: {
+                Task {
+                    await authViewModel.deleteAccount()
+                }
+                
+                authViewModel.userSession = nil
+            }) {
+                Text("Delete account")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            
+            
+            
             
             
             

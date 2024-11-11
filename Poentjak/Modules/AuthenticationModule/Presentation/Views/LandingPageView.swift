@@ -38,9 +38,10 @@ struct LandingPageView: View {
                                     .font(.title2Regular)
                                 
                             }
-                            .padding()
+                            .padding(.horizontal, 32)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundStyle(Color.primaryGreen500)
+                            .padding(.bottom, 16)
                             
                             NavigationLink(destination:                     RegistrationView(viewModel: viewModel)
                                 /*.navigationBarBackButtonHidden(true)*/){

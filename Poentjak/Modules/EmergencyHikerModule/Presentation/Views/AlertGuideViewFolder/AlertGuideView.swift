@@ -10,6 +10,7 @@ import SwiftUI
 struct AlertGuideView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @StateObject var viewModel: EmergencyProsesViewModel
+    @StateObject private var textToSpeechViewModel = TextToSpeechViewModel()
     
     var body: some View {
         VStack {
@@ -17,7 +18,7 @@ struct AlertGuideView: View {
                 .padding(.bottom, 32)
             
             AlertGuideTabBar(idSelected: $viewModel.idSelected, text: viewModel.alertGuideTextTabBar)
-            AlertGuideContent(contentData: viewModel.contentData)
+            AlertGuideContent(contentData: viewModel.contentData, textToSpeechViewModel: textToSpeechViewModel)
             
             Text("You chose this emergency type: \(viewModel.emergencyType)")
             
@@ -29,6 +30,11 @@ struct AlertGuideView: View {
         .padding(.horizontal, 24)
         .onAppear{
             viewModel.idSelected = 1
+        }
+        .onChange(of: viewModel.idSelected) { _,newValue in
+            if textToSpeechViewModel.isSpeaking {
+                textToSpeechViewModel.stopSpeech()
+            }
         }
         
     }

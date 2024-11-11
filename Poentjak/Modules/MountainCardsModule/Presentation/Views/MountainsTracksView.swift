@@ -77,7 +77,7 @@ struct MountainsTracksView: View {
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
                         case .tracksDetail(let track):
-                            TracksDetailView(track: track, navigationManager: navigationManager, isShowingModal: $isShowingModal, viewModel: EmergencyProsesViewModel(), navigateViewModel: UserNavigateViewModel(fileName: track), authViewModel: authViewModel)
+                            TracksDetailView(track: track, navigationManager: navigationManager, isShowingModal: $isShowingModal, viewModel: EmergencyProsesViewModel(), navigateViewModel: TracksMapViewModel(fileName: track), authViewModel: authViewModel)
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
                         case .dueDate(let trackLocation):

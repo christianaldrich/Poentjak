@@ -89,12 +89,14 @@ struct EmergencyProsesView: View {
                                 .multilineTextAlignment(.center)
                                 .padding(.top, 16)
                                 
+
                                 SlideToActionButton(slidingDirection: .ltr, buttonColor: .primaryGreen500, text: "Finish trip") {
                                     if viewModel.isSignalSent {
-                                        // Show the confirmation modal when isSignalSent is true
+                                        
                                         showConfirmationModal = true
                                         isShowingModal = false
                                     } else {
+
                                         // Run the task as before if isSignalSent is not true
                                         
                                         Task {

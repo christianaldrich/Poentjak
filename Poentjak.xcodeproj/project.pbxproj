@@ -472,9 +472,9 @@
 				INFOPLIST_FILE = Poentjak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hikewise;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Need Camera";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "GPS Permission";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -505,9 +505,9 @@
 				INFOPLIST_FILE = Poentjak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hikewise;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Need Camera";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "GPS Permission";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

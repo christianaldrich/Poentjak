@@ -8,6 +8,15 @@
 import SwiftUI
 
 extension Font {
+    
+    static var customLargeTitle: Font = {
+        return Font.system(size: 55, weight: .bold)
+    }()
+    
+    static var customLargeTitle2: Font = {
+        return Font.system(size: 45, weight: .regular)
+    }()
+    
     static var largeTitleRegular: Font = {
         return Font.system(size: 34, weight: .regular)
     }()

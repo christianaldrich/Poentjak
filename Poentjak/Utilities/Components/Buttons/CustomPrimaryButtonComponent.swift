@@ -43,7 +43,9 @@ struct CustomPrimaryButtonComponent: View {
                         .foregroundColor(foregroundColorButton(for: state))
                 }
             }
-            .frame(width: 338, height: 55)
+            .frame(height: 55)
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 24)
         }
         .disabled(state == .disabled || state == .loading)
     }

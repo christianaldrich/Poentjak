@@ -13,5 +13,6 @@ protocol AuthUseCaseProtocol {
     func register(request: AuthRequestDTO) async throws -> UserAuth
     func editUser(request: AuthRequestDTO) async throws
     func signOut() async throws
+    func deleteAccount() async throws
  
 }

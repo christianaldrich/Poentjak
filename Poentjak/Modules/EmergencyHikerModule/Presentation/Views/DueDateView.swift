@@ -85,6 +85,7 @@ struct DueDateView: View {
                     HStack{
                         Text("Important :")
                             .font(.subheadlineRegular)
+                            .fontWeight(.semibold)
                             .foregroundColor(Color.errorRed500)
                             .multilineTextAlignment(.center)
                         Text("Make sure to not finish the")

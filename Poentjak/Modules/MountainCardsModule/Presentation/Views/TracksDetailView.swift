@@ -14,7 +14,8 @@ struct TracksDetailView: View {
     @Binding var isShowingModal: Bool
     
     @StateObject var viewModel : EmergencyProsesViewModel
-    @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
+//    @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
+    @StateObject var navigateViewModel = TracksMapViewModel(fileName: "")
     @StateObject var authViewModel: AuthViewModel
     
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
@@ -29,7 +30,26 @@ struct TracksDetailView: View {
         VStack{
             //            Text("Name: \(track)")
             
-            MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: track)
+//            MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: track)
+            
+            TracksMapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedFirstLastWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true)
+            
+            
+            
+            Button(action: {
+                Task {
+                    await authViewModel.deleteAccount()
+                }
+                
+                authViewModel.userSession = nil
+            }) {
+                Text("Delete account")
+                    .font(.headline)
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
             
             
             
@@ -45,9 +65,9 @@ struct TracksDetailView: View {
         }
         .environmentObject(navigationManager)
         .onAppear{
-            navigateViewModel.fileName = track
+             navigateViewModel.fileName = track
             
-            navigateViewModel.setupRegionUser()
+            navigateViewModel.setupRegionTrack()
             viewModel.fetchEmergency()
             isShowingSelectTrackModal = true
             //            navigateViewModel.fileName = viewModel.trackId

@@ -13,6 +13,7 @@ class GPXParser: NSObject, XMLParserDelegate {
     private var trackPoints: [CLLocationCoordinate2D] = []
     private var waypointsPos: [Waypoint] = []
     private var waypointsWarung: [Waypoint] = []
+    private var firstLastWaypoints: [Waypoint] = []
     private var nextIndex = 1 // Index counter
 
     private var currentElement = ""
@@ -38,6 +39,10 @@ class GPXParser: NSObject, XMLParserDelegate {
     
     var parsedWaypointsPos: [Waypoint] {
         return waypointsPos
+    }
+    
+    var parsedFirstLastWaypoints: [Waypoint]{
+        return firstLastWaypoints
     }
 
     // Start parsing the GPX file
@@ -85,13 +90,13 @@ class GPXParser: NSObject, XMLParserDelegate {
             if let lat = latitude, let lon = longitude {
                 let waypoint = Waypoint(latitude: lat, longitude: lon, elevation: elevation, name: waypointName, desc: waypointDesc, idx: nextIndex, imageName: imageName, checkPointStatus: checkPointStatus)
                 
+                if nextIndex == 1{
+                    firstLastWaypoints.append(waypoint)
+                } else if checkPointStatus == "summit"{
+                    firstLastWaypoints.append(waypoint)
+                }
+                
                 nextIndex+=1
-                // Check if the waypoint name contains "Warung"
-//                if waypointName.localizedCaseInsensitiveContains("Warung") {
-//                    waypointsWarung.append(waypoint)
-//                } else {
-//                    waypointsPos.append(waypoint)
-//                }
                 
                 if checkPointStatus == "emergency" {
                     waypointsWarung.append(waypoint)

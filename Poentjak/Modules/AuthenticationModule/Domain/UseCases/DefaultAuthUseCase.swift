@@ -8,6 +8,7 @@
 import Foundation
 
 class DefaultAuthUseCase: AuthUseCaseProtocol {
+    
     private let authRepository: AuthRepositoryProtocol
     private let userRepository: UserRepositoryProtocol
     
@@ -35,4 +36,14 @@ class DefaultAuthUseCase: AuthUseCaseProtocol {
     func fetchCurrentUser() async throws -> UserAuth {
         return try await userRepository.fetchCurrentUser()
     }
+    
+    func checkEmailExists(email: String) async -> Bool {
+        return await authRepository.checkEmailExists(email: email)
+           
+        }
+    
+    func deleteAccount() async throws {
+        return try await authRepository.deleteAccount()
+    }
+    
 }

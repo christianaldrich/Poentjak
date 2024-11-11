@@ -9,6 +9,7 @@ import SwiftUI
 import PhotosUI
 
 import FirebaseStorage
+import FirebaseAuth
 import FirebaseFirestore
 
 @MainActor
@@ -35,6 +36,14 @@ class AuthViewModel: ObservableObject {
     @Published var currentIndex: Int = -1
     @Published var capturedImage: UIImage?
     
+    //buat delete
+    @Published var isLoadingDelete: Bool = false
+    @Published var errorMessageDelete: String = ""
+    
+    @Published var appIsLoading: Bool = false
+    
+    
+    private var isEmailValidated = false
     
     private let useCase: DefaultAuthUseCase
 
@@ -45,8 +54,40 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    func isValidEmail(_ email: String) -> Bool {
+            let emailRegex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+            let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+            return emailPredicate.evaluate(with: email)
+        }
+
+    func validateEmail(email: String) async -> String? {
+            if !isValidEmail(email) {
+                return "Invalid email address"
+            }
+            
+        let emailExists = await useCase.checkEmailExists(email: email)
+            
+        if emailExists {
+                return "Email has already been used"
+            }
+            
+            isEmailValidated = true
+            return nil
+        }
+
+        func validatePassword() -> String? {
+            if password.count < 8 {
+                return "Must be at least 8 characters"
+            }
+            if password != checkPassword {
+                return "Passwords do not match"
+            }
+            return nil
+        }
+    
     func fetchCurrentUser() async {
         isLoading = true
+        appIsLoading = true
         do {
             let user = try await useCase.fetchCurrentUser()
             userSession = user
@@ -55,6 +96,7 @@ class AuthViewModel: ObservableObject {
             print("Failed to fetch user: \(error.localizedDescription)")
         }
         isLoading = false
+        appIsLoading = false
     }
     
     func login(email: String, password: String) async {
@@ -146,5 +188,18 @@ class AuthViewModel: ObservableObject {
         }
         
         
+    }
+    
+    func deleteAccount() async {
+        isLoadingDelete = true
+        errorMessageDelete = ""
+        
+        do {
+            try await useCase.deleteAccount()
+        } catch {
+            errorMessageDelete = "Failed to delete account: \(error.localizedDescription)"
+        }
+        
+        isLoading = false
     }
 }

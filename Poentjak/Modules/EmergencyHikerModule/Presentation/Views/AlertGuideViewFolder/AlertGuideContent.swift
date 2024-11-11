@@ -9,6 +9,10 @@ import SwiftUI
 
 struct AlertGuideContent: View {
     var contentData: AlertGuideContentDataModel
+    //    @StateObject private var textToSpeechViewModel = TextToSpeechViewModel()
+    @ObservedObject var textToSpeechViewModel: TextToSpeechViewModel
+    
+    
     @State private var currentIndex = 0
     
     var body: some View {
@@ -66,7 +70,6 @@ struct AlertGuideContent: View {
             
         }
         .padding(.horizontal, 25)
-        
     }
     
     
@@ -77,9 +80,9 @@ struct AlertGuideContent: View {
 extension AlertGuideContent{
     var speechButton: some View {
         Button(action: {
-            //                ttsViewModel.toggleSpeech(title: contentData.title, content: contentData.content)
+            textToSpeechViewModel.toggleSpeech(title: contentData.title, content: contentData.content)
         }) {
-            Image.ButtonIcon.sound
+            textToSpeechViewModel.buttonImage
                 .padding(4)
                 .background(Color.white)
                 .clipShape(Circle())
@@ -157,9 +160,9 @@ extension AlertGuideContent{
 }
 
 #Preview {
-    var contentData = AlertGuideContentDataModel(image: "AlertGuideData/lostAlertGuide1", title: "Title", content: "Content")
+    var contentData = AlertGuideContentDataModel(image: "AlertGuideData/lostAlertGuide1", title: "Stop!", content: "Take a deep breath and pause for a moment. Rushing won’t help, so stay calm.")
     
-    var testContentData = AlertGuideContentDataModel(images: ["AlertGuideData/lostAlertGuide1", "AlertGuideData/lostAlertGuide2", "AlertGuideData/lostAlertGuide3"], title: "test title", content: "dummy title")
+    var testContentData = AlertGuideContentDataModel(images: ["AlertGuideData/lostAlertGuide1", "AlertGuideData/lostAlertGuide2", "AlertGuideData/lostAlertGuide3"], title: "Stop title", content: "Take a deep breath and pause for a moment. Rushing won’t help, so stay calm.")
     
-    AlertGuideContent(contentData: contentData)
+    AlertGuideContent(contentData: testContentData, textToSpeechViewModel: TextToSpeechViewModel())
 }

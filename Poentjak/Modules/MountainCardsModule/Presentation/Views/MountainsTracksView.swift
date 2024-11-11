@@ -11,6 +11,8 @@ enum MountainDestinationView: Hashable {
     case mountainTracksDetail(mountain: MountainTracksModel?)
     case tracksDetail(tracks: String)
     case dueDate(trackLocation: String)
+    case hikerProfile
+    case editProfile
 }
 
 
@@ -49,23 +51,27 @@ struct MountainsTracksView: View {
     var body: some View {
         
         NavigationStack(path: $navigationManager.navigationPath){
-            //            List(viewModel.mountainsTracks, id: \.id){mountain in
-            //                Button("Name: \(mountain.name)"){
-            //                    navigationManager.navigationPath.append(MountainDestinationView.mountainTracksDetail(mountain: mountain))
-            //                }
-            //
-            //
-            //            }
+            
+            
+            
             ZStack{
                 
-
-//                MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: "")
-                
                 MKMapViewRepresentable()
-
                 
-                //                    .zIndex(0)
-                
+                    .toolbar{
+                        ToolbarItemGroup{
+                            Button{
+                                isShowingModal = false
+                                navigationManager.navigationPath.append(MountainDestinationView.hikerProfile)
+                            }label:{
+                                Image.ButtonIcon.profileBig
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 39, height: 39)
+                            }
+                            
+                        }
+                    }
                     .navigationDestination(for: MountainDestinationView.self) { destination in
                         switch destination {
                         case .mountainTracksDetail(let mountain):
@@ -82,6 +88,14 @@ struct MountainsTracksView: View {
                                 .environmentObject(navigationManager)
                         case .dueDate(let trackLocation):
                             DueDateView(trackLocation: trackLocation)
+                                .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
+                        case .hikerProfile:
+                            HikerProfileView(authViewModel: authViewModel, navigationManager: navigationManager)
+                                .environmentObject(viewModel)
+                                .environmentObject(navigationManager)
+                        case .editProfile:
+                            EditProfileView(viewModel: authViewModel)
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
                         }
@@ -145,28 +159,9 @@ struct MountainsTracksView: View {
                 
             }
             
+            
         }
-//        .searchable(text: $searchMountain,
-//                    tokens: $selectedTokens,
-//                    suggestedTokens: $suggestedTokens,
-//                    isPresented: $isSearchActive,
-//                    placement: .automatic,
-//                    prompt: "Find Mountains",
-//                    token: { temp in
-//            Text(temp.name)
-//        })
         
-        
-        //        {_ in
-//                    ForEach(searchResult, id: \.self) {
-//                        result in
-//                        Button{
-//                            navigationManager.navigationPath.append(MountainDestinationView.mountainTracksDetail(mountain: result))
-//                        }label: {
-//                            SearchMountainCardComponent(mountain: result.name, streetName: result.streetName)
-//                        }
-//                    }
-        //        }
         .searchable(text: $searchMountain, isPresented: $isSearchActive, prompt: "Find Mountains")
         .searchable(text: $searchMountain, prompt: "Find Mountains"){
             ForEach(searchResult, id: \.self) {
@@ -180,7 +175,7 @@ struct MountainsTracksView: View {
                 }
             }
         }
-//        .focused($isSearchFocused)
+        
         .onChange(of: isSearchActive){
             
             if isSearchActive == true{

@@ -53,6 +53,43 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
         }
     }
     
+    func editUser(with request: AuthRequestDTO) async throws {
+        
+        guard let userId = Auth.auth().currentUser?.uid else {
+            throw NSError(domain: "AuthError", code: 1, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        }
+        
+        let collectionRef = firestore.collection("users")
+        
+        
+        let newValues: [String: Any] = [
+            "id": userId,
+            "name": request.name,
+            "email": request.email,
+            "weight": request.weight,
+            "height": request.height,
+            "gender": request.gender,
+            "age": request.age,
+            "contactNumber": request.contactNumber,
+            "trackId": "none",
+            "contactName": request.contactName,
+            "profileURL": "images/\(request.name).jpg"
+        ]
+        
+        do {
+            // Use setData to update or create the document with new values
+            try await collectionRef.document(userId).setData(newValues)
+            print("User stored with new document reference: \(userId)")
+            
+            // Return the updated user authentication object
+//            return userAuth
+        } catch {
+            print("Error updating user:", error)
+            throw error
+        }
+    }
+
+    
     func signIn(with email: String, password: String) async throws -> UserAuth {
         _ = try await Auth.auth().signIn(withEmail: email, password: password)
         return try await userRepository.fetchCurrentUser()

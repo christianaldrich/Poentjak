@@ -31,19 +31,7 @@ struct TracksDetailView: View {
             
             MapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true, dots: navigateViewModel.dots, fileName: track)
             
-            Button(action: {
-                Task {
-                    await authViewModel.signOut()
-                }
-            }) {
-                Text("Sign Out")
-                    .font(.headline)
-                    .padding()
-                    .background(Color.red)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .padding()
+            
             
             
             

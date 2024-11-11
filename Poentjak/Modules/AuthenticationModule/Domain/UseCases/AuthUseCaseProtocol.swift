@@ -11,6 +11,7 @@ import Combine
 protocol AuthUseCaseProtocol {
     func login(email: String, password: String) async throws -> UserAuth
     func register(request: AuthRequestDTO) async throws -> UserAuth
+    func editUser(request: AuthRequestDTO) async throws
     func signOut() async throws
  
 }

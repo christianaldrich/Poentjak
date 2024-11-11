@@ -96,6 +96,21 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
+    func editUser() async {
+        isLoading = true
+        let request = AuthRequestDTO(email: email, password: password, isAdmin: false, contactName: contactName, contactNumber: contactNumber, medicalCondition: medicalCondition, age: age, weight: weight, height: height, name: name, gender: gender)
+//        , profileURL: capturedImage
+        do {
+            let user: () = try await useCase.editUser(request: request)
+//            userSession = user
+//            isAdmin = user.isAdmin
+        } catch {
+            registrationError = error.localizedDescription
+            print("Failed to update: \(error.localizedDescription)")
+        }
+        isLoading = false
+    }
+    
     func uploadPhoto(userName: String) async{
         guard capturedImage != nil else {
             return
@@ -123,6 +138,10 @@ class AuthViewModel: ObservableObject {
 //                
 //                
 //            }
+            
+        }
+        
+        func updateProfile(){
             
         }
         

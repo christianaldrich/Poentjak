@@ -96,6 +96,7 @@ struct EmergencyProsesView: View {
                                         isShowingModal = false
                                     } else {
                                         // Run the task as before if isSignalSent is not true
+                                        
                                         Task {
                                             await viewModel.updateSessionDone()
                                             navigateViewModel.isNavigating = false
@@ -106,6 +107,7 @@ struct EmergencyProsesView: View {
                                             mountainViewModel.toggleIsPresenting()
                                             mountainViewModel.toggleIsPresenting()
                                         }
+                                        isShowingModal = false
                                     }
                                 }
                                 .padding(.horizontal, 24)

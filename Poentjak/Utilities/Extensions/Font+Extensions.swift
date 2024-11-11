@@ -188,5 +188,9 @@ extension Font {
     static var customFootNote: Font = {
         return Font.system(size: 13, weight: .bold)
     }()
+    
+    static var customCountDown: Font = {
+        return Font.system(size: 89, weight: .bold)
+    }()
 }
 

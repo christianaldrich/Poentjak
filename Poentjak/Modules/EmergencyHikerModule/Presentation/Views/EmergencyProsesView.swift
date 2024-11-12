@@ -109,7 +109,9 @@ struct EmergencyProsesView: View {
                                             mountainViewModel.toggleIsPresenting()
                                             mountainViewModel.toggleIsPresenting()
                                         }
-                                        isShowingModal = false
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                isShowingModal = false
+                                            }
                                     }
                                 }
                                 .padding(.horizontal, 24)
@@ -153,6 +155,11 @@ struct EmergencyProsesView: View {
                         
                         CustomConfirmationComponent(confirmType: .evacuated, isModalVisible: $showConfirmationModal, sosGuideModalVisible: $isShowingModal) {
                             // Dismiss the modal and perform the action
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    isShowingModal = false
+                                }
+                            
                             Task {
                                 await viewModel.updateSessionDone()
                                 navigateViewModel.isNavigating = false
@@ -163,7 +170,10 @@ struct EmergencyProsesView: View {
                                 mountainViewModel.toggleIsPresenting()
                                 mountainViewModel.toggleIsPresenting()
                             }
-                            showConfirmationModal = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                showConfirmationModal = false
+                                }
+                            
                         }
                     }
                 }

@@ -14,7 +14,7 @@ struct CustomDateSliderComponent: View {
         VStack {
             DatePicker(
                 "",
-                selection: $selectedDate,
+                selection: $selectedDate, in: Date()...,
                 displayedComponents: [.date, .hourAndMinute]
             )
             .datePickerStyle(.wheel)

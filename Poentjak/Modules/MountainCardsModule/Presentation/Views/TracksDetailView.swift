@@ -27,21 +27,6 @@ struct TracksDetailView: View {
 
             
             TracksMapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedFirstLastWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true)
-        
-            Button(action: {
-                Task {
-                    await authViewModel.deleteAccount()
-                }
-                
-                authViewModel.userSession = nil
-            }) {
-                Text("Delete account")
-                    .font(.headline)
-                    .padding()
-                    .background(Color.red)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
 
         }
         
@@ -59,9 +44,9 @@ struct TracksDetailView: View {
                 isShowingSelectTrackModal = false
             }
                 .presentationDetents([.fraction(0.5)], selection: $selectedDetent)
-//                .presentationDragIndicator(.visible)
-//                .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
-//                .interactiveDismissDisabled(true)
+                .presentationDragIndicator(.visible)
+                .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
+                .interactiveDismissDisabled(true)
 
         }
         .navigationBarBackButtonHidden(true)

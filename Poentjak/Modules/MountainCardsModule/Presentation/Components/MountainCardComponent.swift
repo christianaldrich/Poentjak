@@ -11,23 +11,56 @@ struct MountainCardComponent: View {
     let mountain: MountainTracksModel?
 
     var body: some View {
-        VStack{
+        VStack(spacing:8){
             Image("gunungGede")
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-//                .frame(width: 878, height: 154)
-            
-            HStack{
-                Image.ExploreIcon.mountainBig
+                .frame(width: 338, height: 139)
+                .scaledToFit()
                 
-                Text("\(mountain?.name ?? "")")
-                    .font(.title2Emphasized)
+            
+            VStack(spacing:8){
+                HStack{
+                    Image.ExploreIcon.mountainBig
+                    
+                    Text("\(mountain?.name ?? "")")
+                        .font(.title2Emphasized)
+                }
+                
+                HStack(spacing: 40){
+                    VStack(alignment: .center, spacing: 10){
+                        Text("Est. Time")
+                            .font(.caption1Regular)
+                        Text("7 hrs 20 min")
+                            .font(.calloutEmphasized)
+                    }
+                    
+                    VStack(alignment: .center, spacing: 10){
+                        Text("Distance (KM)")
+                            .font(.caption1Regular)
+                        Text("18,02")
+                            .font(.calloutEmphasized)
+                    }
+                    
+                    VStack(alignment: .center, spacing: 10){
+                        Text("Elevation")
+                            .font(.caption1Regular)
+                        Text("3600 m")
+                            .font(.calloutEmphasized)
+                    }
+                }
             }
+            
+            
+            Divider()
             
             Text("\(mountain?.description ?? "")")
                 .font(.calloutRegular)
+                .foregroundStyle(Color.primaryGreen500)
+                .padding(.top,16)
+            Spacer()
         }
-        .padding()
+        .padding(.leading,27)
+        .padding(.trailing,27)
         .navigationBarBackButtonHidden(true)
         
     }

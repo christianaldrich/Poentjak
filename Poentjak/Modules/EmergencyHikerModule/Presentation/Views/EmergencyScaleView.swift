@@ -83,6 +83,9 @@ struct EmergencyScaleView: View {
 
             }
         }
+        .onDisappear{
+            viewModel.emergencyScale = 1
+        }
         
     }
 }

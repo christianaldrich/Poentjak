@@ -61,6 +61,10 @@ extension Image {
             return Image("Icons/button/i_btn_profile")
         }
         
+        static var profileBig: Image {
+            return Image("Icons/button/i_btn_profileBig")
+        }
+        
         static var sos: Image {
             return Image("Icons/button/i_btn_sos")
         }

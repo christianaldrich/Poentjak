@@ -101,6 +101,14 @@ struct EditDueDateView: View {
         .overlay(
             showCustomAlert ? alertOverlay : nil
         )
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                BackButtonComponent{
+                    
+                }
+            }
+        }
     }
 }
 

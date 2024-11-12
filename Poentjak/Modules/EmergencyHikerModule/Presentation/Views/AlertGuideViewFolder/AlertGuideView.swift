@@ -20,7 +20,7 @@ struct AlertGuideView: View {
             AlertGuideTabBar(idSelected: $viewModel.idSelected, text: viewModel.alertGuideTextTabBar)
             AlertGuideContent(contentData: viewModel.contentData, textToSpeechViewModel: textToSpeechViewModel)
             
-            Text("You chose this emergency type: \(viewModel.emergencyType)")
+//            Text("You chose this emergency type: \(viewModel.emergencyType)")
             
             Spacer()
             

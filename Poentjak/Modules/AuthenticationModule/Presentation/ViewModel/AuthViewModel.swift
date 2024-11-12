@@ -26,9 +26,9 @@ class AuthViewModel: ObservableObject {
     @Published var contactName: String = ""
     @Published var contactNumber: String = ""
     @Published var medicalCondition: String = ""
-    @Published var age: Int = 1
-    @Published var weight: Int = 1
-    @Published var height: Int = 1
+    @Published var age: Int = 21
+    @Published var weight: Int = 72
+    @Published var height: Int = 170
     
     
     @Published var name: String = ""

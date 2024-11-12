@@ -34,7 +34,7 @@ struct DueDateView: View {
             Text("Tell us when you will be back")
                 .font(.title3Emphasized)
                 .foregroundColor(Color.primaryGreen500)
-                .padding(.horizontal, 12)
+                .padding(.horizontal, 24)
                 .padding(.top, 8)
             
             Text("When overdue, we will alert rangers in case of emergency.")
@@ -42,7 +42,7 @@ struct DueDateView: View {
                 .foregroundColor(Color.primaryGreen500)
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
-                .padding(.horizontal, 12)
+                .padding(.horizontal, 24)
                 .padding(.top, 0.5)
             
             List {
@@ -85,7 +85,7 @@ struct DueDateView: View {
                     HStack{
                         Text("Important :")
                             .font(.subheadlineRegular)
-                            .fontWeight(.semibold)
+                            .fontWeight(.bold)
                             .foregroundColor(Color.errorRed500)
                             .multilineTextAlignment(.center)
                         Text("Make sure to not finish the")
@@ -112,7 +112,7 @@ struct DueDateView: View {
                         navigationManager.popToRoot()
                     }
                 }
-                .frame(width: 340, height: 72)
+                .padding(.horizontal, 24)
                 Spacer()
             }
             

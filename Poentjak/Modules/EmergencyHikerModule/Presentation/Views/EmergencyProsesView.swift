@@ -106,8 +106,9 @@ struct EmergencyProsesView: View {
                                             SOSManager.shared.isSOS = false
                                             navigateViewModel.isSOS = false
                                             
-                                            mountainViewModel.toggleIsPresenting()
-                                            mountainViewModel.toggleIsPresenting()
+//                                            mountainViewModel.toggleIsPresenting()
+//                                            mountainViewModel.toggleIsPresenting()
+                                            mountainViewModel.isPresenting = false
                                         }
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                                 isShowingModal = false
@@ -167,8 +168,9 @@ struct EmergencyProsesView: View {
                                 SOSManager.shared.isSOS = false
                                 navigateViewModel.isSOS = false
     
-                                mountainViewModel.toggleIsPresenting()
-                                mountainViewModel.toggleIsPresenting()
+//                                mountainViewModel.toggleIsPresenting()
+//                                mountainViewModel.toggleIsPresenting()
+                                mountainViewModel.isPresenting = false
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                                 showConfirmationModal = false

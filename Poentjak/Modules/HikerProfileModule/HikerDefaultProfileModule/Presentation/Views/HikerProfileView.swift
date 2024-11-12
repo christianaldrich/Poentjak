@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct HikerProfileView: View {
-    @ObservedObject var viewModel = HikerProfileViewModel(authViewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())), hikerProfileUseCase: HikerProfileUseCase(userRepository: DefaultUserRepository()))
+    @ObservedObject var viewModel : HikerProfileViewModel/*(authViewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())), hikerProfileUseCase: HikerProfileUseCase(userRepository: DefaultUserRepository()))*/
     @StateObject var authViewModel: AuthViewModel
     @ObservedObject var navigationManager: MountainNavigationManager
-    
+
     @State var isShowDeleteModal: Bool = false
     @State var isShowLogoutModal: Bool = false
     @State var sosGuideModalVisible: Bool = false
@@ -25,10 +25,11 @@ struct HikerProfileView: View {
                     .padding(.leading, 18)
                 
                 VStack(spacing: 16) {
-                    PhotoNameComponent(profileURL: viewModel.hikerProfile?.profileURL ?? "", name: viewModel.hikerProfile?.name ?? "joko")
-                    ProfileDescComponent(gender: viewModel.hikerProfile?.gender ?? "", age: viewModel.hikerProfile?.age ?? 0, weight: viewModel.hikerProfile?.weight ?? 0.0, height: viewModel.hikerProfile?.height ?? 0.0, medicalCondition: viewModel.hikerProfile?.medicalRecord ?? "", emergencyContactName: viewModel.hikerProfile?.contactName ?? "", emergencyContactNumber: viewModel.hikerProfile?.contactNumber ?? "")
+                    PhotoNameComponent(name: $authViewModel.name, authViewModel: authViewModel)
+                    ProfileDescComponent(gender: $authViewModel.gender, age: $authViewModel.age, weight: $authViewModel.weight, height: $authViewModel.height, medicalCondition: $authViewModel.medicalCondition, emergencyContactName: $authViewModel.contactName, emergencyContactNumber: $authViewModel.contactNumber)
                 }
                 
+
                 VStack(alignment: .leading, spacing: 8) {
                     Button {
                         isShowDeleteModal = true

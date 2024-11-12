@@ -33,7 +33,6 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
             contactNumber: request.contactNumber,
             trackId: "none",
             contactName: request.contactName,
-//            profileURL: request.profileURL,
             profileURL: "images/\(request.name).jpg",
             medicalRecord: request.medicalCondition,
             
@@ -70,6 +69,7 @@ class DefaultAuthRepository: AuthRepositoryProtocol {
             "gender": request.gender,
             "age": request.age,
             "contactNumber": request.contactNumber,
+            "medicalRecord": request.medicalCondition ?? "None",
             "trackId": "none",
             "contactName": request.contactName,
             "profileURL": "images/\(request.name).jpg"

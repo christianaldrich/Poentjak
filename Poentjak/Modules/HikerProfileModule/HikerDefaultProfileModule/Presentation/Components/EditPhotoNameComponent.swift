@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct EditPhotoNameComponent: View {
-    var profileURL: String
-    var defaultName: String
+
+    @Binding var defaultName: String
     @Binding var name: String
+    @StateObject var authViewModel: AuthViewModel
     
     var action: () -> Void
     
@@ -26,7 +27,8 @@ struct EditPhotoNameComponent: View {
                 Button{
                     action()
                 }label: {
-                    Image("\(profileURL)")
+                    if let image = authViewModel.retrievedImage{
+                        Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 50, height: 50)
@@ -44,6 +46,28 @@ struct EditPhotoNameComponent: View {
                             },
                             alignment: .bottom
                         )
+                    } else {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(.gray)
+                            .clipShape(Circle())
+                            .overlay(
+                                ZStack {
+                                    Circle()
+                                        .trim(from: 0.0, to:0.5)
+                                        .foregroundStyle(Color.primaryGreen500)
+                                    
+                                    Text("Edit")
+                                        .foregroundColor(.neutralWhiteBiancaWhite)
+                                        .font(.caption2Regular)
+                                        .offset(y: 12.5)
+                                },
+                                alignment: .bottom
+                            )
+                    }
+                        
                     
                     
                 }
@@ -55,6 +79,11 @@ struct EditPhotoNameComponent: View {
             .padding()
             .frame(width: 340, height: 75)
             
+        }
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+                authViewModel.retrievePhoto(userName: name)
+            }
         }
     }
 }

@@ -17,8 +17,13 @@ struct EditProfileView: View {
     
     
     var body: some View {
-        VStack{
-            EditPhotoNameComponent(profileURL: viewModel.hikerProfile?.profileURL ?? "", defaultName: viewModel.hikerProfile?.name ?? "" , name: $authViewModel.name){
+        VStack(alignment: .leading, spacing: 8){
+            Text("Hiker ID")
+                .font(.title1Emphasized)
+                .foregroundStyle(Color.primaryGreen500)
+                .padding(.leading, 18)
+            
+            EditPhotoNameComponent(defaultName: $authViewModel.name, name: $authViewModel.name, authViewModel: authViewModel){
                 //                    self.showCamera.toggle()
                 //                Task{
                 //                    await viewModel.uploadPhoto(userName: viewModel.name)
@@ -29,16 +34,28 @@ struct EditProfileView: View {
             
             EditProfileDescComponent(gender: $authViewModel.gender, age: $authViewModel.age, weight: $authViewModel.weight, height: $authViewModel.height, medicalCondition: $authViewModel.medicalCondition, emergencyContactName: $authViewModel.contactName, emergencyContactNumber: $authViewModel.contactNumber, navigationManager: navigationManager)
             
-            Button("save changes"){
+            Spacer()
+            
+            CustomLargeButtonComponent(state: .enabled, text: "Save Changes"){
                 Task{
                     await authViewModel.editUser()
                 }
+                navigationManager.popToPrevious()
             }
         }
+        .padding()
         .onAppear {
-            if !isProfileFetched {
+//            if !isProfileFetched {
                 viewModel.fetchHikerProfile()
-                isProfileFetched = true  // Mark as fetched
+//                isProfileFetched = true  // Mark as fetched
+//            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                    BackButtonComponent{
+                        
+                    }
             }
         }
         //        .fullScreenCover(isPresented: self.$showCamera) {

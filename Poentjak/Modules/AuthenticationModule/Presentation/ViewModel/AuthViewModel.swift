@@ -35,6 +35,7 @@ class AuthViewModel: ObservableObject {
     @Published var gender: String = ""
     @Published var currentIndex: Int = -1
     @Published var capturedImage: UIImage?
+    @Published var retrievedImage: UIImage?
     
     //buat delete
     @Published var isLoadingDelete: Bool = false
@@ -142,6 +143,9 @@ class AuthViewModel: ObservableObject {
         isLoading = true
         let request = AuthRequestDTO(email: email, password: password, isAdmin: false, contactName: contactName, contactNumber: contactNumber, medicalCondition: medicalCondition, age: age, weight: weight, height: height, name: name, gender: gender)
 //        , profileURL: capturedImage
+        
+//        print("\n\n\\nMEDICAL CONDITION:\(request.medicalCondition)")
+//        print("\n\n\\nTESTING:\(request.name)")
         do {
             let user: () = try await useCase.editUser(request: request)
 //            userSession = user
@@ -172,22 +176,54 @@ class AuthViewModel: ObservableObject {
         
         let uploadTask = fileRef.putData(imageData!, metadata: nil){ metadata, error in
             
-//            if error == nil && metadata != nil{
-//                //save reference
-//                
-//                let db = Firestore.firestore()
-//                db.collection("users").document().setData(["profileURL": path])
-//                
-//                
-//            }
+            if error == nil && metadata != nil{
+                //save reference
+                
+                let db = Firestore.firestore()
+                db.collection("users").document().setData(["profileURL": path])
+                
+                
+            }
             
         }
         
-        func updateProfile(){
+    }
+    
+    func retrievePhoto(userName: String){
+        let db = Firestore.firestore()
+        
+        db.collection("users")
+            .whereField("name", isEqualTo: userName)
+            .getDocuments{ snapshot, error in
+        
+            if error == nil && snapshot != nil {
+                
+                
+                for doc in snapshot!.documents{
+                        let path = doc["profileURL"] as! String
+//                    {
+                        
+                        let storageRef = Storage.storage().reference()
+                        let fileRef = storageRef.child(path)
+                        
+                        fileRef.getData(maxSize: 3 * 1024 * 1024){ data, error in
+                            if error == nil && data != nil{
+                                
+                                if let image = UIImage(data: data!){
+                                    DispatchQueue.main.async{
+                                        self.retrievedImage = image
+                                    }
+                                }
+                            }
+                        }
+//                    }
+                    
+                }
+                
+                
+            }
             
         }
-        
-        
     }
     
     func deleteAccount() async {

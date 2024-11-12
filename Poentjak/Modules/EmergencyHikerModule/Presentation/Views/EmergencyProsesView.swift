@@ -106,8 +106,9 @@ struct EmergencyProsesView: View {
                                             SOSManager.shared.isSOS = false
                                             navigateViewModel.isSOS = false
                                             
-                                            mountainViewModel.toggleIsPresenting()
-                                            mountainViewModel.toggleIsPresenting()
+//                                            mountainViewModel.toggleIsPresenting()
+//                                            mountainViewModel.toggleIsPresenting()
+                                            mountainViewModel.isPresenting = false
                                         }
                                         isShowingModal = false
                                     }
@@ -160,8 +161,9 @@ struct EmergencyProsesView: View {
                                 SOSManager.shared.isSOS = false
                                 navigateViewModel.isSOS = false
     
-                                mountainViewModel.toggleIsPresenting()
-                                mountainViewModel.toggleIsPresenting()
+//                                mountainViewModel.toggleIsPresenting()
+//                                mountainViewModel.toggleIsPresenting()
+                                mountainViewModel.isPresenting = false
                             }
                             showConfirmationModal = false
                         }

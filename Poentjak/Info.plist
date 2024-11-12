@@ -4,8 +4,8 @@
 <dict>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>Hikewise needs to work on your background for navigation and assistance during emergencies</string>
-		<string>Hikewise needs to work on your background for navigation and assistance during emergencies</string>
+		<string>fetch</string>
+		<string>location</string>
 	</array>
 </dict>
 </plist>

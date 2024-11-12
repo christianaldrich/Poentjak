@@ -107,7 +107,8 @@ struct DueDateView: View {
                     Task{
                         mountainViewModel.selectedTrackLocation = trackLocation
                         await viewModel.createEmergencyHiking(trackId: trackLocation)
-                        mountainViewModel.toggleIsPresenting()
+//                        mountainViewModel.toggleIsPresenting()
+                        mountainViewModel.isPresenting = true
                         navigationManager.popToRoot()
                     }
                 }

@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ProfileDescComponent: View {
     
-    var gender: String
-    var age: Int
-    var weight: Double
-    var height: Double
-    var medicalCondition: String
-    var emergencyContactName: String
-    var emergencyContactNumber: String
+    @Binding var gender: String
+    @Binding var age: Int
+    @Binding var weight: Int
+    @Binding var height: Int
+    @Binding var medicalCondition: String
+    @Binding var emergencyContactName: String
+    @Binding var emergencyContactNumber: String
     
     
     var body: some View {
@@ -53,7 +53,7 @@ struct ProfileDescComponent: View {
                     Text("Weight, kg")
                         .font(.subheadlineRegular)
                     Spacer()
-                    Text(String(format: "%.2f", weight))
+                    Text("\(weight)")
                         .font(.bodyEmphasized)
                         .foregroundStyle(Color.primaryGreen500)
                 }
@@ -64,7 +64,7 @@ struct ProfileDescComponent: View {
                     Text("Height, cm")
                         .font(.subheadlineRegular)
                     Spacer()
-                    Text(String(format: "%.2f", height))
+                    Text("\(height)")
                         .font(.bodyEmphasized)
                         .foregroundStyle(Color.primaryGreen500)
                 }

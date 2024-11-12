@@ -9,8 +9,10 @@ import SwiftUI
 
 struct PhotoNameComponent: View {
     
-    var profileURL: String
-    var name: String
+    @Binding var name: String
+    
+//    var profilePhoto = UIImage()
+    @StateObject var authViewModel: AuthViewModel
     
     var body: some View {
         ZStack{
@@ -21,25 +23,44 @@ struct PhotoNameComponent: View {
                 .shadow(color: Color.black.opacity(0.02), radius: 6, x: 0, y: 0)
             
             HStack{
-                Image("profPic")
+                
+                if let image = authViewModel.retrievedImage{
+                    Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50, height: 50)
                     .clipShape(Circle())
+                } else {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.gray)
+                        .clipShape(Circle())
+                }
+                        
+                
                 
                 Text("\(name)")
                     .font(.headlineRegular)
                     .foregroundStyle(Color.primaryGreen500)
-                    
+                
                 Spacer()
             }
             .padding()
             .frame(width: 340, height: 75)
             
         }
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+                authViewModel.retrievePhoto(userName: name)
+            }
+        }
+        
     }
 }
 
-#Preview {
-    PhotoNameComponent(profileURL: "profPic", name: "Joko")
-}
+//#Preview {
+//    @Binding var name: String = "kocakgeming"
+//    PhotoNameComponent(name: name, authViewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())))
+//}

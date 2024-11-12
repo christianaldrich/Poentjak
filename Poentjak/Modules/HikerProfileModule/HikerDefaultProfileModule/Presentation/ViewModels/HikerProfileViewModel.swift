@@ -25,12 +25,14 @@ class HikerProfileViewModel: ObservableObject{
             [weak self] profile in
             DispatchQueue.main.async {
                 self?.hikerProfile = profile
-                self!.authViewModel.age = profile.age
-                self!.authViewModel.name = profile.name
-                self!.authViewModel.gender = profile.gender
-                self!.authViewModel.medicalCondition = profile.medicalRecord ?? "GOBLOK"
-                self!.authViewModel.weight = Int(profile.weight)
-                self!.authViewModel.height = Int(profile.height)
+                self?.authViewModel.age = profile.age
+                self?.authViewModel.name = profile.name
+                self?.authViewModel.gender = profile.gender
+                self?.authViewModel.medicalCondition = profile.medicalRecord ?? "None"
+                self?.authViewModel.contactName = profile.contactName
+                self?.authViewModel.contactNumber = profile.contactNumber
+                self?.authViewModel.weight = Int(profile.weight)
+                self?.authViewModel.height = Int(profile.height)
             }
         }
     }

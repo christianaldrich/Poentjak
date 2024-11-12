@@ -11,6 +11,7 @@ enum confirmationState {
     case returned
     case logout
     case evacuated
+    case delete
     
     var title: String{
         switch self {
@@ -20,6 +21,8 @@ enum confirmationState {
             return "Log out?"
         case .evacuated:
             return "Have you been rescued?"
+        case .delete:
+            return "Delete account?"
         }
     }
     
@@ -31,7 +34,10 @@ enum confirmationState {
             return "Yes, log out?"
         case .evacuated:
             return "Yes, I'm safe"
+        case .delete:
+            return "Yes, delete account"
         }
+        
     }
 }
 

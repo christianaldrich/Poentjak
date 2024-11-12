@@ -471,7 +471,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Poentjak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hikewise;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Need Camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Hikewise needs to access camera for navigation and assistance during emergencies";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
@@ -504,7 +504,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Poentjak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Hikewise;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Need Camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Hikewise needs to access camera for navigation and assistance during emergencies";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Hikewise needs your location for navigation and assistance during emergencies";

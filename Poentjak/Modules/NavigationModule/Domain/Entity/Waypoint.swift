@@ -8,6 +8,12 @@
 import Foundation
 import CoreLocation
 
+enum WaypointCategory {
+    case emergency
+    case post
+    case summit
+}
+
 struct Waypoint: Identifiable {
     let id = UUID()
     let latitude: CLLocationDegrees
@@ -18,4 +24,5 @@ struct Waypoint: Identifiable {
     let idx: Int
     let imageName: String
     let checkPointStatus: String
+    let category: WaypointCategory // Add category property
 }

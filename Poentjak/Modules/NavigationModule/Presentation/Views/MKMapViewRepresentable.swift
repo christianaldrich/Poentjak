@@ -16,6 +16,7 @@ struct MKMapViewRepresentable: UIViewRepresentable {
         mapView.showsUserLocation = true  // Enable user location
         mapView.userTrackingMode = .follow  // Center the map on the user's location
         mapView.delegate = context.coordinator  // Assign the delegate to respond to map events
+        mapView.showsUserTrackingButton = true
         return mapView
     }
     

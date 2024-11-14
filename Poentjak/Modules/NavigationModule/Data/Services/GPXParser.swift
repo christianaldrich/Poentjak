@@ -88,7 +88,7 @@ class GPXParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "wpt" {
             if let lat = latitude, let lon = longitude {
-                let waypoint = Waypoint(latitude: lat, longitude: lon, elevation: elevation, name: waypointName, desc: waypointDesc, idx: nextIndex, imageName: imageName, checkPointStatus: checkPointStatus)
+                let waypoint = Waypoint(latitude: lat, longitude: lon, elevation: elevation, name: waypointName, desc: waypointDesc, idx: nextIndex, imageName: imageName, checkPointStatus: checkPointStatus, category: checkPointStatus == "emergency" ? .emergency : checkPointStatus == "summit" ? .summit : .post)
                 
                 if nextIndex == 1{
                     firstLastWaypoints.append(waypoint)

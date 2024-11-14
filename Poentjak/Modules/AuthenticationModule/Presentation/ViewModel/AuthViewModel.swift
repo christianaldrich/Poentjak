@@ -67,6 +67,8 @@ class AuthViewModel: ObservableObject {
             }
             
         let emailExists = await useCase.checkEmailExists(email: email)
+        
+        print(emailExists)
             
         if emailExists {
                 return "Email has already been used"

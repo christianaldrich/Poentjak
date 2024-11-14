@@ -44,8 +44,8 @@ struct LoginView: View {
                 CustomTextFieldAuth(
                     text: $viewModel.email,
                     titleTextField: "Email Address",
-                    errorMessage: isSubmitted && !viewModel.email.isValidEmail() ? "Invalid email" : "",
-                    isError: isSubmitted && !viewModel.email.isValidEmail(),
+                    isError: isSubmitted && viewModel.loginError != nil,
+                    //isSubmitted && !viewModel.email.isValidEmail()
                     isPassword: false
                 )
                 .padding(.bottom, 10)
@@ -54,7 +54,7 @@ struct LoginView: View {
                 CustomTextFieldAuth(
                     text: $viewModel.password,
                     titleTextField: "Password",
-                    errorMessage: isSubmitted && viewModel.loginError != nil ? "Incorrect password" : "",
+                    errorMessage: isSubmitted && viewModel.loginError != nil ? "Incorrect email or password" : "",
                     isError: isSubmitted && viewModel.loginError != nil,
                     isPassword: true
                 )
@@ -89,6 +89,9 @@ struct LoginView: View {
         .navigationBarItems(leading: BackButtonComponent(action: {
             
         }).padding(.horizontal, 16))
+        .onDisappear{
+            viewModel.clearAll()
+        }
     }
     
 }

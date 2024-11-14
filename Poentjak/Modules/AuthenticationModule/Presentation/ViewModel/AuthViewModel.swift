@@ -117,6 +117,7 @@ class AuthViewModel: ObservableObject {
     func signOut() async {
         do {
             try await useCase.signOut()
+            clearAll()
             userSession = nil
             isAdmin = false
         } catch {
@@ -236,6 +237,24 @@ class AuthViewModel: ObservableObject {
             errorMessageDelete = "Failed to delete account: \(error.localizedDescription)"
         }
         
+        clearAll()
         isLoading = false
+    }
+    
+    func clearAll(){
+        self.email = ""
+        self.age = 21
+        self.weight = 75
+        self.height = 175
+        self.password = ""
+        self.checkPassword = ""
+        self.capturedImage = nil
+        self.contactName = ""
+        self.contactNumber = ""
+        self.name = ""
+        self.retrievedImage = nil
+        self.gender = ""
+        self.isAdmin = false
+        self.medicalCondition = ""
     }
 }

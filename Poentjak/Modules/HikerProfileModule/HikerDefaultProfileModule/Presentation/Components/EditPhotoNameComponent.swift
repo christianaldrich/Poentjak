@@ -30,7 +30,6 @@ struct EditPhotoNameComponent: View {
                     if let image = authViewModel.retrievedImage{
                         Image(uiImage: image)
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
                         .frame(width: 50, height: 50)
                         .clipShape(Circle())
                         .overlay(
@@ -73,6 +72,7 @@ struct EditPhotoNameComponent: View {
                 }
                 
                 TextField("\(defaultName)", text: $name)
+                    .foregroundStyle(Color.neutralGrayTertiaryGray)
                 
                 Spacer()
             }
@@ -80,6 +80,7 @@ struct EditPhotoNameComponent: View {
             .frame(width: 340, height: 75)
             
         }
+        
         .onAppear{
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
                 authViewModel.retrievePhoto(userName: name)

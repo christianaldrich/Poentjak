@@ -23,16 +23,18 @@ struct EditProfileView: View {
                 .foregroundStyle(Color.primaryGreen500)
                 .padding(.leading, 18)
             
-            EditPhotoNameComponent(defaultName: $authViewModel.name, name: $authViewModel.name, authViewModel: authViewModel){
-                //                    self.showCamera.toggle()
-                //                Task{
-                //                    await viewModel.uploadPhoto(userName: viewModel.name)
-                //                    //                await viewModel.editUser()
-                //                }
-                print("Taken photo!")
+            VStack(spacing: 16){
+                EditPhotoNameComponent(defaultName: $authViewModel.name, name: $authViewModel.name, authViewModel: authViewModel){
+                    //                    self.showCamera.toggle()
+                    //                Task{
+                    //                    await viewModel.uploadPhoto(userName: viewModel.name)
+                    //                    //                await viewModel.editUser()
+                    //                }
+                    print("Taken photo!")
+                }
+                
+                EditProfileDescComponent(gender: $authViewModel.gender, age: $authViewModel.age, weight: $authViewModel.weight, height: $authViewModel.height, medicalCondition: $authViewModel.medicalCondition, emergencyContactName: $authViewModel.contactName, emergencyContactNumber: $authViewModel.contactNumber, navigationManager: navigationManager)
             }
-            
-            EditProfileDescComponent(gender: $authViewModel.gender, age: $authViewModel.age, weight: $authViewModel.weight, height: $authViewModel.height, medicalCondition: $authViewModel.medicalCondition, emergencyContactName: $authViewModel.contactName, emergencyContactNumber: $authViewModel.contactNumber, navigationManager: navigationManager)
             
             Spacer()
             
@@ -45,10 +47,10 @@ struct EditProfileView: View {
         }
         .padding()
         .onAppear {
-//            if !isProfileFetched {
+            if !isProfileFetched {
                 viewModel.fetchHikerProfile()
-//                isProfileFetched = true  // Mark as fetched
-//            }
+                isProfileFetched = true  // Mark as fetched
+            }
         }
         .navigationBarBackButtonHidden(true)
         .toolbar{

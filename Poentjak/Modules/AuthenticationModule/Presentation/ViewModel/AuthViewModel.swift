@@ -117,6 +117,7 @@ class AuthViewModel: ObservableObject {
     func signOut() async {
         do {
             try await useCase.signOut()
+            clearAll()
             userSession = nil
             isAdmin = false
         } catch {
@@ -189,6 +190,51 @@ class AuthViewModel: ObservableObject {
         
     }
     
+    func updatePhoto(oldPath: String, userName: String) async{
+        
+        retrievePhoto(userName: userName)
+        
+        let storageRef = Storage.storage().reference()
+        
+        let imageData = retrievedImage?.jpegData(compressionQuality: 0.8)
+        
+        let oldPath = "images/\(oldPath).jpg"
+        let path = "images/\(userName).jpg"
+        
+        
+        let oldFileRef = storageRef.child(oldPath)
+        let newFileRef = storageRef.child(path)
+        
+        guard retrievedImage != nil else {
+            return
+        }
+        
+        
+        
+        guard imageData != nil else {
+            return
+        }
+        
+        let uploadTask = newFileRef.putData(imageData!, metadata: nil){ metadata, error in
+            
+            if error == nil && metadata != nil{
+                //save reference
+                
+                let db = Firestore.firestore()
+                db.collection("users").document().updateData(["profileURL": path])
+                
+                
+            }
+            
+        }
+        
+        Task{
+            try await oldFileRef.delete()
+        }
+        
+        
+    }
+    
     func retrievePhoto(userName: String){
         let db = Firestore.firestore()
         
@@ -236,6 +282,24 @@ class AuthViewModel: ObservableObject {
             errorMessageDelete = "Failed to delete account: \(error.localizedDescription)"
         }
         
+        clearAll()
         isLoading = false
+    }
+    
+    func clearAll(){
+        self.email = ""
+        self.age = 21
+        self.weight = 75
+        self.height = 175
+        self.password = ""
+        self.checkPassword = ""
+        self.capturedImage = nil
+        self.contactName = ""
+        self.contactNumber = ""
+        self.name = ""
+        self.retrievedImage = nil
+        self.gender = ""
+        self.isAdmin = false
+        self.medicalCondition = ""
     }
 }

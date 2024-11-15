@@ -40,8 +40,6 @@ struct EditDueDateView: View {
             HStack(spacing: 8) {
                 ForEach(shortcutHours, id: \.self) { hour in
                     Button(action: {
-                        // Add the specified hours to the original `selectedDate`
-                        //                        selectedDate = Calendar.current.date(byAdding: .hour, value: hour, to: selectedDate) ?? selectedDate
                         selectedHour = hour
                         showCustomAlert = true
                     }) {
@@ -67,25 +65,8 @@ struct EditDueDateView: View {
                     .datePickerStyle(WheelDatePickerStyle())
             }
             
-            //            Button(action: {
-            //                viewModel.dueDate = selectedDate
-            //                Task {
-            //                    await viewModel.updateDueDate()
-            //                    navigationManager.popToRoot()
-            //                }
-            //            }) {
-            //                Text("Save")
-            //                    .frame(maxWidth: .infinity)
-            //                    .padding()
-            //                    .background(Color.blue)
-            //                    .foregroundColor(.white)
-            //                    .cornerRadius(8)
-            //            }
-            //            .padding()
-            
             Spacer()
         }
-        .navigationTitle("Edit Due Date")
         .padding(.horizontal, 25)
         .onAppear {
             selectedDate = viewModel.dueDate

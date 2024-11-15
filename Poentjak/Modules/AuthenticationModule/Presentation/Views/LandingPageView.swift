@@ -66,6 +66,9 @@ struct LandingPageView: View {
                 }
             }
         }
+        .onAppear{
+            viewModel.currentIndex = -1
+        }
         
         
         

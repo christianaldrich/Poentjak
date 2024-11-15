@@ -14,10 +14,12 @@ struct MapView: UIViewRepresentable {
     var track: Track?
     var showsUserLocation: Bool
     var dots: [MKCircle]
-     @State var fileName: String?
+    @State var fileName: String?
+    let mapView = MKMapView(frame: .zero)
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
+        private var isSatelliteView = false
 
         init(_ parent: MapView) {
             self.parent = parent
@@ -68,6 +70,20 @@ struct MapView: UIViewRepresentable {
             
             return annotationView
         }
+        
+        @objc func recenterTapped() {
+            guard let userLocation = parent.mapView.userLocation.location else { return }
+            let region = MKCoordinateRegion(
+                center: userLocation.coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            )
+            parent.mapView.setRegion(region, animated: true)
+        }
+        
+        @objc func toggleMapTypeTapped() {
+            isSatelliteView.toggle()
+            parent.mapView.mapType = isSatelliteView ? .satellite : .standard
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -75,11 +91,12 @@ struct MapView: UIViewRepresentable {
     }
 
     func makeUIView(context: Context) -> MKMapView {
-        let mapView = MKMapView(frame: .zero)
+        
         mapView.delegate = context.coordinator
         mapView.setRegion(region, animated: true)
         mapView.showsUserLocation = showsUserLocation
-        mapView.showsUserTrackingButton = true
+        mapView.userTrackingMode = .follow
+        // mapView.showsUserTrackingButton = true
 
         // Add GPX track as a polyline overlay
         if let trackPoints = track?.points {
@@ -92,6 +109,45 @@ struct MapView: UIViewRepresentable {
             WaypointAnnotation(waypoint: waypoint)
         }
         mapView.addAnnotations(annotations)
+        
+        // Add custom recenter button
+        let recenterButton = UIButton(type: .system)
+        let recenterImage = UIImage(systemName: "location.fill")  // SF Symbol
+        recenterButton.setImage(recenterImage, for: .normal)
+        recenterButton.tintColor = UIColor(.primaryGreen500)
+        recenterButton.backgroundColor = UIColor(.neutralWhiteBiancaWhite)
+        recenterButton.layer.cornerRadius = 8
+        recenterButton.translatesAutoresizingMaskIntoConstraints = false
+        recenterButton.addTarget(context.coordinator, action: #selector(context.coordinator.recenterTapped), for: .touchUpInside)
+        
+        mapView.addSubview(recenterButton)
+        
+        // Add toggle map type button
+        let toggleButton = UIButton(type: .system)
+        let toggleImage = UIImage(systemName: "map.fill")  // SF Symbol
+        toggleButton.setImage(toggleImage, for: .normal)
+        toggleButton.tintColor = UIColor(.primaryGreen500)
+        toggleButton.backgroundColor = UIColor(.neutralWhiteBiancaWhite)
+        toggleButton.layer.cornerRadius = 8
+        toggleButton.translatesAutoresizingMaskIntoConstraints = false
+        toggleButton.addTarget(context.coordinator, action: #selector(context.coordinator.toggleMapTypeTapped), for: .touchUpInside)
+        
+        mapView.addSubview(toggleButton)
+        
+        // Layout buttons
+        NSLayoutConstraint.activate([
+            // Recenter button in the middle
+            recenterButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -20),
+            recenterButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 600),
+            recenterButton.widthAnchor.constraint(equalToConstant: 40),
+            recenterButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            // Toggle button at the top-right corner
+            toggleButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -20),
+            toggleButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 550),
+            toggleButton.widthAnchor.constraint(equalToConstant: 40),
+            toggleButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
 
         return mapView
     }
@@ -103,7 +159,7 @@ struct MapView: UIViewRepresentable {
         uiView.removeOverlays(uiView.overlays.filter { $0 is MKCircle })
         uiView.addOverlays(dots)
         
-        uiView.showsUserLocation = showsUserLocation // Ensure user location is shown
+        // uiView.showsUserLocation = showsUserLocation // Ensure user location is shown
 
         // Add waypoints as annotations
 //        uiView.removeAnnotations(uiView.annotations)

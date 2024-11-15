@@ -50,7 +50,9 @@ struct OnboardingView: View {
                         .shadow(radius: 10)
                     }
                 }
-                .frame(height: 60)
+                .frame(height: UIScreen.main.bounds.height * 0.1)
+//                .background(Color.red)
+//                .frame(height: 60)
             }
             
             

@@ -10,7 +10,7 @@ import AVFoundation
 import SwiftUI
 
 class TextToSpeechViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
-    private var synthesizer = AVSpeechSynthesizer()
+    var synthesizer = AVSpeechSynthesizer()
     @Published var isSpeaking = false
     @Published var buttonImage = Image.ButtonIcon.sound
     private var lastUtterance: AVSpeechUtterance?

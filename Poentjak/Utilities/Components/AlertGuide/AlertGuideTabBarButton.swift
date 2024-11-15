@@ -11,11 +11,12 @@ struct AlertGuideTabBarButton: View {
     @Binding var idSelected: Int
     let id: Int
     var text: String
+    var textToSpeechViewModel: TextToSpeechViewModel
     
     var isSelected: Bool {
         return idSelected == id
     }
-
+    
     var body: some View {
         Text(text)
             .font(.bodyEmphasized)
@@ -26,6 +27,9 @@ struct AlertGuideTabBarButton: View {
             .cornerRadius(16)
             .onTapGesture {
                 idSelected = id
+                if textToSpeechViewModel.synthesizer.isSpeaking {
+                    textToSpeechViewModel.stopSpeech()
+                }
             }
     }
 }
@@ -33,5 +37,5 @@ struct AlertGuideTabBarButton: View {
 #Preview {
     @Previewable @State var idSelected = 2
     var id = 1
-    AlertGuideTabBarButton(idSelected: $idSelected, id: id, text: "f")
+    AlertGuideTabBarButton(idSelected: $idSelected, id: id, text: "f", textToSpeechViewModel: TextToSpeechViewModel())
 }

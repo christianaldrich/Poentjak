@@ -14,6 +14,7 @@ struct EditProfileView: View {
     @ObservedObject var navigationManager: MountainNavigationManager
     @State private var isProfileFetched = false
     
+    @State var oldName: String = ""
     
     
     var body: some View {
@@ -23,32 +24,39 @@ struct EditProfileView: View {
                 .foregroundStyle(Color.primaryGreen500)
                 .padding(.leading, 18)
             
-            EditPhotoNameComponent(defaultName: $authViewModel.name, name: $authViewModel.name, authViewModel: authViewModel){
-                //                    self.showCamera.toggle()
-                //                Task{
-                //                    await viewModel.uploadPhoto(userName: viewModel.name)
-                //                    //                await viewModel.editUser()
-                //                }
-                print("Taken photo!")
+            VStack(spacing: 16){
+                EditPhotoNameComponent(defaultName: $authViewModel.name, name: $authViewModel.name, authViewModel: authViewModel){
+                    //                    self.showCamera.toggle()
+                    //                Task{
+                    //                    await viewModel.uploadPhoto(userName: viewModel.name)
+                    //                    //                await viewModel.editUser()
+                    //                }
+                    print("Taken photo!")
+                }
+                
+                Text("\(oldName)")
+                
+                EditProfileDescComponent(gender: $authViewModel.gender, age: $authViewModel.age, weight: $authViewModel.weight, height: $authViewModel.height, medicalCondition: $authViewModel.medicalCondition, emergencyContactName: $authViewModel.contactName, emergencyContactNumber: $authViewModel.contactNumber, navigationManager: navigationManager)
             }
-            
-            EditProfileDescComponent(gender: $authViewModel.gender, age: $authViewModel.age, weight: $authViewModel.weight, height: $authViewModel.height, medicalCondition: $authViewModel.medicalCondition, emergencyContactName: $authViewModel.contactName, emergencyContactNumber: $authViewModel.contactNumber, navigationManager: navigationManager)
             
             Spacer()
             
             CustomLargeButtonComponent(state: .enabled, text: "Save Changes"){
                 Task{
                     await authViewModel.editUser()
+                    await authViewModel.updatePhoto(oldPath: oldName, userName: authViewModel.name)
                 }
                 navigationManager.popToPrevious()
             }
         }
         .padding()
         .onAppear {
-//            if !isProfileFetched {
+            
+            if !isProfileFetched {
                 viewModel.fetchHikerProfile()
-//                isProfileFetched = true  // Mark as fetched
-//            }
+                oldName = authViewModel.name
+                isProfileFetched = true
+            }
         }
         .navigationBarBackButtonHidden(true)
         .toolbar{

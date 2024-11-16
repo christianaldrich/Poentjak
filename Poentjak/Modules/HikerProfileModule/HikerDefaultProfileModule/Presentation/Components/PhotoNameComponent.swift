@@ -27,7 +27,6 @@ struct PhotoNameComponent: View {
                 if let image = authViewModel.retrievedImage{
                     Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
                     .frame(width: 50, height: 50)
                     .clipShape(Circle())
                 } else {

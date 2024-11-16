@@ -10,6 +10,7 @@ import SwiftUI
 struct AlertGuideTabBar: View {
     @Binding var idSelected: Int
     var text: String
+    var textToSpeechViewModel: TextToSpeechViewModel
     
     var body: some View {
         HStack {
@@ -17,7 +18,7 @@ struct AlertGuideTabBar: View {
                 AlertGuideTabBarButton(
                     idSelected: $idSelected,
                     id: index+1,
-                    text: String(letter)
+                    text: String(letter), textToSpeechViewModel: textToSpeechViewModel
                 )
             }
         }
@@ -27,5 +28,5 @@ struct AlertGuideTabBar: View {
 #Preview {
     @Previewable @State var idSelected = 1
     
-    AlertGuideTabBar(idSelected: $idSelected, text: "STOP")
+    AlertGuideTabBar(idSelected: $idSelected, text: "STOP", textToSpeechViewModel: TextToSpeechViewModel())
 }

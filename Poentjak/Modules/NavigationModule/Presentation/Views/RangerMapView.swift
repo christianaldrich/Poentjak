@@ -14,11 +14,13 @@ struct RangerMapView: UIViewRepresentable {
     var track: Track?
     var showsUserLocation: Bool
     var userLastLocation: Location
+    let mapView = MKMapView(frame: .zero)
     // var dots: [MKCircle]
     // @State var fileName: String?
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: RangerMapView
+        private var isSatelliteView = false
 
         init(_ parent: RangerMapView) {
             self.parent = parent
@@ -41,6 +43,47 @@ struct RangerMapView: UIViewRepresentable {
             }
             return MKOverlayRenderer()
         }
+        
+        // Custom view for annotations
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            guard let waypointAnnotation = annotation as? WaypointAnnotation else { return nil }
+            
+            let identifier = "WaypointAnnotation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKAnnotationView
+            
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = true
+            } else {
+                annotationView?.annotation = annotation
+            }
+
+            // Set the image based on waypoint category
+            switch waypointAnnotation.waypoint.category {
+            case .emergency:
+                annotationView?.image = UIImage(named: "Icons/map/i_m_warung")
+            case .post:
+                annotationView?.image = UIImage(named: "Icons/map/i_m_checkpoint")
+            case .summit:
+                annotationView?.image = UIImage(named: "Icons/map/i_m_summit")
+            }
+            
+            return annotationView
+        }
+        
+        @objc func recenterTapped() {
+            guard let userLocation = parent.mapView.userLocation.location else { return }
+            let region = MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: parent.userLastLocation.latitude, longitude: parent.userLastLocation.longitude),
+                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            )
+            parent.mapView.setRegion(region, animated: true)
+        }
+        
+        @objc func toggleMapTypeTapped() {
+            isSatelliteView.toggle()
+            parent.mapView.mapType = isSatelliteView ? .satellite : .standard
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -48,7 +91,7 @@ struct RangerMapView: UIViewRepresentable {
     }
 
     func makeUIView(context: Context) -> MKMapView {
-        let mapView = MKMapView(frame: .zero)
+        
         mapView.delegate = context.coordinator
         mapView.setRegion(region, animated: true)
         mapView.showsUserLocation = showsUserLocation
@@ -60,28 +103,72 @@ struct RangerMapView: UIViewRepresentable {
             let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
             mapView.addOverlay(polyline)
         }
+        
+        let annotations = waypoints.map { waypoint in
+            WaypointAnnotation(waypoint: waypoint)
+        }
+        mapView.addAnnotations(annotations)
+        
+        // Add custom recenter button
+        let recenterButton = UIButton(type: .system)
+        let recenterImage = UIImage(systemName: "location.fill")  // SF Symbol
+        recenterButton.setImage(recenterImage, for: .normal)
+        recenterButton.tintColor = UIColor(.primaryGreen500)
+        recenterButton.backgroundColor = UIColor(.neutralWhiteBiancaWhite)
+        recenterButton.layer.cornerRadius = 8
+        recenterButton.translatesAutoresizingMaskIntoConstraints = false
+        recenterButton.addTarget(context.coordinator, action: #selector(context.coordinator.recenterTapped), for: .touchUpInside)
+        
+        mapView.addSubview(recenterButton)
+        
+        // Add toggle map type button
+        let toggleButton = UIButton(type: .system)
+        let toggleImage = UIImage(systemName: "map.fill")  // SF Symbol
+        toggleButton.setImage(toggleImage, for: .normal)
+        toggleButton.tintColor = UIColor(.primaryGreen500)
+        toggleButton.backgroundColor = UIColor(.neutralWhiteBiancaWhite)
+        toggleButton.layer.cornerRadius = 8
+        toggleButton.translatesAutoresizingMaskIntoConstraints = false
+        toggleButton.addTarget(context.coordinator, action: #selector(context.coordinator.toggleMapTypeTapped), for: .touchUpInside)
+        
+        mapView.addSubview(toggleButton)
+        
+        // Layout buttons
+        NSLayoutConstraint.activate([
+            // Recenter button in the middle
+            recenterButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -20),
+            recenterButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 450),
+            recenterButton.widthAnchor.constraint(equalToConstant: 40),
+            recenterButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            // Toggle button at the top-right corner
+            toggleButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -20),
+            toggleButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 400),
+            toggleButton.widthAnchor.constraint(equalToConstant: 40),
+            toggleButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
 
         return mapView
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        //uiView.setRegion(region, animated: true)
+        // uiView.setRegion(region, animated: true)
 
         // Remove existing dots and add new dots as circle overlays
         uiView.removeOverlays(uiView.overlays.filter { $0 is MKCircle })
         // uiView.addOverlays(dots)
         
-        uiView.showsUserLocation = showsUserLocation // Ensure user location is shown
+        // uiView.showsUserLocation = showsUserLocation // Ensure user location is shown
 
         // Add waypoints as annotations
-        uiView.removeAnnotations(uiView.annotations)
-        let annotations = waypoints.map { waypoint -> MKPointAnnotation in
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: waypoint.latitude, longitude: waypoint.longitude)
-            annotation.title = waypoint.name
-            return annotation
-        }
-        uiView.addAnnotations(annotations)
+//        uiView.removeAnnotations(uiView.annotations)
+//        let annotations = waypoints.map { waypoint -> MKPointAnnotation in
+//            let annotation = MKPointAnnotation()
+//            annotation.coordinate = CLLocationCoordinate2D(latitude: waypoint.latitude, longitude: waypoint.longitude)
+//            annotation.title = waypoint.name
+//            return annotation
+//        }
+//        uiView.addAnnotations(annotations)
         
         // Convert userLastLocation to CLLocationCoordinate2D
         let userLastLocationCoordinate = CLLocationCoordinate2D(latitude: userLastLocation.latitude, longitude: userLastLocation.longitude)
@@ -89,6 +176,6 @@ struct RangerMapView: UIViewRepresentable {
         // Add a circle for userLastLocation
         let circle = MKCircle(center: userLastLocationCoordinate, radius: 10) // Set the radius of the circle in meters
         uiView.addOverlay(circle)
-        print("UPDATED CIRCLE")
+        // print("UPDATED CIRCLE")
     }
 }

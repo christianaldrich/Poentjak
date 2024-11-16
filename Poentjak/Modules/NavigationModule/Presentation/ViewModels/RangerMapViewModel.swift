@@ -30,15 +30,15 @@ class RangerMapViewModel: ObservableObject {
             let centerLat = totalLat / Double(trackPoints.count)
             let centerLon = totalLon / Double(trackPoints.count)
             region.center = CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon)
-            region.span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+            region.span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         }
     }
     
-    func setupRegionUser() {
-        if let location = locationManager.lastKnownLocation {
-            region.center = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-            region.span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
-        }
-
-    }
+//    func setupRegionUser() {
+//        if let location = locationManager.lastKnownLocation {
+//            region.center = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+//            region.span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+//        }
+//
+//    }
 }

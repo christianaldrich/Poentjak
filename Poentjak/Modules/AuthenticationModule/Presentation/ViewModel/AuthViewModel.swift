@@ -106,12 +106,27 @@ class AuthViewModel: ObservableObject {
         isLoading = true
         do {
             let user = try await useCase.login(email: email, password: password)
-            userSession = user
             isAdmin = user.isAdmin
+            userSession = user
+            print("DEBUGGING \(isAdmin)")
+            
             print("Login success")
-        } catch {
+        } catch let error as NSError {
             loginError = error.localizedDescription
             print("Failed to log in: \(error.localizedDescription)")
+
+            switch error.code {
+            case AuthErrorCode.wrongPassword.rawValue:
+                loginError = "Incorrect email or password."
+            case AuthErrorCode.invalidEmail.rawValue:
+                loginError = "Incorrect email or password."
+            case AuthErrorCode.networkError.rawValue:
+                loginError = "Network error. Please check your internet connection."
+            case AuthErrorCode.accountExistsWithDifferentCredential.rawValue:
+                loginError = "An account already exists with different credentials."
+            default:
+                loginError = "Incorrect email or password."
+            }
         }
         isLoading = false
     }
@@ -135,6 +150,7 @@ class AuthViewModel: ObservableObject {
             let user = try await useCase.register(request: request)
             userSession = user
             isAdmin = user.isAdmin
+            
         } catch {
             registrationError = error.localizedDescription
             print("Failed to register: \(error.localizedDescription)")
@@ -256,7 +272,8 @@ class AuthViewModel: ObservableObject {
         self.name = ""
         self.retrievedImage = nil
         self.gender = ""
-        self.isAdmin = false
         self.medicalCondition = ""
     }
+    
+    
 }

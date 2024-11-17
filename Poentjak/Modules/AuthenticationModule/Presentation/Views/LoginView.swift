@@ -44,8 +44,9 @@ struct LoginView: View {
                 CustomTextFieldAuth(
                     text: $viewModel.email,
                     titleTextField: "Email Address",
-                    isError: isSubmitted && viewModel.loginError != nil,
-                    //isSubmitted && !viewModel.email.isValidEmail()
+                    errorMessage: isSubmitted && !viewModel.email.isValidEmail() ? "Invalid email" : nil,
+                    isError: (isSubmitted && viewModel.loginError != nil) || isSubmitted && !viewModel.email.isValidEmail() ,
+                    
                     isPassword: false
                 )
                 .padding(.bottom, 10)
@@ -54,7 +55,7 @@ struct LoginView: View {
                 CustomTextFieldAuth(
                     text: $viewModel.password,
                     titleTextField: "Password",
-                    errorMessage: isSubmitted && viewModel.loginError != nil ? "Incorrect email or password" : "",
+                    errorMessage: isSubmitted && viewModel.loginError != nil ? viewModel.loginError : "",
                     isError: isSubmitted && viewModel.loginError != nil,
                     isPassword: true
                 )
@@ -63,10 +64,16 @@ struct LoginView: View {
             CustomPrimaryButtonComponent(state: viewModel.isLoading ? .loading : (viewModel.email.isEmpty || viewModel.password.isEmpty ? .disabled : .enabled),
                                          text: "Log in"){
                 isSubmitted = true
-                Task {
+
+                if(!viewModel.email.isValidEmail()){
                     
-                    await viewModel.login(email: viewModel.email, password: viewModel.password)
+                } else {
+                    Task {
+                        
+                        await viewModel.login(email: viewModel.email, password: viewModel.password)
+                    }
                 }
+                
             }
                                          .padding(.top, 12)
             

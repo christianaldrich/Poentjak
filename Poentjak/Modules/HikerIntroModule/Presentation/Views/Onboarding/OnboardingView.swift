@@ -26,12 +26,12 @@ struct OnboardingView: View {
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 
                 CustomIndicatorDots(totalDots: onboardingDataList.count, currentIndex: currentTab)
-                    .padding(.bottom, 30)
+                    .padding(.top, 16)
+                    .padding(.bottom, 16)
                 
                 HStack {
                     if currentTab == onboardingDataList.count - 1 {
                         Button(action: {
-//                            print("clicked")
                             Task {
                                 await viewModel.register()
                             }
@@ -50,13 +50,15 @@ struct OnboardingView: View {
                         .shadow(radius: 10)
                     }
                 }
-                .frame(height: 60)
+                .frame(height: UIScreen.main.bounds.height * 0.1)
+//                .background(Color.red)
+//                .frame(height: 60)
             }
             
             
             if currentTab < onboardingDataList.count - 1 {
                 Button(action: {
-                    print("Skip tapped")
+                    currentTab = onboardingDataList.count - 1
 
                 }) {
                     Text("Skip")
@@ -78,6 +80,8 @@ struct OnboardingView: View {
     }
 }
 
-//#Preview {
-//    OnboardingView()
-//}
+#Preview {
+    OnboardingView(viewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())))
+}
+
+

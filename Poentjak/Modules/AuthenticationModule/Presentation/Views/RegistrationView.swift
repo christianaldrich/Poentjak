@@ -47,7 +47,7 @@ struct RegistrationView: View {
                     )
                     .padding(.bottom, 10)
                     .onChange(of: viewModel.email) { newValue in
-                        viewModel.registrationError = nil // Reset error when the user starts typing a new email
+                        viewModel.registrationError = nil
                     }
                     
                     CustomTextFieldAuth(
@@ -95,6 +95,11 @@ struct RegistrationView: View {
                 
             }).padding(.horizontal, 16))
             Spacer()
+        }
+        .onDisappear {
+            if !navigateNext {
+                viewModel.clearAll()
+            }
         }
     }
 }

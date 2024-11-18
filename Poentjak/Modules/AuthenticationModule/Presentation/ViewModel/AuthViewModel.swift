@@ -177,6 +177,9 @@ class AuthViewModel: ObservableObject {
     }
     
     func uploadPhoto(userName: String) async{
+        
+        print("masuk")
+        print("\(String(describing: capturedImage))")
         guard capturedImage != nil else {
             return
         }
@@ -190,6 +193,9 @@ class AuthViewModel: ObservableObject {
         }
         
         let path = "images/\(userName).jpg"
+        
+        print("\n\n\(userName)")
+        print("\n\n\(path)")
         
         let fileRef = storageRef.child(path)
         
@@ -210,45 +216,90 @@ class AuthViewModel: ObservableObject {
     
     func updatePhoto(oldPath: String, userName: String) async{
         
-        retrievePhoto(userName: userName)
-        
         let storageRef = Storage.storage().reference()
         
-        let imageData = retrievedImage?.jpegData(compressionQuality: 0.8)
-        
-        let oldPath = "images/\(oldPath).jpg"
-        let path = "images/\(userName).jpg"
-        
-        
-        let oldFileRef = storageRef.child(oldPath)
-        let newFileRef = storageRef.child(path)
-        
-        guard retrievedImage != nil else {
-            return
-        }
-        
-        
-        
-        guard imageData != nil else {
-            return
-        }
-        
-        let uploadTask = newFileRef.putData(imageData!, metadata: nil){ metadata, error in
+        if capturedImage == nil{
+            retrievePhoto(userName: userName)
             
-            if error == nil && metadata != nil{
-                //save reference
+            guard retrievedImage != nil else {
+                return
+            }
+            
+            let imageData = retrievedImage?.jpegData(compressionQuality: 0.8)
+            
+            guard imageData != nil else {
+                return
+            }
+            
+            let oldPath = "images/\(oldPath).jpg"
+            let path = "images/\(userName).jpg"
+            
+            
+            let oldFileRef = storageRef.child(oldPath)
+            let newFileRef = storageRef.child(path)
+            
+            
+            
+            let uploadTask = newFileRef.putData(imageData!, metadata: nil){ metadata, error in
                 
-                let db = Firestore.firestore()
-                db.collection("users").document().updateData(["profileURL": path])
-                
+                if error == nil && metadata != nil{
+                    //save reference
+                    
+                    let db = Firestore.firestore()
+                    db.collection("users").document().updateData(["profileURL": path])
+                    
+                    
+                }
                 
             }
             
+            Task{
+                try await oldFileRef.delete()
+            }
+            
+        }else{
+            guard capturedImage != nil else {
+                return
+            }
+            
+            let imageData = capturedImage?.jpegData(compressionQuality: 0.8)
+            
+            guard imageData != nil else {
+                return
+            }
+            
+            let oldPath = "images/\(oldPath).jpg"
+            let path = "images/\(userName).jpg"
+            
+            
+            let oldFileRef = storageRef.child(oldPath)
+            let newFileRef = storageRef.child(path)
+            
+            
+            
+            let uploadTask = newFileRef.putData(imageData!, metadata: nil){ metadata, error in
+                
+                if error == nil && metadata != nil{
+                    //save reference
+                    
+                    let db = Firestore.firestore()
+                    db.collection("users").document().updateData(["profileURL": path])
+                    
+                    
+                }
+                
+            }
+            
+            Task{
+                try await oldFileRef.delete()
+            }
         }
         
-        Task{
-            try await oldFileRef.delete()
-        }
+        
+        
+        
+        
+        
         
         
     }
@@ -269,12 +320,14 @@ class AuthViewModel: ObservableObject {
                         
                         let storageRef = Storage.storage().reference()
                         let fileRef = storageRef.child(path)
+                        print("\nPATH: \(path)")
                         
-                        fileRef.getData(maxSize: 3 * 1024 * 1024){ data, error in
+                        fileRef.getData(maxSize: 5 * 1024 * 1024){ data, error in
                             if error == nil && data != nil{
                                 
                                 if let image = UIImage(data: data!){
                                     DispatchQueue.main.async{
+                                        print("\nRETRIEVED IMAGE: \(String(describing: self.retrievedImage))")
                                         self.retrievedImage = image
                                     }
                                 }
@@ -289,6 +342,53 @@ class AuthViewModel: ObservableObject {
             
         }
     }
+    
+    func retrievePhotoRanger(userName: String, completion: @escaping (UIImage?) -> Void) {
+        let db = Firestore.firestore()
+        
+        db.collection("users")
+            .whereField("name", isEqualTo: userName)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching user: \(error.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+                
+                guard let snapshot = snapshot, !snapshot.documents.isEmpty else {
+                    print("No user found with the name \(userName).")
+                    completion(nil)
+                    return
+                }
+                
+                // Assuming the first document is the correct user
+                if let path = snapshot.documents.first?["profileURL"] as? String {
+                    let storageRef = Storage.storage().reference()
+                    let fileRef = storageRef.child(path)
+                    
+                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                        if let error = error {
+                            print("Error fetching image data: \(error.localizedDescription)")
+                            completion(nil)
+                            return
+                        }
+                        
+                        if let data = data, let image = UIImage(data: data) {
+                            DispatchQueue.main.async {
+                                completion(image)
+                            }
+                        } else {
+                            print("Failed to create image from data.")
+                            completion(nil)
+                        }
+                    }
+                } else {
+                    print("Profile URL is missing for user \(userName).")
+                    completion(nil)
+                }
+            }
+    }
+
     
     func deleteAccount() async {
         isLoadingDelete = true

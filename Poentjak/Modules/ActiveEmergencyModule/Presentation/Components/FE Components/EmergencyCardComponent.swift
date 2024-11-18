@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct EmergencyCardComponent: View {
     
@@ -16,6 +17,13 @@ struct EmergencyCardComponent: View {
     @State var weight: Int = 0
     @State var height: Int = 0
     @State var status: String = ""
+    @State var dueDate: Date
+    @StateObject var authViewModel: AuthViewModel
+    @State var image: UIImage?
+    
+    @State private var isProfileFetched = true
+    
+    
 
     
     var body: some View {
@@ -27,12 +35,25 @@ struct EmergencyCardComponent: View {
                 .frame(width: 343, height: 114)
             
             HStack{
-                Image("profPic")
+                
+                
+                if let image = image{
+                    Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 83, height: 80)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .customShadow()
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .customShadow()
+                } else {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 83, height: 80)
+                        .foregroundColor(.gray)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .customShadow()
+                }
+      
                 
                 VStack(alignment: .leading, spacing: 2){
                     HStack{
@@ -41,7 +62,7 @@ struct EmergencyCardComponent: View {
                         
                         Spacer()
                         
-                        Text("20 mins ago")
+                        Text(minutesAgo(from: dueDate))
                             .font(.caption1Regular)
                     }
                     Text("\(name)")
@@ -75,6 +96,26 @@ struct EmergencyCardComponent: View {
             
             .padding()
             
+        }
+        .onAppear{
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+//            if isProfileFetched == true{
+//                authViewModel.retrievePhoto(userName: name)
+//            }
+//            isProfileFetched = false
+            authViewModel.retrievePhotoRanger(userName: name){ image in
+                if let image = image {
+                    print("Successfully retrieved image for user TEST.")
+                    // Update the UI with the image
+                    DispatchQueue.main.async {
+                        self.image = image
+                    }
+                } else {
+                    print("Failed to retrieve image for user TEST.")
+                }
+                
+            }
+//            }
         }
         
     }
@@ -115,6 +156,6 @@ struct EmergencyCardComponent: View {
     }
 }
 
-#Preview {
-    EmergencyCardComponent(name: "Joko Wijaya",gender: "male", type: "injury", age: 10, weight: 100, height: 180, status: "ongoing")
-}
+//#Preview {
+//    EmergencyCardComponent(name: "Joko Wijaya",gender: "male", type: "injury", age: 10, weight: 100, height: 180, status: "ongoing")
+//}

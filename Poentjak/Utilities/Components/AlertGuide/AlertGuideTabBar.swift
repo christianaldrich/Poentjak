@@ -13,7 +13,7 @@ struct AlertGuideTabBar: View {
     var textToSpeechViewModel: TextToSpeechViewModel
     
     var body: some View {
-        HStack {
+        HStack(spacing: 16){
             ForEach(Array(text.enumerated()), id: \.offset) { index, letter in
                 AlertGuideTabBarButton(
                     idSelected: $idSelected,

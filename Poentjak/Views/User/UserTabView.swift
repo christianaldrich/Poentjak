@@ -38,7 +38,7 @@ struct UserTabView: View {
                 .tag(0)
             
 //            ControlPanelView()
-            ActiveHikersView() // nanti ganti
+            ActiveHikersView(viewModel: ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository())), authViewModel: viewModel) // nanti ganti
                 .tabItem {
                     VStack {
                         Image.TabBarIcon.book

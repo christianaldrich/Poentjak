@@ -27,7 +27,7 @@ struct ActiveEmergencyUseCase : ActiveEmergencyUseCaseProtocol{
     func fetchActiveEmergencyByTrack(completion: @escaping ([EmergencyRequestModel]) -> Void) {
         Task {
             let rangerTrackId = try await userRepository.fetchCurrentUserEmergency().trackId
-            print("\n\n\n\nTrackID: \(rangerTrackId)")
+//            print("\n\n\n\nTrackID: \(rangerTrackId)")
             
             activeEmergencyRepository.fetchEmergencyRequestByTrack(trackId: rangerTrackId){ requests in
 //                print("\n\nREQUESTS: \(requests)")
@@ -39,8 +39,14 @@ struct ActiveEmergencyUseCase : ActiveEmergencyUseCaseProtocol{
     }
     
     func fetchCompletedRescue(completion: @escaping ([EmergencyRequestModel]) -> Void){
-        activeEmergencyRepository.fetchCompletedRescue(){ request in
-            completion(request)
+        
+        Task{
+            let rangerTrackId = try await userRepository.fetchCurrentUserEmergency().trackId
+            print("rangerTrackID: \(rangerTrackId)")
+            activeEmergencyRepository.fetchCompletedRescue(trackId: rangerTrackId){ request in
+                print("REQUEST: \(request)")
+                completion(request)
+            }
         }
     }
 }

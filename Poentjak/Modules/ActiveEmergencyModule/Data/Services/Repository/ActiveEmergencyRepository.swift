@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 protocol ActiveEmergencyRepositoryProtocol{
     func fetchEmergencyRequestByTrack(trackId: String, completion: @escaping([EmergencyRequestModel]) -> Void)
-    func fetchCompletedRescue(completion: @escaping([EmergencyRequestModel]) -> Void)
+    func fetchCompletedRescue(trackId: String, completion: @escaping([EmergencyRequestModel]) -> Void)
 }
 
 struct ActiveEmergencyRepository : ActiveEmergencyRepositoryProtocol{
@@ -115,10 +115,14 @@ struct ActiveEmergencyRepository : ActiveEmergencyRepositoryProtocol{
         }
     }
     
-    func fetchCompletedRescue(completion: @escaping([EmergencyRequestModel]) -> Void){
+    func fetchCompletedRescue(trackId: String, completion: @escaping([EmergencyRequestModel]) -> Void){
+        
+        let dateNow = Date()
+        
         db.collection("emergencyRequests")
             .whereField("sessionDone", isEqualTo: true)
             .whereField("emergencyStatus", isEqualTo: "completed")
+            .whereField("user.trackId", isEqualTo: trackId)
         
             .addSnapshotListener{ snapshot, error in
                 if let error = error {

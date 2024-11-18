@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RangerRescuingComponent: View {
     let hiker: EmergencyRequestModel
+    @StateObject var authViewModel: AuthViewModel
+
     let onFinishRescue: () -> Void
     
     var body: some View {
@@ -21,7 +23,7 @@ struct RangerRescuingComponent: View {
                                        age: hiker.user?.age ?? 0,
                                        weight: hiker.user?.weight ?? 0,
                                        height: hiker.user?.height ?? 0,
-                                       status: hiker.emergencyStatus)
+                                       status: hiker.emergencyStatus, dueDate: hiker.dueDate, authViewModel: authViewModel)
             }
             .buttonStyle(PlainButtonStyle())
             

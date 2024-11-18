@@ -12,10 +12,12 @@ struct ActiveHikersCardComponent: View {
     @State var name: String
     @State var gender: String
     @State var dueDate: Date
+    @State private var image: UIImage?
     
 
-    var viewModel = ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository()))
-    
+    var viewModel : ActiveHikersViewModel
+    @StateObject var authViewModel: AuthViewModel
+
     var body: some View {
 //        Text("Hello, World!")
         ZStack{
@@ -26,11 +28,22 @@ struct ActiveHikersCardComponent: View {
                 .shadow(color: Color.black.opacity(0.02), radius: 6, x: 0, y: 0)
             
             HStack{
-                Image("profPic")
+                
+                if let image = image{
+                    Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 38,height: 36)
                     .clipShape(RoundedRectangle(cornerRadius: 7))
+                } else {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 38,height: 36)
+                        .foregroundColor(.gray)
+                        .clipShape(RoundedRectangle(cornerRadius: 7))
+                }
+                
                 Text("\(name)")
                     .font(.headlineRegular)
                 viewModel.customGender(gender)
@@ -40,12 +53,29 @@ struct ActiveHikersCardComponent: View {
             .padding()
             .frame(width: 308)
         }
+        .onAppear{
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+//                authViewModel.retrievePhoto(userName: name)
+            authViewModel.retrievePhotoRanger(userName: name){image in
+                if let image = image {
+                    print("Successfully retrieved image for user TEST.")
+                    // Update the UI with the image
+                    DispatchQueue.main.async {
+                        self.image = image
+                    }
+                } else {
+                    print("Failed to retrieve image for user TEST.")
+                }
+                
+            }
+//            }
+        }
  
     }
     
     
 }
 
-#Preview {
-    ActiveHikersCardComponent(name: "Joko", gender: "male", dueDate: Date())
-}
+//#Preview {
+//    ActiveHikersCardComponent(name: "Joko", gender: "male", dueDate: Date())
+//}

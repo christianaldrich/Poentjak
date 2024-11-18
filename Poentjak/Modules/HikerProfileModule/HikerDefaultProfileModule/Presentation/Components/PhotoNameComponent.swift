@@ -51,7 +51,7 @@ struct PhotoNameComponent: View {
             
         }
         .onAppear{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.001){
                 authViewModel.retrievePhoto(userName: name)
             }
         }

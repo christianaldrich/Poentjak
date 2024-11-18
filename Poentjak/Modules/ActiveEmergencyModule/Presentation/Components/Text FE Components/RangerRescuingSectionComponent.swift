@@ -10,6 +10,8 @@ import SwiftUI
 struct RangerRescuingSectionComponent: View {
     
     let hikers: [EmergencyRequestModel]
+    @StateObject var authViewModel: AuthViewModel
+
     var onRescue: (EmergencyRequestModel) -> Void
     
     var body: some View {
@@ -18,7 +20,7 @@ struct RangerRescuingSectionComponent: View {
                 hiker.emergencyStatus == "ongoing"
             
             }, id: \.id) { hiker in
-                RangerRescuingComponent(hiker: hiker){
+                RangerRescuingComponent(hiker: hiker, authViewModel: authViewModel){
                     onRescue(hiker)
                 }
             }

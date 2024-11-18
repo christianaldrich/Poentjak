@@ -134,6 +134,10 @@ extension Image {
             return Image("Icons/label/i_lb_addBig")
         }
         
+        static var signOut: Image {
+            return Image("Icons/label/i_lb_signOut")
+        }
+        
         static var age: Image {
             return Image("Icons/label/i_lb_age")
         }

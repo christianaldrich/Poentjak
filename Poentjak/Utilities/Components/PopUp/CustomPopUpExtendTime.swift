@@ -44,8 +44,7 @@ struct CustomPopUpExtendTime: View {
         .padding(.vertical, 34)
         .background(Color.white)
         .cornerRadius(16)
-        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 4)
-        .shadow(color: .black.opacity(0.04), radius: 2, x: 0, y: 0)
+        .customShadow()
         .padding(.horizontal, 35)
         
     }

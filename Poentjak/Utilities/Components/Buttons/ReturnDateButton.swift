@@ -19,7 +19,7 @@ struct ReturnDateButton: View {
                 .frame(height: 45)
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(Color.neutralWhite)
-                .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2) // Add shadow
+                .customShadow()
                 .overlay {
                     HStack {
                         Image.LabelIcon.clock

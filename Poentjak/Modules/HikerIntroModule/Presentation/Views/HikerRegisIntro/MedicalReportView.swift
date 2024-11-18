@@ -12,8 +12,9 @@ struct MedicalReportView: View {
     @State private var navigateNext = false
     
     var body: some View {
+        Spacer().frame(height: 100)
         VStack(alignment: .leading, spacing: 16) {
-            Spacer().frame(height: 100)
+//            Spacer().frame(height: 100)
             Text("Do you have any specific medicinal needs? (optional)")
                 .font(.title3Emphasized)
                 .foregroundStyle(Color.primaryGreen500)
@@ -48,6 +49,7 @@ struct MedicalReportView: View {
                 OnboardingView(viewModel: viewModel)
             }
         }
+        .padding()
         .navigationBarBackButtonHidden(true)
         .toolbar{
             ToolbarItem(placement: .topBarLeading){

@@ -20,14 +20,10 @@ struct ProfilePictureView: View {
     
     
     var body: some View {
+        Spacer().frame(height: 100)
         VStack {
             
-            Spacer().frame(height: 100)
-//            CustomIndicatorLongRectangle(totalCount: 4, currentIndex: viewModel.currentIndex)
-//                .padding(.top, 50)
-//                .zIndex(1)
-//            CustomIndicatorLongRectangle(totalCount: 4, currentIndex: viewModel.currentIndex ?? 1)
-//            Spacer()
+//            Spacer().frame(height: 100)
             VStack(alignment: .leading, spacing: 8){
                 Text("Give us a selfie!")
                     .font(.title3Emphasized)
@@ -81,7 +77,7 @@ struct ProfilePictureView: View {
             }
             
             Spacer()
-            CustomLargeButtonComponent(state: (viewModel.capturedImage == nil) ? .disabled : .enabled, text: "Next") {
+            CustomLargeButtonComponent(state: (viewModel.capturedImage == nil) ? .enabled : .enabled, text: "Next") {
                 //upload image
                 
                 Task{
@@ -91,7 +87,7 @@ struct ProfilePictureView: View {
                     viewModel.currentIndex += 1
                     isNextViewActive = true
                 }
-            .disabled(viewModel.capturedImage == nil)
+//            .disabled(viewModel.capturedImage == nil)
             
         }
         .padding()

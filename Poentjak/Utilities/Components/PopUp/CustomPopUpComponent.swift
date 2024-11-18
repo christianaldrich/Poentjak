@@ -72,8 +72,7 @@ struct CustomPopUpComponent: View {
         .background(Color.white)
         .cornerRadius(16)
         .frame(width: 340, height: 399)
-        .shadow(radius: 4)
-        //.padding()
+        .customShadow()
     }
 }
 

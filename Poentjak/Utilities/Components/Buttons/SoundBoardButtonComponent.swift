@@ -41,48 +41,52 @@ enum SoundBoardButton {
         }
     }
     
-    var soundID: SystemSoundID {
-        switch self {
-        case .airhorn: return 1023
-        case .whistle: return 1024
-        case .siren: return 1025
-        case .morse: return 1026
+    var fileName: String {
+            switch self {
+            case .airhorn: return "airhorn_sound"
+            case .whistle: return "whistle_sound"
+            case .siren: return "siren_sound"
+            case .morse: return "morse_sound"
+            }
         }
-    }
 }
 
 struct SoundBoardButtonComponent: View {
     var soundBoardType: SoundBoardButton
     @Binding var activeSound: SoundBoardButton? // Track which button is active
     var currentActiveSound: SoundBoardButton // Identifier for this button
-    @Binding var timer: Timer? // Shared timer for sound loop
-    
+    @Binding var audioPlayer: AVAudioPlayer? // Shared AVAudioPlayer for sound playback
+
     var body: some View {
         Button {
             if activeSound == currentActiveSound {
-                stopLoopingSound()
+                stopPlayingSound()
                 activeSound = nil
             } else {
                 stopAllSounds()
                 activeSound = currentActiveSound
-                startLoopingSound()
+                startPlayingSound()
             }
         } label: {
             ZStack {
                 Rectangle()
                     .fill(activeSound == currentActiveSound ? Color.primaryGreen500 : Color.white)
                     .cornerRadius(16)
-                    .shadow(color: Color.black.opacity(0.3), radius: 4, x: 0, y: 2) // Shadow effect
+                    .customShadow()
                 
                 VStack {
                     soundBoardType.iconName
                         .renderingMode(.template)
                         .foregroundColor(activeSound == currentActiveSound ? .white : Color.primaryGreen500)
                         .frame(width: 50, height: 50)
+                        .padding(.top, 40)
+                    
+                    Spacer()
                     
                     Text(soundBoardType.title)
                         .foregroundColor(activeSound == currentActiveSound ? .white : Color.primaryGreen500)
                         .font(.title3Emphasized)
+                        .padding(.bottom, 21)
                 }
                 
             }
@@ -93,21 +97,29 @@ struct SoundBoardButtonComponent: View {
         }
     }
     
-    func startLoopingSound() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            AudioServicesPlaySystemSound(soundBoardType.soundID)
+    func startPlayingSound() {
+        guard let soundURL = Bundle.main.url(forResource: soundBoardType.fileName, withExtension: "mp3") else {
+            print("Sound file not found: \(soundBoardType.fileName).mp3")
+            return
+        }
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer?.numberOfLoops = -1 // Infinite loop
+            audioPlayer?.play()
+        } catch {
+            print("Failed to play sound: \(error.localizedDescription)")
         }
     }
     
-    func stopLoopingSound() {
-        timer?.invalidate()
-        timer = nil
+    func stopPlayingSound() {
+        audioPlayer?.stop()
+        audioPlayer = nil
     }
 
     func stopAllSounds() {
-        if let timer = timer {
-            timer.invalidate()
-            self.timer = nil
+        if let player = audioPlayer {
+            player.stop()
+            audioPlayer = nil
         }
     }
 }

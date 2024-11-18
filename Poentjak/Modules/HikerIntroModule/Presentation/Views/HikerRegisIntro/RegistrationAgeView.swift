@@ -71,7 +71,7 @@ struct RegistrationAgeView: View {
                     .animation(.easeOut, value: expandedIndex)
                     .accentColor(.primaryGreen500)
                 }
-                .shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2)
+                .customShadow()
                 .scrollContentBackground(.hidden)
                 
                 Spacer()

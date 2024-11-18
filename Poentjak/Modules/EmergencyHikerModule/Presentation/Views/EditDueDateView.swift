@@ -48,8 +48,7 @@ struct EditDueDateView: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            .shadow(color: .black.opacity(0.08), radius: 7.92307, x: 0, y: 7.92307)
-            .shadow(color: .black.opacity(0.04), radius: 1.98077, x: 0, y: 0)
+            .customShadow()
             
             
             Button(action: {
@@ -112,8 +111,7 @@ extension EditDueDateView {
         .frame(maxWidth: .infinity)
         .background(.white)
         .cornerRadius(16)
-        .shadow(color: .black.opacity(0.08), radius: 2, x: 0, y: 2)
-        .shadow(color: .black.opacity(0.02), radius: 3, x: 0, y: 0)
+        .customShadow()
     }
     
     var dateFormatter: DateFormatter {

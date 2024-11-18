@@ -32,8 +32,7 @@ struct EmergencyCardComponent: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 83, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .shadow(color: Color.black.opacity(0.06), radius: 8, x: 0, y: 4)
-                    .shadow(color: Color.black.opacity(0.04), radius: 4, x: 0, y: 0)
+                    .customShadow()
                 
                 VStack(alignment: .leading, spacing: 2){
                     HStack{

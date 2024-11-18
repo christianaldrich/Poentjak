@@ -124,7 +124,7 @@ struct BackgroundView: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 50)
             .fill(Color.white)
-            .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 8)
+            .customShadow()
             .overlay(
                 HStack {
                     if slidingDirection == .ltr {

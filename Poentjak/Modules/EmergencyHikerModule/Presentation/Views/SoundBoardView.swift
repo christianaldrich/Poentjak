@@ -11,8 +11,9 @@ import AudioToolbox
 
 struct SoundBoardView: View {
     @EnvironmentObject var navigationManager: NavigationManager
-    @State private var activeSound: SoundBoardButton? = nil // Track active sound button
-    @State private var timer: Timer? // Shared timer for looping sound
+    @State private var activeSound: SoundBoardButton? = nil
+    @State private var audioPlayer: AVAudioPlayer? = nil
+    @State private var timer: Timer?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -20,34 +21,33 @@ struct SoundBoardView: View {
                 .font(.title1Emphasized)
                 .foregroundStyle(Color.primaryGreen500)
             
-            VStack {
-                HStack {
+            VStack(spacing: 16) {
+                HStack(spacing: 16) {
                     SoundBoardButtonComponent(
                         soundBoardType: .airhorn,
                         activeSound: $activeSound,
-                        currentActiveSound: .airhorn,
-                        timer: $timer
+                        currentActiveSound: .airhorn, audioPlayer: $audioPlayer
                     )
                     SoundBoardButtonComponent(
                         soundBoardType: .whistle,
                         activeSound: $activeSound,
                         currentActiveSound: .whistle,
-                        timer: $timer
+                        audioPlayer: $audioPlayer
                     )
                 }
                 
-                HStack {
+                HStack(spacing: 16) {
                     SoundBoardButtonComponent(
                         soundBoardType: .siren,
                         activeSound: $activeSound,
                         currentActiveSound: .siren,
-                        timer: $timer
+                        audioPlayer: $audioPlayer
                     )
                     SoundBoardButtonComponent(
                         soundBoardType: .morse,
                         activeSound: $activeSound,
                         currentActiveSound: .morse,
-                        timer: $timer
+                        audioPlayer: $audioPlayer
                     )
                 }
             }

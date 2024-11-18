@@ -20,8 +20,7 @@ struct EditPhotoNameComponent: View {
             RoundedRectangle(cornerRadius: 16)
                 .frame(width: 340, height: 75)
                 .foregroundStyle(.white)
-                .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 2)
-                .shadow(color: Color.black.opacity(0.02), radius: 6, x: 0, y: 0)
+                .customShadow()
             
             HStack{
                 Button{

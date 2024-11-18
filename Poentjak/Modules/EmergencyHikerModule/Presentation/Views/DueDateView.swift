@@ -76,7 +76,7 @@ struct DueDateView: View {
                 .accentColor(.primaryGreen500)
             }
             //.listStyle(PlainListStyle()) // Add this line
-            .shadow(color: .gray.opacity(0.5), radius: 4, x: 0, y: 2)
+            .customShadow()
             .scrollContentBackground(.hidden)
             
             HStack{

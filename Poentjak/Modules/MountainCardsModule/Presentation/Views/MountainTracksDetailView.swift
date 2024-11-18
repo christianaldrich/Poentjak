@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MountainTracksDetailView: View {
-    let mountain: MountainTracksModel?
+    var mountain: MountainTracksModel?
     @ObservedObject var navigationManager: MountainNavigationManager
     @ObservedObject var viewModel: MountainsTracksViewModel
     @Binding var isShowingModal: Bool
@@ -21,24 +21,30 @@ struct MountainTracksDetailView: View {
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
     @State private var selectedDetent = PresentationDetent.fraction(0.6)
 
-
+    let onBackButtonTapped: () -> Void
 
     var body: some View {
         VStack(alignment: .leading) {
             if let mountain = mountain {
                 HStack {
-                    Button(action: {
-//                        navigationManager.popToRoot()
+                    
+                    Button {
+                        onBackButtonTapped()
+                        print("back button tapped")
                         dismiss()
-                    }) {
+                        viewModel.selectedMountain = nil
+                    } label: {
                         Image(systemName: "chevron.left")
                             .resizable()
                             .frame(width: 10, height: 18)
                             .foregroundStyle(.black)
+                            .padding()
                     }
-                    .padding(.leading, 24)
                     
-                    Spacer()
+                    
+                   
+                    
+                    
                     
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Your current location")
@@ -53,7 +59,6 @@ struct MountainTracksDetailView: View {
                         }
                     }
                     
-                    Spacer()
                     Spacer()
                     
                     Button {
@@ -101,10 +106,11 @@ struct MountainTracksDetailView: View {
                     
                 }
                 .padding(.horizontal, 24)
-                .onAppear {
-                    let trackIds = mountain.tracks.map { $0 }
-                    viewModel.fetchTracksForSelectedMountain(trackIds: trackIds)
-                }
+//                .onAppear {
+//                    let trackIds = mountain.tracks.map { $0 }
+//                    viewModel.fetchTracksForSelectedMountain(trackIds: trackIds)
+//                    print("debug oke jalan bgian on appear")
+//                }
                 
                 HStack {
                     Image.ExploreIcon.track

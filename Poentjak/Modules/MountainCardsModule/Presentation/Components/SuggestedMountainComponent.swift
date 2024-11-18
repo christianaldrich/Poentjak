@@ -30,7 +30,7 @@ struct SuggestedMountainComponent: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         ForEach(viewModel.mountainsTracks, id: \.id) { mountain in
-                            NavigationLink(destination: MountainTracksDetailView(mountain: mountain, navigationManager: navigationManager, viewModel: viewModel, isShowingModal: $isShowingModal)) {
+                            NavigationLink(destination: MountainTracksDetailView(mountain: mountain, navigationManager: navigationManager, viewModel: viewModel, isShowingModal: $isShowingModal, onBackButtonTapped: {})) {
                                 VStack(alignment: .leading) {
                                     Image(mountain.imageURL)
                                         .resizable()

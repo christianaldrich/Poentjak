@@ -12,54 +12,67 @@
 import SwiftUI
 
 struct UserTabView: View {
-    @StateObject var viewModel: AuthViewModel // nanti ganti
+    @StateObject var viewModel: AuthViewModel
     @State private var selectedTab = 0
+    @StateObject var navigationManager = NavigationManager()
+    @State var visibility = Visibility.visible
     
     var body: some View {
         
         TabView(selection: $selectedTab){
-            
-            ActiveEmergencyView(authViewModel: viewModel) // nanti ganti
-                .tabItem {
-                    VStack {
-                        Image.TabBarIcon.magnifier
-                            .renderingMode(.template)
-                            .foregroundColor(selectedTab == 0 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
-
-                        Text("Explore")
-                            .foregroundColor(selectedTab == 0 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
-                            .font(.customTabTitle)
+            Group{
+                
+                MountainsTracksView(authViewModel: viewModel, visibility: $visibility)
+                    .environmentObject(navigationManager)
+                
+                    .tabItem {
+                        
+                        
+                        VStack {
+                            Image.TabBarIcon.magnifier
+                                .renderingMode(.template)
+                                .foregroundColor(selectedTab == 0 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
+                            
+                            Text("Explore")
+                                .foregroundColor(selectedTab == 0 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
+                                .font(.customTabTitle)
+                        }
+                        
                     }
-
-                }
-                .onAppear{
-                    selectedTab = 0
-                }
-                .tag(0)
-            
-//            ControlPanelView()
-            ActiveHikersView() // nanti ganti
-                .tabItem {
-                    VStack {
-                        Image.TabBarIcon.book
-                            .renderingMode(.template)
-                            .foregroundColor(selectedTab == 1 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
-
-                        Text("Guide")
-                            .foregroundColor(selectedTab == 1 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
-                            .font(.customTabTitle)
+                    //.toolbar(visibility, for: .tabBar)
+                    .onAppear{
+                        selectedTab = 0
                     }
-
-                }
-                .onAppear{
-                    selectedTab = 1
-                }
-                .tag(1)
-                    
+                    .tag(0)
+                
+                ActiveHikersView()
+                    .tabItem {
+                        VStack {
+                            Image.TabBarIcon.book
+                                .renderingMode(.template)
+                                .foregroundColor(selectedTab == 1 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
+                            
+                            Text("Guide")
+                                .foregroundColor(selectedTab == 1 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
+                                .font(.customTabTitle)
+                        }
+                        
+                    }
+                    .onAppear{
+                        selectedTab = 1
+                    }
+                    .tag(1)
+            }
+            .toolbarBackground(Color.neutralWhite, for: .tabBar)
+            .toolbarBackground(.visible, for: .tabBar)
+            
         }
         
+        
         .accentColor(Color.primaryGreen500)
-                
+        
+        
+        
     }
 }
 

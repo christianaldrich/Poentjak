@@ -77,7 +77,7 @@ struct ProfilePictureView: View {
             }
             
             Spacer()
-            CustomLargeButtonComponent(state: (viewModel.capturedImage == nil) ? .enabled : .enabled, text: "Next") {
+            CustomLargeButtonComponent(state: (viewModel.capturedImage == nil) ? .disabled : .enabled, text: "Next") {
                 //upload image
                 
                 Task{
@@ -87,7 +87,7 @@ struct ProfilePictureView: View {
                     viewModel.currentIndex += 1
                     isNextViewActive = true
                 }
-//            .disabled(viewModel.capturedImage == nil)
+            .disabled(viewModel.capturedImage == nil)
             
         }
         .padding()

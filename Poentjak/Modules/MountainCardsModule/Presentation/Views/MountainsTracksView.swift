@@ -100,7 +100,7 @@ struct MountainsTracksView: View {
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
                         case .hikerProfile:
-                            HikerProfileView(viewModel: HikerProfileViewModel(authViewModel: authViewModel, hikerProfileUseCase: HikerProfileUseCase(userRepository: DefaultUserRepository())), authViewModel: authViewModel, navigationManager: navigationManager)
+                            HikerProfileView(viewModel: HikerProfileViewModel(authViewModel: authViewModel, hikerProfileUseCase: HikerProfileUseCase(userRepository: DefaultUserRepository())), authViewModel: authViewModel, navigationManager: navigationManager, emergencyViewModel: EmergencyProsesViewModel())
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
                         case .editProfile:

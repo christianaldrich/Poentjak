@@ -33,24 +33,31 @@ struct ActiveEmergencyView: View {
         //        NavigationView {
         VStack{
             
-            
-            if viewModel.hiker.isEmpty{
+            Picker("Select Condition", selection: $selectedCondition) {
+                ForEach(EmergencyStatusEnum.allCases, id: \.self) { condition in
+                    Text(condition.rawValue).tag(condition)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
+//            if viewModel.hiker.isEmpty{
+                
+//            }else{
+                
+            if filteredHikers().isEmpty && selectedCondition != .completed{
+                
                 VStack(alignment: .center){
                     Text("No Emergency Request(s)!")
                     Text("Good Job!")
+                    Spacer()
                 }
                 .font(.title3Regular)
                 .foregroundStyle(Color.primaryGreen500)
+                
             }else{
-                Picker("Select Condition", selection: $selectedCondition) {
-                    ForEach(EmergencyStatusEnum.allCases, id: \.self) { condition in
-                        Text(condition.rawValue).tag(condition)
-                    }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
                 List {
                     HikersNeedHelpSectionComponent(hikers: filteredHikers(), authViewModel: authViewModel){ hiker in
+                        
                         selectedUser = hiker
                         idContainer = hiker.id
                         isDetailViewActive = true
@@ -60,9 +67,10 @@ struct ActiveEmergencyView: View {
                     .buttonStyle(PlainButtonStyle())
                     
                 }
+            }
                 //                .padding()
                
-            }
+//            }
             
             
         }

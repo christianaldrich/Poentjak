@@ -26,7 +26,8 @@ struct ActiveEmergencyView: View {
     @StateObject var authViewModel: AuthViewModel
     
     @State private var selectedCondition: EmergencyStatusEnum = .danger
-    
+    @State var isShowLogoutModal: Bool = false
+    @State var sosGuideModalVisible: Bool = false
     
     var body: some View {
         
@@ -60,7 +61,8 @@ struct ActiveEmergencyView: View {
                 
                 Button(action: {
                     Task {
-                        await authViewModel.signOut()
+                        // await authViewModel.signOut()
+                        isShowLogoutModal = true
                     }
                 }) {
                     Text("Sign Out")
@@ -89,6 +91,21 @@ struct ActiveEmergencyView: View {
                     )
                 )
                 
+            }
+            .overlay{
+                if isShowLogoutModal {
+                    ZStack {
+                        Color.black.opacity(0.4)
+                            .edgesIgnoringSafeArea(.all)
+                        
+                        CustomConfirmationComponent(confirmType: .logout, isModalVisible: $isShowLogoutModal, sosGuideModalVisible: $sosGuideModalVisible) {
+                            Task {
+                                await authViewModel.signOut()
+                            }
+                        }
+                    }
+
+                }
             }
 //            .toolbar {
 //                ToolbarItem(placement: .principal) {

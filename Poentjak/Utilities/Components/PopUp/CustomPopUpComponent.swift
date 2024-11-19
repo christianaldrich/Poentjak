@@ -77,6 +77,6 @@ struct CustomPopUpComponent: View {
 }
 
 #Preview {
-    CustomPopUpComponent(title: "Disclaimer!", subtitle: "Bring a powerbank", message: "For the best-app-usage, don't forget to bring a powerbank so you have enough battery to last your hike. 80% of your battery is lost when hiking down.", imgName: "dummy")
+    CustomPopUpComponent(title: "Disclaimer!", subtitle: "Bring a powerbank", message: "Keep your phone charged for safety, navigation, and alerts.", imgName: "Disclaimer_Cropped")
 }
 

@@ -14,7 +14,7 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var userName: String = "name..."
     @Published var dueDate: Date = Date()
     @Published var sessionId: String = "no session id"
-    @Published var emergencyType: EmergencyType = .hipo {
+    @Published var emergencyType: EmergencyType = .lost {
         didSet {
             switch emergencyType {
             case .hipo:

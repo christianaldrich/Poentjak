@@ -17,6 +17,8 @@ struct DueDateView: View {
     @State private var navigateToTracking = false
     @State var trackLocation: String
     
+    @State private var isDateSelected = false
+    
     var formattedDueDate: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "E d MMM HH.mm" // "E" for day (Mon), "d" for day number, "MMM" for month, "HH.mm" for time
@@ -51,6 +53,9 @@ struct DueDateView: View {
                         HStack {
                             Spacer()
                             CustomDateSliderComponent(selectedDate: $viewModel.dueDate)
+                                .onChange(of: viewModel.dueDate) { _ in
+                                                                isDateSelected = true // User has selected a date
+                                                            }
                             Spacer()
                         }
                     }
@@ -79,31 +84,10 @@ struct DueDateView: View {
             .customShadow()
             .scrollContentBackground(.hidden)
             
-            HStack{
-                Spacer()
-                VStack{
-                    HStack{
-                        Text("Important :")
-                            .font(.subheadlineRegular)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.errorRed500)
-                            .multilineTextAlignment(.center)
-                        Text("Make sure to not finish the")
-                            .font(.subheadlineRegular)
-                            .foregroundColor(Color.primaryGreen500)
-                            .multilineTextAlignment(.center)
-                    }
-                    Text("trip before arriving back at the basecamp")
-                        .font(.subheadlineRegular)
-                        .foregroundColor(Color.primaryGreen500)
-                        .multilineTextAlignment(.center)
-                }
-                Spacer()
-            }
             
             HStack{
                 Spacer()
-                CustomLargeButtonComponent(state: .enabled, text: "I'm ready"){
+                CustomLargeButtonComponent(state: isDateSelected ? .enabled : .disabled, text: "I'm ready"){
                     Task{
                         mountainViewModel.selectedTrackLocation = trackLocation
                         await viewModel.createEmergencyHiking(trackId: trackLocation)
@@ -129,8 +113,14 @@ struct DueDateView: View {
 }
 
 
+#Preview {
+    DueDateView(trackLocation: "Sample Track Location")
+        .environmentObject(
+            MountainsTracksViewModel(
+                mountainsTracksUseCase: MountainsTracksUseCase(mountainsTracksRepository: MountainsTracksRepository()),
+                tracksUseCase: TracksUseCase(tracksRepository: TracksRepository())
+            )
+        )
+        .environmentObject(MountainNavigationManager())
+}
 
-
-//#Preview {
-//    DueDateView(trackLocation: "", navigationManager: navigationmanag)
-//}

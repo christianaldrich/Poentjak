@@ -16,7 +16,7 @@ struct AlertGuideContent: View {
     @State private var currentIndex = 0
     
     var body: some View {
-        VStack (alignment: .leading){
+        VStack{
             if let images = contentData.images, images.count > 1 {
                 // Display carousel for multiple images
                 ZStack {
@@ -59,17 +59,19 @@ struct AlertGuideContent: View {
             Text(contentData.title)
                 .font(.largeTitleEmphasized)
                 .foregroundStyle(Color.errorRed500)
-                .padding(.bottom, 8)
-                .padding(.top, 10)
+                .padding(.bottom, 4)
+                .padding(.top, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+                .padding(.horizontal, 8)
+
             Text(contentData.content)
                 .font(.subheadlineRegular)
                 .foregroundStyle(Color.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 8)
             
         }
-        .padding(.horizontal, 25)
+//        .padding(.horizontal, 24)
     }
     
     
@@ -83,7 +85,6 @@ extension AlertGuideContent{
             textToSpeechViewModel.toggleSpeech(title: contentData.title, content: contentData.content)
         }) {
             textToSpeechViewModel.buttonImage
-                .padding(4)
                 .background(Color.white)
                 .clipShape(Circle())
         }
@@ -162,7 +163,7 @@ extension AlertGuideContent{
 #Preview {
     var contentData = AlertGuideContentDataModel(image: "AlertGuideData/lostAlertGuide1", title: "Stop!", content: "Take a deep breath and pause for a moment. Rushing won’t help, so stay calm.")
     
-    var testContentData = AlertGuideContentDataModel(images: ["AlertGuideData/lostAlertGuide1", "AlertGuideData/lostAlertGuide2", "AlertGuideData/lostAlertGuide3"], title: "Stop title", content: "Take a deep breath and pause for a moment. Rushing won’t help, so stay calm.")
+    var testContentData = AlertGuideContentDataModel(images: ["AlertGuideData/lostAlertGuide1", "AlertGuideData/lostAlertGuide2", "AlertGuideData/lostAlertGuide3"], title: "Stop title", content: "If you can’t identify your surroundings, stay where you are and try to send an SOS signal. If you do not have signal, try to head to your nearest last seen location or evacuation point if possible.")
     
     AlertGuideContent(contentData: testContentData, textToSpeechViewModel: TextToSpeechViewModel())
 }

@@ -62,23 +62,29 @@ struct TracksDetailView: View {
             }
             .toolbarBackground(.hidden, for: .navigationBar)
             
-            // Popup and darkened background
-            if isShowingPopUp {
-                Color.black.opacity(0.5)
-                    .edgesIgnoringSafeArea(.all) // Darken the background
 
-                CustomPopUpComponent(
-                    title: "Reminder",
-                    subtitle: "Bring a powerbank!",
-                    message: "Keep your phone charged for safety, navigation, and alerts.",
-                    imgName: "Disclaimer_Cropped"
-                ) {
-                    isShowingPopUp = false
-                    isShowingSelectTrackModal = true
+        }
+        // Popup and darkened background
+        .overlay {
+            if isShowingPopUp {
+                ZStack {
+                    Color.black.opacity(0.5)
+                        .edgesIgnoringSafeArea(.all) // Ensures the dark background spans the entire screen
+                    
+                    CustomPopUpComponent(
+                        title: "Reminder",
+                        subtitle: "Bring a powerbank!",
+                        message: "Keep your phone charged for safety, navigation, and alerts.",
+                        imgName: "Disclaimer_Cropped"
+                    ) {
+                        isShowingPopUp = false
+                        isShowingSelectTrackModal = true
+                    }
+                    .zIndex(2)
                 }
-                .zIndex(1)
             }
         }
+
         
     }
 }

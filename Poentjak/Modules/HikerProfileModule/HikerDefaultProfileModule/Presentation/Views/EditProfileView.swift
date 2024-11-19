@@ -26,15 +26,16 @@ struct EditProfileView: View {
             
             VStack(spacing: 16){
                 EditPhotoNameComponent(defaultName: $authViewModel.name, name: $authViewModel.name, authViewModel: authViewModel){
-                    //                    self.showCamera.toggle()
-                    //                Task{
-                    //                    await viewModel.uploadPhoto(userName: viewModel.name)
-                    //                    //                await viewModel.editUser()
-                    //                }
+                    self.showCamera.toggle()
+                    
+                    Task{
+                        await authViewModel.updatePhoto(oldPath: oldName, userName: authViewModel.name)
+                    }
                     print("Taken photo!")
                 }
                 
-                Text("\(oldName)")
+                
+//                Text("\(oldName)")
                 
                 EditProfileDescComponent(gender: $authViewModel.gender, age: $authViewModel.age, weight: $authViewModel.weight, height: $authViewModel.height, medicalCondition: $authViewModel.medicalCondition, emergencyContactName: $authViewModel.contactName, emergencyContactNumber: $authViewModel.contactNumber, navigationManager: navigationManager)
             }
@@ -65,6 +66,10 @@ struct EditProfileView: View {
                         
                     }
             }
+        }
+        .fullScreenCover(isPresented: self.$showCamera) {
+            accessCameraView(viewModel: authViewModel)
+                .background(.black)
         }
         //        .fullScreenCover(isPresented: self.$showCamera) {
         //            accessCameraView(viewModel: viewModel)

@@ -11,6 +11,8 @@ struct HikerProfileView: View {
     @ObservedObject var viewModel : HikerProfileViewModel/*(authViewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())), hikerProfileUseCase: HikerProfileUseCase(userRepository: DefaultUserRepository()))*/
     @StateObject var authViewModel: AuthViewModel
     @ObservedObject var navigationManager: MountainNavigationManager
+    
+    @StateObject var emergencyViewModel: EmergencyProsesViewModel
 
     @State var isShowDeleteModal: Bool = false
     @State var isShowLogoutModal: Bool = false
@@ -106,6 +108,7 @@ struct HikerProfileView: View {
                     CustomConfirmationComponent(confirmType: .delete, isModalVisible: $isShowDeleteModal, sosGuideModalVisible: $sosGuideModalVisible) {
                         Task {
                             await authViewModel.deleteAccount()
+                            await emergencyViewModel.updateSessionDone()
                         }
                         
                         authViewModel.userSession = nil

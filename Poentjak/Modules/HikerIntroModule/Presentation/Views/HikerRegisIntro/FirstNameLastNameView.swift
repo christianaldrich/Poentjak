@@ -18,6 +18,7 @@ struct FirstNameLastNameView: View {
     
     var body: some View {
 //        NavigationStack{
+        Spacer().frame(height: 100)
             ZStack(alignment:.top){
 //                CustomIndicatorLongRectangle(totalCount: 4, currentIndex: viewModel.currentIndex)
 //                    .padding(.top, 50)
@@ -26,7 +27,7 @@ struct FirstNameLastNameView: View {
                     VStack{
                         
                         
-                        Spacer().frame(height: 100)
+//                        Spacer().frame(height: 100)
                         
                         CustomFullNameTextFieldComponent(name: $viewModel.name)
                         
@@ -53,6 +54,14 @@ struct FirstNameLastNameView: View {
                     }
 //                }
             .navigationBarBackButtonHidden(true)
+            }
+            .toolbar{
+                ToolbarItem(placement: .topBarLeading){
+                    BackButtonComponent{
+//                        viewModel.currentIndex -= 1
+                    }
+                    .hidden()
+                }
             }
 //            .onAppear{
 //                viewModel.currentIndex = 0

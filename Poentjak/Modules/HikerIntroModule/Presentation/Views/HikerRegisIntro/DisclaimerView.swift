@@ -11,6 +11,8 @@ struct DisclaimerView: View {
     
     @StateObject var viewModel: AuthViewModel
     @State private var nextViewActive: Bool = false
+    @State private var isChecked = false
+
     
     var body: some View {
         VStack{
@@ -18,31 +20,70 @@ struct DisclaimerView: View {
             VStack(spacing: 16){
                 Image(systemName: "exclamationmark.circle")
                     .font(.largeTitleEmphasized)
-                Text("Legal Disclaimer")
+                Text("Disclaimer")
                     .font(.title1Emphasized)
             }
             Spacer()
             
             VStack(alignment: .leading, spacing: 25){
-                Text("Hikewise is designed to assist by providing\nalerts to **local rangers in emergency\nsituations.** However, we cannot guarantee\nassistance or outcomes, especially in areas\nwith poor or no signal.")
-                    
                 
-                Text("It is the user’s responsibility to **follow\nsafety guidelines and make responsible\ndecisions while hiking.** Hikewise is not\nliable for any incidents resulting from\nfailure to follow instructions, lack of signal,\nor reckless behavior. ")
+                Text("Hikewise helps **prevent emergencies** and\nenhance mountain search and rescue.")
                 
-                Text("Always hike with caution and be **aware of\nyour surroundings.**")
+                Text("The **information** is for guidance only and\n**does not replace professional medical advice or treatment.**")
+                
+                Text("**Guides** provided are for your **reference**,\nand not mandatory to follow. **Users remain\nresponsible for their actions.**")
+                
+                Text("By **sharing** your personal **information** and\nlocation, **rangers can assist you more\nquickly.** Learn more about how we collect and protect your data in our privacy policy.")
             }
-            .font(.calloutRegular)
+            .font(.subheadlineRegular)
             
             Spacer()
             
-//            NavigationLink(destination: FirstNameLastNameView(viewModel: viewModel)){
-                CustomLargeButtonComponent(state: .enabled, text: "I agree"){
-//                    print("ASDFASDF")
+            HStack {
+                Image(systemName: isChecked ? "checkmark.square.fill" : "square")
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(isChecked ? Color.primaryGreen500 : Color.neutralGrayTertiaryGray)
+                    .onTapGesture {
+                        isChecked.toggle()
+                    }
+                
+                Text("I agree to the ")
+                    + Text("Terms and Conditions")
+                        .underline()
+                        .foregroundColor(Color.primaryGreen500)
+                    + Text(" and ")
+                    + Text("Privacy Policy")
+                        .underline()
+                        .foregroundColor(Color.primaryGreen500)
+                
+                    
+            }
+            .font(.caption2Regular)
+            
+            .padding()
+            
+            Spacer()
+            
+            // Custom Button
+            CustomLargeButtonComponent(
+                state: isChecked ? .enabled : .disabled,
+                text: "I agree"
+            ) {
+                if isChecked {
                     viewModel.currentIndex += 1
                     nextViewActive = true
                 }
-//                .allowsHitTesting(false)
-//            }
+            }
+            .disabled(!isChecked)
+            
+            
+            //                CustomLargeButtonComponent(state: .enabled, text: "I agree"){
+            //
+            //                    viewModel.currentIndex += 1
+            //                    nextViewActive = true
+            //                }
+            
             
             
             Spacer()
@@ -62,5 +103,5 @@ struct DisclaimerView: View {
 }
 
 //#Preview {
-//    DisclaimerView()
+//    DisclaimerView(viewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())))
 //}

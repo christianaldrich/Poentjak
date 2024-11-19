@@ -15,9 +15,11 @@ struct RegistrationEmergencyContactView: View {
         !viewModel.contactName.isEmpty && !viewModel.contactNumber.isEmpty
     }
     
+    
     var body: some View {
+        Spacer().frame(height: 100)
         VStack(alignment: .leading, spacing: 24) {
-            Spacer().frame(height: 100)
+//            Spacer().frame(height: 100)
             Text("Who should we call in an emergency?")
                 .font(.title3Emphasized)
                 .foregroundStyle(Color.primaryGreen500)
@@ -36,6 +38,7 @@ struct RegistrationEmergencyContactView: View {
             }
             .padding(.horizontal, 32)
         }
+        .padding()
         .navigationDestination(isPresented: $navigateToNext) {
             MedicalReportView(viewModel: viewModel)
         }

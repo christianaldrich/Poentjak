@@ -39,7 +39,7 @@ class UserViewModel: ObservableObject{
         activeEmergencyUseCase.fetchActiveEmergencyByTrack(){ [weak self] hikers in
             DispatchQueue.main.async {
                 
-                print("\n\nHIKERS IN VM: \(hikers)")
+//                print("\n\nHIKERS IN VM: \(hikers)")
                 self?.hiker = hikers
             }
         }

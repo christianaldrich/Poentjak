@@ -11,7 +11,9 @@ struct HikersNeedHelpComponent: View {
     
     let hiker: EmergencyRequestModel
 //    let user: [UserModel]
+    @StateObject var authViewModel: AuthViewModel
     var onConfirmRescue: () -> Void
+    
     
     var body: some View {
         
@@ -30,7 +32,7 @@ struct HikersNeedHelpComponent: View {
                                        age: hiker.user?.age ?? 0,
                                        weight: hiker.user?.weight ?? 0,
                                        height: hiker.user?.height ?? 0,
-                                       status: hiker.emergencyStatus)
+                                       status: hiker.emergencyStatus, dueDate: hiker.dueDate, authViewModel: authViewModel)
             }
             .buttonStyle(PlainButtonStyle())
             .customShadow()

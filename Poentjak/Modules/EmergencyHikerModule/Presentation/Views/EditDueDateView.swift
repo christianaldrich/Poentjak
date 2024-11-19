@@ -121,7 +121,7 @@ extension EditDueDateView {
                     .datePickerStyle(WheelDatePickerStyle())
                     .padding(.top, 32)
                     .padding(.bottom, 54)
-                    .padding(.horizontal, 8)
+                    .padding(.trailing, 16)
                     
             }
         }

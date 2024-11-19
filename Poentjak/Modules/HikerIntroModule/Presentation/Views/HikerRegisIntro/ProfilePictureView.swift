@@ -20,14 +20,10 @@ struct ProfilePictureView: View {
     
     
     var body: some View {
+        Spacer().frame(height: 100)
         VStack {
             
-            Spacer().frame(height: 100)
-//            CustomIndicatorLongRectangle(totalCount: 4, currentIndex: viewModel.currentIndex)
-//                .padding(.top, 50)
-//                .zIndex(1)
-//            CustomIndicatorLongRectangle(totalCount: 4, currentIndex: viewModel.currentIndex ?? 1)
-//            Spacer()
+//            Spacer().frame(height: 100)
             VStack(alignment: .leading, spacing: 8){
                 Text("Give us a selfie!")
                     .font(.title3Emphasized)

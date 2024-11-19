@@ -9,10 +9,15 @@ import SwiftUI
 
 struct ActiveHikersView: View {
     
-    @StateObject var viewModel = ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository()))
+    @StateObject var viewModel : ActiveHikersViewModel
+    //(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository()))
     
     @State var selectedUser: EmergencyRequestModel?
     @State private var isDetailViewActive = false
+    
+    @State private var selectedDetent = PresentationDetent.fraction(0.65)
+    
+    @StateObject var authViewModel: AuthViewModel
     
     
     var body: some View {
@@ -33,16 +38,16 @@ struct ActiveHikersView: View {
                             ActiveHikersCardComponent(name: hiker.user?.name ?? "",
                                                       gender: hiker.user?.gender ?? "",
                                                       dueDate: hiker.dueDate,
-                                                      viewModel: viewModel)
-//                            .padding(.vertical)
+                                                      viewModel: viewModel, authViewModel: authViewModel)
+                            //                            .padding(.vertical)
                             
-
+                            
                         }
                         .buttonStyle(PlainButtonStyle())
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
-
-
+                        
+                        
                         
                     }
                     
@@ -53,8 +58,26 @@ struct ActiveHikersView: View {
             
             .navigationTitle("Active Hikers: \(viewModel.activeHikers.count)")
             .sheet(item: $selectedUser) { hiker in
-                ActiveHikersDetailView(hiker: hiker)
-                    .presentationDetents([.fraction(0.65), .large])
+                ActiveHikersDetailView(hiker: hiker, viewModel: viewModel, authViewModel: authViewModel)
+                    .presentationDetents([.fraction(0.65)], selection: $selectedDetent)
+                    .presentationDragIndicator(.visible)
+//                    .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.65)))
+                //                    .interactiveDismissDisabled(true)
+            }
+        }
+        .toolbar{
+            ToolbarItem(placement: .topBarTrailing){
+                Button(action: {
+                    Task {
+                        await authViewModel.signOut()
+                    }
+                }) {
+                    Image.LabelIcon.signOut
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25)
+                        .foregroundStyle(Color.primaryGreen500)
+                }
             }
         }
         

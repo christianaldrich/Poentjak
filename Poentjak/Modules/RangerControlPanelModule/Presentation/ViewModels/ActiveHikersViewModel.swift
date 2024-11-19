@@ -29,12 +29,12 @@ class ActiveHikersViewModel: ObservableObject{
     
     func countDue(input: Date) -> CustomLabelStatus {
         let currentDate = Date()
-        print("Current Date: \(currentDate)")
-        print("Input: \(input)")
+//        print("Current Date: \(currentDate)")
+//        print("Input: \(input)")
         
         if currentDate < input {
             let hoursRemaining = Calendar.current.dateComponents([.hour], from: currentDate, to: input).hour ?? 0
-            print("\n\n\n\nTSETSETST\(hoursRemaining)")
+//            print("\n\n\n\nTSETSETST\(hoursRemaining)")
             //            return hoursRemaining
             
             if hoursRemaining <= 1{

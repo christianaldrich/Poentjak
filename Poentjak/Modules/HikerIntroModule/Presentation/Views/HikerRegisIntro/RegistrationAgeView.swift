@@ -18,8 +18,9 @@ struct RegistrationAgeView: View {
     
     var body: some View {
 //        NavigationStack {
+        Spacer().frame(height: 100)
             VStack(alignment: .leading) {
-                Spacer().frame(height: 100)
+//                Spacer().frame(height: 100)
                 Text("We need some of your biodata for emergency situations")
                     .font(.title3Emphasized)
                     .foregroundStyle(Color.primaryGreen500)
@@ -85,6 +86,7 @@ struct RegistrationAgeView: View {
                 }
                 .padding(.horizontal, 16)
             }
+            .padding()
             .navigationDestination(isPresented: $navigateNext) {
                 RegistrationEmergencyContactView(viewModel: viewModel) 
             }

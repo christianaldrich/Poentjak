@@ -30,87 +30,91 @@ struct ActiveEmergencyView: View {
     
     var body: some View {
         
-        NavigationView {
-            VStack{
-                Picker("Select Condition", selection: $selectedCondition) {
-                    ForEach(EmergencyStatusEnum.allCases, id: \.self) { condition in
-                        Text(condition.rawValue).tag(condition)
-                    }
+        //        NavigationView {
+        VStack{
+            
+            Picker("Select Condition", selection: $selectedCondition) {
+                ForEach(EmergencyStatusEnum.allCases, id: \.self) { condition in
+                    Text(condition.rawValue).tag(condition)
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
+//            if viewModel.hiker.isEmpty{
                 
+//            }else{
+                
+            if filteredHikers().isEmpty && selectedCondition != .completed{
+                
+                VStack(alignment: .center){
+                    Text("No Emergency Request(s)!")
+                    Text("Good Job!")
+                    Spacer()
+                }
+                .font(.title3Regular)
+                .foregroundStyle(Color.primaryGreen500)
+                
+            }else{
                 List {
-                    HikersNeedHelpSectionComponent(hikers: filteredHikers()){ hiker in
+                    HikersNeedHelpSectionComponent(hikers: filteredHikers(), authViewModel: authViewModel){ hiker in
+                        
                         selectedUser = hiker
                         idContainer = hiker.id
                         isDetailViewActive = true
                     }
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
+                    //                    .listRowInsets(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
                     .buttonStyle(PlainButtonStyle())
                     
                 }
-                .padding()
-                .navigationBarBackButtonHidden()
-                .navigationTitle("Active Emergencies")
-                .listStyle(PlainListStyle())
-
-                
-                
-                Button(action: {
-                    Task {
-                        await authViewModel.signOut()
-                    }
-                }) {
-                    Text("Sign Out")
-                        .font(.headline)
-                        .padding()
-                        .background(Color.red)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .padding()
-                
-                .onAppear {
-                    viewModel.fetchActiveEmergencyByTrack()
-                    viewModel.fetchCompleteRescue()
-                    //                viewModel.fetchDangerHiker()
-                    viewModel.startTimer()
-                }
-                .onDisappear {
-                    viewModel.stopTimer()
-                }
-                .background(
-                    NavigationLink(
-                        destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel(), mapViewModel: RangerMapViewModel(fileName: selectedUser?.user?.trackId ?? "gede1") ,emergencyRequestId: idContainer),
-                        isActive: $isDetailViewActive,
-                        label: { EmptyView() }
-                    )
-                )
-                
             }
-//            .toolbar {
-//                ToolbarItem(placement: .principal) {
-//                    HStack{
-//                        VStack(alignment: .leading) {
-//                            Text(viewModel.formattedDate())
-//                                .font(.headline)
-//                                .foregroundColor(.gray)
-//                                .font(.footnoteRegular)
-//                            Text("Active Emergencies")
-//                                .font(.title1Emphasized)
-//                                .bold()
-//                        }
-//                        .padding()
-//                        Spacer()
-//                    }
-//                    
-//                }
-//                
+                //                .padding()
+               
 //            }
+            
+            
         }
-        .ignoresSafeArea()
+        .navigationBarBackButtonHidden()
+        .navigationTitle("Active Emergencies")
+        .listStyle(PlainListStyle())
+        .onAppear {
+            viewModel.fetchActiveEmergencyByTrack()
+            viewModel.fetchCompleteRescue()
+            //                viewModel.fetchDangerHiker()
+            viewModel.startTimer()
+        }
+        .onDisappear {
+            viewModel.stopTimer()
+        }
+        .background(
+            NavigationLink(
+                destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel(), mapViewModel: RangerMapViewModel(fileName: selectedUser?.user?.trackId ?? "gede1") ,emergencyRequestId: idContainer),
+                isActive: $isDetailViewActive,
+                label: { EmptyView() }
+            )
+        )
+        
+        //            .toolbar {
+        //                ToolbarItem(placement: .principal) {
+        //                    HStack{
+        //                        VStack(alignment: .leading) {
+        //                            Text(viewModel.formattedDate())
+        //                                .font(.headline)
+        //                                .foregroundColor(.gray)
+        //                                .font(.footnoteRegular)
+        //                            Text("Active Emergencies")
+        //                                .font(.title1Emphasized)
+        //                                .bold()
+        //                        }
+        //                        .padding()
+        //                        Spacer()
+        //                    }
+        //
+        //                }
+        //
+        //            }
+        //        }
+        //        .ignoresSafeArea()
         
         
         
@@ -133,6 +137,6 @@ struct ActiveEmergencyView: View {
     
 }
 
-#Preview {
-    ActiveEmergencyView(authViewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())))
-}
+//#Preview {
+//    ActiveEmergencyView(authViewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())))
+//}

@@ -9,12 +9,15 @@ import SwiftUI
 
 struct ActiveHikersDetailView: View {
     let hiker: EmergencyRequestModel?
-    @StateObject var viewModel = ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository()))
+    @StateObject var viewModel : ActiveHikersViewModel
     @Environment(\.dismiss) var dismiss
     
     @State private var isContactActive = false
     
-    
+    @StateObject var authViewModel: AuthViewModel
+
+    @State private var image: UIImage?
+
     
     
     var body: some View {
@@ -24,11 +27,21 @@ struct ActiveHikersDetailView: View {
                 VStack(alignment: .leading){
                     HStack{
                         
-                        Image("profPic")
+                        
+                        if let image = image{
+                            Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 86,height: 83)
+                            .frame(width: 86, height: 83)
                             .clipShape(RoundedRectangle(cornerRadius: 17))
+                        } else {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 86, height: 83)
+                                .foregroundColor(.gray)
+                                .clipShape(RoundedRectangle(cornerRadius: 17))
+                        }
                         
                         VStack(alignment: .leading){
                             HStack{
@@ -77,6 +90,23 @@ struct ActiveHikersDetailView: View {
                 dismiss()
             }
             
+        }
+        .onAppear{
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+//                authViewModel.retrievePhoto(userName: name)
+            authViewModel.retrievePhotoRanger(userName: hiker?.user?.name ?? ""){image in
+                if let image = image {
+                    print("Successfully retrieved image for user TEST.")
+                    // Update the UI with the image
+                    DispatchQueue.main.async {
+                        self.image = image
+                    }
+                } else {
+                    print("Failed to retrieve image for user TEST.")
+                }
+                
+            }
+//            }
         }
         .padding(.top,20)
         .padding()

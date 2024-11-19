@@ -15,9 +15,10 @@ struct AlertGuideView: View {
     var body: some View {
         VStack {
             topNavigationBar
-                .padding(.bottom, 32)
+                .padding(.bottom, 18)
             
             AlertGuideTabBar(idSelected: $viewModel.idSelected, text: viewModel.alertGuideTextTabBar, textToSpeechViewModel: textToSpeechViewModel)
+                .padding(.bottom, 12)
             
             AlertGuideContent(contentData: viewModel.contentData, textToSpeechViewModel: textToSpeechViewModel)
             Spacer()
@@ -58,7 +59,7 @@ extension AlertGuideView {
                 Image.SoundBoardIcon.whistle
                     .resizable()
                     .renderingMode(.template)
-                    .frame(width: 20, height: 20)
+                    .frame(width: 22, height: 24)
                     .foregroundStyle(Color.neutralWhiteBiancaWhite)
                     .padding(8)
                     .background(Color.primaryGreen500)
@@ -78,9 +79,11 @@ extension AlertGuideView {
                 Image(systemName: "chevron.left")
                     .font(.bodyEmphasized)
                     .foregroundStyle(Color.neutralWhiteBiancaWhite)
-                    .padding(16)
+                    .padding(10)
+                    .frame(maxWidth: 45, maxHeight: 45)
                     .background(Color.primaryGreen500)
                     .cornerRadius(16)
+                
             }
             .opacity(viewModel.idSelected == 1 ? 0 : 1)
             .disabled(viewModel.idSelected == 1)
@@ -110,7 +113,8 @@ extension AlertGuideView {
                 Image(systemName: "chevron.right")
                     .font(.bodyEmphasized)
                     .foregroundStyle(Color.neutralWhiteBiancaWhite)
-                    .padding(16)
+                    .padding(10)
+                    .frame(maxWidth: 45, maxHeight: 45)
                     .background(Color.primaryGreen500)
                     .cornerRadius(16)
             }

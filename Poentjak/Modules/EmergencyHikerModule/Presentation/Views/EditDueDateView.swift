@@ -37,7 +37,7 @@ struct EditDueDateView: View {
                 .foregroundStyle(Color.primaryGreen500)
                 .padding(.bottom, 16)
             
-            HStack(spacing: 8) {
+            HStack(spacing: 16) {
                 ForEach(shortcutHours, id: \.self) { hour in
                     Button(action: {
                         selectedHour = hour
@@ -58,11 +58,6 @@ struct EditDueDateView: View {
             }
             .buttonStyle(PlainButtonStyle())
             .padding(.top, 34)
-            
-            if isDatePickerVisible {
-                DatePicker("", selection: $selectedDate, in: Date()..., displayedComponents: [.date, .hourAndMinute])
-                    .datePickerStyle(WheelDatePickerStyle())
-            }
             
             Spacer()
         }
@@ -95,21 +90,43 @@ struct EditDueDateView: View {
 // MARK: - Extension View
 extension EditDueDateView {
     var arrivalDateView: some View {
-        HStack {
-            Text("Arrival Date")
-                .font(.subheadlineRegular)
-                .foregroundStyle(Color.primaryGreen500)
+        VStack(alignment: .center) {
+            HStack {
+                Text("Arrival Date")
+                    .font(.subheadlineRegular)
+                    .foregroundStyle(Color.primaryGreen500)
+                
+                Spacer()
+                
+                Text(formattedDateString)
+                    .font(.subheadlineRegular)
+                    .foregroundStyle(Color.primaryGreen500)
+                    .padding(.horizontal, 8)
+                
+                Image(systemName: isDatePickerVisible ? "chevron.up" : "chevron.right")
+                    .font(.bodyEmphasized)
+                    .foregroundStyle(Color.primaryGreen500)
+                
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 20)
             
-            Spacer()
-            
-            Text(dateFormatter.string(from: selectedDate))
-                .font(.subheadlineRegular)
-                .foregroundStyle(Color.primaryGreen500)
+            if isDatePickerVisible {
+                Divider()
+                    .frame(height: 1)
+                    .background(Color.neutralGrayLightGray)
+                    .padding(.horizontal, 16)
+                
+                DatePicker("", selection: $selectedDate, in: Date()..., displayedComponents: [.date, .hourAndMinute])
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .padding(.top, 32)
+                    .padding(.bottom, 54)
+                    .padding(.trailing, 16)
+                    
+            }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 20)
-        .frame(maxWidth: .infinity)
         .background(.white)
+        .frame(maxWidth: .infinity, alignment: .center)
         .cornerRadius(16)
         .customShadow()
     }
@@ -118,6 +135,20 @@ extension EditDueDateView {
         let formatter = DateFormatter()
         formatter.dateFormat = "E d MMM HH:mm"
         return formatter
+    }
+
+    var formattedDateString: String {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let selectedDay = calendar.startOfDay(for: selectedDate)
+
+        if today == selectedDay {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "'Today' HH:mm"
+            return formatter.string(from: selectedDate)
+        } else {
+            return dateFormatter.string(from: selectedDate)
+        }
     }
     
     var remainingTimeInSeconds: TimeInterval {
@@ -154,7 +185,7 @@ extension EditDueDateView {
     
     func shortCutView(for hour: Int) -> some View {
         VStack {
-            Text("\(hour)")
+            Text("+\(hour)")
                 .font(.footnoteEmphasized)
                 .foregroundStyle(Color.primaryGreen500)
             
@@ -162,7 +193,7 @@ extension EditDueDateView {
                 .font(.footnoteEmphasized)
                 .foregroundStyle(Color.primaryGreen500)
         }
-        .padding(.horizontal, 18)
+        .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .frame(maxWidth: .infinity)
         .background(.white)
@@ -185,7 +216,7 @@ extension EditDueDateView {
                     showCustomAlert = false
                 }
             )
-           
+            
         }
         .zIndex(1)
     }

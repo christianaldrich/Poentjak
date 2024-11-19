@@ -26,8 +26,9 @@ struct PhotoNameComponent: View {
                 if let image = authViewModel.retrievedImage{
                     Image(uiImage: image)
                     .resizable()
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle())
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
                 } else {
                     Image(systemName: "person.circle.fill")
                         .resizable()

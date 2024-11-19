@@ -27,6 +27,7 @@ struct TracksDetailView: View {
 
             
             TracksMapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedFirstLastWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true)
+                .edgesIgnoringSafeArea(.all)
 
         }
         
@@ -53,15 +54,13 @@ struct TracksDetailView: View {
         .toolbar{
             ToolbarItem(placement: .topBarLeading){
                 BackButtonComponent{
-                    
+                    isShowingSelectTrackModal = false
                 }
             }
         }
+        .toolbarBackground(.hidden, for: .navigationBar)
         
-        
-        //        .navigationDestination(isPresented: $navigateToDueDate){
-        //            DueDateView()
-        //        }
+      
         
         
     }

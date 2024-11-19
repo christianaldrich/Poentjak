@@ -31,9 +31,11 @@ struct CheckingView: View {
                 }
                 else {
 //                UserView(viewModel: viewModel)
-                                MountainsTracksView(authViewModel: viewModel)
+                    UserTabView(viewModel: viewModel)
                         .environmentObject(navigationManager)
-//                                DueDateView()
+//                                MountainsTracksView(authViewModel: viewModel)
+//                        .environmentObject(navigationManager)
+////                                DueDateView()
                 }
             }
             else {

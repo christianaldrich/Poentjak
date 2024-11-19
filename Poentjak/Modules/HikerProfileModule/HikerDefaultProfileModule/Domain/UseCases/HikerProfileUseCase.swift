@@ -26,7 +26,7 @@ class HikerProfileUseCase: HikerProfileUseCaseProtocol{
                 // Fetch the current user ID
                 let hiker = try await userRepository.fetchCurrentUserEmergency()
                 
-                print("\(hiker)")
+                print("DEBUG \(hiker)")
                 
                 completion(hiker)
                 

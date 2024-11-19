@@ -28,7 +28,6 @@ struct MountainsTracksView: View {
     @StateObject var authViewModel: AuthViewModel
     @StateObject var navigationManager = MountainNavigationManager()
     
-    @Binding var visibility: Visibility
     @State private var searchMountain = ""
     @StateObject var navigateViewModel = UserNavigateViewModel(fileName: "")
     
@@ -102,14 +101,7 @@ struct MountainsTracksView: View {
                             HikerProfileView(viewModel: HikerProfileViewModel(authViewModel: authViewModel, hikerProfileUseCase: HikerProfileUseCase(userRepository: DefaultUserRepository())), authViewModel: authViewModel, navigationManager: navigationManager, emergencyViewModel: EmergencyProsesViewModel())
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
-                                .onAppear{
-                                    visibility = .hidden
-                                }
-                                .onDisappear{
-                                    visibility = .visible
-                                }
-                                .toolbar(visibility, for: .tabBar)
-                                //.toolbar(.hidden, for: .tabBar)
+                                .toolbar(.hidden, for: .tabBar)
                             
                         case .editProfile:
                             EditProfileView(authViewModel: authViewModel, viewModel: HikerProfileViewModel(authViewModel: authViewModel, hikerProfileUseCase: HikerProfileUseCase(userRepository: DefaultUserRepository())), navigationManager: navigationManager)

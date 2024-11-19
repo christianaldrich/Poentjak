@@ -15,14 +15,13 @@ struct UserTabView: View {
     @StateObject var viewModel: AuthViewModel
     @State private var selectedTab = 0
     @StateObject var navigationManager = NavigationManager()
-    @State var visibility = Visibility.visible
     
     var body: some View {
         
         TabView(selection: $selectedTab){
             Group{
                 
-                MountainsTracksView(authViewModel: viewModel, visibility: $visibility)
+                MountainsTracksView(authViewModel: viewModel)
                     .environmentObject(navigationManager)
                 
                     .tabItem {
@@ -39,13 +38,12 @@ struct UserTabView: View {
                         }
                         
                     }
-                    //.toolbar(visibility, for: .tabBar)
                     .onAppear{
                         selectedTab = 0
                     }
                     .tag(0)
                 
-                ActiveHikersView()
+                ActiveHikersView(viewModel: ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository())), authViewModel: viewModel)
                     .tabItem {
                         VStack {
                             Image.TabBarIcon.book

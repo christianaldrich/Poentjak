@@ -40,7 +40,7 @@ struct TracksDetailView: View {
                 navigateViewModel.setupRegionTrack()
                 viewModel.fetchEmergency()
                 isShowingSelectTrackModal = false
-                
+                isShowingPopUp = true
             }
             .sheet(isPresented: $isShowingSelectTrackModal){
                 SelectTrackComponent(track: track, mountainViewModel: mountainViewModel, navigationManager: navigationManager){
@@ -58,6 +58,7 @@ struct TracksDetailView: View {
                     BackButtonComponent{
                         isShowingSelectTrackModal = false
                     }
+                    .disabled(isShowingPopUp)
                 }
             }
             .toolbarBackground(.hidden, for: .navigationBar)

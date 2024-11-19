@@ -111,15 +111,15 @@ class UserNavigateViewModel: ObservableObject {
             let totalLon = trackPoints.reduce(0.0) { $0 + $1.longitude }
             let centerLat = totalLat / Double(trackPoints.count)
             let centerLon = totalLon / Double(trackPoints.count)
-            region.center = CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon)
-            region.span = MKCoordinateSpan(latitudeDelta: 0.038, longitudeDelta: 0.038)
+            region.center = CLLocationCoordinate2D(latitude: centerLat - 0.0025, longitude: centerLon)
+            region.span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
 //            region.span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
         }
     }
     
     func setupRegionUser() {
         if let location = locationManager.lastKnownLocation {
-            region.center = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            region.center = CLLocationCoordinate2D(latitude: location.latitude - 0.0025, longitude: location.longitude)
             region.span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
 //            region.span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
 

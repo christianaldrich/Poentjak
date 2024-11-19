@@ -18,7 +18,8 @@ struct ActiveHikersView: View {
     @State private var selectedDetent = PresentationDetent.fraction(0.65)
     
     @StateObject var authViewModel: AuthViewModel
-    
+    @State var isShowLogoutModal: Bool = false
+    @State var sosGuideModalVisible: Bool = false
     
     var body: some View {
         NavigationStack{
@@ -69,7 +70,8 @@ struct ActiveHikersView: View {
             ToolbarItem(placement: .topBarTrailing){
                 Button(action: {
                     Task {
-                        await authViewModel.signOut()
+                        // await authViewModel.signOut()
+                        isShowLogoutModal = true
                     }
                 }) {
                     Image.LabelIcon.signOut
@@ -78,6 +80,21 @@ struct ActiveHikersView: View {
                         .frame(width: 25, height: 25)
                         .foregroundStyle(Color.primaryGreen500)
                 }
+            }
+        }
+        .overlay{
+            if isShowLogoutModal {
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .edgesIgnoringSafeArea(.all)
+                    
+                    CustomConfirmationComponent(confirmType: .logout, isModalVisible: $isShowLogoutModal, sosGuideModalVisible: $sosGuideModalVisible) {
+                        Task {
+                            await authViewModel.signOut()
+                        }
+                    }
+                }
+
             }
         }
         

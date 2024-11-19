@@ -31,7 +31,7 @@ enum confirmationState {
         case .returned:
             return "Yes, I've returned"
         case .logout:
-            return "Yes, log out?"
+            return "Confirm"
         case .evacuated:
             return "Yes, I'm safe"
         case .delete:

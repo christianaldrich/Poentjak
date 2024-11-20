@@ -14,8 +14,8 @@ protocol EmergencyRepositoryProtocol {
 //    func deleteEmergency(userId: String) async throws
     func fetchEmergency(userId: String, completion: @escaping (Result<EmergencyRequest?, Error>) -> Void)
     func updateSessionDone(userId: String, sessionDone: Bool, emergencyStatus: String) async throws
-    
-    func updateEmergencyRequestToOverdue(id: String) async throws 
+    func updateStatusSafe(sessionId: String, emergencyStatus: String, emergencyType: String) async throws
+    func updateEmergencyRequestToOverdue(id: String) async throws
     func updateDueDate(sessionId: String, dueDate: Date) async throws
     func updateStatusTypeEmergency(sessionId: String, emergencyStatus: String, emergencyType: String) async throws
 

@@ -92,6 +92,7 @@ struct MountainsTracksView: View {
                             TracksDetailView(track: track, navigationManager: navigationManager, isShowingModal: $isShowingModal, viewModel: EmergencyProsesViewModel(), navigateViewModel: TracksMapViewModel(fileName: track), authViewModel: authViewModel)
                                 .environmentObject(viewModel)
                                 .environmentObject(navigationManager)
+                                .toolbar(.hidden, for: .tabBar)
                         case .dueDate(let trackLocation):
                             DueDateView(trackLocation: trackLocation)
                                 .toolbar(.hidden, for: .tabBar)

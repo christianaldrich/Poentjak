@@ -98,11 +98,13 @@ struct HikerProfileView: View {
                     BackButtonComponent {
                         // Back button action
                     }
+                    .disabled(isShowLogoutModal || isShowDeleteModal)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Edit") {
                         navigationManager.navigationPath.append(MountainDestinationView.editProfile)
                     }
+                    .disabled(isShowLogoutModal || isShowDeleteModal)
                 }
             }
             .ignoresSafeArea()

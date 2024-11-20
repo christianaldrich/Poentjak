@@ -72,6 +72,21 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
         
     }
     
+    func updateStatusSafe(sessionId: String, emergencyStatus: String, emergencyType: String) async throws {
+        let documentRef = firestore.collection("emergencyRequests").document(sessionId)
+        
+        do{
+            try await documentRef.updateData([
+                "emergencyStatus": emergencyStatus,
+                "emergencyType": emergencyType
+            ])
+            print("Due Date successfully updated, in repo")
+        } catch {
+            print("Error updating due date in repo: \(error)")
+            throw error
+        }
+    }
+    
     func updateStatusTypeEmergency(sessionId: String, emergencyStatus: String, emergencyType: String) async throws {
         let documentRef = firestore.collection("emergencyRequests").document(sessionId)
         

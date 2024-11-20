@@ -45,9 +45,11 @@ class EmergencyProsesViewModel: ObservableObject {
     @Published var countDownTime = 5
     var countDownTimer: Timer?
     
-    private var emergencyStatus: EmergencyStatus = .completed
+    @Published var emergencyStatus: EmergencyStatus = .completed
     
     @Published var emergencyScale: Double = 1
+    
+    @Published var assignedRangers: [String] = []
     
     
     // MARK: - start: ni logic buat alert guide
@@ -109,9 +111,14 @@ class EmergencyProsesViewModel: ObservableObject {
                     self.sessionId = emergency?.id ?? "no session id"
                     self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false
                     self.trackId = emergency?.user.trackId ?? "no track id"
-                    print ("this is in view model: \(self.emergencySessionActive)")
-                    print("Fetched emergency session: active = \(self.emergencySessionActive)")
-                    print("this is fetch text after sos: \(self.sendSOSToFirebase)")
+                    self.assignedRangers = emergency?.assignedRangers ?? []
+                    self.emergencyType = emergency?.emergencyType ?? .lost
+                    self.emergencyStatus = emergency?.emergencyStatus ?? .safe
+                    print("DEBUG ASSIGNED RANGERS: \(self.assignedRangers)")
+                    
+//                    print ("this is in view model: \(self.emergencySessionActive)")
+//                    print("Fetched emergency session: active = \(self.emergencySessionActive)")
+//                    print("this is fetch text after sos: \(self.sendSOSToFirebase)")
                     
                     
                 case .failure(let error):
@@ -145,7 +152,18 @@ class EmergencyProsesViewModel: ObservableObject {
     // MARK: - start: ini logic buat edit due date view
     func updateDueDate() async {
         do{
-            try await useCase.updateDueDate(sessionId: sessionId, dueDate: dueDate)
+            let currentTime = Date()
+            
+            if dueDate <= currentTime {
+                        try await useCase.updateDueDate(sessionId: sessionId, dueDate: dueDate)
+                        print("Due date updated (overdue case).")
+                    } else {
+                        // If the due date is in the future, update the due date and emergency status
+                        try await useCase.updateDueDate(sessionId: sessionId, dueDate: dueDate)
+                        try await useCase.updateStatusSafe(sessionId: sessionId, emergencyStatus: "safe", emergencyType: "")
+                        print("Due date and emergency status updated (not overdue).")
+                    }
+            
         } catch {
             print("Failed to update due date in vm: \(error.localizedDescription)")
             
@@ -187,10 +205,12 @@ class EmergencyProsesViewModel: ObservableObject {
             Task {
                 SOSManager.shared.isSOS = true
                 self.isSignalSent = true
-                await self.updateStatusType()
-                self.sendSOSToFirebase = true
                 self.deleteAnimation = true
                 navigationManager.popToRoot()
+                await self.updateStatusType()
+                self.sendSOSToFirebase = true
+                
+                
             }
         }
         
@@ -207,11 +227,12 @@ class EmergencyProsesViewModel: ObservableObject {
     func startTimer() {
         timer?.invalidate()
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             Task {
                 do {
                     try await self.useCase.checkAndUpdateOverdue(dueDate: self.dueDate, id: self.sessionId, emergencyStatus: self.status)
+                    
                     
                 } catch {
                     print("Error checking overdue: \(error.localizedDescription)")

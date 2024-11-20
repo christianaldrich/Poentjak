@@ -72,9 +72,9 @@ struct RangerMapView: UIViewRepresentable {
         }
         
         @objc func recenterTapped() {
-            guard let userLocation = parent.mapView.userLocation.location else { return }
+//            guard let userLocation = parent.mapView.userLocation.location else { return }
             let region = MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: parent.userLastLocation.latitude, longitude: parent.userLastLocation.longitude),
+                center: CLLocationCoordinate2D(latitude: parent.userLastLocation.latitude - 0.00025, longitude: parent.userLastLocation.longitude),
                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             )
             parent.mapView.setRegion(region, animated: true)

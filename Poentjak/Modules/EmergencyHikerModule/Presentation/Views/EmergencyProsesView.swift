@@ -56,7 +56,7 @@ struct EmergencyProsesView: View {
                                             isShowingModal = false
                                             navigationManager.navigationPath.append(DestinationView.chooseEmergency)
                                         }
-                                    } else if viewModel.isSignalSent && !viewModel.sendSOSToFirebase {
+                                    } else if viewModel.isSignalSent && viewModel.emergencyStatus != .danger {
                                         HalfButtonComponent(halfType: .SOSSending) {
                                             isShowingModal = false
                                             navigationManager.navigationPath.append(DestinationView.chooseEmergency)
@@ -184,7 +184,7 @@ struct EmergencyProsesView: View {
             .onAppear {
                 viewModel.fetchEmergency()
                 navigateViewModel.fileName = viewModel.trackId
-//                viewModel.startTimer()
+                viewModel.startTimer()
                 navigateViewModel.isNavigating = true
                 navigateViewModel.startTimer()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

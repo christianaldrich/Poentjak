@@ -3,34 +3,34 @@
 
   <wpt lat="-6.757505" lon="107.008547">
     <ele>1613</ele>
-    <name>POS PENDAFTARAN</name>
+    <name>POS SIMAKSI</name>
     <cmt>POS PENDAFTARAN</cmt>
-    <desc>Ini Pos Pendaftaran</desc>
-    <image>profPic</image>
+    <desc>Ini Pos SIMAKSI</desc>
+    <image>GedeViaPutri/PosPendaftaran</image>
     <checkpointstatus>post</checkpointstatus>
   </wpt>
   <wpt lat="-6.760544" lon="107.005675">
     <ele>1663</ele>
-    <name>POS PEMERIKSAAN</name>
+    <name>POS Jaga</name>
     <cmt>POS PEMERIKSAAN</cmt>
-    <desc>Ini Pos Pemeriksaan</desc>
-    <image>dummy</image>
+    <desc>Ini Pos Jaga</desc>
+    <image>GedeViaPutri/PosJaga</image>
     <checkpointstatus>post</checkpointstatus>
   </wpt>
   <wpt lat="-6.767648" lon="107.001275">
     <ele>1861</ele>
-    <name>POS1</name>
+    <name>POS 1 - INFORMATION CENTER</name>
     <cmt>POS1</cmt>
-    <desc>Ini Pos 1</desc>
-    <image>profPic</image>
+    <desc>Ini Pos 1 - Information Center</desc>
+    <image>GedeViaPutri/Pos1</image>
     <checkpointstatus>post</checkpointstatus>
   </wpt>
   <wpt lat="-6.768985" lon="107.000076">
     <ele>1928</ele>
-    <name>POS -</name>
+    <name>POS BAYANGAN</name>
     <cmt>POS -</cmt>
-    <desc>Ini Pos -</desc>
-    <image>dummy</image>
+    <desc>Ini Pos Bayangan</desc>
+    <image>GedeViaPutri/PosBayangan</image>
     <checkpointstatus>post</checkpointstatus>
   </wpt>
   <wpt lat="-6.769882" lon="106.998693">
@@ -38,7 +38,7 @@
     <name>POS 2 - LEGOK LEUNCA</name>
     <cmt>POS 2 - LEGOK LEUNCA</cmt>
     <desc>Ini Pos 2 - Legok Leunca</desc>
-    <image>profPic</image>
+    <image>GedeViaPutri/Pos2</image>
     <checkpointstatus>post</checkpointstatus>
   </wpt>
   <wpt lat="-6.773836" lon="106.994326">
@@ -47,7 +47,7 @@
     <cmt>Ini Warungnya bu Nurjana</cmt>
     <desc>Ini Warungnya bu Nurjana</desc>
     <sym>Convenience Store</sym>
-    <image>dummy</image>
+    <image>GedeViaPutri/Warung</image>
     <checkpointstatus>emergency</checkpointstatus>
   </wpt>
   <wpt lat="-6.774841" lon="106.993596">
@@ -56,31 +56,39 @@
     <cmt>Ini warungnya bu Ami, semangka goceng</cmt>
     <desc>Ini warungnya bu Ami, semangka goceng</desc>
     <sym>Convenience Store</sym>
-    <image>profPic</image>
+    <image>GedeViaPutri/Warung</image>
     <checkpointstatus>emergency</checkpointstatus>
   </wpt>
   <wpt lat="-6.776227" lon="106.993212">
     <ele>2249</ele>
-    <name>POS3 - Buntut Lutung</name>
+    <name>POS 3 - BUNTUT LUTUNG</name>
     <cmt>POS3 - Buntut Lutung</cmt>
     <desc>Ini Pos 3 - Buntut Lutung</desc>
-    <image>dummy</image>
+    <image>GedeViaPutri/Pos3</image>
+    <checkpointstatus>post</checkpointstatus>
+  </wpt>
+  <wpt lat="-6.776227" lon="106.993212">
+    <ele>2481</ele>
+    <name>LAWANG SAKETENG</name>
+    <cmt>LAWANG SAKETENG</cmt>
+    <desc>Ini LAWANG SAKATENG</desc>
+    <image>GedeViaPutri/LawangSaketeng</image>
     <checkpointstatus>post</checkpointstatus>
   </wpt>
   <wpt lat="-6.783645" lon="106.991413">
     <ele>2620</ele>
-    <name>SIMPANG MALEBER</name>
+    <name>POS 4 - SIMPANG MALEBER</name>
     <cmt>SIMPANG MALEBER</cmt>
-    <desc>Ini Simpang Maleber</desc>
-    <image>profPic</image>
+    <desc>Ini Pos 4 - Simpang Maleber</desc>
+    <image>GedeViaPutri/Pos4</image>
     <checkpointstatus>post</checkpointstatus>
   </wpt>
   <wpt lat="-6.786869" lon="106.99253">
     <ele>2752</ele>
-    <name>ALUN-ALUN TIMUR SURYAKENCANA</name>
+    <name>Alun-Alun Timur Suryakencana</name>
     <cmt>ALUN-ALUN TIMUR SURYAKENCANA</cmt>
     <desc>Ini Surken timur</desc>
-    <image>dummy</image>
+    <image>GedeViaPutri/AlunTimur</image>
     <checkpointstatus>post</checkpointstatus>
   </wpt>
 <!--  <wpt lat="-6.795083" lon="106.985363">-->
@@ -93,7 +101,7 @@
     <name>Alun-Alun Barat Suryakencana</name>
     <cmt>Alun-Alun Barat Suryakencana</cmt>
     <desc>Ini Surken barat</desc>
-    <image>profPic</image>
+    <image>GedeViaPutri/AlunBarat</image>
     <checkpointstatus>post</checkpointstatus>
   </wpt>
 <!--  <wpt lat="-6.795885" lon="106.984549">-->
@@ -103,10 +111,10 @@
 <!--  </wpt>-->
   <wpt lat="-6.796422" lon="106.984297">
     <ele>2738</ele>
-    <name>WATER SOURCE</name>
+    <name>Mata Air</name>
     <cmt>WATER SOURCE</cmt>
     <desc>Ini Sumber air</desc>
-    <image>dummy</image>
+    <image>GedeViaPutri/MataAir</image>
     <checkpointstatus>post</checkpointstatus>
   </wpt>
   <wpt lat="-6.78989" lon="106.98313">
@@ -114,7 +122,7 @@
     <name>GEDE SUMMIT</name>
     <cmt>GEDE SUMMIT</cmt>
     <desc>Ini Puncak Gede</desc>
-    <image>profPic</image>
+    <image>GedeViaPutri/GedeSummit</image>
     <checkpointstatus>summit</checkpointstatus>
   </wpt>
   <trk>

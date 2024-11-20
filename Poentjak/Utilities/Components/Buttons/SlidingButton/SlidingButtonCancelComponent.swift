@@ -16,6 +16,7 @@ enum ActionState {
 enum SlidingDirection: CGFloat {
     case ltr = 1
     case rtl = -1
+    case ltr1 = 0.9
 }
 
 private struct CustomButtonStyle: ButtonStyle {
@@ -80,7 +81,7 @@ struct DraggableView<LeadingView: View, TrailingView: View>: View {
                         .fill(buttonColor)
                 )
                 .padding(.all, imagePadding),
-                alignment: (slidingDirection == .ltr) ? .trailing : .leading
+                alignment: (slidingDirection == .ltr || slidingDirection == .ltr1) ? .trailing : .leading
             )
             .highPriorityGesture(
                 DragGesture()
@@ -137,7 +138,25 @@ struct BackgroundView: View {
                         Text(text)
                             .foregroundColor(Color.primaryGreen500)
                             .font(Font.title3Regular)
-                    } else {
+                    }else if slidingDirection == .ltr1 {
+                        Spacer()
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(Color.gray.opacity(0.9))
+                            .bold()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(Color.gray.opacity(0.7))
+                            .bold()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(Color.gray.opacity(0.5))
+                            .bold()
+                        Spacer()
+                        Text(text)
+                            .foregroundColor(Color.primaryGreen500)
+                            .font(Font.title3Regular)
+                        Spacer()
+                    }
+                    else {
                         Text(text)
                             .foregroundColor(Color.primaryGreen500)
                             .font(Font.title3Regular)
@@ -168,13 +187,13 @@ struct SlideToActionButton: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: (slidingDirection == .ltr) ? .leading : .trailing) {
+            ZStack(alignment: (slidingDirection == .ltr || slidingDirection == .ltr1) ? .leading : .trailing) {
                 BackgroundView(slidingDirection: slidingDirection, text: text)
                 
                 DraggableView(
                     maxDraggableWidth: geometry.size.width,
                     slidingDirection: slidingDirection,
-                    leadingView: Image(systemName: slidingDirection == .ltr ? "arrowshape.right.fill" : "arrowshape.left.fill")
+                    leadingView: Image(systemName: slidingDirection == .ltr || slidingDirection == .ltr1 ? "arrowshape.right.fill" : "arrowshape.left.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30, height: 30)
@@ -184,7 +203,7 @@ struct SlideToActionButton: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30, height: 30)
                         .foregroundColor(.white),
-                    buttonColor: slidingDirection == .ltr ? Color.primaryGreen500 : Color.accentRedSos,
+                    buttonColor: slidingDirection == .ltr || slidingDirection == .ltr1 ? Color.primaryGreen500 : Color.accentRedSos,
                     onActionCompleted: onActionCompleted
                 )
             }
@@ -203,6 +222,11 @@ struct SlideToActionButton: View {
     
     SlideToActionButton(
         slidingDirection: .ltr, text: "Finished evacuating", onActionCompleted: {
+            print("Finish action completed")
+        }
+    )
+    SlideToActionButton(
+        slidingDirection: .ltr1, text: "Finish trip", onActionCompleted: {
             print("Finish action completed")
         }
     )

@@ -203,7 +203,10 @@ struct MountainsTracksView: View {
                             }
                         }
                         
+
+                        
                     })
+                    
                     .customBackground(
                         Color.neutralWhite
                                         .cornerRadius(16)

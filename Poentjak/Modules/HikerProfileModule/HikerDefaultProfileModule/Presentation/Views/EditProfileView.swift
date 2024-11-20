@@ -18,11 +18,14 @@ struct EditProfileView: View {
     
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8){
-            Text("Hiker ID")
-                .font(.title1Emphasized)
-                .foregroundStyle(Color.primaryGreen500)
-                .padding(.leading, 18)
+        VStack(alignment: .center, spacing: 8){
+            HStack{
+                Text("Hiker ID")
+                    .font(.title1Emphasized)
+                    .foregroundStyle(Color.primaryGreen500)
+                    .padding(.leading, 18)
+                Spacer()
+            }
             
             VStack(spacing: 16){
                 EditPhotoNameComponent(defaultName: $authViewModel.name, name: $authViewModel.name, authViewModel: authViewModel){
@@ -42,13 +45,15 @@ struct EditProfileView: View {
             
             Spacer()
             
-            CustomLargeButtonComponent(state: .enabled, text: "Save Changes"){
-                Task{
-                    await authViewModel.editUser()
-                    await authViewModel.updatePhoto(oldPath: oldName, userName: authViewModel.name)
+//            VStack(alignment: .center){
+                CustomLargeButtonComponent(state: .enabled, text: "Save Changes"){
+                    Task{
+                        await authViewModel.editUser()
+                        await authViewModel.updatePhoto(oldPath: oldName, userName: authViewModel.name)
+                    }
+                    navigationManager.popToPrevious()
                 }
-                navigationManager.popToPrevious()
-            }
+//            }
         }
         .padding()
         .onAppear {

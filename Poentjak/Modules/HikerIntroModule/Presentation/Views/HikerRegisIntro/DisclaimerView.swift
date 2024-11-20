@@ -12,10 +12,10 @@ struct DisclaimerView: View {
     @StateObject var viewModel: AuthViewModel
     @State private var nextViewActive: Bool = false
     @State private var isChecked = false
-
+    
     
     var body: some View {
-        VStack{
+        VStack(spacing:20){
             Spacer()
             VStack(spacing: 16){
                 Image(systemName: "exclamationmark.circle")
@@ -33,33 +33,71 @@ struct DisclaimerView: View {
                 
                 Text("**Guides** provided are for your **reference**,\nand not mandatory to follow. **Users remain\nresponsible for their actions.**")
                 
-                Text("By **sharing** your personal **information** and\nlocation, **rangers can assist you more\nquickly.** Learn more about how we collect and protect your data in our privacy policy.")
+                Text("By **sharing** your personal **information** and\nlocation, **rangers can assist you more\nquickly.** Learn more about how we collect\nand protect your data in our privacy policy.")
             }
             .font(.subheadlineRegular)
             
             Spacer()
             
-            HStack {
-                Image(systemName: isChecked ? "checkmark.square.fill" : "square")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .foregroundColor(isChecked ? Color.primaryGreen500 : Color.neutralGrayTertiaryGray)
-                    .onTapGesture {
-                        isChecked.toggle()
-                    }
+            
                 
-                Text("I agree to the ")
-                    + Text("Terms and Conditions")
-                        .underline()
-                        .foregroundColor(Color.primaryGreen500)
-                    + Text(" and ")
-                    + Text("Privacy Policy")
-                        .underline()
-                        .foregroundColor(Color.primaryGreen500)
                 
+            HStack(spacing:5){
                     
-            }
-            .font(.caption2Regular)
+                    Image(systemName: isChecked ? "checkmark.square.fill" : "square")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(isChecked ? Color.primaryGreen500 : Color.neutralGrayTertiaryGray)
+                        .onTapGesture {
+                            isChecked.toggle()
+                        }
+                    
+                    Text("I agree to the")
+                    Button{
+                        if let url = URL(string: "https://hikewise.framer.website/terms-and-conditions") {
+                            UIApplication.shared.open(url)
+                        }
+                    }label: {
+                        Text("Terms and Conditions")
+                            .underline()
+                            .foregroundColor(Color.primaryGreen500)
+                    }
+                    Text("and")
+                    Button{
+                        if let url = URL(string: "https://hikewise.framer.website/privacy-policy") {
+                            UIApplication.shared.open(url)
+                        }
+                    }label: {
+                        Text("Privacy Policy")
+                            .underline()
+                            .foregroundColor(Color.primaryGreen500)
+                    }
+                }
+                .font(.caption2Regular)
+//                .frame(width: 300)
+                
+                //                Text("I agree to the ")
+                //                +
+                //                Button{
+                //                    if let url = URL(string: "https://hikewise.framer.website/terms-and-conditions") {
+                //                                                UIApplication.shared.open(url)
+                //                                            }
+                //                }label: {
+                //                    Text("Terms and Conditions")
+                //                        .underline()
+                //                        .foregroundColor(Color.primaryGreen500)
+                //                }
+                ////                    .onTapGesture {
+                ////
+                ////                    }
+                //                + Text(" and ")
+                //                + Text("Privacy Policy")
+                //                    .underline()
+                //                    .foregroundColor(Color.primaryGreen500)
+                
+                
+            
+            
             
             .padding()
             
@@ -89,6 +127,7 @@ struct DisclaimerView: View {
             Spacer()
             
         }
+        
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButtonComponent(action: {
             
@@ -102,6 +141,6 @@ struct DisclaimerView: View {
     }
 }
 
-//#Preview {
-//    DisclaimerView(viewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())))
-//}
+#Preview {
+    DisclaimerView(viewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())))
+}

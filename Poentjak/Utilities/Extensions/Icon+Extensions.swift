@@ -31,6 +31,10 @@ extension Image {
             return Image("Icons/admin/i_admin_history")
         }
         
+        static var noActiveEmergencies: Image{
+            return Image("Icons/admin/i_admin_noActiveEmergencies")
+        }
+        
     }
     
     struct AlertIcon {

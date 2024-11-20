@@ -46,7 +46,7 @@ struct ActiveHikersView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
+                        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                         
                         
                         
@@ -61,7 +61,7 @@ struct ActiveHikersView: View {
             .sheet(item: $selectedUser) { hiker in
                 ActiveHikersDetailView(hiker: hiker, viewModel: viewModel, authViewModel: authViewModel)
                     .presentationDetents([.fraction(0.65)], selection: $selectedDetent)
-                    .presentationDragIndicator(.visible)
+                    .presentationDragIndicator(.hidden)
 //                    .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.65)))
                 //                    .interactiveDismissDisabled(true)
             }

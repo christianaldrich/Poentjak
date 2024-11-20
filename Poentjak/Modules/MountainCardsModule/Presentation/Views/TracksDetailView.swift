@@ -18,7 +18,6 @@ struct TracksDetailView: View {
     @StateObject var authViewModel: AuthViewModel
     
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
-    @State private var isShowingSelectTrackModal = true
     @State private var selectedDetent = PresentationDetent.fraction(0.5)
     @State private var isShowingPopUp = true
     
@@ -39,24 +38,37 @@ struct TracksDetailView: View {
                 
                 navigateViewModel.setupRegionTrack()
                 viewModel.fetchEmergency()
-                isShowingSelectTrackModal = false
+                
+                switch mountainViewModel.isShowingSelectTrackModal{
+                case true:
+                    mountainViewModel.isShowingSelectTrackModal = true
+                default:
+                    mountainViewModel.isShowingSelectTrackModal = false
+                }
+                
+//                if mountainViewModel.isShowingSelectTrackModal == true{
+//                    mountainViewModel.isShowingSelectTrackModal = true
+//                }else{
+//                    mountainViewModel.isShowingSelectTrackModal = false
+//                }
                 
             }
-            .sheet(isPresented: $isShowingSelectTrackModal){
+            .sheet(isPresented: $mountainViewModel.isShowingSelectTrackModal){
                 SelectTrackComponent(track: track, mountainViewModel: mountainViewModel, navigationManager: navigationManager){
-                    isShowingSelectTrackModal = false
+                    mountainViewModel.isShowingSelectTrackModal = false
                 }
                 .presentationDetents([.fraction(0.5)], selection: $selectedDetent)
-                .presentationDragIndicator(.visible)
+                .presentationDragIndicator(.hidden)
                 .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
                 .interactiveDismissDisabled(true)
+                .zIndex(1)
                 
             }
             .navigationBarBackButtonHidden(true)
             .toolbar{
                 ToolbarItem(placement: .topBarLeading){
                     BackButtonComponent{
-                        isShowingSelectTrackModal = false
+                        mountainViewModel.isShowingSelectTrackModal = false
                     }
                 }
             }
@@ -74,11 +86,13 @@ struct TracksDetailView: View {
                     imgName: "Disclaimer_Cropped"
                 ) {
                     isShowingPopUp = false
-                    isShowingSelectTrackModal = true
+                    mountainViewModel.isShowingSelectTrackModal = true
                 }
-                .zIndex(1)
+                .zIndex(3)
             }
         }
+        
+        .ignoresSafeArea()
         
     }
 }

@@ -21,7 +21,7 @@ struct ProfilePictureView: View {
     
     var body: some View {
         Spacer().frame(height: 100)
-        VStack {
+        VStack(spacing: 24){
             
 //            Spacer().frame(height: 100)
             VStack(alignment: .leading, spacing: 8){

@@ -27,8 +27,8 @@ struct PhotoNameComponent: View {
                     Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 50)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .frame(width: 50, height: 75)
+                    .clipShape(Circle())
                 } else {
                     Image(systemName: "person.circle.fill")
                         .resizable()

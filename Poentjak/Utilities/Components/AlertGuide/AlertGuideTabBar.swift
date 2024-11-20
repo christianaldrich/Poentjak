@@ -18,7 +18,8 @@ struct AlertGuideTabBar: View {
                 AlertGuideTabBarButton(
                     idSelected: $idSelected,
                     id: index+1,
-                    text: String(letter), textToSpeechViewModel: textToSpeechViewModel
+                    text: String(letter),
+                    textToSpeechViewModel: textToSpeechViewModel
                 )
             }
         }

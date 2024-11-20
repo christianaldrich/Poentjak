@@ -26,6 +26,7 @@ struct EmergencyProsesView: View {
     @State private var isShowingModal = false
     @State private var showConfirmationModal = false
     @State private var selectedDetent = PresentationDetent.fraction(0.4)
+    @State private var showingWiseGudieSheet = false
     
     var body: some View {
         NavigationStack(path: $navigationManager.navigationPath) {
@@ -46,8 +47,17 @@ struct EmergencyProsesView: View {
                             VStack {
                                 HStack {
                                     HalfButtonComponent(halfType: .secondaryGuide) {
-                                        isShowingModal = false
-                                        navigationManager.navigationPath.append(DestinationView.alertGuide)
+                                        showingWiseGudieSheet = true
+//                                        isShowingModal = false
+//                                        navigationManager.navigationPath.append(DestinationView.alertGuide)
+                                    }
+                                    .sheet(isPresented: $showingWiseGudieSheet){
+                                        VStack{
+                                            Text("Wise Guide")
+                                                .font(.title)
+                                            WiseGuideView()
+                                        }
+                                        
                                     }
                                     Spacer()
                                     

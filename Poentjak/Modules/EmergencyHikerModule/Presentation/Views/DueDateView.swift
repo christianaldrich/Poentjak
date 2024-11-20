@@ -83,7 +83,7 @@ struct DueDateView: View {
             //.listStyle(PlainListStyle()) // Add this line
             .customShadow()
             .scrollContentBackground(.hidden)
-            
+           
             
             HStack{
                 Spacer()

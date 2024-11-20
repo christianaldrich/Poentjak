@@ -28,23 +28,25 @@ struct EditPhotoNameComponent: View {
                 }label: {
                     if let image = authViewModel.retrievedImage{
                         Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50, height: 50)
-//                        .clipShape(Circle())
-                        .overlay(
-                            ZStack {
-                                Circle()
-                                    .trim(from: 0.0, to:0.5)
-                                    .foregroundStyle(Color.primaryGreen500)
-                                
-                                Text("Edit")
-                                    .foregroundColor(.neutralWhiteBiancaWhite)
-                                    .font(.caption2Regular)
-                                    .offset(y: 12.5)
-                            },
-                            alignment: .bottom
-                        )
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 75) // Set the image size
+                            .clipShape(Circle()) // Make the image circular
+                            .overlay(
+                                ZStack {
+                                    Circle()
+                                        .trim(from: 0.0, to: 0.5) // Show only the bottom half of the circle
+                                        .foregroundStyle(Color.primaryGreen500)
+                                    
+                                    Text("Edit")
+                                        .foregroundColor(.neutralWhiteBiancaWhite)
+                                        .font(.caption2Regular)
+                                        .offset(y: 12.5) // Position text within the trimmed circle
+                                }
+//                                alignment: .bottom // Align at the bottom of the image
+                            )
+
+
                     } else {
                         Image(systemName: "person.circle.fill")
                             .resizable()

@@ -84,7 +84,7 @@ struct RegistrationAgeView: View {
                         navigateNext = true
                     }
                 }
-                .padding(.horizontal, 16)
+//                .padding(.horizontal, 16)
             }
             .padding()
             .navigationDestination(isPresented: $navigateNext) {

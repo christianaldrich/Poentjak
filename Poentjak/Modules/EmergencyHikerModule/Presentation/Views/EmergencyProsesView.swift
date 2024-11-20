@@ -90,7 +90,7 @@ struct EmergencyProsesView: View {
                                 .padding(.top, 16)
                                 
 
-                                SlideToActionButton(slidingDirection: .ltr, buttonColor: .primaryGreen500, text: "Finish trip") {
+                                SlideToActionButton(slidingDirection: .ltr1, buttonColor: .primaryGreen500, text: "Finish trip") {
                                     if viewModel.isSignalSent {
                                         
                                         showConfirmationModal = true

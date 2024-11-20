@@ -80,6 +80,7 @@ struct ActiveHikersView: View {
                         .frame(width: 25, height: 25)
                         .foregroundStyle(Color.primaryGreen500)
                 }
+                .disabled(isShowLogoutModal)
             }
         }
         .overlay{

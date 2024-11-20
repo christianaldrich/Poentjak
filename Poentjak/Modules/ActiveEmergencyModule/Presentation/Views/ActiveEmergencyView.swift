@@ -48,8 +48,9 @@ struct ActiveEmergencyView: View {
             //            }else{
             
             if filteredHikers().isEmpty && selectedCondition != .completed{
-                
+                Spacer()
                 NoActiveEmergenciesView()
+                Spacer()
                 
             }else{
                 List {

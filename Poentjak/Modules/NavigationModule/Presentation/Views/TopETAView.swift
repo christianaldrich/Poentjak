@@ -28,38 +28,64 @@ struct TopETAView: View {
                                 userElevation: navigateViewModel.locationManager.currentElevation,
                                 speed: navigateViewModel.locationManager.currentSpeed
                             ) {
-                                if viewModel.sendSOSToFirebase && viewModel.isSignalSent {
+                                //udah kekirim
+                                if (((viewModel.emergencyStatus == .danger) && viewModel.sendSOSToFirebase || viewModel.emergencyStatus == .ongoing)) {
                                     CustomDirectionsCard(
                                         status: DirectionCardStatus.sosSent,
                                         checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                         etaText: "ETA \(String(format: "%.0f", eta)) min",
                                         altitude: Int(currentWaypoint.elevation),
-                                        overdueText: "15 mins left till overdue"
+                                        overdueText: "15 mins left till overdue",
+                                        assignedRangers: viewModel.assignedRangers
                                     ) {
                                         isShowingModal = false
                                         navigateToDetail = true // Set navigation state on button tap
                                     }
-                                } else if !viewModel.sendSOSToFirebase && viewModel.isSignalSent {
+                                }//belom kekirim
+                                else if viewModel.emergencyStatus != .danger && viewModel.isSignalSent {
                                     CustomDirectionsCard(
                                         status: DirectionCardStatus.sos,
                                         checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                         etaText: "ETA \(String(format: "%.0f", eta)) min",
                                         altitude: Int(currentWaypoint.elevation),
-                                        overdueText: "15 mins left till overdue"
+                                        overdueText: "15 mins left till overdue",
+                                        assignedRangers: viewModel.assignedRangers
                                     ) {
                                         isShowingModal = false
                                         navigateToDetail = true // Set navigation state on button tap
                                     }
-                                } else {
+                                } //overdue kalo overdue dan tidak completed
+                                else if (viewModel.emergencyType == .overdue && viewModel.emergencyStatus != .ongoing){
+                                    
+                                    CustomDirectionsCard(
+                                        status: DirectionCardStatus.overdue,
+                                        checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
+                                        etaText: "ETA \(String(format: "%.0f", eta)) min",
+                                        altitude: Int(currentWaypoint.elevation),
+                                        overdueText: "15 mins left till overdue",
+                                        assignedRangers: viewModel.assignedRangers
+                                    ) {
+                                        isShowingModal = false
+                                        navigateToDetail = true // Set navigation state on button tap
+                                    }
+                                }
+                                
+                                
+                                else {
+                                    
+                                    let remainingTime = max(0, Int(viewModel.dueDate.timeIntervalSince(Date()) / 60))
+                                    
                                     CustomDirectionsCard(
                                         status: DirectionCardStatus.default,
                                         checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                         etaText: "ETA \(String(format: "%.0f", eta)) min",
                                         altitude: Int(currentWaypoint.elevation),
-                                        overdueText: "15 mins left till overdue"
+                                        overdueText: "15 mins left till overdue",
+                                        assignedRangers: viewModel.assignedRangers,
+                                        time: remainingTime
                                     ) {
                                         isShowingModal = false
-                                        navigateToDetail = true // Set navigation state on button tap
+                                        navigateToDetail = true 
                                     }
                                 }
 
@@ -69,7 +95,8 @@ struct TopETAView: View {
                                     checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                     etaText: "Not yet walk",
                                     altitude: Int(currentWaypoint.elevation),
-                                    overdueText: "15 mins left till overdue"
+                                    overdueText: "15 mins left till overdue",
+                                    assignedRangers: viewModel.assignedRangers
                                 ) {
                                     isShowingModal = false
                                     navigateToDetail = true // Set navigation state on button tap
@@ -95,7 +122,8 @@ struct TopETAView: View {
                                         checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                         etaText: "ETA \(String(format: "%.0f", eta)) min",
                                         altitude: Int(currentWaypoint.elevation),
-                                        overdueText: "15 mins left till overdue"
+                                        overdueText: "15 mins left till overdue",
+                                        assignedRangers: viewModel.assignedRangers
                                     ) {
                                         isShowingModal = false
                                         navigateToDetail = true // Set navigation state on button tap
@@ -106,7 +134,8 @@ struct TopETAView: View {
                                         checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                         etaText: "ETA \(String(format: "%.0f", eta)) min",
                                         altitude: Int(currentWaypoint.elevation),
-                                        overdueText: "15 mins left till overdue"
+                                        overdueText: "15 mins left till overdue",
+                                        assignedRangers: viewModel.assignedRangers
                                     ) {
                                         isShowingModal = false
                                         navigateToDetail = true // Set navigation state on button tap
@@ -117,7 +146,8 @@ struct TopETAView: View {
                                         checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                         etaText: "ETA \(String(format: "%.0f", eta)) min",
                                         altitude: Int(currentWaypoint.elevation),
-                                        overdueText: "15 mins left till overdue"
+                                        overdueText: "15 mins left till overdue",
+                                        assignedRangers: viewModel.assignedRangers
                                     ) {
                                         isShowingModal = false
                                         navigateToDetail = true // Set navigation state on button tap
@@ -129,7 +159,8 @@ struct TopETAView: View {
                                     checkpointTitle: currentWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(currentWaypoint.idx)",
                                     etaText: "N/A",
                                     altitude: Int(currentWaypoint.elevation),
-                                    overdueText: "15 mins left till overdue"
+                                    overdueText: "15 mins left till overdue",
+                                    assignedRangers: viewModel.assignedRangers
                                 ) {
                                     isShowingModal = false
                                     navigateToDetail = true
@@ -157,7 +188,8 @@ struct TopETAView: View {
                                     checkpointTitle: nearestWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(nearestWaypoint.idx)",
                                     etaText: "ETA \(String(format: "%.0f", eta)) min",
                                     altitude: Int(nearestWaypoint.elevation),
-                                    overdueText: "15 mins left till overdue"
+                                    overdueText: "15 mins left till overdue",
+                                    assignedRangers: viewModel.assignedRangers
                                 ) {
                                     isShowingModal = false
                                     navigateToDetail = true // Set navigation state on button tap
@@ -168,7 +200,8 @@ struct TopETAView: View {
                                     checkpointTitle: nearestWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(nearestWaypoint.idx)",
                                     etaText: "ETA \(String(format: "%.0f", eta)) min",
                                     altitude: Int(nearestWaypoint.elevation),
-                                    overdueText: "15 mins left till overdue"
+                                    overdueText: "15 mins left till overdue",
+                                    assignedRangers: viewModel.assignedRangers
                                 ) {
                                     isShowingModal = false
                                     navigateToDetail = true // Set navigation state on button tap
@@ -179,7 +212,8 @@ struct TopETAView: View {
                                     checkpointTitle: nearestWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(nearestWaypoint.idx)",
                                     etaText: "ETA \(String(format: "%.0f", eta)) min",
                                     altitude: Int(nearestWaypoint.elevation),
-                                    overdueText: "15 mins left till overdue"
+                                    overdueText: "15 mins left till overdue",
+                                    assignedRangers: viewModel.assignedRangers
                                 ) {
                                     isShowingModal = false
                                     navigateToDetail = true // Set navigation state on button tap
@@ -191,7 +225,8 @@ struct TopETAView: View {
                                 checkpointTitle: nearestWaypoint.checkPointStatus == "summit" ? "Summit" : "Checkpoint \(nearestWaypoint.idx)",
                                 etaText: "N/A",
                                 altitude: Int(nearestWaypoint.elevation),
-                                overdueText: "15 mins left till overdue"
+                                overdueText: "15 mins left till overdue",
+                                assignedRangers: viewModel.assignedRangers
                             ) {
                                 isShowingModal = false
                                 navigateToDetail = true

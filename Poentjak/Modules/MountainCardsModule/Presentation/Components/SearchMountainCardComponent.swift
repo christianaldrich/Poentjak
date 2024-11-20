@@ -35,5 +35,5 @@ struct SearchMountainCardComponent: View {
 }
 
 #Preview {
-    SearchMountainCardComponent(mountain: "Gunung Ciremai", streetName: "kontol ayam")
+    SearchMountainCardComponent(mountain: "Gunung Ciremai", streetName: "testing")
 }

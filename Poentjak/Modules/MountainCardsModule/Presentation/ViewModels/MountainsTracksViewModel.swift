@@ -16,6 +16,8 @@ class MountainsTracksViewModel: ObservableObject {
 
     @Published var isPresenting = false
     @Published var selectedTrackLocation: String = ""
+    
+    @Published var selectedMountain: MountainTracksModel? 
 
     init(mountainsTracksUseCase: MountainsTracksUseCaseProtocol, tracksUseCase: TracksUseCaseProtocol) {
         self.mountainsTracksUseCase = mountainsTracksUseCase
@@ -40,6 +42,7 @@ class MountainsTracksViewModel: ObservableObject {
         tracksUseCase.fetchTracks(by: trackIds) { [weak self] tracks in
             DispatchQueue.main.async {
                 self?.selectedTracks = tracks // Store fetched tracks
+                print(self?.selectedTracks ?? "kosong")
             }
         }
     }

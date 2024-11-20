@@ -26,6 +26,9 @@ struct ActiveEmergencyView: View {
     @StateObject var authViewModel: AuthViewModel
     
     @State private var selectedCondition: EmergencyStatusEnum = .danger
+    @State private var dangerCount = 0
+    
+    //    var activateNotif = RangerPushNotification()
     
     
     var body: some View {
@@ -40,10 +43,10 @@ struct ActiveEmergencyView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
-//            if viewModel.hiker.isEmpty{
-                
-//            }else{
-                
+            //            if viewModel.hiker.isEmpty{
+            
+            //            }else{
+            
             if filteredHikers().isEmpty && selectedCondition != .completed{
                 
                 VStack(alignment: .center){
@@ -68,9 +71,9 @@ struct ActiveEmergencyView: View {
                     
                 }
             }
-                //                .padding()
-               
-//            }
+            //                .padding()
+            
+            //            }
             
             
         }
@@ -78,11 +81,31 @@ struct ActiveEmergencyView: View {
         .navigationTitle("Active Emergencies")
         .listStyle(PlainListStyle())
         .onAppear {
+            
+            NotificationManager.instance.requestAuth()
             viewModel.fetchActiveEmergencyByTrack()
+            
             viewModel.fetchCompleteRescue()
             //                viewModel.fetchDangerHiker()
             viewModel.startTimer()
+            UNUserNotificationCenter.current().setBadgeCount(0)
         }
+        //        .onChange(of: dangerCount){
+        //            print("jumlah skrg: \(dangerCount)")
+        //            viewModel.fetchActiveEmergencyByTrack()
+        //        }
+        .onChange(of: filteredHikers().filter { $0.emergencyStatus == "danger" }.count) {
+//            let temp = filteredHikers().filter { $0.emergencyStatus == "danger" }.count
+//            print("\n\nFILTERED DANGER HIKERS : \(filteredHikers().filter { $0.emergencyStatus == "danger" })")
+//            print("Danger hikers count changed to: \(dangerCount)")
+//            if temp > dangerCount {
+                viewModel.startNotify(filteredHikers().filter { $0.emergencyStatus == "danger" })
+//            }
+            
+//            dangerCount = temp
+            
+        }
+        
         .onDisappear {
             viewModel.stopTimer()
         }
@@ -93,28 +116,6 @@ struct ActiveEmergencyView: View {
                 label: { EmptyView() }
             )
         )
-        
-        //            .toolbar {
-        //                ToolbarItem(placement: .principal) {
-        //                    HStack{
-        //                        VStack(alignment: .leading) {
-        //                            Text(viewModel.formattedDate())
-        //                                .font(.headline)
-        //                                .foregroundColor(.gray)
-        //                                .font(.footnoteRegular)
-        //                            Text("Active Emergencies")
-        //                                .font(.title1Emphasized)
-        //                                .bold()
-        //                        }
-        //                        .padding()
-        //                        Spacer()
-        //                    }
-        //
-        //                }
-        //
-        //            }
-        //        }
-        //        .ignoresSafeArea()
         
         
         
@@ -132,6 +133,9 @@ struct ActiveEmergencyView: View {
             return viewModel.hiker.filter { $0.emergencyStatus != "safe"}
         }
     }
+    
+    
+    
     
     
     

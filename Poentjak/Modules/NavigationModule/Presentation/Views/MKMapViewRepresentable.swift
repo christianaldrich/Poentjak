@@ -79,7 +79,7 @@ struct MKMapViewRepresentable: UIViewRepresentable {
         @objc func recenterTapped() {
             guard let userLocation = parent.mapView.userLocation.location else { return }
             let region = MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude - 0.004, longitude: userLocation.coordinate.longitude),
+                center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude - 0.003, longitude: userLocation.coordinate.longitude),
                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             )
             parent.mapView.setRegion(region, animated: true)

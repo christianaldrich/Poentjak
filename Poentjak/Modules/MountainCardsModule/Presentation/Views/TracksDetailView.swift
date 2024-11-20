@@ -20,49 +20,72 @@ struct TracksDetailView: View {
     @EnvironmentObject var mountainViewModel : MountainsTracksViewModel
     @State private var isShowingSelectTrackModal = true
     @State private var selectedDetent = PresentationDetent.fraction(0.5)
+    @State private var isShowingPopUp = true
     
     
     var body: some View {
-        VStack{
-
-            
-            TracksMapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedFirstLastWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true)
-
-        }
-        
-        .environmentObject(navigationManager)
-        .onAppear{
-             navigateViewModel.fileName = track
-            
-            navigateViewModel.setupRegionTrack()
-            viewModel.fetchEmergency()
-            isShowingSelectTrackModal = true
-
-        }
-        .sheet(isPresented: $isShowingSelectTrackModal){
-            SelectTrackComponent(track: track, mountainViewModel: mountainViewModel, navigationManager: navigationManager){
-                isShowingSelectTrackModal = false
+        ZStack{
+            VStack{
+                
+                
+                TracksMapView(region: $navigateViewModel.region, waypoints: navigateViewModel.gpxParser.parsedFirstLastWaypoints, track: navigateViewModel.gpxParser.parsedTrack, showsUserLocation: true)
+                    .edgesIgnoringSafeArea(.all)
+                
             }
+            
+            .environmentObject(navigationManager)
+            .onAppear{
+                navigateViewModel.fileName = track
+                
+                navigateViewModel.setupRegionTrack()
+                viewModel.fetchEmergency()
+                isShowingSelectTrackModal = false
+                isShowingPopUp = true
+            }
+            .sheet(isPresented: $isShowingSelectTrackModal){
+                SelectTrackComponent(track: track, mountainViewModel: mountainViewModel, navigationManager: navigationManager){
+                    isShowingSelectTrackModal = false
+                }
                 .presentationDetents([.fraction(0.5)], selection: $selectedDetent)
                 .presentationDragIndicator(.visible)
                 .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.5)))
                 .interactiveDismissDisabled(true)
+                
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbar{
+                ToolbarItem(placement: .topBarLeading){
+                    BackButtonComponent{
+                        isShowingSelectTrackModal = false
+                    }
+                    .disabled(isShowingPopUp)
+                }
+            }
+            .toolbarBackground(.hidden, for: .navigationBar)
+            
 
         }
-        .navigationBarBackButtonHidden(true)
-        .toolbar{
-            ToolbarItem(placement: .topBarLeading){
-                BackButtonComponent{
+        // Popup and darkened background
+        .overlay {
+            if isShowingPopUp {
+                ZStack {
+                    Color.black.opacity(0.5)
+                        .edgesIgnoringSafeArea(.all) // Ensures the dark background spans the entire screen
                     
+                    CustomPopUpComponent(
+                        title: "Reminder",
+                        subtitle: "Bring a powerbank!",
+                        message: "Keep your phone charged for safety, navigation, and alerts.",
+                        imgName: "Disclaimer_Cropped"
+                    ) {
+                        isShowingPopUp = false
+                        isShowingSelectTrackModal = true
+                    }
+                    .zIndex(2)
                 }
             }
         }
-        
-        
-        //        .navigationDestination(isPresented: $navigateToDueDate){
-        //            DueDateView()
-        //        }
-        
+
         
     }
 }

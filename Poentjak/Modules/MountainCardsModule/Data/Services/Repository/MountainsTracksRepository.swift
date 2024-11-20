@@ -30,7 +30,7 @@ struct MountainsTracksRepository: MountainsTracksRepositoryProtocol{
                     return
                 }
                 let requests = documents.map { MountainTracksModel(dictionary: $0.data()) }
-                print("\n\nData: \(requests)")
+//                print("\n\nData: \(requests)")
                 completion(requests)
                 
             }

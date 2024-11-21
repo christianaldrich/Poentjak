@@ -106,7 +106,7 @@ struct RegistrationAgeView: View {
             }
             .padding(.horizontal, 8)
             .customShadow()
-            //.scrollDisabled(true)
+            .scrollDisabled(true)
             .scrollContentBackground(.hidden)
 
             Spacer()

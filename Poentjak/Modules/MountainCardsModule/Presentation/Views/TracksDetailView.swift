@@ -37,7 +37,8 @@ struct TracksDetailView: View {
             .onAppear{
                 navigateViewModel.fileName = track
                 
-                navigateViewModel.setupRegionTrack()
+                // navigateViewModel.setupRegionTrack()
+                navigateViewModel.setupRegionTrackSouth()
                 viewModel.fetchEmergency()
                 isShowingSelectTrackModal = false
                 isShowingPopUp = true

@@ -18,7 +18,7 @@ struct RegistrationAgeView: View {
     
     var body: some View {
 //        NavigationStack {
-        Spacer().frame(height: 100)
+        Spacer().frame(height: 65)
             VStack(alignment: .leading) {
 //                Spacer().frame(height: 100)
                 Text("We need some of your biodata for emergency situations")

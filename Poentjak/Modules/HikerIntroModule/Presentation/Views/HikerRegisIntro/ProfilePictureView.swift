@@ -20,7 +20,7 @@ struct ProfilePictureView: View {
     
     
     var body: some View {
-        Spacer().frame(height: 100)
+        Spacer().frame(height: 65)
         VStack(spacing: 24){
             
 //            Spacer().frame(height: 100)

@@ -17,7 +17,7 @@ struct RegistrationEmergencyContactView: View {
     
     
     var body: some View {
-        Spacer().frame(height: 100)
+        Spacer().frame(height: 65)
         VStack(alignment: .leading, spacing: 24) {
 //            Spacer().frame(height: 100)
             Text("Who should we call in an emergency?")

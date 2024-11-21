@@ -23,7 +23,8 @@ struct RegistrationEmergencyContactView: View {
             Text("Who should we call in an emergency?")
                 .font(.title3Emphasized)
                 .foregroundStyle(Color.primaryGreen500)
-//                .padding(.horizontal, 32)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.horizontal, 24)
             
             CustomTextFieldEmergencyContactName(text: $viewModel.contactName)
             CustomTextFieldEmergencyContactNumber(text: $viewModel.contactNumber)
@@ -36,9 +37,10 @@ struct RegistrationEmergencyContactView: View {
                     navigateToNext = true
                 }
             }
-//            .padding(.horizontal, 32)
+            .padding(.horizontal, 24)
+            
         }
-        .padding()
+        .padding(.vertical)
         .navigationDestination(isPresented: $navigateToNext) {
             MedicalReportView(viewModel: viewModel)
         }

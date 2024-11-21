@@ -40,6 +40,13 @@ struct RegistrationEmergencyContactView: View {
             .padding(.horizontal, 24)
             
         }
+        .background(
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
+                )
         .padding(.vertical)
         .navigationDestination(isPresented: $navigateToNext) {
             MedicalReportView(viewModel: viewModel)

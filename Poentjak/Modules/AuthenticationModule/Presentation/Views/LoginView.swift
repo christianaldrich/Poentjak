@@ -91,11 +91,19 @@ struct LoginView: View {
             Spacer()
             
         }
+        .background(
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
+                )
         .padding(.top)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButtonComponent(action: {
             
-        }).padding(.horizontal, 16))
+        })
+        .padding(.horizontal, 16))
         .onDisappear{
             viewModel.clearAll()
         }

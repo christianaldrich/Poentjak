@@ -244,7 +244,6 @@ struct MountainsTracksView: View {
                 }
             }
         }
-        
         .onChange(of: isSearchActive){
             
             if isSearchActive == true{

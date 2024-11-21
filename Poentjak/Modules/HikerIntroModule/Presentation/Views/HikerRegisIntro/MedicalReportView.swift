@@ -49,6 +49,13 @@ struct MedicalReportView: View {
                 OnboardingView(viewModel: viewModel)
             }
         }
+        .background(
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
+                )
         .padding()
         .navigationBarBackButtonHidden(true)
         .toolbar{

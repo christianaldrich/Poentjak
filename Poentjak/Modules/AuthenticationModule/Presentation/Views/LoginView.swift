@@ -19,7 +19,7 @@ struct LoginView: View {
             Spacer()
             
             VStack(alignment: .leading, spacing: 12) {
-                Text("Welcome to")
+                Text("Welcome back to")
                     .font(.largeTitleEmphasized)
                     .bold()
                 Text("Hikewise")
@@ -43,7 +43,7 @@ struct LoginView: View {
             VStack {
                 CustomTextFieldAuth(
                     text: $viewModel.email,
-                    titleTextField: "Email Address",
+                    titleTextField: "Email address",
                     errorMessage: isSubmitted && !viewModel.email.isValidEmail() ? "Invalid email" : nil,
                     isError: (isSubmitted && viewModel.loginError != nil) || isSubmitted && !viewModel.email.isValidEmail() ,
                     
@@ -61,10 +61,12 @@ struct LoginView: View {
                 )
             }
             
+            Spacer()
+            
             CustomPrimaryButtonComponent(state: viewModel.isLoading ? .loading : (viewModel.email.isEmpty || viewModel.password.isEmpty ? .disabled : .enabled),
                                          text: "Log in"){
                 isSubmitted = true
-
+                
                 if(!viewModel.email.isValidEmail()){
                     
                 } else {
@@ -76,20 +78,7 @@ struct LoginView: View {
                 
             }
                                          .padding(.top, 12)
-            
-            NavigationLink {
-                Text("Forgot Password?")
-            } label: {
-                Text("Forgot Password?")
-                    .font(.footnote)
-                    .fontWeight(.regular)
-                    .foregroundColor(Color.primaryGreen500)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.top, 5)
-            }
-            
-            Spacer()
-            
+                    
         }
         .background(
                     Color.clear

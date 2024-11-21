@@ -16,15 +16,14 @@ struct RegistrationView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                // Welcome Texts
+                
+                Spacer()
+                    .frame(height: 80)
+                
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Welcome to")
+                    Text("Create an account")
                         .font(.largeTitleEmphasized)
                         .bold()
-                    Text("Hikewise")
-                        .font(.largeTitleEmphasized)
-                        .bold()
-                        .padding(.top, -10)
                     
                     Text("A click away from a safe hiking")
                         .font(.title2Regular)
@@ -37,10 +36,10 @@ struct RegistrationView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(Color.primaryGreen500)
                 
-                VStack(spacing: 20) {
+                VStack {
                     CustomTextFieldAuth(
                         text: $viewModel.email,
-                        titleTextField: "Email Address",
+                        titleTextField: "Email address",
                         errorMessage: viewModel.registrationError ?? "Email has already been used",
                         isError: viewModel.registrationError != nil,
                         isPassword: false
@@ -62,12 +61,14 @@ struct RegistrationView: View {
                     
                     CustomTextFieldAuth(
                         text: $viewModel.checkPassword,
-                        titleTextField: "Confirm Password",
+                        titleTextField: "Confirm password",
                         errorMessage: viewModel.checkPassword.count < 8 ? "Must be at least 8 characters" : "Passwords do not match",
                         isError: viewModel.password != viewModel.checkPassword || (viewModel.checkPassword.count < 8 && viewModel.checkPassword.count != 0),
                         isPassword: true,
                         validationMessage: "Both passwords must match"
                     )
+                    
+                    Spacer()
                     
                     CustomPrimaryButtonComponent(
                         state: (viewModel.email.isEmpty || viewModel.password.isEmpty || viewModel.checkPassword.isEmpty || viewModel.registrationError != nil) ? .disabled : .enabled,
@@ -94,7 +95,8 @@ struct RegistrationView: View {
             .navigationBarItems(leading: BackButtonComponent(action: {
                 
             }).padding(.horizontal, 16))
-            Spacer()
+            
+            
         }
         .background(
                     Color.clear

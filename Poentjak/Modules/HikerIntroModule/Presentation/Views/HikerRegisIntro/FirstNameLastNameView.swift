@@ -55,7 +55,7 @@ struct FirstNameLastNameView: View {
                         .disabled(!isNameGenderFilled)
                         Spacer()
                     }
-                    .padding()
+                    .padding(.vertical)
                     .navigationDestination(isPresented: $isNextViewActive){
                         ProfilePictureView(viewModel: viewModel)
                     }

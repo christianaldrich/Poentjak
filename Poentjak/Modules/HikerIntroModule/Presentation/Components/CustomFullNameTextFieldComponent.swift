@@ -14,7 +14,6 @@ struct CustomFullNameTextFieldComponent: View {
         VStack(alignment: .leading){
             Text("Let's start with your full name")
                 .font(.title3Emphasized)
-                .padding(.leading, 17)
             TextField("Insert full name", text: $name)
                 .padding()
                 .cornerRadius(10)
@@ -22,9 +21,9 @@ struct CustomFullNameTextFieldComponent: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.gray, lineWidth: 1)
                 )
-                .padding(.horizontal)
             
         }
+        .padding(.horizontal, 24)
     }
 }
 

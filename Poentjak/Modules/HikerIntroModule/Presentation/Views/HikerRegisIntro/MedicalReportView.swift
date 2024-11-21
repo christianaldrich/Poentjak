@@ -18,7 +18,7 @@ struct MedicalReportView: View {
             Text("Do you have any specific medicinal needs? (optional)")
                 .font(.title3Emphasized)
                 .foregroundStyle(Color.primaryGreen500)
-                .padding(.horizontal, 32)
+                .padding(.horizontal, 24)
             
             VStack(alignment: .leading, spacing: 4) {
                 CustomTextFieldMedical(text: $viewModel.medicalCondition)
@@ -26,7 +26,7 @@ struct MedicalReportView: View {
                 Text("e.g., Asthma")
                     .font(.footnoteRegular)
                     .foregroundColor(.neutralGrayTertiaryGray)
-                    .padding(.horizontal, 32)
+                    .padding(.horizontal, 24)
             }
             
             Spacer()
@@ -43,7 +43,7 @@ struct MedicalReportView: View {
     //                }
                     navigateNext = true
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 24)
             }
             .navigationDestination(isPresented: $navigateNext){
                 OnboardingView(viewModel: viewModel)
@@ -56,7 +56,7 @@ struct MedicalReportView: View {
                             hideKeyboard()
                         }
                 )
-        .padding()
+        .padding(.vertical)
         .navigationBarBackButtonHidden(true)
         .toolbar{
             ToolbarItem(placement: .topBarLeading){

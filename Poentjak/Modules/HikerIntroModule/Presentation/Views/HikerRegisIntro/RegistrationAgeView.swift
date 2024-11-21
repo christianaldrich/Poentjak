@@ -105,6 +105,7 @@ struct RegistrationAgeView: View {
             .customShadow()
             .scrollDisabled(true)
             .scrollContentBackground(.hidden)
+            .accentColor(Color.primaryGreen500)
 
             Spacer()
 

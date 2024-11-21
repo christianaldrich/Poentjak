@@ -57,7 +57,17 @@ struct RegistrationAgeView: View {
                 DisclosureGroup(
                     isExpanded: Binding(
                         get: { expandedIndex == idx },
-                        set: { expandedIndex = $0 ? idx : nil }
+                        set: { isExpanded in
+                            expandedIndex = isExpanded ? idx : nil
+                            if isExpanded {
+                                switch idx {
+                                case 0: viewModel.ageInteracted = true
+                                case 1: viewModel.weightInteracted = true
+                                case 2: viewModel.heightInteracted = true
+                                default: break
+                                }
+                            }
+                        }
                     )
                 ) {
                     VStack {
@@ -101,6 +111,7 @@ struct RegistrationAgeView: View {
                     .alignmentGuide(.listRowSeparatorTrailing) { d in
                         d[.trailing] + 16
                     }
+                    
                 }
             }
             .padding(.horizontal, 8)

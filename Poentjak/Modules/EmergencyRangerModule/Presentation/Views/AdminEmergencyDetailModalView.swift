@@ -12,6 +12,8 @@ struct AdminEmergencyDetailModalView: View {
     @Binding var isNavigatingToAssignRangers: Bool
     @State private var isLoading: Bool = false
     @Environment(\.dismiss) var dismiss
+    @StateObject var authViewModel: AuthViewModel
+
     
     let currentDate = Date()
     
@@ -19,7 +21,7 @@ struct AdminEmergencyDetailModalView: View {
         ScrollView {
             if let emergencyRequest = viewModel.emergencyRequest {
                 VStack(spacing: 16) {
-                    UserProfileView(emergencyRequest: emergencyRequest)
+                    UserProfileView(emergencyRequest: emergencyRequest, authViewModel: authViewModel)
                         .padding(.horizontal, 12)
                     
                     InfoRowView(title: "Arrived by", value: formatDateToCustomString(date: emergencyRequest.dueDate), emergencyRequest: emergencyRequest )

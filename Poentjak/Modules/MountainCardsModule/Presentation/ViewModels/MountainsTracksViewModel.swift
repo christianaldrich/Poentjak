@@ -17,7 +17,10 @@ class MountainsTracksViewModel: ObservableObject {
     @Published var isPresenting = false
     @Published var selectedTrackLocation: String = ""
     
-    @Published var selectedMountain: MountainTracksModel? 
+    @Published var selectedMountain: MountainTracksModel?
+    
+    @Published var isShowingSelectTrackModal = false
+
 
     init(mountainsTracksUseCase: MountainsTracksUseCaseProtocol, tracksUseCase: TracksUseCaseProtocol) {
         self.mountainsTracksUseCase = mountainsTracksUseCase

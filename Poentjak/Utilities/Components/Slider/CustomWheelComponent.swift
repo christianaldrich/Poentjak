@@ -33,21 +33,29 @@ enum WheelPicker {
             return "How tall are you?"
         }
     }
+    
+    var range: [Int] {
+            switch self {
+            case .age:
+                return Array(1...150)
+            case .weight:
+                return Array(1...150)
+            case .height:
+                return Array(1...250)
+            }
+        }
 }
 
 struct CustomWheelComponent: View {
     var wheelType: WheelPicker
     @Binding var selectedNumber: Int
-    
-    // Create an array of integers from 1 to 150
-    let numbers = Array(1...200)
 
     var body: some View {
         VStack {
             // Wheel picker
             HStack {
                 Picker("Select a number", selection: $selectedNumber) {
-                    ForEach(numbers, id: \.self) { number in
+                    ForEach(wheelType.range, id: \.self) { number in
                         // Only show postfix for the selected item
                         if number == selectedNumber {
                             Text("\(number)").tag(number)

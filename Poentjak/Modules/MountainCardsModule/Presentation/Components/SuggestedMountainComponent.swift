@@ -53,7 +53,7 @@ struct SuggestedMountainComponent: View {
             }
             .padding(.vertical, 8)
             .presentationDetents([.fraction(0.4)], selection: $selectedDetent)
-            .presentationDragIndicator(.visible)
+            .presentationDragIndicator(.hidden)
             .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.4)))
             .interactiveDismissDisabled(true)
         }

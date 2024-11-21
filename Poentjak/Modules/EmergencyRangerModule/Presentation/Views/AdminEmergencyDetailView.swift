@@ -21,6 +21,8 @@ struct AdminEmergencyDetailView: View {
     @State private var isShowingModal = true
     @State private var selectedDetent = PresentationDetent.fraction(0.7)
     @State private var isNavigatingToAssignRangers = false
+    @StateObject var authViewModel: AuthViewModel
+
     
     var body: some View {
         
@@ -35,7 +37,7 @@ struct AdminEmergencyDetailView: View {
                         .edgesIgnoringSafeArea(.all)
                 }
                 .sheet(isPresented: $isShowingModal) {
-                    AdminEmergencyDetailModalView(viewModel: viewModel, isNavigatingToAssignRangers: $isNavigatingToAssignRangers)
+                    AdminEmergencyDetailModalView(viewModel: viewModel, isNavigatingToAssignRangers: $isNavigatingToAssignRangers, authViewModel: authViewModel)
                         .presentationDetents([.fraction(0.7), .fraction(0.4)], selection: $selectedDetent)
                         .presentationDragIndicator(.visible)
                         .presentationBackgroundInteraction(

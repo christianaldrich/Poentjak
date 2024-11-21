@@ -42,31 +42,38 @@ struct HikerProfileView: View {
                     }
                     
                     Button {
-                        // Placeholder action
+//                        if let emailURL = URL(string: "mailto:hikewise.cs@gmail.com") {
+//                                UIApplication.shared.open(emailURL)
+//                            }
+                        if let url = URL(string: "https://hikewise.framer.website/") {
+                            UIApplication.shared.open(url)
+                        }
                     } label: {
                         Text("Contact support")
                             .font(.subheadlineRegular)
                             .foregroundColor(.primaryGreen500)
                     }
-                    .disabled(true)
+//                    .disabled(true)
                     
                     Button {
-                        // Placeholder action
+                        if let url = URL(string: "https://hikewise.framer.website/") {
+                            UIApplication.shared.open(url)
+                        }
                     } label: {
                         Text("Legal")
                             .font(.subheadlineRegular)
                             .foregroundColor(.primaryGreen500)
                     }
-                    .disabled(true)
+//                    .disabled(true)
                     
-                    Button {
-                        // Placeholder action
-                    } label: {
-                        Text("Password")
-                            .font(.subheadlineRegular)
-                            .foregroundColor(.primaryGreen500)
-                    }
-                    .disabled(true)
+//                    Button {
+//                        // Placeholder action
+//                    } label: {
+//                        Text("Password")
+//                            .font(.subheadlineRegular)
+//                            .foregroundColor(.primaryGreen500)
+//                    }
+//                    .disabled(true)
                     
                     Divider()
                 }

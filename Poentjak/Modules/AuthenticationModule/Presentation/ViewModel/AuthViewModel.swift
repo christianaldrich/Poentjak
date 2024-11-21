@@ -30,6 +30,10 @@ class AuthViewModel: ObservableObject {
     @Published var weight: Int = 72
     @Published var height: Int = 170
     
+    @Published var ageInteracted: Bool = false
+    @Published var weightInteracted: Bool = false
+    @Published var heightInteracted: Bool = false
+    
     
     @Published var name: String = ""
     @Published var gender: String = ""

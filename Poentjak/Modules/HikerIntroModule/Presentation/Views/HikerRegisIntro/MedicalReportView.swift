@@ -12,7 +12,7 @@ struct MedicalReportView: View {
     @State private var navigateNext = false
     
     var body: some View {
-        Spacer().frame(height: 100)
+        Spacer().frame(height: 65)
         VStack(alignment: .leading, spacing: 16) {
 //            Spacer().frame(height: 100)
             Text("Do you have any specific medicinal needs? (optional)")

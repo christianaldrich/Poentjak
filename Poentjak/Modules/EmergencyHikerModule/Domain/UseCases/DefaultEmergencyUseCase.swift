@@ -57,6 +57,15 @@ class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
         }
     }
     
+    func updateStatusSafe(sessionId: String, emergencyStatus: String, emergencyType: String) async throws {
+        do{
+            try await emergencyRepository.updateStatusSafe(sessionId: sessionId, emergencyStatus: emergencyStatus, emergencyType: emergencyType)
+        } catch {
+            print("Failed to update due date in use case: \(error.localizedDescription)")
+            throw error
+        }
+    }
+    
     func updateStatusTypeEmergency(sessionId: String, emergencyType: String) async throws {
         let emergencyStatus: EmergencyStatus = .danger
         do{
@@ -90,9 +99,9 @@ class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
         
         if currentDate > dueDate && emergencyStatus == "safe" {
             try await emergencyRepository.updateEmergencyRequestToOverdue(id: id)
-            print("overdue")
+            //print("overdue")
         }
-        print("not overdue\(dueDate) = \(currentDate)")
+        //print("not overdue\(dueDate) = \(currentDate)")
     }
     
 }

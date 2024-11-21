@@ -18,7 +18,7 @@ struct FirstNameLastNameView: View {
     
     var body: some View {
 //        NavigationStack{
-        Spacer().frame(height: 100)
+        Spacer().frame(height: 65)
             ZStack(alignment:.top){
 //                CustomIndicatorLongRectangle(totalCount: 4, currentIndex: viewModel.currentIndex)
 //                    .padding(.top, 50)

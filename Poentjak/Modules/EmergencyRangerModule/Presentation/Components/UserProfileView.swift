@@ -10,14 +10,24 @@ import SwiftUI
 
 struct UserProfileView: View {
     let emergencyRequest: EmergencyRequest
-    
+    @StateObject var authViewModel: AuthViewModel
+    @State private var image: UIImage?
     var body: some View {
         HStack {
-            Image(emergencyRequest.user.profileURL)
+            if let image = image{
+                Image(uiImage: image)
                 .resizable()
-                .clipShape(Rectangle())
-                .frame(width: 85, height: 85)
-                .cornerRadius(17)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 70,height: 95)
+                .clipShape(Circle())
+            } else {
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 75,height: 75)
+                    .foregroundColor(.gray)
+                    .clipShape(Circle())
+            }
             
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
@@ -55,6 +65,23 @@ struct UserProfileView: View {
                 }
             }
             .padding(.leading, 12)
+        }
+        .onAppear{
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+//                authViewModel.retrievePhoto(userName: name)
+            authViewModel.retrievePhotoRanger(userName: emergencyRequest.user.name){image in
+                if let image = image {
+                    print("Successfully retrieved image for user TEST.")
+                    // Update the UI with the image
+                    DispatchQueue.main.async {
+                        self.image = image
+                    }
+                } else {
+                    print("Failed to retrieve image for user TEST.")
+                }
+                
+            }
+//            }
         }
     }
 }

@@ -93,6 +93,7 @@ struct DueDateView: View {
                         await viewModel.createEmergencyHiking(trackId: trackLocation)
 //                        mountainViewModel.toggleIsPresenting()
                         mountainViewModel.isPresenting = true
+                        
                         navigationManager.popToRoot()
                     }
                 }
@@ -105,7 +106,7 @@ struct DueDateView: View {
         .toolbar{
             ToolbarItem(placement: .topBarLeading){
                 BackButtonComponent{
-                    
+                    mountainViewModel.isShowingSelectTrackModal = true
                 }
             }
         }

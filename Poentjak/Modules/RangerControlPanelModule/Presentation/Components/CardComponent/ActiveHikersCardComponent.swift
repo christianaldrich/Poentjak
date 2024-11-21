@@ -32,15 +32,15 @@ struct ActiveHikersCardComponent: View {
                     Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 38,height: 36)
-                    .clipShape(RoundedRectangle(cornerRadius: 7))
+                    .frame(width: 38,height: 63)
+                    .clipShape(Circle())
                 } else {
                     Image(systemName: "person.circle.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 38,height: 36)
+                        .frame(width: 38,height: 38)
                         .foregroundColor(.gray)
-                        .clipShape(RoundedRectangle(cornerRadius: 7))
+                        .clipShape(Circle())
                 }
                 
                 Text("\(name)")

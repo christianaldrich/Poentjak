@@ -26,16 +26,16 @@ struct SelectTrackComponent: View {
                 }
                 
                 VStack(alignment: .center, spacing: 10){
-                    Text("Distance (KM)")
+                    Text("Distance")
                         .font(.caption1Regular)
-                    Text("18,02")
+                    Text("18,02km")
                         .font(.calloutEmphasized)
                 }
                 
                 VStack(alignment: .center, spacing: 10){
                     Text("Elevation")
                         .font(.caption1Regular)
-                    Text("3600 m")
+                    Text("3600m")
                         .font(.calloutEmphasized)
                 }
             }

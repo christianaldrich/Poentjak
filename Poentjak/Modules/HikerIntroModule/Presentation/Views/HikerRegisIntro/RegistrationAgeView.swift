@@ -100,9 +100,6 @@ struct RegistrationAgeView: View {
                         d[.trailing] + 16
                     }
                 }
-                //.padding(.horizontal, 24) // Consistent padding for each row
-                .animation(.easeOut, value: expandedIndex)
-                .accentColor(.primaryGreen500)
             }
             .padding(.horizontal, 8)
             .customShadow()

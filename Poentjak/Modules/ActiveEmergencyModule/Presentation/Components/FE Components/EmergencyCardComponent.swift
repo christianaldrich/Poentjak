@@ -34,23 +34,23 @@ struct EmergencyCardComponent: View {
                 .foregroundStyle(.white)
                 .frame(width: 343, height: 114)
             
-            HStack{
+            HStack(spacing:16){
                 
                 
                 if let image = image{
                     Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 83, height: 80)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .frame(width: 60, height: 85)
+                    .clipShape(Circle())
                         .customShadow()
                 } else {
                     Image(systemName: "person.circle.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 83, height: 80)
+                        .frame(width: 60, height: 60)
                         .foregroundColor(.gray)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .clipShape(Circle())
                         .customShadow()
                 }
       

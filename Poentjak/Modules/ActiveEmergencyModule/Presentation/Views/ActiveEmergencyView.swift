@@ -27,7 +27,7 @@ struct ActiveEmergencyView: View {
     
     @State private var selectedCondition: EmergencyStatusEnum = .danger
     @State private var dangerCount = 0
-    
+
     //    var activateNotif = RangerPushNotification()
     
     
@@ -48,14 +48,9 @@ struct ActiveEmergencyView: View {
             //            }else{
             
             if filteredHikers().isEmpty && selectedCondition != .completed{
-                
-                VStack(alignment: .center){
-                    Text("No Emergency Request(s)!")
-                    Text("Good Job!")
-                    Spacer()
-                }
-                .font(.title3Regular)
-                .foregroundStyle(Color.primaryGreen500)
+                Spacer()
+                NoActiveEmergenciesView()
+                Spacer()
                 
             }else{
                 List {
@@ -111,7 +106,7 @@ struct ActiveEmergencyView: View {
         }
         .background(
             NavigationLink(
-                destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel(), mapViewModel: RangerMapViewModel(fileName: selectedUser?.user?.trackId ?? "gede1") ,emergencyRequestId: idContainer),
+                destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel(), mapViewModel: RangerMapViewModel(fileName: selectedUser?.user?.trackId ?? "gede1") ,emergencyRequestId: idContainer, authViewModel: authViewModel),
                 isActive: $isDetailViewActive,
                 label: { EmptyView() }
             )

@@ -80,11 +80,19 @@ struct LoginView: View {
                                          .padding(.top, 12)
                     
         }
+        .background(
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
+                )
         .padding(.top)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButtonComponent(action: {
             
-        }).padding(.horizontal, 16))
+        })
+        .padding(.horizontal, 16))
         .onDisappear{
             viewModel.clearAll()
         }

@@ -98,6 +98,13 @@ struct RegistrationView: View {
             
             
         }
+        .background(
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
+                )
         .onDisappear {
             if !navigateNext {
                 viewModel.clearAll()

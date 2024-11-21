@@ -15,7 +15,7 @@ struct DisclaimerView: View {
     
     
     var body: some View {
-        VStack(spacing:20){
+        VStack(spacing:30){
             Spacer()
             VStack(spacing: 16){
                 Image(systemName: "exclamationmark.circle")
@@ -23,7 +23,7 @@ struct DisclaimerView: View {
                 Text("Disclaimer")
                     .font(.title1Emphasized)
             }
-            Spacer()
+//            Spacer()
             
             VStack(alignment: .leading, spacing: 25){
                 
@@ -37,10 +37,10 @@ struct DisclaimerView: View {
             }
             .font(.subheadlineRegular)
             
+//            Spacer()
+            
+            
             Spacer()
-            
-            
-                
                 
             HStack(spacing:5){
                     
@@ -99,9 +99,9 @@ struct DisclaimerView: View {
             
             
             
-            .padding()
+//            .padding()
             
-            Spacer()
+//            Spacer()
             
             // Custom Button
             CustomLargeButtonComponent(
@@ -124,7 +124,7 @@ struct DisclaimerView: View {
             
             
             
-            Spacer()
+//            Spacer()
             
         }
         

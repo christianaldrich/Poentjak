@@ -55,6 +55,13 @@ struct EditProfileView: View {
                 }
 //            }
         }
+        .background(
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
+                )
         .padding()
         .onAppear {
             

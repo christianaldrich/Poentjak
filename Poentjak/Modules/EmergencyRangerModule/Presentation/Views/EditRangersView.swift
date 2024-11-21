@@ -93,6 +93,13 @@ struct EditRangersView: View {
                 dismiss()
             }
         }
+        .background(
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            hideKeyboard()
+                        }
+                )
         .padding(24)
     }
     

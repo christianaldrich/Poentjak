@@ -20,8 +20,8 @@ struct ProfilePictureView: View {
     
     
     var body: some View {
-        Spacer().frame(height: 100)
-        VStack {
+        Spacer().frame(height: 65)
+        VStack(spacing: 24){
             
 //            Spacer().frame(height: 100)
             VStack(alignment: .leading, spacing: 8){
@@ -30,6 +30,8 @@ struct ProfilePictureView: View {
                 Text("We need your profile picture to help rescuers\nidentify you quickly in an emergency!")
                     .font(.subheadlineRegular)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 8 )
             
 //            Text("\(String(describing: viewModel.capturedImage))")
 //            PhotoComponent()
@@ -78,7 +80,6 @@ struct ProfilePictureView: View {
             
             Spacer()
             CustomLargeButtonComponent(state: (viewModel.capturedImage == nil) ? .disabled : .enabled, text: "Next") {
-                //upload image
                 
                 Task{
                     await viewModel.uploadPhoto(userName: viewModel.name)

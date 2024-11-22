@@ -67,7 +67,7 @@ struct SoundBoardView: View {
             .padding(.top, 24)
             .padding(.horizontal, 0)
             
-            Text("Tap on a distress sound and stay visible while waiting for help.")
+            Text("Tap a sound and make sure you can be seen while waiting for help.")
                 .font(.calloutRegular)
                 .foregroundColor(.primaryGreen500)
                 .padding(.top, 16)

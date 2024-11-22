@@ -13,8 +13,7 @@ struct TracksMapView: UIViewRepresentable {
     var waypoints: [Waypoint]
     var track: Track?
     var showsUserLocation: Bool
-    // @State private var annotationsAdded = false
-
+    
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: TracksMapView
 
@@ -29,8 +28,7 @@ struct TracksMapView: UIViewRepresentable {
                 renderer.strokeColor = UIColor.yellow
                 renderer.lineWidth = 3
                 return renderer
-            }
-             else if let circle = overlay as? MKCircle {
+            } else if let circle = overlay as? MKCircle {
                 let renderer = MKCircleRenderer(circle: circle)
                 renderer.fillColor = UIColor.red.withAlphaComponent(0.5)
                 renderer.strokeColor = UIColor.red
@@ -39,7 +37,7 @@ struct TracksMapView: UIViewRepresentable {
             }
             return MKOverlayRenderer()
         }
-        
+
         // Custom view for annotations
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             guard let waypointAnnotation = annotation as? WaypointAnnotation else { return nil }
@@ -77,11 +75,8 @@ struct TracksMapView: UIViewRepresentable {
         mapView.delegate = context.coordinator
         mapView.setRegion(region, animated: true)
         mapView.showsUserLocation = showsUserLocation
-        // mapView.showsUserTrackingButton = true
+        mapView.showsCompass = false
 
-        // Enable the User Location Tracking Button (the button to recenter the map)
-        // mapView.showsUserTrackingButton = true
-        
         // Add GPX track as a polyline overlay
         if let trackPoints = track?.points {
             let coordinates = trackPoints.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }
@@ -90,31 +85,24 @@ struct TracksMapView: UIViewRepresentable {
         }
         
         // Add waypoints annotations once when the map is first created
-        //if !annotationsAdded {
-            let annotations = waypoints.map { waypoint in
-                WaypointAnnotation(waypoint: waypoint)
-            }
-            mapView.addAnnotations(annotations)
-            //annotationsAdded = true
-        //}
+        let annotations = waypoints.map { waypoint in
+            WaypointAnnotation(waypoint: waypoint)
+        }
+        mapView.addAnnotations(annotations)
+        
+        // Set up timer to rotate the map every 5 seconds
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
+            // Rotate map by 180 degrees every 5 seconds
 
+            let camera = mapView.camera
+            camera.heading = 180
+            mapView.setCamera(camera, animated: true)
+        }
+        
         return mapView
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        //uiView.setRegion(region, animated: true)
-
-        // Remove existing dots and add new dots as circle overlays
-        // uiView.removeOverlays(uiView.overlays.filter { $0 is MKCircle })
-        // uiView.addOverlays(dots)
-        
- //       uiView.showsUserLocation = showsUserLocation // Ensure user location is shown
-//
-//        // Add waypoints as annotations
-//        uiView.removeAnnotations(uiView.annotations)
-//        let annotations = waypoints.map { waypoint in
-//            WaypointAnnotation(waypoint: waypoint) // Accessing additional data (e.g., category, description) from Waypoint
-//        }
-//        uiView.addAnnotations(annotations)
+        // Update UI if needed (e.g., region, annotations, etc.)
     }
 }

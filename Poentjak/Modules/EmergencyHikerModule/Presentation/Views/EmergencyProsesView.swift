@@ -60,7 +60,7 @@ struct EmergencyProsesView: View {
                                             isShowingModal = false
                                             navigationManager.navigationPath.append(DestinationView.chooseEmergency)
                                         }
-                                    } else if viewModel.isSignalSent && !viewModel.sendSOSToFirebase {
+                                    } else if viewModel.isSignalSent && viewModel.emergencyStatus != .danger {
                                         HalfButtonComponent(halfType: .SOSSending) {
                                             isShowingModal = false
                                             navigationManager.navigationPath.append(DestinationView.chooseEmergency)
@@ -94,7 +94,7 @@ struct EmergencyProsesView: View {
                                 .padding(.top, 16)
                                 
 
-                                SlideToActionButton(slidingDirection: .ltr, buttonColor: .primaryGreen500, text: "Finish trip") {
+                                SlideToActionButton(slidingDirection: .ltr1, buttonColor: .primaryGreen500, text: "Finish trip") {
                                     if viewModel.isSignalSent {
                                         
                                         showConfirmationModal = true
@@ -191,7 +191,7 @@ struct EmergencyProsesView: View {
             .onAppear {
                 viewModel.fetchEmergency()
                 navigateViewModel.fileName = viewModel.trackId
-//                viewModel.startTimer()
+                viewModel.startTimer()
                 navigateViewModel.isNavigating = true
                 navigateViewModel.startTimer()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

@@ -17,17 +17,24 @@ struct FirstNameLastNameView: View {
     }
     
     var body: some View {
-//        NavigationStack{
-        Spacer().frame(height: 100)
-            ZStack(alignment:.top){
-//                CustomIndicatorLongRectangle(totalCount: 4, currentIndex: viewModel.currentIndex)
-//                    .padding(.top, 50)
-//                    .zIndex(1)
-//                NavigationStack{
+        //        NavigationStack{
+        ZStack(alignment: .top){
+            Color.clear
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    hideKeyboard()
+                }
+            VStack{
+                Spacer().frame(height: 65)
+                ZStack(alignment:.top){
+                    //                CustomIndicatorLongRectangle(totalCount: 4, currentIndex: viewModel.currentIndex)
+                    //                    .padding(.top, 50)
+                    //                    .zIndex(1)
+                    //                NavigationStack{
                     VStack{
                         
                         
-//                        Spacer().frame(height: 100)
+                        //                        Spacer().frame(height: 100)
                         
                         CustomFullNameTextFieldComponent(name: $viewModel.name)
                         
@@ -38,41 +45,45 @@ struct FirstNameLastNameView: View {
                         Spacer()
                         
                         CustomLargeButtonComponent(state: isNameGenderFilled ? .enabled : .disabled, text: "Next"){
-//                            viewModel.storeCurrentNameGender(fullName: fullName, gender: gender)
-//                            viewModel.updateCurrentIndex(currentIndex: (viewModel.currentIndex ?? 0) + 1)
-//                            viewModel.fullName = fullName
-//                            $viewModel.gender = gender
+                            //                            viewModel.storeCurrentNameGender(fullName: fullName, gender: gender)
+                            //                            viewModel.updateCurrentIndex(currentIndex: (viewModel.currentIndex ?? 0) + 1)
+                            //                            viewModel.fullName = fullName
+                            //                            $viewModel.gender = gender
                             viewModel.currentIndex += 1
                             isNextViewActive = true
                         }
                         .disabled(!isNameGenderFilled)
                         Spacer()
                     }
-                    .padding()
+                    .padding(.vertical)
                     .navigationDestination(isPresented: $isNextViewActive){
                         ProfilePictureView(viewModel: viewModel)
                     }
-//                }
-            .navigationBarBackButtonHidden(true)
-            }
-            .toolbar{
-                ToolbarItem(placement: .topBarLeading){
-                    BackButtonComponent{
-//                        viewModel.currentIndex -= 1
+                    //                }
+                    .navigationBarBackButtonHidden(true)
+                }
+                .toolbar{
+                    ToolbarItem(placement: .topBarLeading){
+                        BackButtonComponent{
+                            //                        viewModel.currentIndex -= 1
+                        }
+                        .hidden()
                     }
-                    .hidden()
                 }
             }
-//            .onAppear{
-//                viewModel.currentIndex = 0
-//            }
-    
-            
         }
+        //            .onAppear{
+        //                viewModel.currentIndex = 0
+        //            }
         
         
-//    }
+    }
+    
+    
+    //    }
 }
+
+
 
 //#Preview {
 //    //    FirstNameLastNameView(authViewModel: AuthViewModel(useCase: DefaultAuthUseCase(authRepository: DefaultAuthRepository(), userRepository: DefaultUserRepository())))

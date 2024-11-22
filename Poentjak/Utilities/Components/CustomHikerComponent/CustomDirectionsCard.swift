@@ -16,9 +16,14 @@ struct CustomDirectionsCard: View {
     var etaText: String = "ETA 30-40 mins"
     var altitude: Int = 3000
     var overdueText: String = "30 mins left till overdue"
+    var assignedRangers: [String] = []
+    
+    var time: Int = 70
+    
+    @State private var showInitialMessage = true
     
     var action: () -> Void // Add an action closure for tap gesture
-
+    
     var body: some View {
         VStack(spacing: 12) {
             // Top part
@@ -31,7 +36,7 @@ struct CustomDirectionsCard: View {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(alignment: .center, spacing: 16) {
                         Text(checkpointTitle)
-                            .font(.caption1RegularCustom)
+                            .font(.headlineRegular)
                             .foregroundColor(Color.primaryGreen500)
                         
                         Spacer()
@@ -39,7 +44,7 @@ struct CustomDirectionsCard: View {
                         CustomLabelGeneral(type: .mdpl(altitude: altitude))
                     }
                     Text(etaText)
-                        .font(.caption1Regular)
+                        .font(.calloutRegular)
                         .foregroundColor(Color.primaryGreen500)
                 }
                 
@@ -57,48 +62,114 @@ struct CustomDirectionsCard: View {
             if status != .default {
                 Divider()
                     .background(Color.neutralGrayLightGray)
-                    .padding(.bottom, 8)
+//                    .padding(.bottom, 8)
                 
-                HStack(spacing: 8) {
-                    if status == .overdue {
-                        HStack {
-                            Image(systemName: "clock.badge.exclamationmark.fill")
-                                .foregroundColor(Color.customLabelsReminderIconRed)
-                            
-                            Text(overdueText)
-                                .font(.caption1Regular)
-                                .foregroundColor(Color.customLabelsReminderTextRed)
-                            +
-                            Text(", extend?")
-                                .font(.caption1Emphasized)
-                                .foregroundColor(Color.customLabelsReminderTextRed)
-                        }
-                        .padding(.horizontal, 50)
-                        .padding(.vertical, 8)
-                        .background(Color.customLabelsReminderBgRed)
-                        .cornerRadius(4)
+                
+                if status == .overdue {
+                    HStack {
+                        Image(systemName: "clock.badge.exclamationmark.fill")
+                            .foregroundColor(Color.customLabelsReminderIconRed)
+                        
+                        Text("You are overdue, **extend?**")
+                            .font(.caption1Regular)
+                            .foregroundColor(Color.customLabelsReminderTextRed)
+                        
                     }
-                    
-                    if status == .sos {
-                        Text("Your SOS signal is being sent, stay calm.")
-                            .font(.subheadlineEmphasized)
-                            .foregroundColor(Color.primaryGreen500)
-                    }
-                    
-                    if status == .sosSent {
-                        HStack(spacing: 10){
-                            Image.MapIcon.checkpoint
-                                .resizable()
-                                .frame(width: 29, height: 35)
-                            
-                            Text("Please try your best to navigate to the nearest evacuation point.")
-                                .font(.subheadlineRegular)
-                                .foregroundColor(Color.primaryGreen500)
-                        }
-                    }
+                    .padding(.horizontal, 72)
+                    .padding(.vertical, 8)
+                    .background(Color.customLabelsReminderBgRed)
+                    .cornerRadius(4)
                 }
-                .padding(.bottom, 16)
-                .padding(.horizontal, 8)
+                
+                else if status == .sos {
+                    HStack(spacing: 8) {
+                        ZStack{
+                            if showInitialMessage {
+                                Text("Your SOS signal is being sent, stay calm.")
+                                    .font(.subheadlineEmphasized)
+                                    .foregroundColor(Color.primaryGreen500)
+                            } else {
+                                HStack(spacing: 10){
+                                    Image.MapIcon.checkpoint
+                                        .resizable()
+                                        .frame(width: 29, height: 35)
+                                    
+                                    Text("Head to the nearest evacuation point if you can. If you can’t, stay where you are and wait for rescue.")
+                                        .font(.subheadlineRegular)
+                                        .foregroundColor(Color.primaryGreen500)
+                                }
+                            }
+                        }
+                        .transition(.opacity)
+                        .animation(.easeInOut)
+                    }
+                    .padding(.bottom, 8)
+                    .padding(.horizontal, 16)
+                    
+                }
+                
+                else if status == .sosSent {
+                    HStack(spacing: 10){
+                        Image("Icons/radar")
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 32, height: 32)
+                            .foregroundColor(Color.errorRed500)
+                        
+                        VStack(alignment: .leading) {
+                            
+                            if let firstRanger = assignedRangers.first {
+                                Text("Ranger is on the way to **rescue you**")
+                                    .font(.subheadlineRegular)
+                                    .foregroundColor(Color.primaryGreen500)
+                                HStack(spacing: 0) {
+                                    Text("Ranger name: ")
+                                        .font(.subheadlineRegular)
+                                        .foregroundColor(Color.primaryGreen500)
+                                    
+                                    Text(firstRanger)
+                                        .font(.subheadlineRegular)
+                                        .foregroundColor(Color.primaryGreen500)
+                                }
+                            } else {
+                                Text("A ranger is being assigned to your rescue, please wait a moment.")
+                                    .font(.subheadlineRegular)
+                                    .foregroundColor(Color.primaryGreen500)
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        
+                        
+                    }
+                    .padding(.bottom, 8)
+                    .padding(.horizontal, 16)
+                }
+                
+                //                .padding(.bottom, 8)
+                //                .padding(.horizontal, 16)
+                
+            } else {
+                if (time > 0 && time <= 60){
+                    Divider()
+                        .background(Color.neutralGrayLightGray)
+                    
+                    
+                    HStack {
+                        Image(systemName: "clock.badge.exclamationmark.fill")
+                            .foregroundColor(Color.customLabelsReminderIconRed)
+                        
+                        Text(time == 1 ? "1 min left till overdue, **extend?**" :"\(time) mins left till overdue, **extend?**")
+                            .font(.caption1Regular)
+                            .foregroundColor(Color.customLabelsReminderTextRed)
+                    }
+                    .padding(.horizontal, 50)
+                    .padding(.vertical, 8)
+                    .background(Color.customLabelsReminderBgRed)
+                    .cornerRadius(4)
+                }
+                
             }
         }
         .frame(width: 340)
@@ -108,6 +179,16 @@ struct CustomDirectionsCard: View {
         .customShadow()
         .onTapGesture {
             action() // Call the action when the card is tapped
+        }
+        .onAppear {
+            print("DEBUG CARD COMPONENT \(assignedRangers)")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                showInitialMessage = false
+                
+            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                           time = 70
+//                        }
         }
     }
 }

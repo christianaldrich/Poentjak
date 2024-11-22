@@ -87,7 +87,7 @@ struct MountainTracksDetailView: View {
                                 }
                         }
                         .presentationDetents([.fraction(0.6)], selection: $selectedDetent)
-                        .presentationDragIndicator(.visible)
+                        .presentationDragIndicator(.hidden)
                         .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.6)))
                         .interactiveDismissDisabled(true)
 

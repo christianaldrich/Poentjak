@@ -32,15 +32,15 @@ struct ActiveHikersDetailView: View {
                             Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 86, height: 83)
-                            .clipShape(RoundedRectangle(cornerRadius: 17))
+                            .frame(width: 70, height: 95)
+                            .clipShape(Circle())
                         } else {
                             Image(systemName: "person.circle.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 86, height: 83)
+                                .frame(width: 70, height: 70)
                                 .foregroundColor(.gray)
-                                .clipShape(RoundedRectangle(cornerRadius: 17))
+                                .clipShape(Circle())
                         }
                         
                         VStack(alignment: .leading){

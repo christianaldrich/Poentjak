@@ -54,9 +54,9 @@ struct UserProfileView: View {
                     Text(emergencyRequest.user.name)
                         .font(.headlineRegular)
                     switch emergencyRequest.user.gender{
-                    case "Male": //nanti ganti male
+                    case "male": //nanti ganti male
                         Image.GenderIcon.male
-                    case "Female": // nanti ganti female
+                    case "female": // nanti ganti female
                         Image.GenderIcon.female
                     default:
                         Image.GenderIcon.others

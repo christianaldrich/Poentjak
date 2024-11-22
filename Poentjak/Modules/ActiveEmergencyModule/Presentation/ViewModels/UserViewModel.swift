@@ -56,29 +56,28 @@ class UserViewModel: ObservableObject{
             !oldHiker.contains(where: { $0.id == newHiker.id })
         }
         
-        let safeHiker = oldHiker.filter { safe in
-            !hiker.contains(where: { $0.id == safe.id })
-        }
+//        let safeHiker = oldHiker.filter { safe in
+//            !hiker.contains(where: { $0.id == safe.id })
+//        }
         print("\n\nNewly Added\(newlyAdded)")
-        print("\n\nSafe Hiker\(safeHiker)")
+//        print("\n\nSafe Hiker\(safeHiker)")
         
         
 //        print("\n\n\nHikers Notified: \(hiker)")
         for items in newlyAdded{
             NotificationManager.instance.scheduleNotification(
-                title: "New Emergency Request",
-                subtitle: "Emergency Type: \(items.emergencyType)",
-                body: "\(items.user?.name ?? "") needs help!"
+                title: "SOS Alert!",
+                body: "\(items.user?.name) is \(items.emergencyType). Check their status now."
             )
         }
         
-        for items in safeHiker{
-            NotificationManager.instance.scheduleNotification(
-                title: "New Announcement!",
-                subtitle: "\(items.user?.name ?? "") have arrived safely!",
-                body: "Cheers!"
-            )
-        }
+//        for items in safeHiker{
+//            NotificationManager.instance.scheduleNotification(
+//                title: "New Announcement!",
+//                subtitle: "\(items.user?.name ?? "") have arrived safely!",
+//                body: "Cheers!"
+//            )
+//        }
         
         self.oldHiker = hiker
     }

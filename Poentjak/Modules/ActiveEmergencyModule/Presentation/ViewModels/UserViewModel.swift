@@ -67,7 +67,7 @@ class UserViewModel: ObservableObject{
         for items in newlyAdded{
             NotificationManager.instance.scheduleNotification(
                 title: "SOS Alert!",
-                body: "\(items.user?.name) is \(items.emergencyType). Check their status now."
+                body: "\(items.user?.name ?? "") is \(items.emergencyType). Check their status now."
             )
         }
         

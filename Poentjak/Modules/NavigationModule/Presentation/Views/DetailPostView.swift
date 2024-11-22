@@ -15,7 +15,8 @@ struct DetailPostView: View {
     @State var checkPointDesc: String = ""
     @State var imageName: String = ""
     @State var mdpl: Double = 0.0
-
+    @State private var selectedButtonIndex: Int? = nil  // Track selected button index
+    
     var body: some View {
         VStack(alignment: .center) {
             HStack {
@@ -54,58 +55,62 @@ struct DetailPostView: View {
             ScrollView {
                 var checkpointIndex = 1
                 var warungIndex = 1
-                ForEach(viewModel.gpxParser.parsedWaypoints.indices, id: \.self) { index in
-                    let waypoint = viewModel.gpxParser.parsedWaypoints[index]
-                    let previousWaypointName = index > 0 ? "Checkpoint \(viewModel.gpxParser.parsedWaypoints[index-1].idx)" : "Basecamp"
-                    let isLastWaypoint = index == viewModel.gpxParser.parsedWaypoints.count - 1
-                    let checkpointTitle = isLastWaypoint ? "Summit" : "Checkpoint \(waypoint.idx)"
-
-                    // Calculate ETA, using the user's location for the first waypoint, otherwise use the previous waypoint's coordinates
-                    if let eta = viewModel.calculateETA(
-                        to: CLLocationCoordinate2D(latitude: waypoint.latitude, longitude: waypoint.longitude),
-                        waypointElevation: waypoint.elevation,
-                        userLocation: index == 0 ? (viewModel.locationManager.lastKnownLocation ?? CLLocationCoordinate2D()) : CLLocationCoordinate2D(latitude: viewModel.gpxParser.parsedWaypoints[index - 1].latitude, longitude: viewModel.gpxParser.parsedWaypoints[index - 1].longitude),
-                        userElevation: index == 0 ? viewModel.locationManager.currentElevation : viewModel.gpxParser.parsedWaypoints[index - 1].elevation,
-                        speed: viewModel.locationManager.currentSpeed
-                    ) {
-                        Button {
-                            // Update the ViewModel's selected waypoint
-                            viewModel.selectedWaypoint = waypoint
-                            // Set the state variables based on the selected waypoint
-                            checkPointTitle = checkpointTitle
-                            checkPointName = waypoint.name
-                            checkPointDesc = waypoint.desc
-                            mdpl = waypoint.elevation
-                            imageName = waypoint.imageName
-                        } label: {
-                            CustomLabelCheckpoint(labelType: waypoint.checkPointStatus == "summit" ? .summit : waypoint.checkPointStatus == "emergency" ? .emergency : .post,
-                                                  checkpointTitle: checkpointTitle,
-                                                  fromCheckpoint: previousWaypointName,
-                                                  etaDuration: "\(String(format: "%.0f", eta))",
-                                                  etaUnit: "mins",
-                                                  altitude: waypoint.elevation)
+                VStack (spacing: 0){
+                    ForEach(viewModel.gpxParser.parsedWaypoints.indices, id: \.self) { index in
+                        let waypoint = viewModel.gpxParser.parsedWaypoints[index]
+                        let previousWaypointName = index > 0 ? "Checkpoint \(viewModel.gpxParser.parsedWaypoints[index-1].idx)" : "Basecamp"
+                        let isLastWaypoint = index == viewModel.gpxParser.parsedWaypoints.count - 1
+                        let checkpointTitle = isLastWaypoint ? "Summit" : "Checkpoint \(waypoint.idx)"
+                        
+                        // Calculate ETA, using the user's location for the first waypoint, otherwise use the previous waypoint's coordinates
+                        if let eta = viewModel.calculateETA(
+                            to: CLLocationCoordinate2D(latitude: waypoint.latitude, longitude: waypoint.longitude),
+                            waypointElevation: waypoint.elevation,
+                            userLocation: index == 0 ? (viewModel.locationManager.lastKnownLocation ?? CLLocationCoordinate2D()) : CLLocationCoordinate2D(latitude: viewModel.gpxParser.parsedWaypoints[index - 1].latitude, longitude: viewModel.gpxParser.parsedWaypoints[index - 1].longitude),
+                            userElevation: index == 0 ? viewModel.locationManager.currentElevation : viewModel.gpxParser.parsedWaypoints[index - 1].elevation,
+                            speed: viewModel.locationManager.currentSpeed
+                        ) {
+                            Button {
+                                // Update the ViewModel's selected waypoint
+                                viewModel.selectedWaypoint = waypoint
+                                // Set the state variables based on the selected waypoint
+                                checkPointTitle = checkpointTitle
+                                checkPointName = waypoint.name
+                                checkPointDesc = waypoint.desc
+                                mdpl = waypoint.elevation
+                                imageName = waypoint.imageName
+                                selectedButtonIndex = index  // Mark this button as selected
+                            } label: {
+                                CustomLabelCheckpoint(labelType: waypoint.checkPointStatus == "summit" ? .summit : waypoint.checkPointStatus == "emergency" ? .emergency : .post,
+                                                      checkpointTitle: checkpointTitle,
+                                                      fromCheckpoint: previousWaypointName,
+                                                      etaDuration: "\(String(format: "%.0f", eta))",
+                                                      etaUnit: "mins",
+                                                      altitude: waypoint.elevation)
                                 .padding(25)
-                                .background(index % 2 != 0 ? Color.neutralGrayCoolGray : Color.clear) // Set background color based on index
-                        }
-                    } else {
-                        Button {
-                            // Update the ViewModel's selected waypoint
-                            viewModel.selectedWaypoint = waypoint
-                            // Set the state variables based on the selected waypoint
-                            checkPointTitle = checkpointTitle
-                            checkPointName = waypoint.name
-                            checkPointDesc = waypoint.desc
-                            mdpl = waypoint.elevation
-                            imageName = waypoint.imageName
-                        } label: {
-                            CustomLabelCheckpoint(labelType: isLastWaypoint ? .summit : .post,
-                                                  checkpointTitle: checkpointTitle,
-                                                  fromCheckpoint: previousWaypointName,
-                                                  etaDuration: "N/A",
-                                                  etaUnit: "mins",
-                                                  altitude: waypoint.elevation)
+                                .background(selectedButtonIndex == index ? Color.neutralWhiteBiancaWhite : (index % 2 != 0 ? Color.neutralGrayCoolGray : Color.clear)) // Change background based on selection
+                            }
+                        } else {
+                            Button {
+                                // Update the ViewModel's selected waypoint
+                                viewModel.selectedWaypoint = waypoint
+                                // Set the state variables based on the selected waypoint
+                                checkPointTitle = checkpointTitle
+                                checkPointName = waypoint.name
+                                checkPointDesc = waypoint.desc
+                                mdpl = waypoint.elevation
+                                imageName = waypoint.imageName
+                                selectedButtonIndex = index  // Mark this button as selected
+                            } label: {
+                                CustomLabelCheckpoint(labelType: isLastWaypoint ? .summit : .post,
+                                                      checkpointTitle: checkpointTitle,
+                                                      fromCheckpoint: previousWaypointName,
+                                                      etaDuration: "N/A",
+                                                      etaUnit: "mins",
+                                                      altitude: waypoint.elevation)
                                 .padding(25)
-                                .background(index % 2 != 0 ? Color.neutralGrayCoolGray : Color.clear) // Set background color based on index
+                                .background(selectedButtonIndex == index ? Color.neutralWhiteBiancaWhite : (index % 2 != 0 ? Color.neutralGrayCoolGray : Color.clear)) // Change background based on selection
+                            }
                         }
                     }
                 }
@@ -131,6 +136,7 @@ struct DetailPostView: View {
         }
     }
 }
+
 
 
 

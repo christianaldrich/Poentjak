@@ -36,9 +36,9 @@ struct MapView: UIViewRepresentable {
                 return renderer
             } else if let circle = overlay as? MKCircle {
                 let renderer = MKCircleRenderer(circle: circle)
-                renderer.fillColor = UIColor.blue.withAlphaComponent(0.5)
-                renderer.strokeColor = UIColor.red
-                renderer.lineWidth = 2
+                renderer.fillColor = UIColor(.accentBlue)
+                renderer.strokeColor = UIColor(.primaryDarkGreen)
+                renderer.lineWidth = 3
                 return renderer
             }
             return MKOverlayRenderer()
@@ -156,7 +156,7 @@ struct MapView: UIViewRepresentable {
         // uiView.setRegion(region, animated: true)
 
         // Remove existing dots and add new dots as circle overlays
-        uiView.removeOverlays(uiView.overlays.filter { $0 is MKCircle })
+        // uiView.removeOverlays(uiView.overlays.filter { $0 is MKCircle })
         uiView.addOverlays(dots)
         
         // uiView.showsUserLocation = showsUserLocation // Ensure user location is shown

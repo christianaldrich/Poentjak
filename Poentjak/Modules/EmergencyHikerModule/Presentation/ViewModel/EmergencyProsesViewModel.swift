@@ -29,7 +29,7 @@ class EmergencyProsesViewModel: ObservableObject {
         }
     }
     
-    @Published var trackId: String = "GedeViaPutri"
+    @Published var trackId: String = ""
     
     
     @Published var emergencySessionActive: Bool = false

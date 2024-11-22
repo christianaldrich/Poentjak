@@ -129,7 +129,7 @@ class UserNavigateViewModel: ObservableObject {
     
     func startTimer() {
         // Timer to add dots every 5 seconds if there's a connection
-        dotTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
+        dotTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { _ in
             if self.networkManager.isConnected{
                 Task {
                     await self.addDot()
@@ -146,7 +146,7 @@ class UserNavigateViewModel: ObservableObject {
     
     func addDot() async {
         guard let location = locationManager.lastKnownLocation else { return }
-        let dot = MKCircle(center: location, radius: 5.0)
+        let dot = MKCircle(center: location, radius: 2.0)
         
         let lastLocation = Location(latitude: location.latitude, longitude: location.longitude)
         let lastSeen = Date()
@@ -222,7 +222,7 @@ class UserNavigateViewModel: ObservableObject {
                 if let userLocation = locationManager.lastKnownLocation {
                     let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
                     
-                    if distanceToWaypoint < 15.0 {
+                    if distanceToWaypoint < 5.0 {
                         currentWaypointIndex -= 1 // Move to previous waypoint
                     }
                 }
@@ -241,7 +241,7 @@ class UserNavigateViewModel: ObservableObject {
         if let userLocation = locationManager.lastKnownLocation {
             let distanceToWaypoint = distanceBetween(userLocation, CLLocationCoordinate2D(latitude: currentWaypoint.latitude, longitude: currentWaypoint.longitude))
             
-            if distanceToWaypoint < 15.0 {
+            if distanceToWaypoint < 5.0 {
                 currentWaypointIndex += 1 // Move to next waypoint
             }
         }

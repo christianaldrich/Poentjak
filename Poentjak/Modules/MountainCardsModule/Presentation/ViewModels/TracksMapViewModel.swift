@@ -30,7 +30,7 @@ class TracksMapViewModel: ObservableObject {
             let centerLat = totalLat / Double(trackPoints.count) + 0.03
             let centerLon = totalLon / Double(trackPoints.count)
             region.center = CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon)
-            region.span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            region.span = MKCoordinateSpan(latitudeDelta: 0.06, longitudeDelta: 0.06)
         }
     }
     

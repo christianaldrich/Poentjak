@@ -63,7 +63,7 @@ struct MountainsTracksView: View {
                 MKMapViewRepresentable()
                 
                     .toolbar{
-                        ToolbarItemGroup{
+                        ToolbarItem(placement: .topBarTrailing){
                             Button{
                                 isShowingModal = false
                                 navigationManager.navigationPath.append(MountainDestinationView.hikerProfile)
@@ -73,6 +73,14 @@ struct MountainsTracksView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 39, height: 39)
                             }
+                            
+                        }
+                        
+                        ToolbarItem(placement: .topBarLeading){
+                           
+                            Text("Hikewise")
+                                .font(.title1Emphasized)
+                                .foregroundStyle(Color.primaryGreen500)
                             
                         }
                     }
@@ -149,6 +157,7 @@ struct MountainsTracksView: View {
                         ZStack {
                             
                             if viewModel.selectedMountain == nil {
+                                
                                 VStack(alignment: .leading) {
                                     Text("Suggested Mountains")
                                         .font(.bodyEmphasized)
@@ -203,6 +212,8 @@ struct MountainsTracksView: View {
                                 .transition(.move(edge: .trailing)) // Push animation for entry
                             }
                         }
+                        .padding(.top, 15)
+                        .padding(.bottom, 15)
                         
 
                         
@@ -212,6 +223,7 @@ struct MountainsTracksView: View {
                         Color.neutralWhite
                                         .cornerRadius(16)
                                 )
+                    .showDragIndicator(false)
                 
             }
             
@@ -232,7 +244,6 @@ struct MountainsTracksView: View {
                 }
             }
         }
-        
         .onChange(of: isSearchActive){
             
             if isSearchActive == true{

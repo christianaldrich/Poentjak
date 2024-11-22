@@ -43,7 +43,7 @@ struct UserTabView: View {
                     }
                     .tag(0)
                 
-                ActiveHikersView(viewModel: ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository())), authViewModel: viewModel)
+                WiseGuideViewHome()
                     .tabItem {
                         VStack {
                             Image.TabBarIcon.book
@@ -60,6 +60,24 @@ struct UserTabView: View {
                         selectedTab = 1
                     }
                     .tag(1)
+                
+//                ActiveHikersView(viewModel: ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository())), authViewModel: viewModel)
+//                    .tabItem {
+//                        VStack {
+//                            Image.TabBarIcon.book
+//                                .renderingMode(.template)
+//                                .foregroundColor(selectedTab == 1 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
+//                            
+//                            Text("Guide")
+//                                .foregroundColor(selectedTab == 1 ? Color.primaryGreen500 : Color.customTabBarDisabledText)
+//                                .font(.customTabTitle)
+//                        }
+//                        
+//                    }
+//                    .onAppear{
+//                        selectedTab = 1
+//                    }
+//                    .tag(1)
             }
             .toolbarBackground(Color.neutralWhite, for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)

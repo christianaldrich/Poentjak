@@ -38,9 +38,10 @@ extension AlertGuideView {
     var topNavigationBar: some View {
         HStack {
             Button(action: {
-                if textToSpeechViewModel.synthesizer.isSpeaking {
-                    textToSpeechViewModel.stopSpeech()
-                }
+                textToSpeechViewModel.stopIfSpeaking()
+//                if textToSpeechViewModel.synthesizer.isSpeaking {
+//                    textToSpeechViewModel.stopSpeech()
+//                }
                 navigationManager.popToRoot()
             }) {
                 Text("Cancel")
@@ -51,9 +52,10 @@ extension AlertGuideView {
             Spacer()
             
             Button(action: {
-                if textToSpeechViewModel.synthesizer.isSpeaking {
-                    textToSpeechViewModel.stopSpeech()
-                }
+                textToSpeechViewModel.stopIfSpeaking()
+//                if textToSpeechViewModel.synthesizer.isSpeaking {
+//                    textToSpeechViewModel.stopSpeech()
+//                }
                 navigationManager.navigationPath.append(DestinationView.soundBoard)
             }) {
                 Image.SoundBoardIcon.whistle
@@ -72,9 +74,10 @@ extension AlertGuideView {
         HStack(spacing: 8) {
             Button(action: {
                 viewModel.idSelected -= 1
-                if textToSpeechViewModel.synthesizer.isSpeaking {
-                    textToSpeechViewModel.stopSpeech()
-                }
+                textToSpeechViewModel.stopIfSpeaking()
+//                if textToSpeechViewModel.synthesizer.isSpeaking {
+//                    textToSpeechViewModel.stopSpeech()
+//                }
             }) {
                 Image(systemName: "chevron.left")
                     .font(.bodyEmphasized)
@@ -90,9 +93,10 @@ extension AlertGuideView {
             
             
             Button(action: {
-                if textToSpeechViewModel.synthesizer.isSpeaking {
-                    textToSpeechViewModel.stopSpeech()
-                }
+                textToSpeechViewModel.stopIfSpeaking()
+//                if textToSpeechViewModel.synthesizer.isSpeaking {
+//                    textToSpeechViewModel.stopSpeech()
+//                }
                 navigationManager.navigationPath.append(DestinationView.countDown)
             }) {
                 Text("Alert Ranger")
@@ -106,9 +110,10 @@ extension AlertGuideView {
             
             Button(action: {
                 viewModel.idSelected += 1
-                if textToSpeechViewModel.synthesizer.isSpeaking {
-                    textToSpeechViewModel.stopSpeech()
-                }
+                textToSpeechViewModel.stopIfSpeaking()
+//                if textToSpeechViewModel.synthesizer.isSpeaking {
+//                    textToSpeechViewModel.stopSpeech()
+//                }
             }) {
                 Image(systemName: "chevron.right")
                     .font(.bodyEmphasized)

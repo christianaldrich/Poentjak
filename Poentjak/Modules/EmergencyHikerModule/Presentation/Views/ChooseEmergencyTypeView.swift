@@ -98,13 +98,6 @@ struct ChooseEmergencyTypeView: View {
         }
         .padding()
         .navigationBarBackButtonHidden(true)
-        .toolbar{
-            ToolbarItem(placement: .topBarLeading){
-                BackButtonComponent{
-                    print("asdf")
-                }
-            }
-        }
 
 
         

@@ -12,7 +12,9 @@ struct OnboardingView: View {
     private let onboardingDataList = OnboardingData.list
     
     @StateObject var viewModel: AuthViewModel
-
+    
+    @State private var buttonState: ButtonState = .enabled
+    
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -26,40 +28,35 @@ struct OnboardingView: View {
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 
                 CustomIndicatorDots(totalDots: onboardingDataList.count, currentIndex: currentTab)
-                    .padding(.top, 16)
+                //.padding(.top, 16)
                     .padding(.bottom, 16)
                 
                 HStack {
                     if currentTab == onboardingDataList.count - 1 {
-                        Button(action: {
+                        CustomLargeButtonComponent(state: buttonState, text: "Finish") {
+                            
                             Task {
+                                buttonState = .loading
+                                
                                 await viewModel.register()
+                                buttonState = .enabled
+                                
                             }
                             
-                        }) {
-                            Text("Finish")
-                                .font(.title3Emphasized)
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 142)
-                                .padding(.vertical, 27)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .foregroundColor(Color.primaryGreen500)
-                                )
                         }
-                        .customShadow()
+                        .padding(.horizontal, 16)
                     }
                 }
                 .frame(height: UIScreen.main.bounds.height * 0.1)
-//                .background(Color.red)
-//                .frame(height: 60)
+                //                .background(Color.red)
+                //                .frame(height: 60)
             }
             
             
             if currentTab < onboardingDataList.count - 1 {
                 Button(action: {
                     currentTab = onboardingDataList.count - 1
-
+                    
                 }) {
                     Text("Skip")
                         .font(.headlineRegular)
@@ -70,13 +67,13 @@ struct OnboardingView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .toolbar{
-            ToolbarItem(placement: .topBarLeading){
-                BackButtonComponent{
-                    viewModel.currentIndex -= 1
-                }
-            }
-        }
+        //        .toolbar{
+        //            ToolbarItem(placement: .topBarLeading){
+        //                BackButtonComponent{
+        //                    viewModel.currentIndex -= 1
+        //                }
+        //            }
+        //        }
     }
 }
 

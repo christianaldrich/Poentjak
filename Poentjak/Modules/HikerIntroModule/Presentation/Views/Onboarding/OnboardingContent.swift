@@ -19,18 +19,21 @@ struct OnboardingContent: View {
                 Image(data.backgroundImage)
                 
             }
-            .frame(height: UIScreen.main.bounds.height / 2)
+            .frame(height: UIScreen.main.bounds.height / 2.2)
             .padding(.horizontal, 24)
+            //.border(.red)
             
             Text(data.primaryText)
                 .font(.title1Emphasized)
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color.primaryGreen500)
+                .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 8)
             
             Text(data.secondaryText)
                 .font(.bodyRegular)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(Color.black)
             
         }

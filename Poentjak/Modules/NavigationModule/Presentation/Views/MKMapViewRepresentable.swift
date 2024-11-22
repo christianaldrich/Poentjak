@@ -14,7 +14,7 @@ struct MKMapViewRepresentable: UIViewRepresentable {
     
     func makeUIView(context: Context) -> MKMapView {
         mapView.showsUserLocation = true  // Enable user location
-        mapView.userTrackingMode = .follow  // Center the map on the user's location
+        mapView.userTrackingMode = .followWithHeading  // Center the map on the user's location
         mapView.delegate = context.coordinator  // Assign the delegate to respond to map events
         
         // Add custom recenter button
@@ -82,6 +82,8 @@ struct MKMapViewRepresentable: UIViewRepresentable {
                 center: CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude - 0.003, longitude: userLocation.coordinate.longitude),
                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             )
+            // parent.mapView.setRegion(region, animated: true)
+            parent.mapView.setUserTrackingMode(.followWithHeading, animated: true)
             parent.mapView.setRegion(region, animated: true)
         }
         

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="Open GPX Tracker for iOS">
+	<wpt lat="-6.302151736732963" lon="106.65255553071013">
+		<ele>45.72720573625582</ele>
+		<time>2024-11-21T05:54:22Z</time>
+		<name>Booth Hikewise</name>
+		<desc>Ini Booth Hikewise</desc>
+        <image>AppleGOP/BoothHikewise</image>
+        <checkpointstatus>post</checkpointstatus>
+	</wpt>
+	<wpt lat="-6.3021130749987275" lon="106.65244217591933">
+		<ele>45.72720573625582</ele>
+		<time>2024-11-21T05:54:43Z</time>
+		<name>Pohon</name>
+        <desc>Ini Pohon Apple</desc>
+        <image>AppleGOP/Pohon</image>
+        <checkpointstatus>post</checkpointstatus>
+	</wpt>
+	<wpt lat="-6.30209754227874" lon="106.6523674934616">
+		<ele>45.72720573625582</ele>
+		<time>2024-11-21T05:54:58Z</time>
+		<name>Pantry</name>
+		<desc>Ini Pantry</desc>
+        <image>AppleGOP/Pantry</image>
+        <checkpointstatus>post</checkpointstatus>
+	</wpt>
+	<wpt lat="-6.302170502741819" lon="106.65249701860216">
+		<ele>46.63404398239536</ele>
+		<time>2024-11-21T05:55:20Z</time>
+		<name>Cave Summit</name>
+		<desc>Ini summit (cave)</desc>
+        <image>AppleGOP/Cave</image>
+        <checkpointstatus>summit</checkpointstatus>
+	</wpt>
+	<trk>
+		<trkseg>
+			<trkpt lat="-6.302164691387251" lon="106.65253741470835">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:35Z</time>
+			</trkpt>
+			<trkpt lat="-6.302167252922831" lon="106.65251937380873">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:37Z</time>
+			</trkpt>
+			<trkpt lat="-6.302148145705483" lon="106.65247956616072">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:38Z</time>
+			</trkpt>
+			<trkpt lat="-6.302127156460608" lon="106.65245677932118">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:39Z</time>
+			</trkpt>
+			<trkpt lat="-6.3021130749987275" lon="106.65244217591933">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:40Z</time>
+			</trkpt>
+			<trkpt lat="-6.302093637800411" lon="106.65243235995123">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:43Z</time>
+			</trkpt>
+			<trkpt lat="-6.302077738907973" lon="106.65242369298988">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:48Z</time>
+			</trkpt>
+			<trkpt lat="-6.302061109634187" lon="106.65241436174692">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:50Z</time>
+			</trkpt>
+			<trkpt lat="-6.302076124243307" lon="106.65239880593182">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:54Z</time>
+			</trkpt>
+			<trkpt lat="-6.302090813760702" lon="106.65238444990551">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:56Z</time>
+			</trkpt>
+			<trkpt lat="-6.30209754227874" lon="106.6523674934616">
+				<ele>45.72720573625582</ele>
+				<time>2024-11-21T05:54:58Z</time>
+			</trkpt>
+			<trkpt lat="-6.302092550641608" lon="106.6523432953881">
+				<ele>46.63404398239536</ele>
+				<time>2024-11-21T05:55:04Z</time>
+			</trkpt>
+			<trkpt lat="-6.302122567972207" lon="106.65235583875285">
+				<ele>46.63404398239536</ele>
+				<time>2024-11-21T05:55:06Z</time>
+			</trkpt>
+			<trkpt lat="-6.302143922853405" lon="106.65237996030552">
+				<ele>46.63404398239536</ele>
+				<time>2024-11-21T05:55:08Z</time>
+			</trkpt>
+			<trkpt lat="-6.302155235053232" lon="106.65239752176218">
+				<ele>46.63404398239536</ele>
+				<time>2024-11-21T05:55:10Z</time>
+			</trkpt>
+			<trkpt lat="-6.302153610440886" lon="106.6524227078832">
+				<ele>46.63404398239536</ele>
+				<time>2024-11-21T05:55:13Z</time>
+			</trkpt>
+			<trkpt lat="-6.302152125200433" lon="106.65244704518516">
+				<ele>46.63404398239536</ele>
+				<time>2024-11-21T05:55:15Z</time>
+			</trkpt>
+			<trkpt lat="-6.302160751558688" lon="106.65247854280273">
+				<ele>46.63404398239536</ele>
+				<time>2024-11-21T05:55:17Z</time>
+			</trkpt>
+			<trkpt lat="-6.302170502741819" lon="106.65249701860216">
+				<ele>46.63404398239536</ele>
+				<time>2024-11-21T05:55:19Z</time>
+			</trkpt>
+		</trkseg>
+	</trk>
+</gpx>

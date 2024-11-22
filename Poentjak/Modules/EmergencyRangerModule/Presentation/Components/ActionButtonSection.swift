@@ -11,6 +11,7 @@ struct ActionButtonSection: View {
     let emergencyRequest: EmergencyRequest
     @Binding var isLoading: Bool
     @ObservedObject var viewModel: AdminEmergencyViewModel
+    @ObservedObject var authViewModel: AuthViewModel
     
     var body: some View {
         VStack {
@@ -24,6 +25,7 @@ struct ActionButtonSection: View {
                 SlideToActionButton(slidingDirection: .ltr, text: "Finished Evacuating") {
                     Task {
                         await viewModel.evacuate(id: emergencyRequest.id)
+                        authViewModel.isDone = true
                     }
                 }
             }

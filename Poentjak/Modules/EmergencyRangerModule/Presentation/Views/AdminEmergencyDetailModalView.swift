@@ -42,7 +42,7 @@ struct AdminEmergencyDetailModalView: View {
                     
                     RangersSection(emergencyRequest: emergencyRequest, dismiss: dismiss, isNavigatingToAssignRangers: $isNavigatingToAssignRangers, viewModel: viewModel)
                     
-                    ActionButtonSection(emergencyRequest: emergencyRequest, isLoading: $isLoading, viewModel: viewModel)
+                    ActionButtonSection(emergencyRequest: emergencyRequest, isLoading: $isLoading, viewModel: viewModel, authViewModel: authViewModel)
                 }
                 .padding(24)
             }

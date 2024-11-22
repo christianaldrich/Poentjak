@@ -47,6 +47,9 @@ class AuthViewModel: ObservableObject {
     
     @Published var appIsLoading: Bool = false
     
+    //test
+    @Published var isDone: Bool = false
+    
     
     private var isEmailValidated = false
     

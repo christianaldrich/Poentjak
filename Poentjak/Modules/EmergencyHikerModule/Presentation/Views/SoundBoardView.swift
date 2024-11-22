@@ -79,6 +79,14 @@ struct SoundBoardView: View {
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 8)
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                BackButtonComponent{
+                    
+                }
+            }
+        }
     }
 }
 

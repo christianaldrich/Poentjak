@@ -28,9 +28,10 @@ struct AlertGuideTabBarButton: View {
             .cornerRadius(16)
             .onTapGesture {
                 idSelected = id
-                if textToSpeechViewModel.synthesizer.isSpeaking {
-                    textToSpeechViewModel.stopSpeech()
-                }
+                textToSpeechViewModel.stopIfSpeaking()
+//                if textToSpeechViewModel.synthesizer.isSpeaking {
+//                    textToSpeechViewModel.stopSpeech()
+//                }
             }
     }
 }

@@ -13,6 +13,7 @@ struct WiseGuideDataContent: Identifiable{
     var title: String
     var desc: String
     
+    
     init(image: String? = nil, title: String, desc: String) {
         self.image = image
         self.title = title

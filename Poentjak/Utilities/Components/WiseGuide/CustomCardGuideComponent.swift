@@ -8,7 +8,7 @@ import SwiftUI
 
 struct CustomCardGuideComponent: View {
     var data: WiseGuideDataModel
-    @State private var isNavigating = false  // State to trigger navigation
+    @State private var isNavigating = false
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
@@ -29,17 +29,16 @@ struct CustomCardGuideComponent: View {
         .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
         .onTapGesture {
             print("Card clicked")
-            isNavigating = true  // Trigger the navigation
+            isNavigating = true
         }
-        // The actual NavigationLink goes here and listens for the isNavigating state
-//        .background(
-//            NavigationLink(
-//                destination: WiseGuideDetailView(data: data),
-//                isActive: $isNavigating
-//            ) {
-//                EmptyView()  // Empty view so the link is hidden but still functional
-//            }
-//        )
+        .background(
+            NavigationLink(
+                destination: WiseGuideDetailView(data: data),
+                isActive: $isNavigating
+            ) {
+                EmptyView()
+            }
+        )
     }
 }
 

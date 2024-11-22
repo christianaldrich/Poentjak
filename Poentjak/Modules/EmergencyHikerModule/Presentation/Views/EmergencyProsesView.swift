@@ -15,6 +15,7 @@ enum DestinationView {
     case emergencyScale
     case countDown
     case soundBoard
+    case wiseGuide
 }
 
 struct EmergencyProsesView: View {
@@ -48,17 +49,10 @@ struct EmergencyProsesView: View {
                                 HStack {
                                     HalfButtonComponent(halfType: .secondaryGuide) {
                                         showingWiseGudieSheet = true
-//                                        isShowingModal = false
-//                                        navigationManager.navigationPath.append(DestinationView.alertGuide)
+                                        isShowingModal = false
+                                        navigationManager.navigationPath.append(DestinationView.wiseGuide)
                                     }
-                                    .sheet(isPresented: $showingWiseGudieSheet){
-                                        VStack{
-                                            Text("Wise Guide")
-                                                .font(.title)
-                                            WiseGuideView()
-                                        }
-                                        
-                                    }
+                    
                                     Spacer()
                                     
                                     if viewModel.isSignalSent && viewModel.sendSOSToFirebase {
@@ -155,6 +149,9 @@ struct EmergencyProsesView: View {
                         .environmentObject(navigationManager)
                 case .soundBoard:
                     SoundBoardView()
+                        .environmentObject(navigationManager)
+                case .wiseGuide:
+                    WiseGuideViewEmergency(viewModel: viewModel)
                         .environmentObject(navigationManager)
                 }
             }

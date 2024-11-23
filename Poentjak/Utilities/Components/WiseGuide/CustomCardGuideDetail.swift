@@ -15,8 +15,8 @@ struct CustomCardGuideDetail: View {
             if let imageName = data.image {
                 Image(imageName)
                     .resizable()
-                    .scaledToFit() // Maintains aspect ratio
-                    .frame(maxWidth: .infinity, maxHeight: 175)
+                    .scaledToFit()
+                    .frame(maxHeight: 175)
                     .clipped()
                 
             }

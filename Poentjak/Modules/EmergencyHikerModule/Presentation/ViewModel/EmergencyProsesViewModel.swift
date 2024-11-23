@@ -109,7 +109,7 @@ class EmergencyProsesViewModel: ObservableObject {
                     self.userName = emergency?.user.name ?? "no found"
                     self.dueDate = emergency?.dueDate ?? Date()
                     self.sessionId = emergency?.id ?? "no session id"
-                    self.emergencySessionActive = emergency != nil && emergency?.sessionDone == false
+                    self.emergencySessionActive = ((emergency?.sessionDone) != nil)
                     self.trackId = emergency?.user.trackId ?? "no track id"
                     self.assignedRangers = emergency?.assignedRangers ?? []
                     self.emergencyType = emergency?.emergencyType ?? .lost

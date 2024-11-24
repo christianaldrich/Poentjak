@@ -139,7 +139,7 @@ class EmergencyProsesViewModel: ObservableObject {
     // MARK: - start: ini logic buat "i am back at basecamp" di emergency proses view
     func updateSessionDone() async {
         do{
-            try await useCase.updateSessionDone(sessionDone: true, emergencyStatus: emergencyStatus.rawValue)
+            try await useCase.updateSessionDone(sessionDone: true, emergencyStatus: "completed")
             stopTimer()
             
             DispatchQueue.main.async {

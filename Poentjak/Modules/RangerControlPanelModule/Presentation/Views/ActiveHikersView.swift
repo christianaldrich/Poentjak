@@ -11,6 +11,7 @@ struct ActiveHikersView: View {
     
     @StateObject var viewModel : ActiveHikersViewModel
     //(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository()))
+    @StateObject var emergencyProsesViewModel: EmergencyProsesViewModel
     
     @State var selectedUser: EmergencyRequestModel?
     @State private var isDetailViewActive = false
@@ -92,6 +93,7 @@ struct ActiveHikersView: View {
                     CustomConfirmationComponent(confirmType: .logout, isModalVisible: $isShowLogoutModal, sosGuideModalVisible: $sosGuideModalVisible) {
                         Task {
                             await authViewModel.signOut()
+                            emergencyProsesViewModel.emergencySessionActive = false
                         }
                     }
                 }

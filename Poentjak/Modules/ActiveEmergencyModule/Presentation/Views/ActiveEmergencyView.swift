@@ -20,6 +20,8 @@ struct ActiveEmergencyView: View {
     //    @State private var activeEmergencies = [UserModel]()
     //    let hikers
     
+    @StateObject var emergencyProsesViewModel: EmergencyProsesViewModel
+    
     @State var selectedUser: EmergencyRequestModel?
     @State private var isDetailViewActive = false
     @State private var idContainer: String = ""
@@ -106,7 +108,7 @@ struct ActiveEmergencyView: View {
         }
         .background(
             NavigationLink(
-                destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel(), mapViewModel: RangerMapViewModel(fileName: selectedUser?.user?.trackId ?? "gede1") ,emergencyRequestId: idContainer, authViewModel: authViewModel),
+                destination: AdminEmergencyDetailView(viewModel:DIContainer().makeAdminEmergencyViewModel(), mapViewModel: RangerMapViewModel(fileName: selectedUser?.user?.trackId ?? "gede1") ,emergencyRequestId: idContainer, authViewModel: authViewModel, emergencyProsesViewModel: emergencyProsesViewModel),
                 isActive: $isDetailViewActive,
                 label: { EmptyView() }
             )

@@ -14,6 +14,7 @@ struct AdminEmergencyDetailModalView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var authViewModel: AuthViewModel
 
+    @StateObject var emergencyProsesViewModel: EmergencyProsesViewModel
     
     let currentDate = Date()
     
@@ -42,7 +43,7 @@ struct AdminEmergencyDetailModalView: View {
                     
                     RangersSection(emergencyRequest: emergencyRequest, dismiss: dismiss, isNavigatingToAssignRangers: $isNavigatingToAssignRangers, viewModel: viewModel)
                     
-                    ActionButtonSection(emergencyRequest: emergencyRequest, isLoading: $isLoading, viewModel: viewModel, authViewModel: authViewModel)
+                    ActionButtonSection(emergencyRequest: emergencyRequest, isLoading: $isLoading, viewModel: viewModel, authViewModel: authViewModel, emergencyProsesViewModel: emergencyProsesViewModel)
                 }
                 .padding(24)
             }

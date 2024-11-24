@@ -15,6 +15,8 @@ struct AdminTabView: View {
     @State private var selectedTab = 0
     //    let authViewModel = DIContainer().makeAdminEmergencyViewModel()
     
+    @StateObject var emergencyProsesViewModel: EmergencyProsesViewModel
+    
     var body: some View {
         //        NavigationView {
         
@@ -24,7 +26,7 @@ struct AdminTabView: View {
             //            RangerView()
             
             NavigationView{
-                ActiveEmergencyView(authViewModel: viewModel)
+                ActiveEmergencyView(emergencyProsesViewModel: emergencyProsesViewModel, authViewModel: viewModel)
             }
             .tabItem {
                 VStack {
@@ -46,7 +48,7 @@ struct AdminTabView: View {
             }
             //            ControlPanelView()
             NavigationView{
-                ActiveHikersView(viewModel: ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository())), authViewModel: viewModel)
+                ActiveHikersView(viewModel: ActiveHikersViewModel(activeHikersUseCase: ActiveHikersUseCase(activeHikersRepository: ActiveHikersRepository(), userRepository: DefaultUserRepository())), emergencyProsesViewModel: emergencyProsesViewModel, authViewModel: viewModel)
             }
             .tabItem {
                 VStack {

@@ -22,12 +22,12 @@ struct CheckingView: View {
             }
             
            else if viewModel.userSession != nil {
-               if (viewModelEmergency.emergencySessionActive || viewModel.isDone) && !viewModel.isAdmin { // harus cek sudah pilih tanggal belum
+               if viewModelEmergency.emergencySessionActive && !viewModel.isAdmin { // harus cek sudah pilih tanggal belum
                     EmergencyProsesView(navigateViewModel: UserNavigateViewModel(fileName: viewModelEmergency.trackId))
                         .environmentObject(mountainViewModel)
                 }
                 else if viewModel.isAdmin {
-                    AdminTabView(viewModel: viewModel)
+                    AdminTabView(viewModel: viewModel, emergencyProsesViewModel: viewModelEmergency)
                 }
                 else {
 //                UserView(viewModel: viewModel)

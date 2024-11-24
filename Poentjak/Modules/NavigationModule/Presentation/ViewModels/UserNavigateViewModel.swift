@@ -34,7 +34,6 @@ class UserNavigateViewModel: ObservableObject {
     @Published var fileName: String
     
     init(fileName: String) {
-        print("\n\n\n\nTESTINGFILENAME: \(fileName)")
         self.fileName = fileName
         gpxParser.parseGPX(fileName: fileName)
         setupRegionUser()
@@ -65,8 +64,6 @@ class UserNavigateViewModel: ObservableObject {
     func updateTrackId(_ newFileName: String) {
             self.fileName = newFileName
             gpxParser.parseGPX(fileName: newFileName)
-            print("\n\n\nUpdate Track ID: \(fileName)")
-            print("\n\n\nNEWFILENAME Update Track ID: \(newFileName)")
             setupRegionTrack()  // Reset the region based on the new track
         locationManager.onLocationUpdate = { [weak self] in
             self?.checkIfUserPassedWaypoint()  // Check if the user passed the waypoint

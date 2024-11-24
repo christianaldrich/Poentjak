@@ -83,6 +83,9 @@ struct UserTabView: View {
             .toolbarBackground(.visible, for: .tabBar)
             
         }
+        .onAppear{
+            print("user tab view -> usersession: \(String(describing: viewModel.userSession)) -- ")
+        }
         
         
         .accentColor(Color.primaryGreen500)

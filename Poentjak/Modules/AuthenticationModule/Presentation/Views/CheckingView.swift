@@ -38,6 +38,10 @@ struct CheckingView: View {
 ////                                DueDateView()
                 }
             }
+//            else if viewModel.userSession != nil && viewModelEmergency.emergencySessionActive == false && !viewModel.isAdmin{
+//                UserTabView(viewModel: viewModel)
+//                    .environmentObject(navigationManager)
+//            }
             else {
 //                LoginView(viewModel: viewModel)
                 LandingPageView(viewModel: viewModel)
@@ -83,7 +87,7 @@ struct CheckingView: View {
 //            EmergencyProsesView()
 //        }
         .onAppear {
-            print("checking view: \(viewModelEmergency.emergencySessionActive)")
+//            print("usersession: \(String(describing: viewModel.userSession)) -- checking view: \(viewModelEmergency.emergencySessionActive) -- isDone: \(viewModel.isDone)")
             Task {
                 await viewModel.fetchCurrentUser()
                 viewModelEmergency.fetchEmergency()

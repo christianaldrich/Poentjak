@@ -55,7 +55,7 @@ struct EmergencyCardComponent: View {
                 }
       
                 
-                VStack(alignment: .center, spacing: 2){
+                VStack(alignment: .leading, spacing: 2){
                     HStack{
                         customLabel(type)
                             

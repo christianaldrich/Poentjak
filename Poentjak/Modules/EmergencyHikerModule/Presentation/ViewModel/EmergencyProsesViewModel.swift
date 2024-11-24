@@ -109,10 +109,15 @@ class EmergencyProsesViewModel: ObservableObject {
                     self.userName = emergency?.user.name ?? "no found"
                     self.dueDate = emergency?.dueDate ?? Date()
                     self.sessionId = emergency?.id ?? "no session id"
+//                    print("emergencySession\(self.emergencySessionActive)")
                     self.emergencySessionActive = ((emergency?.sessionDone) != nil)
+//                    print("emergencySessionAfter\(self.emergencySessionActive)")
+//                    print("sessionDone\(String(describing: emergency?.sessionDone))")
+//                    self.testing = emergency?.sessionDone
+//                    self.emergencySessionActive = ((emergency?.sessionDone) != nil)
                     self.trackId = emergency?.user.trackId ?? "no track id"
                     self.assignedRangers = emergency?.assignedRangers ?? []
-                    self.emergencyType = emergency?.emergencyType ?? .lost
+//                    self.emergencyType = emergency?.emergencyType ?? .lost
                     self.emergencyStatus = emergency?.emergencyStatus ?? .safe
                     print("DEBUG ASSIGNED RANGERS: \(self.assignedRangers)")
                     

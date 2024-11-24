@@ -40,7 +40,7 @@ class DefaultEmergencyUseCase: EmergencyUseCaseProtocol{
         
         
         do{
-            try await emergencyRepository.updateSessionDone(userId: user.id, sessionDone: sessionDone, emergencyStatus: emergencyStatus)
+            try await emergencyRepository.updateSessionDone(userId: user.id, sessionDone: true, emergencyStatus: emergencyStatus)
         } catch {
             print("Failed to update session done: \(error.localizedDescription)")
             throw error

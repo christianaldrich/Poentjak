@@ -198,6 +198,12 @@ struct EmergencyProsesView: View {
                         isShowingModal = true
                     }
             }
+            .onChange(of: viewModel.emergencySessionActive){
+                print("\n\nEmergencySessionActive : \(viewModel.emergencySessionActive)")
+                if viewModel.emergencySessionActive == false {
+                    mountainViewModel.isPresenting = false
+                }
+            }
             .onChange(of: navigationManager.navigationPath) { newPath in
                 if newPath.isEmpty {
                     isShowingModal = true

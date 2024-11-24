@@ -42,7 +42,7 @@ class DefaultEmergencyRepository: EmergencyRepositoryProtocol{
         do{
             // Update the sessionDone field
             try await document.reference.updateData([
-                "sessionDone": sessionDone,
+                "sessionDone": true,
                 "emergencyStatus": emergencyStatus
             ])
             

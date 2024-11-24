@@ -23,7 +23,7 @@ class NotificationManager{
         }
     }
     
-    func scheduleNotification(title: String, subtitle: String? = nil, body: String? = nil, delay: TimeInterval = 5.0) {
+    func scheduleNotification(title: String, subtitle: String? = nil, body: String? = nil, delay: TimeInterval = 1.0) {
             let content = UNMutableNotificationContent()
             content.title = title
             if let subtitle = subtitle {

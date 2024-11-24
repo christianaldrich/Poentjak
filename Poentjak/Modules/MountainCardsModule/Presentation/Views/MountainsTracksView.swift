@@ -218,7 +218,7 @@ struct MountainsTracksView: View {
 
                         
                     })
-                    
+                    .sheetWidth(BottomSheetWidth.absolute(400))
                     .customBackground(
                         Color.neutralWhite
                                         .cornerRadius(16)

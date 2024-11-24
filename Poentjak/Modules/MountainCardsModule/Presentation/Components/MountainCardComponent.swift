@@ -12,10 +12,11 @@ struct MountainCardComponent: View {
 
     var body: some View {
         VStack(spacing:8){
-            Image("gunungGede")
+            Image("\(mountain?.imageURL ?? "")")
                 .resizable()
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 338, height: 139)
-                .scaledToFit()
+                .clipShape(RoundedRectangle(cornerRadius: 16))
                 
             
             VStack(spacing:8){

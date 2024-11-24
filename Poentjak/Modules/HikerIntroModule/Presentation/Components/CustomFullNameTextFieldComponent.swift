@@ -23,7 +23,8 @@ struct CustomFullNameTextFieldComponent: View {
                 )
             
         }
-        .padding(.horizontal, 24)
+        .foregroundStyle(Color.primaryGreen500)
+        .padding(.horizontal, 10)
     }
 }
 

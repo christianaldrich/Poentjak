@@ -36,11 +36,13 @@ struct FirstNameLastNameView: View {
                         
                         //                        Spacer().frame(height: 100)
                         
-                        CustomFullNameTextFieldComponent(name: $viewModel.name)
-                        
-                        Spacer()
-                        
-                        CustomGenderButtonComponent(gender: $viewModel.gender)
+                        VStack(spacing: 40){
+                            CustomFullNameTextFieldComponent(name: $viewModel.name)
+                            
+    //                        Spacer()
+                            
+                            CustomGenderButtonComponent(gender: $viewModel.gender)
+                        }
                         
                         Spacer()
                         
@@ -53,23 +55,25 @@ struct FirstNameLastNameView: View {
                             isNextViewActive = true
                         }
                         .disabled(!isNameGenderFilled)
-                        Spacer()
+//                        Spacer()
                     }
-                    .padding(.vertical)
+//                    .padding(.vertical)
                     .navigationDestination(isPresented: $isNextViewActive){
                         ProfilePictureView(viewModel: viewModel)
                     }
                     //                }
                     .navigationBarBackButtonHidden(true)
                 }
-                .toolbar{
-                    ToolbarItem(placement: .topBarLeading){
-                        BackButtonComponent{
-                            //                        viewModel.currentIndex -= 1
-                        }
-                        .hidden()
-                    }
+                
+            }
+        }
+        .padding()
+        .toolbar{
+            ToolbarItem(placement: .topBarLeading){
+                BackButtonComponent{
+                    //                        viewModel.currentIndex -= 1
                 }
+                .hidden()
             }
         }
         //            .onAppear{

@@ -13,6 +13,8 @@ struct ActionButtonSection: View {
     @ObservedObject var viewModel: AdminEmergencyViewModel
     @ObservedObject var authViewModel: AuthViewModel
     
+    @StateObject var emergencyProsesViewModel: EmergencyProsesViewModel
+    
     var body: some View {
         VStack {
             if viewModel.selectedRangerNames.isEmpty && emergencyRequest.emergencyStatus == .danger {
@@ -26,6 +28,7 @@ struct ActionButtonSection: View {
                     Task {
                         await viewModel.evacuate(id: emergencyRequest.id)
                         authViewModel.isDone = true
+                        emergencyProsesViewModel.emergencySessionActive = false
                     }
                 }
             }
